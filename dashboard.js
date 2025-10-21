@@ -2,6 +2,46 @@
 let todosTickets = [];
 let ticketsFiltrados = [];
 
+// Verificar autenticação ao carregar
+function verificarAutenticacao() {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
+                           sessionStorage.getItem('isAuthenticated') === 'true';
+
+    if (!isAuthenticated) {
+        // Não está autenticado, redirecionar para login
+        window.location.href = 'login.html';
+        return false;
+    }
+
+    // Mostrar informações do usuário
+    const userName = localStorage.getItem('userName') || sessionStorage.getItem('userName') || 'Usuário';
+    const userInfo = document.getElementById('userInfo');
+    const userNameEl = document.getElementById('userName');
+
+    if (userInfo && userNameEl) {
+        userNameEl.textContent = `👤 ${userName}`;
+        userInfo.style.display = 'flex';
+    }
+
+    return true;
+}
+
+// Fazer logout
+function fazerLogout() {
+    if (confirm('Deseja realmente sair?')) {
+        // Limpar dados de autenticação
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userAvatar');
+
+        sessionStorage.removeItem('isAuthenticated');
+        sessionStorage.removeItem('userName');
+
+        // Redirecionar para login
+        window.location.href = 'login.html';
+    }
+}
+
 // Carregar configuração do localStorage
 function carregarConfiguracao() {
     const config = {
@@ -297,6 +337,12 @@ function abrirTicket(ticketKey) {
 
 // Inicialização
 window.addEventListener('DOMContentLoaded', () => {
+    // PRIMEIRO: Verificar autenticação
+    if (!verificarAutenticacao()) {
+        return; // Já foi redirecionado para login
+    }
+
+    // Carregar configuração
     carregarConfiguracao();
 
     // Se já tem credenciais, mostrar dados de exemplo

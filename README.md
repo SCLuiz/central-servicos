@@ -20,10 +20,13 @@ Portal único para acesso a todos os serviços internos da organização.
 ### 📊 Dashboard de Tickets
 
 Acesse tickets do Jira Service Desk com:
+- 🔒 **Sistema de autenticação** - Login com credenciais Jira
 - ✅ Estatísticas em tempo real
 - ✅ Filtros por status e busca
 - ✅ Design responsivo
 - ✅ Conexão direta com Jira API
+- 👤 Informações do usuário logado
+- 🚪 Sistema de logout
 
 ## 🚀 Como Usar
 
@@ -34,11 +37,14 @@ Abra `index.html` no navegador e navegue pelos serviços.
 ### Dashboard de Tickets
 
 1. Clique em "Dashboard de Tickets"
-2. Configure suas credenciais do Jira:
-   - Email
-   - [API Token](https://id.atlassian.com/manage-profile/security/api-tokens)
-   - Service Desk ID (padrão: 105)
-3. Visualize seus tickets!
+2. **Faça login** com suas credenciais Jira:
+   - Email do Jira
+   - [API Token](https://id.atlassian.com/manage-profile/security/api-tokens) (gere um se não tiver)
+   - Marque "Lembrar de mim" para manter login
+3. Sistema validará suas credenciais no Jira
+4. Visualize seus tickets automaticamente!
+
+**Segurança:** Credenciais são armazenadas apenas no seu navegador (localStorage).
 
 ### Backend Proxy (Opcional)
 
@@ -56,9 +62,12 @@ Servidor disponível em: http://localhost:5000
 ```
 central-servicos/
 ├── index.html          # Página principal
-├── dashboard.html      # Dashboard de tickets
+├── login.html          # Página de login/autenticação
+├── login.css           # Estilos da página de login
+├── login.js            # Lógica de autenticação
+├── dashboard.html      # Dashboard de tickets (protegido)
 ├── dashboard.css       # Estilos do dashboard
-├── dashboard.js        # Lógica de conexão Jira
+├── dashboard.js        # Lógica de conexão Jira + proteção
 ├── api_proxy.py        # Backend proxy (opcional)
 ├── requirements.txt    # Dependências Python
 ├── logo.png            # Logo OpenFinance

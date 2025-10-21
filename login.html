@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Central de Serviços</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <!-- Logo -->
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="logo.png" alt="Open Finance Brasil">
+                </div>
+                <h1>Central de Serviços</h1>
+                <p>Open Finance Brasil</p>
+            </div>
+
+            <!-- Status -->
+            <div class="status" id="status" style="display: none;"></div>
+
+            <!-- Formulário de Login -->
+            <form id="loginForm" onsubmit="fazerLogin(event)">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seu.email@openfinancebrasil.org.br"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="token">
+                        API Token Jira
+                        <a href="https://id.atlassian.com/manage-profile/security/api-tokens"
+                           target="_blank"
+                           class="help-link">
+                            Como gerar?
+                        </a>
+                    </label>
+                    <input
+                        type="password"
+                        id="token"
+                        placeholder="Seu token de acesso ao Jira"
+                        required
+                        autocomplete="current-password"
+                    >
+                    <small class="help-text">
+                        🔒 Suas credenciais são armazenadas apenas no seu navegador
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <span>Lembrar de mim neste dispositivo</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span class="btn-text">Entrar</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner-small"></span>
+                        Validando...
+                    </span>
+                </button>
+            </form>
+
+            <!-- Informações -->
+            <div class="info-section">
+                <h3>📋 Como obter seu API Token:</h3>
+                <ol>
+                    <li>Acesse <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens</a></li>
+                    <li>Clique em <strong>"Create API token"</strong></li>
+                    <li>Dê um nome (ex: "Central de Serviços")</li>
+                    <li>Copie o token gerado</li>
+                    <li>Cole no campo acima</li>
+                </ol>
+
+                <div class="security-note">
+                    <strong>🔐 Segurança:</strong>
+                    <ul>
+                        <li>Suas credenciais são armazenadas apenas localmente</li>
+                        <li>Nunca compartilhamos seus dados</li>
+                        <li>Token é usado apenas para acessar o Jira</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Link voltar -->
+            <div class="back-link">
+                <a href="index.html">← Voltar para Central de Serviços</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

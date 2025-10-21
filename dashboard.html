@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Tickets - Open Finance Brasil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <img src="logo.png" alt="Open Finance Brasil">
+                </div>
+            </div>
+            <h1>Dashboard de Tickets</h1>
+            <p>Visualize e gerencie tickets do Service Desk</p>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary">← Voltar</a>
+                <button onclick="toggleConfig()" class="btn btn-secondary">⚙️ Configurar</button>
+                <button onclick="carregarTickets()" class="btn btn-primary">🔄 Atualizar</button>
+                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" target="_blank" class="btn btn-success">➕ Novo Ticket</a>
+            </div>
+        </div>
+
+        <!-- Configuração -->
+        <div class="config-section" id="configSection">
+            <h2>⚙️ Configuração do Jira</h2>
+            <div class="config-form">
+                <div class="form-group">
+                    <label for="jiraUrl">URL do Jira:</label>
+                    <input type="text" id="jiraUrl" placeholder="https://openfinancebrasil.atlassian.net" value="https://openfinancebrasil.atlassian.net">
+                </div>
+                <div class="form-group">
+                    <label for="jiraEmail">Email:</label>
+                    <input type="email" id="jiraEmail" placeholder="seu.email@openfinancebrasil.org.br">
+                </div>
+                <div class="form-group">
+                    <label for="jiraToken">API Token: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" style="font-size: 12px;">Gerar token</a></label>
+                    <input type="password" id="jiraToken" placeholder="Seu token API do Jira">
+                </div>
+                <div class="form-group">
+                    <label for="jiraProject">Service Desk ID:</label>
+                    <input type="text" id="jiraProject" placeholder="105" value="105">
+                </div>
+                <div class="form-actions">
+                    <button onclick="salvarConfig()" class="btn btn-primary">💾 Salvar</button>
+                    <button onclick="toggleConfig()" class="btn btn-secondary">✖ Fechar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status da conexão -->
+        <div class="status" id="status">
+            <p>⚠️ Configure suas credenciais do Jira para começar</p>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-number" id="statAbertos">0</div>
+                <div class="stat-label">Abertos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-number" id="statEmProgresso">0</div>
+                <div class="stat-label">Em Progresso</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number" id="statResolvidos">0</div>
+                <div class="stat-label">Resolvidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number" id="statTotal">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters" id="filters" style="display: none;">
+            <select id="filterStatus" onchange="filtrarTickets()">
+                <option value="">Todos os Status</option>
+                <option value="To Do">Abertos</option>
+                <option value="In Progress">Em Progresso</option>
+                <option value="Done">Concluídos</option>
+            </select>
+            <input type="text" id="filterSearch" placeholder="🔍 Buscar tickets..." oninput="filtrarTickets()">
+        </div>
+
+        <!-- Lista de Tickets -->
+        <div class="tickets-container" id="ticketsContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Configure suas credenciais para começar</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💡 <strong>Precisa de ajuda?</strong> Entre em contato com o Service Desk</p>
+            <p style="margin-top: 8px; font-size: 12px; opacity: 0.7;">Open Finance Brasil © 2025</p>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

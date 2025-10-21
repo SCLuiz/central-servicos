@@ -12,25 +12,26 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo-wrapper">
-                <div class="logo">
-                    <img src="logo.png" alt="Open Finance Brasil">
+            <!-- Banner -->
+            <div class="header-banner"></div>
+
+            <!-- Content -->
+            <div class="header-content">
+                <h1>Dashboard de Tickets</h1>
+                <p>Visualize e gerencie tickets do Service Desk</p>
+
+                <!-- User Info -->
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <button onclick="fazerLogout()" class="btn-logout">🚪 Sair</button>
                 </div>
-            </div>
-            <h1>Dashboard de Tickets</h1>
-            <p>Visualize e gerencie tickets do Service Desk</p>
 
-            <!-- User Info -->
-            <div class="user-info" id="userInfo" style="display: none;">
-                <span class="user-name" id="userName"></span>
-                <button onclick="fazerLogout()" class="btn-logout">🚪 Sair</button>
-            </div>
-
-            <div class="header-actions">
-                <a href="index.html" class="btn btn-secondary">← Voltar</a>
-                <button onclick="toggleConfig()" class="btn btn-secondary">⚙️ Configurar</button>
-                <button onclick="carregarTickets()" class="btn btn-primary">🔄 Atualizar</button>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" target="_blank" class="btn btn-success">➕ Novo Ticket</a>
+                <div class="header-actions">
+                    <a href="index.html" class="btn btn-secondary">← Voltar</a>
+                    <button onclick="toggleConfig()" class="btn btn-secondary">⚙️ Configurar</button>
+                    <button onclick="carregarTickets()" class="btn btn-primary">🔄 Atualizar</button>
+                    <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" target="_blank" class="btn btn-success">➕ Novo Ticket</a>
+                </div>
             </div>
         </div>
 

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Serviços - Open Finance Brasil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-text-subtlest: #6B778C;
+            --ds-border: #DFE1E6;
+            --ds-border-focused: #4C9AFF;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-purple: #5243AA;
+            --ds-purple-subtle: #EAE6FF;
+            --ds-green: #00875A;
+            --ds-green-subtle: #E3FCEF;
+            --ds-orange: #FF991F;
+            --ds-orange-subtle: #FFF0B3;
+            --ds-teal: #00B8D9;
+            --ds-teal-subtle: #E6FCFF;
+            --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+            --ds-shadow-raised: 0 8px 12px rgba(9, 30, 66, 0.15), 0 0 1px rgba(9, 30, 66, 0.31);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(255, 182, 193, 0.35) 0%,
+                rgba(255, 228, 225, 0.25) 25%,
+                rgba(245, 245, 245, 0.20) 50%,
+                rgba(255, 250, 205, 0.30) 75%,
+                rgba(255, 215, 0, 0.35) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            line-height: 1.5;
+            padding: 12px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--ds-text-subtle);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 20px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Card */
+        .service-card {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-6px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Cores por departamento */
+        .card-icon.tech {
+            background: var(--ds-blue-subtle);
+            color: var(--ds-blue);
+        }
+
+        .card-icon.people {
+            background: var(--ds-purple-subtle);
+            color: var(--ds-purple);
+        }
+
+        .card-icon.finance {
+            background: var(--ds-green-subtle);
+            color: var(--ds-green);
+        }
+
+        .card-icon.facilities {
+            background: var(--ds-orange-subtle);
+            color: var(--ds-orange);
+        }
+
+        .card-icon.legal {
+            background: var(--ds-teal-subtle);
+            color: var(--ds-teal);
+        }
+
+        .card-icon.security {
+            background: #FFF0B3;
+            color: #FF5630;
+        }
+
+        .card-icon.change {
+            background: #E3FCEF;
+            color: #006644;
+        }
+
+        .card-icon.operations {
+            background: #DEEBFF;
+            color: #0747A6;
+        }
+
+        .card-icon.board {
+            background: #EAE6FF;
+            color: #403294;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ds-text);
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: var(--ds-text-subtle);
+            line-height: 1.4;
+        }
+
+        .card-examples {
+            font-size: 12px;
+            color: var(--ds-text-subtlest);
+            margin-top: 6px;
+            padding-top: 10px;
+            border-top: 1px solid var(--ds-border);
+        }
+
+        .card-examples strong {
+            color: var(--ds-text-subtle);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 16px;
+            color: var(--ds-text-subtle);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Animações */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card {
+            animation: fadeIn 0.4s ease-out backwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.05s; }
+        .service-card:nth-child(2) { animation-delay: 0.1s; }
+        .service-card:nth-child(3) { animation-delay: 0.15s; }
+        .service-card:nth-child(4) { animation-delay: 0.2s; }
+        .service-card:nth-child(5) { animation-delay: 0.25s; }
+        .service-card:nth-child(6) { animation-delay: 0.3s; }
+        .service-card:nth-child(7) { animation-delay: 0.35s; }
+        .service-card:nth-child(8) { animation-delay: 0.4s; }
+        .service-card:nth-child(9) { animation-delay: 0.45s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <img src="logo.png" alt="Open Finance Brasil">
+                </div>
+            </div>
+            <h1>Central de Serviços</h1>
+            <p>Open Finance Brasil</p>
+        </div>
+
+        <!-- Cards de Serviços -->
+        <div class="cards-grid">
+            <!-- Dashboard de Tickets -->
+            <a href="dashboard.html" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon tech">📊</div>
+                    <div class="card-title">Dashboard de Tickets</div>
+                </div>
+                <div class="card-description">
+                    Visualize e gerencie todos os tickets do Service Desk
+                </div>
+                <div class="card-examples">
+                    Ver tickets • Estatísticas • Filtrar • Buscar • Atualizar status
+                </div>
+            </a>
+
+            <!-- Service Desk -->
+            <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon tech">🎧</div>
+                    <div class="card-title">Abrir Chamado</div>
+                </div>
+                <div class="card-description">
+                    Abra um novo chamado no Service Desk
+                </div>
+                <div class="card-examples">
+                    Problemas de acesso • Erros em sistemas • Lentidão • Equipamentos • VPN
+                </div>
+            </a>
+
+            <!-- RH -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon people">👥</div>
+                    <div class="card-title">Recursos Humanos</div>
+                </div>
+                <div class="card-description">
+                    Solicitações de RH, benefícios, férias e documentação
+                </div>
+                <div class="card-examples">
+                    Férias • Atestados • Holerite • Benefícios • Ponto
+                </div>
+            </a>
+
+            <!-- Financeiro -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon finance">💰</div>
+                    <div class="card-title">Financeiro</div>
+                </div>
+                <div class="card-description">
+                    Reembolsos, adiantamentos e questões financeiras
+                </div>
+                <div class="card-examples">
+                    Reembolsos • Adiantamentos • Notas fiscais • Pagamentos
+                </div>
+            </a>
+
+            <!-- Facilities -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon facilities">🏢</div>
+                    <div class="card-title">Facilities</div>
+                </div>
+                <div class="card-description">
+                    Infraestrutura, manutenção e serviços prediais
+                </div>
+                <div class="card-examples">
+                    Manutenção • Limpeza • Ar-condicionado • Mobiliário • Acesso
+                </div>
+            </a>
+
+            <!-- Jurídico -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon legal">⚖️</div>
+                    <div class="card-title">Jurídico</div>
+                </div>
+                <div class="card-description">
+                    Análise de contratos, consultas jurídicas e compliance
+                </div>
+                <div class="card-examples">
+                    Contratos • LGPD • Processos
+                </div>
+            </a>
+
+            <!-- Segurança -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon security">🔒</div>
+                    <div class="card-title">Segurança</div>
+                </div>
+                <div class="card-description">
+                    Segurança da informação, incidentes e vulnerabilidades
+                </div>
+                <div class="card-examples">
+                    Incidentes de segurança • Phishing • Vazamento de dados • Análise de vulnerabilidade • LGPD
+                </div>
+            </a>
+
+            <!-- Gestão de Mudanças -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon change">🔄</div>
+                    <div class="card-title">Gestão de Mudanças</div>
+                </div>
+                <div class="card-description">
+                    Solicitações de mudanças em sistemas e infraestrutura
+                </div>
+                <div class="card-examples">
+                    Deploy • Alteração de configuração • Atualização de sistema • Migração • Rollback
+                </div>
+            </a>
+
+            <!-- Operações -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon operations">⚙️</div>
+                    <div class="card-title">Operações</div>
+                </div>
+                <div class="card-description">
+                    Monitoramento, incidentes operacionais e suporte técnico
+                </div>
+                <div class="card-examples">
+                    Incidentes de produção • Monitoramento • Logs • Performance • Disponibilidade
+                </div>
+            </a>
+
+            <!-- Conselho -->
+            <a href="#" class="service-card">
+                <div class="card-header">
+                    <div class="card-icon board">📊</div>
+                    <div class="card-title">Conselho</div>
+                </div>
+                <div class="card-description">
+                    Solicitações e demandas do conselho administrativo
+                </div>
+                <div class="card-examples">
+                    Relatórios executivos • Apresentações • Documentação estratégica • Aprovações • Governança
+                </div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Selecione o departamento acima para abrir seu chamado</p>
+            <p style="margin-top: 8px; color: var(--ds-text-subtlest);">Open Finance Brasil © 2025</p>
+        </div>
+    </div>
+</body>
+</html>

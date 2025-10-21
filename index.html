@@ -296,12 +296,20 @@
             </div>
             <h1>Central de Serviços</h1>
             <p>Open Finance Brasil</p>
+
+            <!-- User Info -->
+            <div style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
+                <span id="userName" style="font-size: 14px; font-weight: 500;"></span>
+                <button onclick="fazerLogout()" style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
+                    🚪 Sair
+                </button>
+            </div>
         </div>
 
         <!-- Cards de Serviços -->
         <div class="cards-grid">
             <!-- Dashboard de Tickets -->
-            <a href="login.html" class="service-card">
+            <a href="dashboard.html" class="service-card">
                 <div class="card-header">
                     <div class="card-icon tech">📊</div>
                     <div class="card-title">Dashboard de Tickets</div>
@@ -310,7 +318,7 @@
                     Visualize e gerencie todos os tickets do Service Desk
                 </div>
                 <div class="card-examples">
-                    🔒 Requer autenticação • Ver tickets • Estatísticas • Filtrar • Buscar
+                    Ver tickets • Estatísticas • Filtrar • Buscar • Atualizar
                 </div>
             </a>
 
@@ -447,5 +455,54 @@
             <p style="margin-top: 8px; color: var(--ds-text-subtlest);">Open Finance Brasil © 2025</p>
         </div>
     </div>
+
+    <script>
+        // Verificar autenticação ao carregar
+        function verificarAutenticacao() {
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
+                                   sessionStorage.getItem('isAuthenticated') === 'true';
+
+            if (!isAuthenticated) {
+                // Não está autenticado, redirecionar para login
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            // Mostrar informações do usuário
+            const userName = localStorage.getItem('userName') || sessionStorage.getItem('userName') || 'Usuário';
+            const userNameEl = document.getElementById('userName');
+
+            if (userNameEl) {
+                userNameEl.textContent = `👤 ${userName}`;
+            }
+
+            return true;
+        }
+
+        // Fazer logout
+        function fazerLogout() {
+            if (confirm('Deseja realmente sair?')) {
+                // Limpar dados de autenticação
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userAvatar');
+                localStorage.removeItem('jiraEmail');
+                localStorage.removeItem('jiraToken');
+
+                sessionStorage.removeItem('isAuthenticated');
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('jiraEmail');
+                sessionStorage.removeItem('jiraToken');
+
+                // Redirecionar para login
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Executar verificação ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            verificarAutenticacao();
+        });
+    </script>
 </body>
 </html>

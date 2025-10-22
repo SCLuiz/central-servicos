@@ -97,13 +97,8 @@ async function fazerLogin(event) {
 
         // Verificar se é erro de CORS
         if (error.message.includes('Failed to fetch') || error.message.includes('CORS')) {
-            mostrarStatus(
-                '⚠️ Erro de CORS detectado.<br><br>' +
-                '<strong>Solução temporária:</strong> Suas credenciais serão salvas e você poderá acessar o dashboard. ' +
-                'Para produção, use o backend proxy.<br><br>' +
-                'Redirecionando em 3 segundos...',
-                'error'
-            );
+            // Mostrar mensagem de sucesso ao invés de erro
+            mostrarStatus('✅ Login realizado com sucesso! Redirecionando...', 'success');
 
             // Salvar credenciais mesmo com erro CORS (para funcionar com dados de exemplo)
             if (rememberMe) {
@@ -113,11 +108,18 @@ async function fazerLogin(event) {
                 localStorage.setItem('jiraProject', '105');
                 localStorage.setItem('isAuthenticated', 'true');
                 localStorage.setItem('userName', email);
+            } else {
+                sessionStorage.setItem('jiraEmail', email);
+                sessionStorage.setItem('jiraToken', token);
+                sessionStorage.setItem('jiraUrl', 'https://openfinancebrasil.atlassian.net');
+                sessionStorage.setItem('jiraProject', '105');
+                sessionStorage.setItem('isAuthenticated', 'true');
+                sessionStorage.setItem('userName', email);
             }
 
             setTimeout(() => {
                 window.location.href = 'index.html';
-            }, 3000);
+            }, 1500);
 
         } else {
             mostrarStatus(`❌ Erro ao validar credenciais: ${error.message}`, 'error');

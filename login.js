@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // Já está logado, redirecionar
         mostrarStatus('✅ Você já está autenticado! Redirecionando...', 'success');
         setTimeout(() => {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'index.html';
         }, 1000);
     } else {
         // Preencher email se estiver salvo
@@ -78,9 +78,9 @@ async function fazerLogin(event) {
                 sessionStorage.setItem('userName', userData.displayName || email);
             }
 
-            // Redirecionar para dashboard
+            // Redirecionar para home
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             }, 1500);
 
         } else if (response.status === 401) {
@@ -116,7 +116,7 @@ async function fazerLogin(event) {
             }
 
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             }, 3000);
 
         } else {

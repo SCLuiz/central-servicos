@@ -61,6 +61,47 @@ def get_tickets():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/validate', methods=['POST'])
+def validate_credentials():
+    """
+    POST /api/validate
+    Body: {"email": "xxx", "token": "xxx"}
+    Valida credenciais do Jira
+    """
+    try:
+        data = request.get_json()
+        email = data.get('email')
+        token = data.get('token')
+
+        if not email or not token:
+            return jsonify({'error': 'Email e token são obrigatórios'}), 400
+
+        auth = HTTPBasicAuth(email, token)
+        headers = {'Accept': 'application/json'}
+
+        # Tenta buscar informações do usuário atual
+        url = f'{JIRA_URL}/rest/api/3/myself'
+        response = requests.get(url, auth=auth, headers=headers)
+
+        if response.status_code == 200:
+            user_data = response.json()
+            return jsonify({
+                'success': True,
+                'user': {
+                    'displayName': user_data.get('displayName'),
+                    'emailAddress': user_data.get('emailAddress'),
+                    'avatarUrl': user_data.get('avatarUrls', {}).get('48x48', '')
+                }
+            })
+        elif response.status_code == 401:
+            return jsonify({'success': False, 'error': 'Credenciais inválidas'}), 401
+        else:
+            return jsonify({'success': False, 'error': f'Erro {response.status_code}'}), response.status_code
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
 @app.route('/api/health', methods=['GET'])
 def health():
     """Health check"""

@@ -63,16 +63,13 @@
             }
 
             try {
-                // Trocar o código por um access token
-                const tokenResponse = await fetch(OAUTH_CONFIG.tokenUrl, {
+                // Trocar o código por um access token via backend (seguro)
+                const tokenResponse = await fetch(OAUTH_CONFIG.backendTokenUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        grant_type: 'authorization_code',
-                        client_id: OAUTH_CONFIG.clientId,
-                        client_secret: OAUTH_CONFIG.clientSecret,
                         code: code,
                         redirect_uri: OAUTH_CONFIG.redirectUri
                     })

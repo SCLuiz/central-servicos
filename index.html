@@ -122,6 +122,17 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            overflow: hidden;
+        }
+
+        .card-banner {
+            width: calc(100% + 40px);
+            height: 120px;
+            margin: -20px -20px 15px -20px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 10px 10px 0 0;
         }
 
         .service-card:hover {
@@ -402,10 +413,9 @@
 
             <!-- SecOps -->
             <a href="#" class="service-card">
+                <div class="card-banner" style="background-image: url('secops.png');"></div>
                 <div class="card-header">
-                    <div class="card-icon" style="background: linear-gradient(135deg, #1a0033 0%, #2d0052 100%); padding: 5px; border-radius: 8px;">
-                        <img src="secops.png" alt="SecOps" style="width: 30px; height: 30px; object-fit: contain; display: block;">
-                    </div>
+                    <div class="card-icon security">🛡️</div>
                     <div class="card-title">SecOps</div>
                 </div>
                 <div class="card-description">

@@ -1,6 +1,3 @@
-// URL do backend no Render
-const BACKEND_URL = 'https://central-servicos-ly4z.onrender.com';
-
 // Verificar se já está logado
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isAuthenticated') === 'true' ||
@@ -15,75 +12,41 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Fazer login
-async function fazerLogin(event) {
+// Fazer login simples (sem validação de credenciais)
+function fazerLogin(event) {
     event.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
-    const token = document.getElementById('token').value.trim();
+    const email = document.getElementById('email')?.value?.trim() || '';
     const rememberMe = document.getElementById('rememberMe')?.checked || false;
 
-    // Validar campos
-    if (!email || !token) {
-        mostrarStatus('❌ Por favor, preencha email e token', 'error');
+    // Validar email
+    if (!email) {
+        mostrarStatus('❌ Por favor, preencha o email', 'error');
         return;
     }
 
-    // Validar formato de email
     if (!email.includes('@')) {
         mostrarStatus('❌ Email inválido', 'error');
         return;
     }
 
-    mostrarStatus('⏳ Validando credenciais...', 'info');
+    mostrarStatus('⏳ Entrando...', 'info');
 
-    try {
-        // Validar credenciais via backend
-        const response = await fetch(`${BACKEND_URL}/api/validate`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                token: token
-            })
-        });
+    // Escolher storage baseado em "Lembrar-me"
+    const storage = rememberMe ? localStorage : sessionStorage;
 
-        const data = await response.json();
+    // Salvar informações básicas
+    storage.setItem('isAuthenticated', 'true');
+    storage.setItem('userEmail', email);
+    storage.setItem('userName', email.split('@')[0]);
+    storage.setItem('authMethod', 'simple');
 
-        if (response.ok && data.success) {
-            const userData = data.user;
+    mostrarStatus('✅ Login realizado com sucesso! Redirecionando...', 'success');
 
-            // Escolher storage baseado em "Lembrar-me"
-            const storage = rememberMe ? localStorage : sessionStorage;
-
-            // Salvar credenciais e informações do usuário
-            storage.setItem('jiraEmail', email);
-            storage.setItem('jiraToken', token);
-            storage.setItem('isAuthenticated', 'true');
-            storage.setItem('userName', userData.displayName || email);
-            storage.setItem('userEmail', userData.emailAddress || email);
-            storage.setItem('userAvatar', userData.avatarUrl || '');
-            storage.setItem('authMethod', 'api-token');
-
-            mostrarStatus('✅ Login realizado com sucesso! Redirecionando...', 'success');
-
-            // Redirecionar para home
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-
-        } else if (response.status === 401) {
-            mostrarStatus('❌ Credenciais inválidas. Verifique seu email e token.', 'error');
-        } else {
-            mostrarStatus('❌ Erro ao conectar: ' + (data.error || 'Erro desconhecido'), 'error');
-        }
-
-    } catch (error) {
-        console.error('Erro ao fazer login:', error);
-        mostrarStatus('❌ Erro de conexão. Verifique sua internet.', 'error');
-    }
+    // Redirecionar para home
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
 }
 
 // Mostrar status
@@ -97,24 +60,4 @@ function mostrarStatus(mensagem, tipo) {
 
     // Scroll suave até o status
     statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-// Como obter o API Token
-function mostrarComoObterToken() {
-    alert(`📝 COMO OBTER SEU API TOKEN DO JIRA:
-
-1. Acesse: https://id.atlassian.com/manage-profile/security/api-tokens
-
-2. Clique em "Create API token"
-
-3. Dê um nome (ex: "Central de Serviços")
-
-4. Copie o token gerado
-
-5. Cole aqui no campo "API Token"
-
-⚠️ IMPORTANTE:
-- Guarde o token em local seguro
-- Não compartilhe com outras pessoas
-- O token tem as mesmas permissões da sua conta`);
 }

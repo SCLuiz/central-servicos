@@ -156,7 +156,10 @@
                 throw new Error('Falha ao obter informações do usuário');
             }
 
-            return await response.json();
+            const userInfo = await response.json();
+            console.log('🔍 DEBUG - User Info completo:', userInfo);
+            console.log('🔍 DEBUG - Avatar URLs:', userInfo.avatarUrls);
+            return userInfo;
         }
 
         function showError(message) {

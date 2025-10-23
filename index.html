@@ -451,10 +451,17 @@
 
             // Mostrar informações do usuário
             const userName = localStorage.getItem('userName') || sessionStorage.getItem('userName') || 'Usuário';
+            const userAvatar = localStorage.getItem('userAvatar') || sessionStorage.getItem('userAvatar');
             const userNameEl = document.getElementById('userName');
 
             if (userNameEl) {
-                userNameEl.textContent = `👤 ${userName}`;
+                if (userAvatar) {
+                    // Mostrar foto do Jira
+                    userNameEl.innerHTML = `<img src="${userAvatar}" alt="${userName}" style="width: 32px; height: 32px; border-radius: 50%; vertical-align: middle; margin-right: 8px;"> ${userName}`;
+                } else {
+                    // Mostrar emoji se não tiver foto
+                    userNameEl.textContent = `👤 ${userName}`;
+                }
             }
 
             return true;

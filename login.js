@@ -12,41 +12,39 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Fazer login simples (sem validação de credenciais)
+// Fazer login com OAuth 2.0 (usuários do Jira)
 function fazerLogin(event) {
     event.preventDefault();
 
-    const email = document.getElementById('email')?.value?.trim() || '';
-    const rememberMe = document.getElementById('rememberMe')?.checked || false;
+    // Gerar state para segurança (CSRF protection)
+    const state = generateRandomString(32);
+    sessionStorage.setItem('oauth_state', state);
 
-    // Validar email
-    if (!email) {
-        mostrarStatus('❌ Por favor, preencha o email', 'error');
-        return;
+    // Construir URL de autorização
+    const params = new URLSearchParams({
+        audience: OAUTH_CONFIG.audience,
+        client_id: OAUTH_CONFIG.clientId,
+        scope: OAUTH_CONFIG.scope,
+        redirect_uri: OAUTH_CONFIG.redirectUri,
+        state: state,
+        response_type: 'code',
+        prompt: OAUTH_CONFIG.prompt
+    });
+
+    const authUrl = `${OAUTH_CONFIG.authorizationUrl}?${params.toString()}`;
+
+    // Redirecionar para a página de autorização do Atlassian
+    window.location.href = authUrl;
+}
+
+// Gerar string aleatória para state
+function generateRandomString(length) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-
-    if (!email.includes('@')) {
-        mostrarStatus('❌ Email inválido', 'error');
-        return;
-    }
-
-    mostrarStatus('⏳ Entrando...', 'info');
-
-    // Escolher storage baseado em "Lembrar-me"
-    const storage = rememberMe ? localStorage : sessionStorage;
-
-    // Salvar informações básicas
-    storage.setItem('isAuthenticated', 'true');
-    storage.setItem('userEmail', email);
-    storage.setItem('userName', email.split('@')[0]);
-    storage.setItem('authMethod', 'simple');
-
-    mostrarStatus('✅ Login realizado com sucesso! Redirecionando...', 'success');
-
-    // Redirecionar para home
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 1000);
+    return result;
 }
 
 // Mostrar status

@@ -24,10 +24,30 @@
             <!-- Formulário de Login -->
             <form id="loginForm" onsubmit="fazerLogin(event)">
                 <div class="form-group">
-                    <p style="text-align: center; color: var(--ds-text-subtle); font-size: 14px; margin-bottom: 20px;">
-                        Clique no botão abaixo para fazer login com sua conta do Jira.<br>
-                        Uma janela será aberta para autenticação segura.
-                    </p>
+                    <label for="email">Email do Jira</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seu.email@empresa.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="token">
+                        API Token
+                        <a href="#" onclick="mostrarComoObterToken(); return false;" style="font-size: 12px; margin-left: 8px;">
+                            ❓ Como obter?
+                        </a>
+                    </label>
+                    <input
+                        type="password"
+                        id="token"
+                        placeholder="Cole seu API Token aqui"
+                        required
+                        autocomplete="off"
+                    >
                 </div>
 
                 <div class="form-group">
@@ -38,17 +58,19 @@
                 </div>
 
                 <button type="submit" class="btn-login" id="btnLogin">
-                    <span class="btn-text">🔐 Entrar com Jira</span>
-                    <span class="btn-loading" style="display: none;">
-                        <span class="spinner-small"></span>
-                        Aguardando...
-                    </span>
+                    <span class="btn-text">🔐 Entrar</span>
                 </button>
+
+                <div style="margin-top: 16px; text-align: center; font-size: 13px; color: var(--ds-text-subtle);">
+                    Não tem um API Token?
+                    <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" style="color: var(--ds-link);">
+                        Criar agora
+                    </a>
+                </div>
             </form>
         </div>
     </div>
 
-    <script src="oauth-config.js"></script>
     <script src="login.js"></script>
 </body>
 </html>

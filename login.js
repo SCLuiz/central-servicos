@@ -1,3 +1,6 @@
+// URL do backend no Render
+const BACKEND_URL = 'https://central-servicos-ly4z.onrender.com';
+
 // Verificar se já está logado
 window.addEventListener('DOMContentLoaded', () => {
     const isLoggedIn = localStorage.getItem('isAuthenticated') === 'true' ||
@@ -12,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Fazer login com API Token
+// Fazer login
 async function fazerLogin(event) {
     event.preventDefault();
 
@@ -35,18 +38,22 @@ async function fazerLogin(event) {
     mostrarStatus('⏳ Validando credenciais...', 'info');
 
     try {
-        // Testar credenciais diretamente com Jira API
-        const auth = btoa(email + ':' + token); // Base64 encode
-        const response = await fetch('https://openfinancebrasil.atlassian.net/rest/api/3/myself', {
-            method: 'GET',
+        // Validar credenciais via backend
+        const response = await fetch(`${BACKEND_URL}/api/validate`, {
+            method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + auth,
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                token: token
+            })
         });
 
-        if (response.ok) {
-            const userData = await response.json();
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            const userData = data.user;
 
             // Escolher storage baseado em "Lembrar-me"
             const storage = rememberMe ? localStorage : sessionStorage;
@@ -57,7 +64,7 @@ async function fazerLogin(event) {
             storage.setItem('isAuthenticated', 'true');
             storage.setItem('userName', userData.displayName || email);
             storage.setItem('userEmail', userData.emailAddress || email);
-            storage.setItem('userAvatar', userData.avatarUrls?.['48x48'] || '');
+            storage.setItem('userAvatar', userData.avatarUrl || '');
             storage.setItem('authMethod', 'api-token');
 
             mostrarStatus('✅ Login realizado com sucesso! Redirecionando...', 'success');
@@ -69,21 +76,13 @@ async function fazerLogin(event) {
 
         } else if (response.status === 401) {
             mostrarStatus('❌ Credenciais inválidas. Verifique seu email e token.', 'error');
-        } else if (response.status === 403) {
-            mostrarStatus('❌ Acesso negado. Verifique as permissões do token.', 'error');
         } else {
-            mostrarStatus('❌ Erro ao conectar com Jira (Status: ' + response.status + ')', 'error');
+            mostrarStatus('❌ Erro ao conectar: ' + (data.error || 'Erro desconhecido'), 'error');
         }
 
     } catch (error) {
         console.error('Erro ao fazer login:', error);
-
-        // Erro de CORS ou rede
-        if (error.message.includes('fetch')) {
-            mostrarStatus('❌ Erro de conexão. Verifique sua internet ou use um proxy CORS.', 'error');
-        } else {
-            mostrarStatus('❌ Erro inesperado: ' + error.message, 'error');
-        }
+        mostrarStatus('❌ Erro de conexão. Verifique sua internet.', 'error');
     }
 }
 

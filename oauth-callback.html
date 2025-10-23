@@ -86,7 +86,7 @@
                 storage.setItem('isAuthenticated', 'true');
                 storage.setItem('userName', userInfo.displayName || userInfo.email);
                 storage.setItem('userEmail', userInfo.email);
-                storage.setItem('userAvatar', userInfo.picture || '');
+                storage.setItem('userAvatar', userInfo.avatarUrls ? userInfo.avatarUrls['48x48'] : '');
                 storage.setItem('authMethod', 'oauth');
 
                 // Sucesso!

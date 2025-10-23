@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticando...</title>
+    <title>Autenticando... - Central de Serviços</title>
     <link rel="stylesheet" href="login.css">
     <style>
         body {
@@ -41,11 +41,18 @@
     <div class="callback-container">
         <div class="spinner"></div>
         <h2 id="status">Autenticando...</h2>
-        <p id="message">Processando credenciais do Jira</p>
+        <p id="message">Processando login com Jira</p>
     </div>
 
     <script src="oauth-config.js"></script>
     <script>
+        // URL do Cloudflare Worker
+        const WORKER_URL = 'https://oauth-token-exchange.luiz-santos.workers.dev';
+    </script>
+    <script>
+        // OAuth callback usando Cloudflare Worker para segurança
+        // O CLIENT_SECRET fica protegido no Worker, não no frontend
+
         async function handleOAuthCallback() {
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
@@ -63,23 +70,8 @@
             }
 
             try {
-                // Trocar o código por um access token via backend (seguro)
-                const tokenResponse = await fetch(OAUTH_CONFIG.backendTokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        code: code,
-                        redirect_uri: OAUTH_CONFIG.redirectUri
-                    })
-                });
-
-                if (!tokenResponse.ok) {
-                    throw new Error('Falha ao obter token: ' + tokenResponse.status);
-                }
-
-                const tokenData = await tokenResponse.json();
+                // Trocar código por token
+                const tokenData = await exchangeCodeForToken(code);
 
                 // Obter informações do usuário
                 const cloudId = await getCloudId(tokenData.access_token);
@@ -111,6 +103,27 @@
             }
         }
 
+        async function exchangeCodeForToken(code) {
+            // Chamar Cloudflare Worker para fazer token exchange de forma segura
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: code,
+                    redirect_uri: OAUTH_CONFIG.redirectUri
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Falha ao obter token: ' + response.status);
+            }
+
+            return await response.json();
+        }
+
         async function getCloudId(accessToken) {
             const response = await fetch('https://api.atlassian.com/oauth/token/accessible-resources', {
                 headers: {
@@ -128,7 +141,7 @@
                 throw new Error('Nenhum recurso Atlassian encontrado');
             }
 
-            return resources[0].id; // Pega o primeiro Cloud ID
+            return resources[0].id;
         }
 
         async function getUserInfo(accessToken, cloudId) {

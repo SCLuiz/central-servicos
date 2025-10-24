@@ -273,7 +273,7 @@
             </div>
 
             <!-- Segurança -->
-            <div class="service-card" style="cursor: default;">
+            <div class="service-card" style="cursor: pointer;" onclick="window.location.href='seguranca.html'">
                 <div class="card-header">
                     <div class="card-icon security">🔒</div>
                     <div class="card-title">Segurança</div>
@@ -295,7 +295,8 @@
                     <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105"
                        style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: #FFD700; border-radius: 8px; text-decoration: none; color: #B8860B; font-weight: 600; transition: all 0.2s;"
                        onmouseover="this.style.background='#FFA500'; this.style.color='white';"
-                       onmouseout="this.style.background='#FFD700'; this.style.color='#B8860B';">
+                       onmouseout="this.style.background='#FFD700'; this.style.color='#B8860B';"
+                       onclick="event.stopPropagation();">
                         <span style="font-size: 20px;">🔒</span>
                         <span>Abrir Chamado de Segurança</span>
                     </a>

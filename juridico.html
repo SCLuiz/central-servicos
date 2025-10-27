@@ -65,11 +65,30 @@
 
         .header-banner {
             width: 100%;
-            height: 180px;
+            height: 250px;
             background-image: url('juridico.jpg?v=4');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+        }
+
+        /* Responsividade do banner */
+        @media (max-width: 1200px) {
+            .header-banner {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-banner {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-banner {
+                height: 120px;
+            }
         }
 
         .header-content {

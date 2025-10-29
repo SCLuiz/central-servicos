@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Fornecedores - Central de Serviços</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-text-subtlest: #6B778C;
+            --ds-border: #DFE1E6;
+            --ds-border-focused: #4C9AFF;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            line-height: 1.5;
+            padding: 12px;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: var(--ds-surface-overlay);
+            color: var(--ds-text);
+        }
+
+        .btn-secondary:hover {
+            background: #EBECF0;
+        }
+
+        /* Content Section */
+        .content-section {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .content-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--ds-text);
+        }
+
+        .content-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--ds-text);
+        }
+
+        .content-section p {
+            font-size: 15px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .content-section ul {
+            margin: 12px 0 12px 24px;
+            color: var(--ds-text-subtle);
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Action Cards */
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .action-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 82, 204, 0.4);
+            transform: translateY(-6px);
+        }
+
+        .action-card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .action-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+
+        .action-card p {
+            font-size: 14px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #FF1493 0%, #FFD700 100%);
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
+        }
+
+        .info-box {
+            background: #E3F2FD;
+            border-left: 4px solid #2196F3;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: #1565C0;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            background: #FFF9C4;
+            border-left: 4px solid #FFA000;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #F57C00;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content-section {
+                padding: 24px;
+            }
+
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Avaliação de Fornecedores</h1>
+            <p>Questionário de Due Diligence para avaliação de prestadores de serviços em Tecnologia da Informação, Segurança e Proteção de Dados.</p>
+            <a href="seguranca.html" class="btn btn-secondary">← Voltar para Segurança</a>
+        </div>
+
+        <!-- Informações Gerais -->
+        <div class="content-section">
+            <h2>📖 Sobre o Formulário</h2>
+            <p>
+                Este formulário tem como objetivo avaliar e mitigar os riscos inerentes à realização de provas de conceito (PoC)
+                e à contratação de terceiros, garantindo que o fornecedor atenda aos padrões mínimos nos aspectos de:
+            </p>
+            <ul>
+                <li><strong>Segurança da Informação</strong> - Controles, políticas e práticas de segurança</li>
+                <li><strong>Arquitetura & Infraestrutura</strong> - Capacidade técnica e recursos tecnológicos</li>
+                <li><strong>Privacidade e Proteção de Dados</strong> - Conformidade com LGPD e regulações</li>
+                <li><strong>Conformidade Regulatória</strong> - Aderência à Resolução BCB nº 498/25 (PSTI)</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>ℹ️ Aplicabilidade</strong>
+                Este questionário aplica-se exclusivamente a fornecedores e prestadores de serviço que interajam com ativos
+                tecnológicos, tratem dados pessoais, ou tenham acesso a informações, sistemas e processos críticos da
+                Associação Open Finance Brasil.
+            </div>
+
+            <h3>🎯 Objetivos da Avaliação</h3>
+            <ul>
+                <li><strong>Tomada de Decisão Estratégica:</strong> Subsidiar decisões de contratação com base em critérios técnicos e de risco</li>
+                <li><strong>Aderência Regulatória:</strong> Verificar conformidade com LGPD, Resolução BCB 498, ISO/IEC 27001</li>
+                <li><strong>Gestão de Risco Contínuo:</strong> Estabelecer baseline de controles para acompanhamento durante todo ciclo contratual</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Importante</strong>
+                O não preenchimento adequado, fornecimento de informações incorretas, ou não apresentação de evidências
+                resultará na desqualificação imediata do fornecedor no processo de seleção ou renovação.
+            </div>
+
+            <h3>📋 Estrutura do Questionário</h3>
+            <p>O formulário está organizado nas seguintes seções:</p>
+            <ul>
+                <li><strong>Dados do Fornecedor:</strong> Informações básicas da empresa (Nome, CNPJ, Contato)</li>
+                <li><strong>Enquadramento PSTI:</strong> Classificação conforme Resolução BCB 498/25</li>
+                <li><strong>Segurança da Informação:</strong> Políticas, controles e certificações de segurança</li>
+                <li><strong>Arquitetura & Infraestrutura:</strong> Capacidade técnica e recursos tecnológicos</li>
+                <li><strong>Privacidade e Proteção de Dados:</strong> Conformidade com LGPD e proteção de dados pessoais</li>
+                <li><strong>Evidências:</strong> Anexos comprobatórios (certificações, relatórios, políticas)</li>
+            </ul>
+        </div>
+
+        <!-- Ações Disponíveis -->
+        <div class="action-cards">
+            <!-- Solicitar Avaliação -->
+            <div class="action-card">
+                <div class="action-card-icon">🚀</div>
+                <h3>Solicitar Avaliação</h3>
+                <p>Inicie o processo de avaliação de um novo fornecedor. Um ticket será criado no Jira para acompanhamento.</p>
+                <a href="https://openfinancebrasil.atlassian.net/browse/GDS" class="action-btn" target="_blank">
+                    <span>Iniciar Avaliação</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- Consultar Avaliações -->
+            <div class="action-card">
+                <div class="action-card-icon">📊</div>
+                <h3>Consultar Avaliações</h3>
+                <p>Visualize avaliações em andamento, aprovadas ou reprovadas no projeto SecOps do Jira.</p>
+                <a href="https://openfinancebrasil.atlassian.net/jira/software/c/projects/GDS/boards/228" class="action-btn" target="_blank">
+                    <span>Ver Avaliações</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- Documentação -->
+            <div class="action-card">
+                <div class="action-card-icon">📄</div>
+                <h3>Modelo do Formulário</h3>
+                <p>Faça o download do formulário completo em formato Word para preenchimento offline.</p>
+                <a href="#" class="action-btn" onclick="alert('Documento disponível em: C:\\Users\\LuizSantos\\Downloads\\AVA-001-SI - Formulário de Avaliação de Fornecedor_Open Finance.docx')">
+                    <span>Download .docx</span>
+                    <span>↓</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Instruções de Preenchimento -->
+        <div class="content-section" style="margin-top: 20px;">
+            <h2>✏️ Instruções de Preenchimento</h2>
+            <p>Para cada requisito do questionário, o fornecedor deve informar:</p>
+            <ul>
+                <li><strong>Atende (Sim/Não):</strong> Indicar se o requisito já é atendido ou não</li>
+                <li><strong>Prazo para Implementar:</strong> Obrigatório quando "Não Atende", informando tempo realista de adequação</li>
+                <li><strong>Factível (Sim/Não):</strong> Confirmar se a implementação é tecnicamente e financeiramente possível</li>
+                <li><strong>Observações/Justificativas:</strong> Detalhar escopo, atendimento parcial ou planos de mitigação</li>
+                <li><strong>Evidências:</strong> Declarar se possui documentos comprobatórios (certificações, relatórios, políticas)</li>
+            </ul>
+
+            <h3>📎 Evidências Aceitas</h3>
+            <p>Exemplos de evidências que podem ser solicitadas:</p>
+            <ul>
+                <li>Certificações ISO/IEC 27001, SOC 2, PCI-DSS</li>
+                <li>Plano de Continuidade de Negócios (DRP/BCP)</li>
+                <li>Relatórios de testes de segurança (pentests, análise de vulnerabilidades)</li>
+                <li>Políticas de Segurança da Informação e Privacidade</li>
+                <li>Documentação de conformidade com LGPD</li>
+                <li>Relatórios de auditoria</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Atenção - Proteção de Dados</strong>
+                NÃO enviar documentos nos quais constem dados pessoais. Favor anonimizar os dados antes de anexá-los.
+            </div>
+        </div>
+
+        <!-- Campos Criados no Jira -->
+        <div class="content-section" style="margin-top: 20px;">
+            <h2>🔧 Campos Disponíveis no Jira</h2>
+            <p>Os seguintes campos customizados foram criados no projeto SecOps (GDS) para registrar as avaliações:</p>
+
+            <h3>Dados do Fornecedor</h3>
+            <ul>
+                <li>Nome da Empresa</li>
+                <li>CNPJ</li>
+                <li>Responsável pelo Preenchimento</li>
+                <li>Email de Contato</li>
+                <li>Telefone</li>
+            </ul>
+
+            <h3>Avaliação e Conformidade</h3>
+            <ul>
+                <li>É PSTI? (Sim/Não)</li>
+                <li>Nível de Risco (Baixo/Médio/Alto/Crítico)</li>
+                <li>Status da Avaliação (Em Análise/Aprovado/Reprovado/Pendências)</li>
+                <li>Conformidade LGPD</li>
+                <li>Certificações</li>
+            </ul>
+
+            <h3>Análise Interna (SecOps)</h3>
+            <ul>
+                <li>Resumo Executivo</li>
+                <li>Pontos Fortes</li>
+                <li>Pontos Fracos</li>
+                <li>Riscos Residuais</li>
+                <li>Parecer Final</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticação
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
+                                   sessionStorage.getItem('isAuthenticated') === 'true';
+
+            if (!isAuthenticated) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

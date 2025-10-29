@@ -209,6 +209,8 @@
         @media (max-width: 768px) {
             .header-banner {
                 height: 150px;
+                background-size: contain;
+                background-position: center;
             }
 
             .cards-grid {
@@ -218,11 +220,34 @@
             .header h1 {
                 font-size: 24px;
             }
+
+            .header-content {
+                padding: 16px;
+            }
         }
 
         @media (max-width: 480px) {
             .header-banner {
-                height: 120px;
+                height: 100px;
+                background-size: contain;
+                background-position: center;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header p {
+                font-size: 13px;
+            }
+
+            .header-content {
+                padding: 12px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 13px;
             }
         }
     </style>

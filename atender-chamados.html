@@ -171,46 +171,6 @@
             </div>
         </div>
 
-        <!-- Modal de Configuração -->
-        <div id="configModal" class="modal">
-            <div class="modal-content modal-small">
-                <div class="modal-header">
-                    <h2>⚙️ Configurações do Jira</h2>
-                    <button class="close-modal" onclick="closeConfigModal()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Configure suas credenciais do Jira para acessar os tickets:</p>
-                    <div class="config-form">
-                        <label>Email do Jira:</label>
-                        <input type="email" id="jiraEmail" placeholder="seu-email@empresa.com">
-
-                        <label>API Token:</label>
-                        <input type="password" id="jiraToken" placeholder="Seu token de API">
-
-                        <label>
-                            <input type="checkbox" id="rememberCredentials" checked>
-                            Lembrar credenciais (salvo localmente)
-                        </label>
-
-                        <button class="btn-primary" onclick="saveCredentials()">💾 Salvar</button>
-                    </div>
-                    <div class="config-help">
-                        <p><strong>Como obter API Token:</strong></p>
-                        <ol>
-                            <li>Acesse: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens</a></li>
-                            <li>Clique em "Create API token"</li>
-                            <li>Copie o token gerado</li>
-                            <li>Cole aqui</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botão de Configuração Flutuante -->
-        <button class="fab-config" onclick="openConfigModal()" title="Configurações">
-            ⚙️
-        </button>
     </div>
 
     <script src="atender-chamados.js"></script>

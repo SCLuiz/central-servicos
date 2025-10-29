@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atender Chamados - Central de Serviços</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="atender-chamados.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>🎧 Atender Chamados - Service Desk</h1>
+                <p>Interface de atendimento para agentes</p>
+                <a href="operacoes-ti.html" class="btn btn-secondary">← Voltar</a>
+            </div>
+        </div>
+
+        <!-- Filtros e Busca -->
+        <div class="filters-section">
+            <div class="filters-group">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="my">Meus Tickets</button>
+                <button class="filter-btn" data-filter="open">Em Andamento</button>
+                <button class="filter-btn" data-filter="waiting">Aguardando</button>
+                <button class="filter-btn" data-filter="resolved">Resolvidos</button>
+            </div>
+            <div class="search-group">
+                <input type="text" id="searchTicket" placeholder="Buscar por número (ex: HELP-123)">
+                <button class="btn-search" onclick="searchTicket()">🔍 Buscar</button>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="totalTickets">-</div>
+                    <div class="stat-label">Total de Tickets</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="openTickets">-</div>
+                    <div class="stat-label">Em Andamento</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="waitingTickets">-</div>
+                    <div class="stat-label">Aguardando</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="resolvedTickets">-</div>
+                    <div class="stat-label">Resolvidos (Hoje)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Tickets -->
+        <div class="tickets-section">
+            <div class="section-header">
+                <h2>Lista de Chamados</h2>
+                <button class="btn-refresh" onclick="loadTickets()">🔄 Atualizar</button>
+            </div>
+
+            <div id="loadingTickets" class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Carregando tickets...</p>
+            </div>
+
+            <div id="ticketsList" class="tickets-list"></div>
+        </div>
+
+        <!-- Modal de Detalhes do Ticket -->
+        <div id="ticketModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTicketKey">HELP-XXX</h2>
+                    <button class="close-modal" onclick="closeTicketModal()">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Informações Principais -->
+                    <div class="ticket-info-section">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Status:</label>
+                                <span id="modalStatus" class="status-badge"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Tipo:</label>
+                                <span id="modalType"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Prioridade:</label>
+                                <span id="modalPriority"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Solicitante:</label>
+                                <span id="modalReporter"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Responsável:</label>
+                                <span id="modalAssignee"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Criado em:</label>
+                                <span id="modalCreated"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resumo e Descrição -->
+                    <div class="ticket-description-section">
+                        <h3>Resumo</h3>
+                        <p id="modalSummary"></p>
+
+                        <h3>Descrição</h3>
+                        <div id="modalDescription"></div>
+                    </div>
+
+                    <!-- Ações Rápidas -->
+                    <div class="quick-actions">
+                        <h3>Ações</h3>
+                        <div class="actions-grid">
+                            <select id="statusSelect" class="action-select">
+                                <option value="">Alterar Status...</option>
+                                <option value="Em Andamento">Em Andamento</option>
+                                <option value="Aguardando pelo suporte">Aguardando pelo suporte</option>
+                                <option value="Aguardando cliente">Aguardando cliente</option>
+                                <option value="Escalado">Escalado</option>
+                                <option value="Resolvido">Resolvido</option>
+                                <option value="Fechado">Fechado</option>
+                            </select>
+                            <button class="btn-action" onclick="updateTicketStatus()">✓ Alterar Status</button>
+
+                            <input type="text" id="assigneeInput" class="action-input" placeholder="Atribuir para (email)">
+                            <button class="btn-action" onclick="assignTicket()">👤 Atribuir</button>
+                        </div>
+                    </div>
+
+                    <!-- Adicionar Comentário -->
+                    <div class="comment-section">
+                        <h3>Adicionar Comentário</h3>
+                        <textarea id="commentText" rows="4" placeholder="Digite seu comentário..."></textarea>
+                        <div class="comment-actions">
+                            <label>
+                                <input type="checkbox" id="internalComment">
+                                Comentário interno (não visível para o solicitante)
+                            </label>
+                            <button class="btn-primary" onclick="addComment()">💬 Adicionar Comentário</button>
+                        </div>
+                    </div>
+
+                    <!-- Histórico de Comentários -->
+                    <div class="comments-history">
+                        <h3>Histórico</h3>
+                        <div id="commentsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Configuração -->
+        <div id="configModal" class="modal">
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h2>⚙️ Configurações do Jira</h2>
+                    <button class="close-modal" onclick="closeConfigModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Configure suas credenciais do Jira para acessar os tickets:</p>
+                    <div class="config-form">
+                        <label>Email do Jira:</label>
+                        <input type="email" id="jiraEmail" placeholder="seu-email@empresa.com">
+
+                        <label>API Token:</label>
+                        <input type="password" id="jiraToken" placeholder="Seu token de API">
+
+                        <label>
+                            <input type="checkbox" id="rememberCredentials" checked>
+                            Lembrar credenciais (salvo localmente)
+                        </label>
+
+                        <button class="btn-primary" onclick="saveCredentials()">💾 Salvar</button>
+                    </div>
+                    <div class="config-help">
+                        <p><strong>Como obter API Token:</strong></p>
+                        <ol>
+                            <li>Acesse: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens</a></li>
+                            <li>Clique em "Create API token"</li>
+                            <li>Copie o token gerado</li>
+                            <li>Cole aqui</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Configuração Flutuante -->
+        <button class="fab-config" onclick="openConfigModal()" title="Configurações">
+            ⚙️
+        </button>
+    </div>
+
+    <script src="atender-chamados.js"></script>
+</body>
+</html>

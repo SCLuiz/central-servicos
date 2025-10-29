@@ -1,14 +1,11 @@
 // Configuração
+const API_PROXY_URL = 'http://localhost:5000'; // Backend proxy local
 const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
 const PROJECT_KEY = 'HELP';
 
 // Estado global
 let allTickets = [];
 let currentTicket = null;
-let credentials = {
-    email: '',
-    token: ''
-};
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,16 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Carregar credenciais do Jira
-    loadCredentials();
-
-    // Se não tem credenciais, mostrar modal de configuração
-    if (!credentials.email || !credentials.token) {
-        openConfigModal();
-    } else {
-        // Carregar tickets
-        loadTickets();
-    }
+    // Carregar tickets automaticamente
+    loadTickets();
 
     // Event listeners para filtros
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -49,48 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Carregar credenciais
-function loadCredentials() {
-    const savedEmail = localStorage.getItem('jiraEmail');
-    const savedToken = localStorage.getItem('jiraToken');
-
-    if (savedEmail && savedToken) {
-        credentials.email = savedEmail;
-        credentials.token = savedToken;
-    }
-}
-
-// Salvar credenciais
-function saveCredentials() {
-    const email = document.getElementById('jiraEmail').value;
-    const token = document.getElementById('jiraToken').value;
-    const remember = document.getElementById('rememberCredentials').checked;
-
-    if (!email || !token) {
-        alert('Por favor, preencha email e token');
-        return;
-    }
-
-    credentials.email = email;
-    credentials.token = token;
-
-    if (remember) {
-        localStorage.setItem('jiraEmail', email);
-        localStorage.setItem('jiraToken', token);
-    }
-
-    closeConfigModal();
-    loadTickets();
-}
-
-// Fazer requisição ao Jira
+// Fazer requisição ao Jira via proxy
 async function jiraRequest(endpoint, method = 'GET', body = null) {
-    const auth = btoa(`${credentials.email}:${credentials.token}`);
-
     const options = {
         method,
         headers: {
-            'Authorization': `Basic ${auth}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
@@ -101,12 +53,12 @@ async function jiraRequest(endpoint, method = 'GET', body = null) {
     }
 
     try {
-        const response = await fetch(`${JIRA_URL}/rest/api/3/${endpoint}`, options);
+        // Usar proxy local que já tem as credenciais configuradas
+        const response = await fetch(`${API_PROXY_URL}/api/jira/${endpoint}`, options);
 
         if (!response.ok) {
-            if (response.status === 401) {
-                alert('Credenciais inválidas! Configure novamente.');
-                openConfigModal();
+            if (response.status === 503) {
+                alert('Backend proxy não está rodando. Execute: python api_proxy.py');
                 return null;
             }
             throw new Error(`Erro ${response.status}: ${response.statusText}`);
@@ -115,7 +67,12 @@ async function jiraRequest(endpoint, method = 'GET', body = null) {
         return await response.json();
     } catch (error) {
         console.error('Erro na requisição:', error);
-        alert(`Erro: ${error.message}`);
+        // Se o proxy não estiver rodando, mostrar mensagem amigável
+        if (error.message.includes('Failed to fetch')) {
+            alert('Não foi possível conectar ao backend. Certifique-se de que api_proxy.py está rodando em http://localhost:5000');
+        } else {
+            alert(`Erro: ${error.message}`);
+        }
         return null;
     }
 }

@@ -412,6 +412,39 @@
                 </div>
             </div>
 
+            <!-- Indicadores de Performance -->
+            <h2 style="color: var(--ds-text); margin: 30px 0 15px 0; font-size: 20px; font-weight: 600;">📊 Indicadores de Performance</h2>
+
+            <div class="metrics" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <!-- Taxa de Sucesso -->
+                <div class="metric-card">
+                    <div class="metric-label">Taxa de Sucesso</div>
+                    <div class="metric-value" id="indicadorSucesso">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: > 95%</div>
+                </div>
+
+                <!-- Mudanças Emergenciais -->
+                <div class="metric-card">
+                    <div class="metric-label">Mudanças Emergenciais</div>
+                    <div class="metric-value" id="indicadorEmergencial">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 10%</div>
+                </div>
+
+                <!-- Rollback -->
+                <div class="metric-card">
+                    <div class="metric-label">Mudanças Revertidas</div>
+                    <div class="metric-value" id="indicadorRollback">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 3%</div>
+                </div>
+
+                <!-- Aderência aos Prazos -->
+                <div class="metric-card">
+                    <div class="metric-label">Aderência aos Prazos</div>
+                    <div class="metric-value" id="indicadorPrazos">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Submissão até terça 12:00</div>
+                </div>
+            </div>
+
             <div class="charts-grid">
                 <div class="chart-card">
                     <h3 class="chart-title">Mudanças por Status</h3>
@@ -645,6 +678,51 @@
             document.getElementById('metricConcluidas').textContent = stats.concluido;
             document.getElementById('metricCancelado').textContent = stats.cancelado;
             document.getElementById('metricRejeitado').textContent = stats.rejeitado;
+
+            // Calcular e atualizar indicadores
+            if (stats.total > 0) {
+                // 1. Taxa de Sucesso (Concluídas + Concluído com Sucesso / Total)
+                const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
+                const elSucesso = document.getElementById('indicadorSucesso');
+                elSucesso.textContent = `${taxaSucesso}%`;
+                elSucesso.style.color = taxaSucesso >= 95 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 2. Mudanças Emergenciais (baseado no summary contendo "emergência")
+                const emergenciais = mudancas.filter(m =>
+                    m.summary?.toLowerCase().includes('emergência') ||
+                    m.summary?.toLowerCase().includes('emergencial')
+                ).length;
+                const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
+                const elEmergencial = document.getElementById('indicadorEmergencial');
+                elEmergencial.textContent = `${percEmergencial}%`;
+                elEmergencial.style.color = percEmergencial < 10 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 3. Mudanças Revertidas/Rollback (baseado no summary ou status)
+                const rollbacks = mudancas.filter(m =>
+                    m.summary?.toLowerCase().includes('rollback') ||
+                    m.summary?.toLowerCase().includes('revert') ||
+                    m.status?.toLowerCase().includes('revertid')
+                ).length;
+                const percRollback = ((rollbacks / stats.total) * 100).toFixed(1);
+                const elRollback = document.getElementById('indicadorRollback');
+                elRollback.textContent = `${percRollback}%`;
+                elRollback.style.color = percRollback < 3 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 4. Aderência aos Prazos (submissão até terça 12:00)
+                const noPrazo = mudancas.filter(m => {
+                    if (!m.created) return false;
+                    const dataCriacao = new Date(m.created);
+                    const diaSemana = dataCriacao.getDay(); // 0=domingo, 2=terça
+                    const hora = dataCriacao.getHours();
+
+                    // Considera no prazo se criado antes de terça 12:00
+                    return diaSemana < 2 || (diaSemana === 2 && hora < 12);
+                }).length;
+                const percPrazos = ((noPrazo / stats.total) * 100).toFixed(1);
+                const elPrazos = document.getElementById('indicadorPrazos');
+                elPrazos.textContent = `${percPrazos}%`;
+                elPrazos.style.color = percPrazos >= 80 ? 'var(--ds-green)' : 'var(--ds-red)';
+            }
 
             // Renderizar gráficos
             renderCharts(stats);

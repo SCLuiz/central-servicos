@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2025-12-15T15:02:06.430372",
-  "total": 19,
+  "ultima_atualizacao": "2025-12-15T16:05:26.266043",
+  "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4299",
@@ -65,52 +65,52 @@
     {
       "key": "OFBI-4276",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Felipe Correia",
+      "assignee": "Luiz Santos",
       "reporter": "Felipe Correia",
       "created": "2025-11-13T23:03:19.603-0300",
-      "updated": "2025-11-13T23:03:19.742-0300"
+      "updated": "2025-12-15T15:22:43.277-0300"
     },
     {
       "key": "OFBI-4275",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2025-11-13T19:11:59.436-0300",
-      "updated": "2025-11-13T19:11:59.644-0300"
+      "updated": "2025-12-15T15:21:40.898-0300"
     },
     {
       "key": "OFBI-4274",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2025-11-13T18:24:55.624-0300",
-      "updated": "2025-11-13T18:24:55.743-0300"
+      "updated": "2025-12-15T15:20:43.421-0300"
     },
     {
       "key": "OFBI-4273",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2025-11-13T18:03:54.083-0300",
-      "updated": "2025-11-13T18:03:54.232-0300"
+      "updated": "2025-12-15T15:24:32.258-0300"
     },
     {
       "key": "OFBI-4272",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Kelvin Sanches Felix",
       "reporter": "Kelvin Sanches Felix",
       "created": "2025-11-10T16:47:48.231-0300",
-      "updated": "2025-11-12T00:57:23.346-0300"
+      "updated": "2025-12-15T15:08:15.881-0300"
     },
     {
       "key": "OFBI-4271",
@@ -125,12 +125,12 @@
     {
       "key": "OFBI-4257",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Kelvin Sanches Felix",
       "reporter": "Kelvin Sanches Felix",
       "created": "2025-10-30T15:57:21.443-0300",
-      "updated": "2025-11-06T10:15:57.276-0300"
+      "updated": "2025-12-15T15:19:34.530-0300"
     },
     {
       "key": "OFBI-4252",
@@ -155,42 +155,852 @@
     {
       "key": "OFBI-4236",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2025-10-17T16:31:06.140-0300",
-      "updated": "2025-10-23T17:21:21.048-0300"
+      "updated": "2025-12-15T15:12:56.969-0300"
     },
     {
       "key": "OFBI-4235",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2025-10-16T13:34:54.657-0300",
-      "updated": "2025-10-21T15:40:20.120-0300"
+      "updated": "2025-12-15T15:13:29.925-0300"
     },
     {
       "key": "OFBI-4228",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2025-10-06T18:14:27.823-0300",
-      "updated": "2025-10-28T18:30:20.828-0300"
+      "updated": "2025-12-15T15:13:56.006-0300"
     },
     {
       "key": "OFBI-4227",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2025-10-06T18:09:44.471-0300",
-      "updated": "2025-10-28T18:30:27.756-0300"
+      "updated": "2025-12-15T15:14:36.580-0300"
+    },
+    {
+      "key": "OFBI-4174",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Marcel Martins de Freitas",
+      "reporter": "Marcel Martins de Freitas",
+      "created": "2025-08-29T07:52:15.998-0300",
+      "updated": "2025-12-15T15:15:05.258-0300"
+    },
+    {
+      "key": "OFBI-4148",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-08-06T21:01:03.751-0300",
+      "updated": "2025-12-15T15:15:33.093-0300"
+    },
+    {
+      "key": "OFBI-4139",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Marcel Martins de Freitas",
+      "reporter": "Marcel Martins de Freitas",
+      "created": "2025-07-26T15:42:33.239-0300",
+      "updated": "2025-12-15T15:06:42.542-0300"
+    },
+    {
+      "key": "OFBI-4126",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-07-22T11:15:55.969-0300",
+      "updated": "2025-12-15T15:16:29.241-0300"
+    },
+    {
+      "key": "OFBI-4108",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-06-30T23:54:18.897-0300",
+      "updated": "2025-12-15T15:11:18.142-0300"
+    },
+    {
+      "key": "OFBI-4072",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-06-03T15:46:58.554-0300",
+      "updated": "2025-06-30T23:44:22.833-0300"
+    },
+    {
+      "key": "OFBI-4038",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "GAT Core Integracao",
+      "reporter": "GAT Core Integracao",
+      "created": "2025-05-14T10:50:23.611-0300",
+      "updated": "2025-12-15T15:42:44.177-0300"
+    },
+    {
+      "key": "OFBI-3451",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-04-29T09:47:44.589-0300",
+      "updated": "2025-05-05T08:04:03.984-0300"
+    },
+    {
+      "key": "OFBI-3441",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-04-25T20:26:23.372-0300",
+      "updated": "2025-04-30T18:26:01.819-0300"
+    },
+    {
+      "key": "OFBI-3430",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sem responsavel",
+      "reporter": "Kaue Delmonte",
+      "created": "2025-04-22T19:48:06.476-0300",
+      "updated": "2025-12-15T15:39:11.893-0300"
+    },
+    {
+      "key": "OFBI-2076",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-03-27T17:05:31.857-0300",
+      "updated": "2025-04-25T10:44:48.798-0300"
+    },
+    {
+      "key": "OFBI-2075",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-03-27T16:59:13.404-0300",
+      "updated": "2025-04-25T10:42:11.687-0300"
+    },
+    {
+      "key": "OFBI-2074",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-03-27T16:42:35.816-0300",
+      "updated": "2025-03-27T17:49:59.480-0300"
+    },
+    {
+      "key": "OFBI-2025",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "bruno.castegliani@ethosolucoes.com",
+      "reporter": "bruno.castegliani@ethosolucoes.com",
+      "created": "2025-03-17T09:56:17.784-0300",
+      "updated": "2025-12-15T15:36:03.032-0300"
+    },
+    {
+      "key": "OFBI-2024",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "bruno.castegliani@ethosolucoes.com",
+      "reporter": "bruno.castegliani@ethosolucoes.com",
+      "created": "2025-03-14T17:01:17.540-0300",
+      "updated": "2025-04-02T08:54:02.733-0300"
+    },
+    {
+      "key": "OFBI-1996",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-03-07T14:58:25.096-0300",
+      "updated": "2025-12-15T15:37:01.510-0300"
+    },
+    {
+      "key": "OFBI-1990",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-03-07T09:48:53.220-0300",
+      "updated": "2025-12-15T15:37:59.243-0300"
+    },
+    {
+      "key": "OFBI-1978",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-02-25T20:24:06.183-0300",
+      "updated": "2025-04-30T18:26:52.721-0300"
+    },
+    {
+      "key": "OFBI-1917",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "GAT Core Integracao",
+      "reporter": "GAT Core Integracao",
+      "created": "2025-02-19T18:03:04.774-0300",
+      "updated": "2025-12-15T15:40:39.714-0300"
+    },
+    {
+      "key": "OFBI-1793",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2025-02-03T18:40:28.243-0300",
+      "updated": "2025-02-05T19:21:18.554-0300"
+    },
+    {
+      "key": "OFBI-1770",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "bruno.castegliani@ethosolucoes.com",
+      "reporter": "bruno.castegliani@ethosolucoes.com",
+      "created": "2025-01-31T13:39:00.824-0300",
+      "updated": "2025-04-02T08:54:33.749-0300"
+    },
+    {
+      "key": "OFBI-1769",
+      "summary": "Alteração de registro DNS - Dominio http://pki.openbankingbrasil.org.br/",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2025-01-31T13:36:46.205-0300",
+      "updated": "2025-01-31T14:00:28.416-0300"
+    },
+    {
+      "key": "OFBI-1768",
+      "summary": "Alteração de registro DNS - Dominio http://pki.openbankingbrasil.org.br/",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2025-01-31T13:19:19.589-0300",
+      "updated": "2025-12-15T15:30:43.691-0300"
+    },
+    {
+      "key": "OFBI-1734",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Cicero Vieira",
+      "created": "2025-01-28T10:50:35.484-0300",
+      "updated": "2025-01-28T10:56:02.887-0300"
+    },
+    {
+      "key": "OFBI-1712",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Everton Trindade",
+      "reporter": "Everton Trindade",
+      "created": "2025-01-27T11:56:12.025-0300",
+      "updated": "2025-12-15T15:06:23.050-0300"
+    },
+    {
+      "key": "OFBI-1586",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-12-27T18:10:09.225-0300",
+      "updated": "2025-01-24T15:54:03.238-0300"
+    },
+    {
+      "key": "OFBI-1560",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Renato Kenichi Sakata Yamashita",
+      "reporter": "Renato Kenichi Sakata Yamashita",
+      "created": "2024-12-16T14:11:14.397-0300",
+      "updated": "2025-01-24T15:54:00.682-0300"
+    },
+    {
+      "key": "OFBI-1550",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Leonardo Augusto Ramos",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-12-11T10:53:53.274-0300",
+      "updated": "2025-01-24T15:53:57.891-0300"
+    },
+    {
+      "key": "OFBI-1546",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Leonardo Augusto Ramos",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-12-10T11:16:10.012-0300",
+      "updated": "2025-01-24T15:53:53.452-0300"
+    },
+    {
+      "key": "OFBI-1532",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-12-03T22:39:22.578-0300",
+      "updated": "2025-01-24T15:53:50.508-0300"
+    },
+    {
+      "key": "OFBI-1493",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-26T16:29:17.965-0300",
+      "updated": "2025-01-24T15:53:47.070-0300"
+    },
+    {
+      "key": "OFBI-1486",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Leonardo Augusto Ramos",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-26T11:52:04.244-0300",
+      "updated": "2025-01-24T15:53:43.754-0300"
+    },
+    {
+      "key": "OFBI-1485",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Leonardo Augusto Ramos",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-26T11:20:03.575-0300",
+      "updated": "2025-01-24T15:53:40.746-0300"
+    },
+    {
+      "key": "OFBI-1474",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-25T11:55:12.662-0300",
+      "updated": "2024-11-28T11:02:01.704-0300"
+    },
+    {
+      "key": "OFBI-1465",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-22T11:46:41.774-0300",
+      "updated": "2024-11-28T10:39:32.528-0300"
+    },
+    {
+      "key": "OFBI-1434",
+      "summary": "{nome do Sistema] Solicitação de Mudanças | Teste 07",
+      "status": "Cancelado",
+      "priority": "Highest",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-18T13:51:59.903-0300",
+      "updated": "2024-11-27T14:17:15.555-0300"
+    },
+    {
+      "key": "OFBI-1433",
+      "summary": "Solicitação de Mudanças | Teste v06",
+      "status": "Cancelado",
+      "priority": "Highest",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-18T09:28:08.086-0300",
+      "updated": "2024-11-27T14:17:02.813-0300"
+    },
+    {
+      "key": "OFBI-1428",
+      "summary": "Solicitação de Mudanças | Teste v05",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-14T18:10:58.944-0300",
+      "updated": "2024-11-14T18:12:07.360-0300"
+    },
+    {
+      "key": "OFBI-1425",
+      "summary": "Solicitação de Mudanças | Teste v04",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-14T17:49:03.585-0300",
+      "updated": "2024-11-14T17:50:56.591-0300"
+    },
+    {
+      "key": "OFBI-1424",
+      "summary": "Solicitação de Mudanças | Teste v03",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-14T17:46:44.131-0300",
+      "updated": "2024-11-14T17:48:07.881-0300"
+    },
+    {
+      "key": "OFBI-1423",
+      "summary": "Solicitação de Mudanças v03",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-14T16:07:41.427-0300",
+      "updated": "2024-11-14T17:51:08.812-0300"
+    },
+    {
+      "key": "OFBI-1422",
+      "summary": "Solicitação de Mudanças | Teste v02",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Adolfo Kawiatkowski Neto",
+      "created": "2024-11-14T15:42:32.812-0300",
+      "updated": "2024-11-14T16:05:10.510-0300"
+    },
+    {
+      "key": "OFBI-1420",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-11-14T11:45:30.504-0300",
+      "updated": "2025-01-24T15:52:50.354-0300"
+    },
+    {
+      "key": "OFBI-1417",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Leonardo Augusto Ramos",
+      "created": "2024-11-13T10:54:06.119-0300",
+      "updated": "2024-11-28T17:15:49.805-0300"
+    },
+    {
+      "key": "OFBI-1406",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "bruno.castegliani@ethosolucoes.com",
+      "reporter": "bruno.castegliani@ethosolucoes.com",
+      "created": "2024-11-05T16:25:29.882-0300",
+      "updated": "2025-01-24T15:52:47.041-0300"
+    },
+    {
+      "key": "OFBI-1383",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-10-25T09:15:41.089-0300",
+      "updated": "2025-01-24T15:52:43.935-0300"
+    },
+    {
+      "key": "OFBI-1365",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-10-22T16:53:13.495-0300",
+      "updated": "2025-01-24T15:52:41.429-0300"
+    },
+    {
+      "key": "OFBI-1318",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "bruno.castegliani@ethosolucoes.com",
+      "reporter": "bruno.castegliani@ethosolucoes.com",
+      "created": "2024-10-10T16:09:31.203-0300",
+      "updated": "2025-01-24T15:52:38.829-0300"
+    },
+    {
+      "key": "OFBI-1295",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-10-02T16:19:18.917-0300",
+      "updated": "2025-01-24T15:52:36.100-0300"
+    },
+    {
+      "key": "OFBI-1260",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Cassia Vieira de Souza",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-09-25T17:56:21.561-0300",
+      "updated": "2025-01-24T15:51:50.520-0300"
+    },
+    {
+      "key": "OFBI-1180",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-09-11T17:18:37.681-0300",
+      "updated": "2024-09-13T11:22:29.417-0300"
+    },
+    {
+      "key": "OFBI-1161",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-08-28T12:57:57.689-0300",
+      "updated": "2024-09-02T15:36:45.380-0300"
+    },
+    {
+      "key": "OFBI-1075",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-08-01T13:17:45.786-0300",
+      "updated": "2024-08-07T08:07:16.010-0300"
+    },
+    {
+      "key": "OFBI-1046",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Sherida Veronesi Piccello",
+      "created": "2024-07-22T15:28:14.490-0300",
+      "updated": "2024-07-23T16:58:47.367-0300"
+    },
+    {
+      "key": "OFBI-1038",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-07-18T19:15:06.146-0300",
+      "updated": "2024-07-26T17:10:35.320-0300"
+    },
+    {
+      "key": "OFBI-988",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-07-01T12:45:59.086-0300",
+      "updated": "2024-07-22T12:15:28.726-0300"
+    },
+    {
+      "key": "OFBI-979",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcel Martins de Freitas",
+      "created": "2024-06-26T15:05:30.459-0300",
+      "updated": "2024-07-26T17:11:21.024-0300"
+    },
+    {
+      "key": "OFBI-962",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-06-14T13:27:38.854-0300",
+      "updated": "2024-07-22T12:14:12.552-0300"
+    },
+    {
+      "key": "OFBI-953",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Usuário inativo",
+      "created": "2024-06-12T10:02:32.267-0300",
+      "updated": "2024-07-22T12:01:25.757-0300"
+    },
+    {
+      "key": "OFBI-941",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Manuella Da Costa Gadegast",
+      "created": "2024-05-31T18:14:43.887-0300",
+      "updated": "2024-07-22T17:39:47.024-0300"
+    },
+    {
+      "key": "OFBI-883",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Sherida Veronesi Piccello",
+      "created": "2024-05-09T15:20:13.013-0300",
+      "updated": "2024-05-15T12:12:56.525-0300"
+    },
+    {
+      "key": "OFBI-871",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-05-06T11:15:20.456-0300",
+      "updated": "2024-05-08T16:37:19.620-0300"
+    },
+    {
+      "key": "OFBI-826",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-04-17T10:48:08.982-0300",
+      "updated": "2024-05-08T16:37:53.712-0300"
+    },
+    {
+      "key": "OFBI-789",
+      "summary": "Portal OpenFinance",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Usuário inativo",
+      "created": "2024-04-08T11:44:40.730-0300",
+      "updated": "2024-04-09T10:28:08.955-0300"
+    },
+    {
+      "key": "OFBI-767",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-04-03T11:54:02.382-0300",
+      "updated": "2024-04-09T10:24:03.779-0300"
+    },
+    {
+      "key": "OFBI-717",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-03-19T17:55:26.541-0300",
+      "updated": "2024-03-25T15:12:40.164-0300"
+    },
+    {
+      "key": "OFBI-639",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-03-01T13:48:12.999-0300",
+      "updated": "2024-03-05T14:55:10.191-0300"
+    },
+    {
+      "key": "OFBI-638",
+      "summary": "Teste ",
+      "status": "Cancelado",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Sherida Veronesi Piccello",
+      "created": "2024-02-29T09:20:45.464-0300",
+      "updated": "2024-03-18T09:31:38.744-0300"
+    },
+    {
+      "key": "OFBI-615",
+      "summary": "Atualização de pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-02-21T17:50:41.981-0300",
+      "updated": "2024-02-27T13:06:16.295-0300"
+    },
+    {
+      "key": "OFBI-590",
+      "summary": "Altera mensagens de error no log para severidade ERROR - Produção",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-02-09T10:59:20.079-0300",
+      "updated": "2024-02-15T17:53:05.707-0300"
+    },
+    {
+      "key": "OFBI-589",
+      "summary": "Altera mensagens de error no log para severidade ERROR - homologação",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-02-09T10:57:21.689-0300",
+      "updated": "2024-02-15T09:58:23.210-0300"
+    },
+    {
+      "key": "OFBI-582",
+      "summary": "Atualização conselheiro suplente 1.3 - Produção",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-02-05T15:00:22.648-0300",
+      "updated": "2024-02-14T09:05:34.973-0300"
+    },
+    {
+      "key": "OFBI-581",
+      "summary": "Atualização conselheiro suplente 1.3 - Homologação",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-02-05T14:58:23.711-0300",
+      "updated": "2024-02-14T08:48:38.485-0300"
+    },
+    {
+      "key": "OFBI-577",
+      "summary": "Atualização dos pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-02-02T11:11:09.793-0300",
+      "updated": "2024-02-08T13:49:01.307-0300"
+    },
+    {
+      "key": "OFBI-560",
+      "summary": "Correção de erros de design do Portal - Produção",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Usuário inativo",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-01-15T18:07:07.849-0300",
+      "updated": "2024-01-18T10:47:51.898-0300"
+    },
+    {
+      "key": "OFBI-553",
+      "summary": "Correção de erros de design do Portal - Homologação",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Usuário inativo",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2024-01-09T16:16:07.421-0300",
+      "updated": "2024-01-12T08:10:14.093-0300"
+    },
+    {
+      "key": "OFBI-551",
+      "summary": "MISP - Renovação do certificado SSL",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Usuário inativo",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2024-01-04T14:25:47.474-0300",
+      "updated": "2024-01-11T09:28:56.365-0300"
+    },
+    {
+      "key": "OFBI-544",
+      "summary": "Atualização dos pacotes de segurança - MISP",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Cassia Vieira de Souza",
+      "created": "2023-12-20T16:39:05.052-0300",
+      "updated": "2023-12-22T08:56:19.211-0300"
+    },
+    {
+      "key": "OFBI-539",
+      "summary": "[CISO] - Proteção avançada dos dispositivos Chicago",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "bruno castegliani",
+      "created": "2023-12-15T16:38:48.539-0300",
+      "updated": "2023-12-26T17:43:42.833-0300"
+    },
+    {
+      "key": "OFBI-534",
+      "summary": "Criação de stack no cloudformation para monitoramento do banco de RDS e Lambda OrganisationSyncDB",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2023-12-11T11:43:59.032-0300",
+      "updated": "2024-01-08T08:14:19.196-0300"
+    },
+    {
+      "key": "OFBI-533",
+      "summary": "Instalação do agent do Dynatrace para monitoramento da aplicação",
+      "status": "Concluído com Sucesso",
+      "priority": "Medium",
+      "assignee": "Sherida Veronesi Piccello",
+      "reporter": "Marcos Antonio Vilela",
+      "created": "2023-12-11T11:37:42.114-0300",
+      "updated": "2024-01-08T08:14:12.360-0300"
     }
   ]
 }

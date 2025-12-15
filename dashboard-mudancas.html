@@ -824,7 +824,7 @@
         function renderCharts(stats) {
             // Gráfico de Status
             const ctxStatus = document.getElementById('chartStatus').getContext('2d');
-            if (chartStatus) chartStatus.destroy();
+            if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
 
             // Mapeamento de cores por status
             const statusColors = {
@@ -866,7 +866,7 @@
                 .slice(0, 10);
 
             const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
-            if (chartResponsaveis) chartResponsaveis.destroy();
+            if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
 
             chartResponsaveis = new Chart(ctxResp, {
                 type: 'bar',
@@ -890,7 +890,7 @@
             // Gráfico de Tipos
             if (stats.tipos) {
                 const ctxTipo = document.getElementById('chartTipo').getContext('2d');
-                if (window.chartTipo) window.chartTipo.destroy();
+                if (window.chartTipo && typeof window.chartTipo.destroy === "function") window.chartTipo.destroy();
 
                 const tipoLabels = Object.keys(stats.tipos);
                 const tipoValues = Object.values(stats.tipos);

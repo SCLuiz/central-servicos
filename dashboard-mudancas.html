@@ -548,7 +548,7 @@
                     console.warn('Worker indisponível, usando JSON de backup:', workerError);
 
                     // Fallback: buscar JSON estático
-                    const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
+                    const jsonResponse = await fetch('dados-mudancas.json?v=2&t=' + Date.now());
 
                     if (!jsonResponse.ok) {
                         throw new Error('Erro ao carregar dados');

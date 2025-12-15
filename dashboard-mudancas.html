@@ -323,7 +323,22 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
+        .metric-card-small {
+            flex: 0 1 calc(14.28% - 15px); /* 7 cards por linha */
+            min-width: 140px;
+        }
+
+        .metric-card-small .metric-value {
+            font-size: 28px;
+        }
+
+        .metric-percent {
+            font-size: 12px;
+            color: var(--ds-text-subtle);
+            margin-top: 4px;
+        }
+
+            </style>
 </head>
 <body>
     <div class="container">
@@ -459,13 +474,26 @@
                 </div>
             </div>
 
-            <!-- Gráfico de Mudanças por Tipo -->
-            <div class="chart-card" style="margin: 20px 0;">
-                <h3 class="chart-title">Mudanças por Tipo</h3>
-                <div style="max-width: 400px; margin: 0 auto;">
-                    <canvas id="chartTipo"></canvas>
+            <!-- Cards de Categoria -->
+            <div style="margin: 20px 0;">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--ds-text); margin-bottom: 15px;">Categoria</h3>
+                <div class="metrics">
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Normal</div>
+                        <div class="metric-value" id="metricNormal">0</div>
+                        <div class="metric-percent" id="percentNormal">0%</div>
+                    </div>
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Emergencial</div>
+                        <div class="metric-value" id="metricEmergencial" style="color: var(--ds-red);">0</div>
+                        <div class="metric-percent" id="percentEmergencial">0%</div>
+                    </div>
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Planejada</div>
+                        <div class="metric-value" id="metricPlanejada" style="color: var(--ds-blue);">0</div>
+                        <div class="metric-percent" id="percentPlanejada">0%</div>
+                    </div>
                 </div>
-                <div id="tipoLegend" style="text-align: center; margin-top: 15px; font-size: 13px; color: var(--ds-text-subtle);"></div>
             </div>
 
             <div class="charts-grid">

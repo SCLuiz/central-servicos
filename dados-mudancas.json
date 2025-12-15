@@ -1,46 +1,46 @@
 {
-  "ultima_atualizacao": "2025-12-15T14:36:05.976693",
+  "ultima_atualizacao": "2025-12-15T15:02:06.430372",
   "total": 19,
   "mudancas": [
     {
       "key": "OFBI-4299",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thiago da Silva Pereira",
       "reporter": "Thiago da Silva Pereira",
       "created": "2025-12-09T11:27:27.725-0300",
-      "updated": "2025-12-11T11:58:54.681-0300"
+      "updated": "2025-12-15T14:59:19.073-0300"
     },
     {
       "key": "OFBI-4298",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2025-12-09T10:22:37.825-0300",
-      "updated": "2025-12-11T11:57:55.929-0300"
+      "updated": "2025-12-15T14:59:00.626-0300"
     },
     {
       "key": "OFBI-4296",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2025-12-09T08:48:02.712-0300",
-      "updated": "2025-12-11T11:57:07.186-0300"
+      "updated": "2025-12-15T14:58:45.694-0300"
     },
     {
       "key": "OFBI-4295",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Pedro Haupenthal",
       "reporter": "Pedro Haupenthal",
       "created": "2025-12-08T23:32:16.747-0300",
-      "updated": "2025-12-10T20:56:56.357-0300"
+      "updated": "2025-12-15T14:58:22.584-0300"
     },
     {
       "key": "OFBI-4288",
@@ -55,12 +55,12 @@
     {
       "key": "OFBI-4286",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2025-12-01T15:45:32.848-0300",
-      "updated": "2025-12-03T20:11:41.181-0300"
+      "updated": "2025-12-15T14:57:47.341-0300"
     },
     {
       "key": "OFBI-4276",
@@ -135,12 +135,12 @@
     {
       "key": "OFBI-4252",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2025-10-28T13:51:31.171-0300",
-      "updated": "2025-10-28T14:04:05.038-0300"
+      "updated": "2025-12-15T14:57:25.579-0300"
     },
     {
       "key": "OFBI-4238",

@@ -1,0 +1,6 @@
+name = "oauth-token-exchange"
+main = "worker.js"
+compatibility_date = "2024-10-23"
+
+# Variáveis de ambiente (serão configuradas depois via CLI)
+# CLIENT_ID e CLIENT_SECRET não ficam aqui, vão como secrets

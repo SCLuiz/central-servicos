@@ -1,0 +1,49 @@
+{
+  "name": "Central de Serviços - Open Finance Brasil",
+  "description": "Dashboard centralizado para gestão de serviços e operações de TI",
+  "key": "central-servicos-ofb",
+  "baseUrl": "https://SEU_BACKEND_URL_AQUI",
+  "vendor": {
+    "name": "Open Finance Brasil",
+    "url": "https://openbankingbrasil.org.br"
+  },
+  "authentication": {
+    "type": "jwt"
+  },
+  "lifecycle": {
+    "installed": "/installed",
+    "uninstalled": "/uninstalled"
+  },
+  "scopes": [
+    "READ",
+    "WRITE"
+  ],
+  "modules": {
+    "generalPages": [
+      {
+        "key": "central-servicos-page",
+        "location": "system.top.navigation.bar",
+        "name": {
+          "value": "Central de Serviços"
+        },
+        "url": "/dashboard?jwt={jwt}",
+        "conditions": [
+          {
+            "condition": "user_is_logged_in"
+          }
+        ]
+      }
+    ],
+    "webPanels": [
+      {
+        "key": "dashboard-panel",
+        "location": "atl.jira.view.issue.right.context",
+        "name": {
+          "value": "SecOps Dashboard"
+        },
+        "url": "/panel?jwt={jwt}"
+      }
+    ]
+  },
+  "apiVersion": 1
+}

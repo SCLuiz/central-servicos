@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Serviços - Open Finance Brasil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Version: 2025-10-22 11:30 - Removed Abrir Chamado from home -->
+    <style>
+        :root {
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-text-subtlest: #6B778C;
+            --ds-border: #DFE1E6;
+            --ds-border-focused: #4C9AFF;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-purple: #5243AA;
+            --ds-purple-subtle: #EAE6FF;
+            --ds-green: #00875A;
+            --ds-green-subtle: #E3FCEF;
+            --ds-orange: #FF991F;
+            --ds-orange-subtle: #FFF0B3;
+            --ds-teal: #00B8D9;
+            --ds-teal-subtle: #E6FCFF;
+            --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+            --ds-shadow-raised: 0 8px 12px rgba(9, 30, 66, 0.15), 0 0 1px rgba(9, 30, 66, 0.31);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            line-height: 1.5;
+            padding: 12px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 180px;
+            background-image: url('capa.png?v=1');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .header-content {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--ds-text-subtle);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 20px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Card */
+        .service-card {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .card-banner {
+            width: calc(100% + 40px);
+            height: 140px;
+            margin: -20px -20px 15px -20px;
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+        }
+
+        /* Responsividade do banner do card */
+        @media (max-width: 1200px) {
+            .card-banner {
+                height: 130px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-banner {
+                height: 110px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-banner {
+                height: 90px;
+            }
+        }
+
+        .service-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-6px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 50px;
+            flex-wrap: nowrap;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Cores por departamento */
+        .card-icon.tech {
+            background: var(--ds-blue-subtle);
+            color: var(--ds-blue);
+        }
+
+        .card-icon.people {
+            background: var(--ds-purple-subtle);
+            color: var(--ds-purple);
+        }
+
+        .card-icon.finance {
+            background: var(--ds-green-subtle);
+            color: var(--ds-green);
+        }
+
+        .card-icon.facilities {
+            background: var(--ds-orange-subtle);
+            color: var(--ds-orange);
+        }
+
+        .card-icon.legal {
+            background: var(--ds-teal-subtle);
+            color: var(--ds-teal);
+        }
+
+        .card-icon.security {
+            background: #FFF0B3;
+            color: #FF5630;
+        }
+
+        .card-icon.change {
+            background: #E3FCEF;
+            color: #006644;
+        }
+
+        .card-icon.operations {
+            background: #DEEBFF;
+            color: #0747A6;
+        }
+
+        .card-icon.board {
+            background: #EAE6FF;
+            color: #403294;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ds-text);
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: var(--ds-text-subtle);
+            line-height: 1.4;
+        }
+
+        .card-examples {
+            font-size: 12px;
+            color: var(--ds-text-subtlest);
+            margin-top: 6px;
+            padding-top: 10px;
+            border-top: 1px solid var(--ds-border);
+        }
+
+        .card-examples strong {
+            color: var(--ds-text-subtle);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 16px;
+            color: var(--ds-text-subtle);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Animações */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card {
+            animation: fadeIn 0.4s ease-out backwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.05s; }
+        .service-card:nth-child(2) { animation-delay: 0.1s; }
+        .service-card:nth-child(3) { animation-delay: 0.15s; }
+        .service-card:nth-child(4) { animation-delay: 0.2s; }
+        .service-card:nth-child(5) { animation-delay: 0.25s; }
+        .service-card:nth-child(6) { animation-delay: 0.3s; }
+        .service-card:nth-child(7) { animation-delay: 0.35s; }
+        .service-card:nth-child(8) { animation-delay: 0.4s; }
+        .service-card:nth-child(9) { animation-delay: 0.45s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <!-- Banner -->
+            <div class="header-banner"></div>
+
+            <!-- Content -->
+            <div class="header-content">
+                <h1>Central de Serviços</h1>
+                <p>Open Finance Brasil</p>
+
+                <!-- User Info -->
+                <div style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
+                    <span id="userName" style="font-size: 14px; font-weight: 500;"></span>
+                    <button onclick="fazerLogout()" style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
+                        🚪 Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards de Serviços -->
+        <div class="cards-grid">
+            <!-- Administrativo -->
+            <a href="administrativo.html" class="service-card">
+                <div class="card-banner" style="background-image: url('administrativo.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Solicitações administrativas, compras, contratos e gestão documental
+                </div>
+                <div class="card-examples">
+                    Compras • Contratos • Fornecedores • Documentação • Processos Administrativos
+                </div>
+            </a>
+
+            <!-- Conselho -->
+            <a href="conselho.html" class="service-card">
+                <div class="card-banner" style="background-image: url('conselho.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Governança, transparência e decisões estratégicas
+                </div>
+                <div class="card-examples">
+                    Estrutura • Composição • Mandatos • Relatórios • Decisões Estratégicas
+                </div>
+            </a>
+
+            <!-- Facilities -->
+            <a href="facilities.html" class="service-card">
+                <div class="card-banner" style="background-image: url('facilities.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Manutenção, limpeza, mobiliário, agendamentos e segurança patrimonial
+                </div>
+                <div class="card-examples">
+                    Manutenção • Limpeza • Mobiliário • Agendamentos • Segurança
+                </div>
+            </a>
+
+            <!-- Financeiro -->
+            <a href="financeiro.html" class="service-card">
+                <div class="card-banner" style="background-image: url('financeiro.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Contas a pagar, contas a receber, relatórios e gestão fiscal
+                </div>
+                <div class="card-examples">
+                    Contas a Pagar • Contas a Receber • Relatórios • Fiscal • Suporte
+                </div>
+            </a>
+
+            <!-- Gente e Gestão -->
+            <a href="gente-gestao.html" class="service-card">
+                <div class="card-banner" style="background-image: url('gente-gestao.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Gestão de pessoas, benefícios, clima organizacional e comunicação interna
+                </div>
+                <div class="card-examples">
+                    Gestão de Pessoas • Folha e Benefícios • Clima • Performance • Comunicação
+                </div>
+            </a>
+
+            <!-- Jurídico -->
+            <a href="juridico.html" class="service-card">
+                <div class="card-banner" style="background-image: url('juridico.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Contratos, compliance, procurações e demandas judiciais
+                </div>
+                <div class="card-examples">
+                    Contratos • Compliance • Procurações • LGPD • Demandas • Políticas
+                </div>
+            </a>
+
+            <!-- Marketing -->
+            <a href="marketing.html" class="service-card">
+                <div class="card-banner" style="background-image: url('marketing.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Campanhas, audiovisual, design e marketing digital
+                </div>
+                <div class="card-examples">
+                    Campanhas • Audiovisual • Materiais • Marketing Digital • Design
+                </div>
+            </a>
+
+            <!-- SecOps -->
+            <a href="secops.html" class="service-card">
+                <div class="card-banner" style="background-image: url('secops.png?v=2'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-description">
+                    Segurança, Operações de TI, Monitoramento, Atendimento ao Usuário e resposta a incidentes
+                </div>
+                <div class="card-examples">
+                    SOC • NOC
+                </div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Selecione o departamento acima para abrir seu chamado</p>
+            <p style="margin-top: 8px; color: var(--ds-text-subtlest);">Open Finance Brasil © 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticação ao carregar
+        function verificarAutenticacao() {
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
+                                   sessionStorage.getItem('isAuthenticated') === 'true';
+
+            if (!isAuthenticated) {
+                // Não está autenticado, redirecionar para login
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            // Mostrar informações do usuário
+            const userName = localStorage.getItem('userName') || sessionStorage.getItem('userName') || 'Usuário';
+            const userAvatar = localStorage.getItem('userAvatar') || sessionStorage.getItem('userAvatar');
+            const userNameEl = document.getElementById('userName');
+
+            if (userNameEl) {
+                if (userAvatar) {
+                    // Mostrar foto do Jira
+                    userNameEl.innerHTML = `<img src="${userAvatar}" alt="${userName}" style="width: 32px; height: 32px; border-radius: 50%; vertical-align: middle; margin-right: 8px;"> ${userName}`;
+                } else {
+                    // Mostrar emoji se não tiver foto
+                    userNameEl.textContent = `👤 ${userName}`;
+                }
+            }
+
+            return true;
+        }
+
+        // Fazer logout
+        function fazerLogout() {
+            if (confirm('Deseja realmente sair?')) {
+                // Limpar dados de autenticação
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userAvatar');
+                localStorage.removeItem('jiraEmail');
+                localStorage.removeItem('jiraToken');
+
+                sessionStorage.removeItem('isAuthenticated');
+                sessionStorage.removeItem('userName');
+                sessionStorage.removeItem('jiraEmail');
+                sessionStorage.removeItem('jiraToken');
+
+                // Redirecionar para login
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Executar verificação ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            verificarAutenticacao();
+        });
+    </script>
+</body>
+</html>

@@ -447,20 +447,49 @@
             }
         });
 
+        // URL do Cloudflare Worker (atualizar após deploy)
+        const WORKER_URL = 'https://jira-api-proxy.SEU-SUBDOMINIO.workers.dev';
+        let dataSource = 'loading'; // 'worker' ou 'json'
+
         async function loadData() {
             try {
-                const response = await fetch('dados-mudancas.json?t=' + Date.now());
+                let data = null;
 
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar dados');
+                // Tentar buscar do Cloudflare Worker primeiro (tempo real)
+                try {
+                    console.log('Tentando buscar do Cloudflare Worker...');
+                    const workerResponse = await fetch(WORKER_URL, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (workerResponse.ok) {
+                        data = await workerResponse.json();
+                        dataSource = 'worker';
+                        console.log('✓ Dados carregados do Worker (tempo real)');
+                    } else {
+                        throw new Error('Worker retornou erro');
+                    }
+                } catch (workerError) {
+                    console.warn('Worker indisponível, usando JSON de backup:', workerError);
+
+                    // Fallback: buscar JSON estático
+                    const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
+
+                    if (!jsonResponse.ok) {
+                        throw new Error('Erro ao carregar dados');
+                    }
+
+                    data = await jsonResponse.json();
+                    dataSource = 'json';
+                    console.log('✓ Dados carregados do JSON (backup)');
                 }
 
-                const data = await response.json();
-
-                // Atualizar timestamp
+                // Atualizar timestamp e fonte
                 const dataAtualizacao = new Date(data.ultima_atualizacao);
+                const fonte = dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache (1 min)';
                 document.getElementById('ultimaAtualizacao').textContent =
-                    `Última atualização: ${dataAtualizacao.toLocaleString('pt-BR')}`;
+                    `Última atualização: ${dataAtualizacao.toLocaleString('pt-BR')} | ${fonte}`;
 
                 // Salvar dados e renderizar dashboard
                 allMudancas = data.mudancas || [];
@@ -471,12 +500,19 @@
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
 
+                // Auto-refresh: a cada 10 segundos se usando Worker, 60 segundos se usando JSON
+                const refreshInterval = dataSource === 'worker' ? 10000 : 60000;
+                setTimeout(loadData, refreshInterval);
+
             } catch (error) {
                 console.error('Erro:', error);
                 document.getElementById('loading').innerHTML = `
                     <p style="color: var(--ds-red);">❌ Erro ao carregar dados</p>
-                    <p style="font-size: 14px; margin-top: 10px;">Os dados serão atualizados automaticamente a cada hora.</p>
+                    <p style="font-size: 14px; margin-top: 10px;">Tentando novamente em 30 segundos...</p>
                 `;
+
+                // Tentar novamente após 30 segundos
+                setTimeout(loadData, 30000);
             }
         }
 

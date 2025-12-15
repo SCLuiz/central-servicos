@@ -1,0 +1,8 @@
+name = "jira-api-proxy"
+main = "worker-jira-api.js"
+compatibility_date = "2024-10-23"
+
+# Variáveis de ambiente (configurar via wrangler secret)
+# JIRA_URL = "https://openfinancebrasil.atlassian.net"
+# JIRA_EMAIL = "luiz.santos@openfinancebrasil.org.br"
+# JIRA_API_TOKEN = "seu_token_aqui"

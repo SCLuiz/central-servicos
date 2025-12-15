@@ -1,0 +1,196 @@
+{
+  "ultima_atualizacao": "2025-12-15T14:36:05.976693",
+  "total": 19,
+  "mudancas": [
+    {
+      "key": "OFBI-4299",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Thiago da Silva Pereira",
+      "reporter": "Thiago da Silva Pereira",
+      "created": "2025-12-09T11:27:27.725-0300",
+      "updated": "2025-12-11T11:58:54.681-0300"
+    },
+    {
+      "key": "OFBI-4298",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-12-09T10:22:37.825-0300",
+      "updated": "2025-12-11T11:57:55.929-0300"
+    },
+    {
+      "key": "OFBI-4296",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-12-09T08:48:02.712-0300",
+      "updated": "2025-12-11T11:57:07.186-0300"
+    },
+    {
+      "key": "OFBI-4295",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Pedro Haupenthal",
+      "reporter": "Pedro Haupenthal",
+      "created": "2025-12-08T23:32:16.747-0300",
+      "updated": "2025-12-10T20:56:56.357-0300"
+    },
+    {
+      "key": "OFBI-4288",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-12-02T13:24:15.495-0300",
+      "updated": "2025-12-03T20:24:05.726-0300"
+    },
+    {
+      "key": "OFBI-4286",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
+      "created": "2025-12-01T15:45:32.848-0300",
+      "updated": "2025-12-03T20:11:41.181-0300"
+    },
+    {
+      "key": "OFBI-4276",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Felipe Correia",
+      "reporter": "Felipe Correia",
+      "created": "2025-11-13T23:03:19.603-0300",
+      "updated": "2025-11-13T23:03:19.742-0300"
+    },
+    {
+      "key": "OFBI-4275",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-11-13T19:11:59.436-0300",
+      "updated": "2025-11-13T19:11:59.644-0300"
+    },
+    {
+      "key": "OFBI-4274",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-11-13T18:24:55.624-0300",
+      "updated": "2025-11-13T18:24:55.743-0300"
+    },
+    {
+      "key": "OFBI-4273",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2025-11-13T18:03:54.083-0300",
+      "updated": "2025-11-13T18:03:54.232-0300"
+    },
+    {
+      "key": "OFBI-4272",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Kelvin Sanches Felix",
+      "created": "2025-11-10T16:47:48.231-0300",
+      "updated": "2025-11-12T00:57:23.346-0300"
+    },
+    {
+      "key": "OFBI-4271",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Fabricio Lobo",
+      "created": "2025-11-10T16:41:07.592-0300",
+      "updated": "2025-11-21T10:09:54.583-0300"
+    },
+    {
+      "key": "OFBI-4257",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Kelvin Sanches Felix",
+      "reporter": "Kelvin Sanches Felix",
+      "created": "2025-10-30T15:57:21.443-0300",
+      "updated": "2025-11-06T10:15:57.276-0300"
+    },
+    {
+      "key": "OFBI-4252",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-10-28T13:51:31.171-0300",
+      "updated": "2025-10-28T14:04:05.038-0300"
+    },
+    {
+      "key": "OFBI-4238",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Augusto Ramos Gonzales",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-10-20T19:27:37.311-0300",
+      "updated": "2025-11-06T10:36:42.957-0300"
+    },
+    {
+      "key": "OFBI-4236",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-10-17T16:31:06.140-0300",
+      "updated": "2025-10-23T17:21:21.048-0300"
+    },
+    {
+      "key": "OFBI-4235",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2025-10-16T13:34:54.657-0300",
+      "updated": "2025-10-21T15:40:20.120-0300"
+    },
+    {
+      "key": "OFBI-4228",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2025-10-06T18:14:27.823-0300",
+      "updated": "2025-10-28T18:30:20.828-0300"
+    },
+    {
+      "key": "OFBI-4227",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2025-10-06T18:09:44.471-0300",
+      "updated": "2025-10-28T18:30:27.756-0300"
+    }
+  ]
+}

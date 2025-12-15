@@ -915,38 +915,24 @@
                 }
             });
 
-            // Gráfico de Tipos
+            // Popular cards de Categoria
             if (stats.tipos) {
-                const ctxTipo = document.getElementById('chartTipo').getContext('2d');
-                if (window.chartTipo && typeof window.chartTipo.destroy === "function") window.chartTipo.destroy();
+                const total = stats.total || 1;
 
-                const tipoLabels = Object.keys(stats.tipos);
-                const tipoValues = Object.values(stats.tipos);
-                const total = tipoValues.reduce((a, b) => a + b, 0);
+                // Normal
+                const normal = stats.tipos.Normal || 0;
+                document.getElementById('metricNormal').textContent = normal;
+                document.getElementById('percentNormal').textContent = ((normal / total) * 100).toFixed(1) + '%';
 
-                window.chartTipo = new Chart(ctxTipo, {
-                    type: 'doughnut',
-                    data: {
-                        labels: tipoLabels,
-                        datasets: [{
-                            data: tipoValues,
-                            backgroundColor: ['#00875A', '#DE350B', '#FF991F', '#8993A4']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'bottom' }
-                        }
-                    }
-                });
+                // Emergencial
+                const emergencial = stats.tipos.Emergencial || 0;
+                document.getElementById('metricEmergencial').textContent = emergencial;
+                document.getElementById('percentEmergencial').textContent = ((emergencial / total) * 100).toFixed(1) + '%';
 
-                // Mostrar percentuais na legenda
-                const legendHtml = tipoLabels.map((label, i) => {
-                    const percent = ((tipoValues[i] / total) * 100).toFixed(1);
-                    return `${label}: ${tipoValues[i]} (${percent}%)`;
-                }).join(' | ');
-                document.getElementById('tipoLegend').textContent = legendHtml;
+                // Planejada
+                const planejada = stats.tipos.Planejada || 0;
+                document.getElementById('metricPlanejada').textContent = planejada;
+                document.getElementById('percentPlanejada').textContent = ((planejada / total) * 100).toFixed(1) + '%';
             }
         }
 

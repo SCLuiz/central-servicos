@@ -2,8 +2,8 @@ name: Atualizar Dashboard de Mudanças
 
 on:
   schedule:
-    # Executa a cada 1 hora
-    - cron: '0 * * * *'
+    # Executa a cada 1 minuto
+    - cron: '* * * * *'
   workflow_dispatch: # Permite execução manual
   push:
     branches:

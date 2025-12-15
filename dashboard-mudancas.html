@@ -443,6 +443,13 @@
                     <div class="metric-value" id="indicadorPrazos">--%</div>
                     <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Submissão até terça 12:00</div>
                 </div>
+
+                <!-- Tempo Médio de Análise -->
+                <div class="metric-card">
+                    <div class="metric-label">Tempo Médio de Análise</div>
+                    <div class="metric-value" id="indicadorTempoCAB">-- dias</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Até próxima quarta 14h (CAB)</div>
+                </div>
             </div>
 
             <div class="charts-grid">
@@ -722,6 +729,36 @@
                 const elPrazos = document.getElementById('indicadorPrazos');
                 elPrazos.textContent = `${percPrazos}%`;
                 elPrazos.style.color = percPrazos >= 80 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 5. Tempo Médio de Análise no CAB (até próxima quarta 14h)
+                function getProximaQuarta14h(data) {
+                    const resultado = new Date(data);
+                    const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7; // 3 = quarta
+                    resultado.setDate(resultado.getDate() + diasAteQuarta);
+                    resultado.setHours(14, 0, 0, 0);
+
+                    // Se já passou da quarta 14h desta semana, pegar próxima semana
+                    if (resultado <= data) {
+                        resultado.setDate(resultado.getDate() + 7);
+                    }
+                    return resultado;
+                }
+
+                const temposAnalise = mudancas.map(m => {
+                    if (!m.created) return null;
+                    const dataCriacao = new Date(m.created);
+                    const proximoCAB = getProximaQuarta14h(dataCriacao);
+                    const diffMs = proximoCAB - dataCriacao;
+                    const diffDias = diffMs / (1000 * 60 * 60 * 24);
+                    return diffDias;
+                }).filter(t => t !== null);
+
+                if (temposAnalise.length > 0) {
+                    const tempoMedio = (temposAnalise.reduce((a, b) => a + b, 0) / temposAnalise.length).toFixed(1);
+                    const elTempoCAB = document.getElementById('indicadorTempoCAB');
+                    elTempoCAB.textContent = `${tempoMedio} dias`;
+                    elTempoCAB.style.color = tempoMedio <= 7 ? 'var(--ds-green)' : (tempoMedio <= 14 ? 'var(--ds-yellow)' : 'var(--ds-red)');
+                }
             }
 
             // Renderizar gráficos

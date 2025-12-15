@@ -249,8 +249,61 @@
             100% { transform: rotate(360deg); }
         }
 
+        .filters-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 15px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ds-text-subtle);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 2px solid var(--ds-border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            background: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--ds-blue);
+        }
+
         @media (max-width: 768px) {
             .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .filters-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -275,6 +328,45 @@
         </div>
 
         <div id="content" style="display: none;">
+            <!-- Filtros -->
+            <div class="filters-card">
+                <div class="filters-title">🔍 Filtros</div>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Período</label>
+                        <select id="filterPeriodo" onchange="applyFilters()">
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="60">Últimos 60 dias</option>
+                            <option value="90" selected>Últimos 90 dias</option>
+                            <option value="180">Últimos 6 meses</option>
+                            <option value="365">Último ano</option>
+                            <option value="custom">Período personalizado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" id="customDateFrom" style="display: none;">
+                        <label>Data Início</label>
+                        <input type="date" id="filterDateFrom" onchange="applyFilters()">
+                    </div>
+                    <div class="filter-group" id="customDateTo" style="display: none;">
+                        <label>Data Fim</label>
+                        <input type="date" id="filterDateTo" onchange="applyFilters()">
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="filterStatus" onchange="applyFilters()">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Responsável</label>
+                        <select id="filterResponsavel" onchange="applyFilters()">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="metrics">
                 <div class="metric-card">
                     <div class="metric-label">Total de Mudanças</div>
@@ -330,9 +422,22 @@
     <script>
         let chartStatus, chartResponsaveis;
         const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
+        let allMudancas = []; // Armazena todos os dados
 
         // Carregar dados ao iniciar
         window.addEventListener('DOMContentLoaded', loadData);
+
+        // Mostrar/esconder campos de data personalizada
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterPeriodo = document.getElementById('filterPeriodo');
+            if (filterPeriodo) {
+                filterPeriodo.addEventListener('change', () => {
+                    const isCustom = filterPeriodo.value === 'custom';
+                    document.getElementById('customDateFrom').style.display = isCustom ? 'flex' : 'none';
+                    document.getElementById('customDateTo').style.display = isCustom ? 'flex' : 'none';
+                });
+            }
+        });
 
         async function loadData() {
             try {
@@ -349,8 +454,10 @@
                 document.getElementById('ultimaAtualizacao').textContent =
                     `Última atualização: ${dataAtualizacao.toLocaleString('pt-BR')}`;
 
-                // Renderizar dashboard
-                renderDashboard(data.mudancas || []);
+                // Salvar dados e renderizar dashboard
+                allMudancas = data.mudancas || [];
+                populateFilters();
+                applyFilters();
 
                 // Esconder loading
                 document.getElementById('loading').style.display = 'none';
@@ -363,6 +470,83 @@
                     <p style="font-size: 14px; margin-top: 10px;">Os dados serão atualizados automaticamente a cada hora.</p>
                 `;
             }
+        }
+
+        function populateFilters() {
+            // Popular select de Status
+            const statusSet = new Set();
+            allMudancas.forEach(m => statusSet.add(m.status));
+
+            const filterStatus = document.getElementById('filterStatus');
+            filterStatus.innerHTML = '<option value="">Todos</option>';
+            Array.from(statusSet).sort().forEach(status => {
+                const option = document.createElement('option');
+                option.value = status;
+                option.textContent = status;
+                filterStatus.appendChild(option);
+            });
+
+            // Popular select de Responsável
+            const assigneeSet = new Set();
+            allMudancas.forEach(m => assigneeSet.add(m.assignee));
+
+            const filterResp = document.getElementById('filterResponsavel');
+            filterResp.innerHTML = '<option value="">Todos</option>';
+            Array.from(assigneeSet).sort().forEach(assignee => {
+                const option = document.createElement('option');
+                option.value = assignee;
+                option.textContent = assignee;
+                filterResp.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const periodo = document.getElementById('filterPeriodo').value;
+            const status = document.getElementById('filterStatus').value;
+            const responsavel = document.getElementById('filterResponsavel').value;
+
+            let filtered = [...allMudancas];
+
+            // Filtro de período
+            const now = new Date();
+            if (periodo === 'custom') {
+                const dateFrom = document.getElementById('filterDateFrom').value;
+                const dateTo = document.getElementById('filterDateTo').value;
+
+                if (dateFrom) {
+                    filtered = filtered.filter(m => {
+                        const createdDate = new Date(m.created);
+                        return createdDate >= new Date(dateFrom);
+                    });
+                }
+
+                if (dateTo) {
+                    filtered = filtered.filter(m => {
+                        const createdDate = new Date(m.created);
+                        return createdDate <= new Date(dateTo + 'T23:59:59');
+                    });
+                }
+            } else {
+                const days = parseInt(periodo);
+                const cutoffDate = new Date(now.getTime() - (days * 24 * 60 * 60 * 1000));
+
+                filtered = filtered.filter(m => {
+                    const createdDate = new Date(m.created);
+                    return createdDate >= cutoffDate;
+                });
+            }
+
+            // Filtro de status
+            if (status) {
+                filtered = filtered.filter(m => m.status === status);
+            }
+
+            // Filtro de responsável
+            if (responsavel) {
+                filtered = filtered.filter(m => m.assignee === responsavel);
+            }
+
+            renderDashboard(filtered);
         }
 
         function renderDashboard(mudancas) {

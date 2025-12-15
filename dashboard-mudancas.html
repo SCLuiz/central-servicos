@@ -590,15 +590,30 @@
             const ctxStatus = document.getElementById('chartStatus').getContext('2d');
             if (chartStatus) chartStatus.destroy();
 
+            // Mapeamento de cores por status
+            const statusColors = {
+                'Concluído com Sucesso': '#00875A',  // Verde
+                'Cancelado': '#DE350B',              // Vermelho
+                'Aguardando Implantação': '#FF991F', // Laranja
+                'Em Planejamento': '#0052CC',        // Azul
+                'Em Andamento': '#00B8D9',           // Ciano
+                'Aguardando Aprovação': '#6554C0',   // Roxo
+                'Concluída': '#00875A',              // Verde
+                'Rejeitado': '#DE350B'               // Vermelho
+            };
+
+            const statusLabels = Object.keys(stats.statusCount);
+            const statusColors_array = statusLabels.map(status =>
+                statusColors[status] || '#8993A4' // Cor padrão cinza se não encontrar
+            );
+
             chartStatus = new Chart(ctxStatus, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(stats.statusCount),
+                    labels: statusLabels,
                     datasets: [{
                         data: Object.values(stats.statusCount),
-                        backgroundColor: [
-                            '#FF991F', '#0052CC', '#00875A', '#DE350B', '#6554C0', '#00B8D9'
-                        ]
+                        backgroundColor: statusColors_array
                     }]
                 },
                 options: {

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Mudanças - Open Finance Brasil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-border: #DFE1E6;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-green: #00875A;
+            --ds-yellow: #FF991F;
+            --ds-red: #DE350B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--ds-text);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF1493 0%, #FFD700 100%);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--ds-surface-overlay);
+            color: var(--ds-text);
+        }
+
+        .btn-secondary:hover {
+            background: #EBECF0;
+        }
+
+        /* Config Notice */
+        .config-notice {
+            background: #FFF4E5;
+            border-left: 4px solid var(--ds-yellow);
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .config-notice h3 {
+            color: var(--ds-text);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .config-notice p {
+            color: var(--ds-text-subtle);
+            font-size: 14px;
+        }
+
+        /* Metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--ds-text);
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 20px;
+        }
+
+        /* Table */
+        .table-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--ds-surface-overlay);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--ds-text);
+            font-size: 14px;
+            border-bottom: 2px solid var(--ds-border);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--ds-border);
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: var(--ds-surface-overlay);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-aguardando {
+            background: #FFF4E5;
+            color: #974F0C;
+        }
+
+        .status-planejamento {
+            background: #E3FCEF;
+            color: #006644;
+        }
+
+        .status-concluido {
+            background: #E3FCEF;
+            color: var(--ds-green);
+        }
+
+        .status-cancelado {
+            background: #FFEBE6;
+            color: var(--ds-red);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--ds-text-subtle);
+        }
+
+        .spinner {
+            border: 4px solid var(--ds-border);
+            border-top: 4px solid var(--ds-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modal Config */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ds-text);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--ds-border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--ds-blue);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>📊 Dashboard de Mudanças</h1>
+                <p style="color: var(--ds-text-subtle); margin-top: 5px;">Visualização em tempo real - OFBI</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="location.href='gestao-mudancas.html'">← Voltar</button>
+                <button class="btn btn-secondary" onclick="openConfig()">⚙️ Configurar</button>
+                <button class="btn btn-primary" onclick="loadData()">🔄 Atualizar</button>
+            </div>
+        </div>
+
+        <!-- Config Notice -->
+        <div id="configNotice" class="config-notice" style="display: none;">
+            <h3>⚙️ Configuração Necessária</h3>
+            <p>Configure suas credenciais do Jira para visualizar os dados. Clique em "Configurar" acima.</p>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Carregando dados do Jira...</p>
+        </div>
+
+        <!-- Metrics -->
+        <div class="metrics" id="metrics" style="display: none;">
+            <div class="metric-card">
+                <div class="metric-label">Total de Mudanças</div>
+                <div class="metric-value" id="metricTotal">0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Aguardando Implantação</div>
+                <div class="metric-value" id="metricAguardando" style="color: var(--ds-yellow);">0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Em Planejamento</div>
+                <div class="metric-value" id="metricPlanejamento" style="color: var(--ds-blue);">0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Concluídas</div>
+                <div class="metric-value" id="metricConcluidas" style="color: var(--ds-green);">0</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid" id="charts" style="display: none;">
+            <div class="chart-card">
+                <h3 class="chart-title">Mudanças por Status</h3>
+                <canvas id="chartStatus"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">Top 10 Responsáveis</h3>
+                <canvas id="chartResponsaveis"></canvas>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card" id="tableCard" style="display: none;">
+            <h3 class="chart-title">Lista de Mudanças</h3>
+            <div style="overflow-x: auto;">
+                <table id="mudancasTable">
+                    <thead>
+                        <tr>
+                            <th>Chave</th>
+                            <th>Resumo</th>
+                            <th>Status</th>
+                            <th>Responsável</th>
+                            <th>Criado</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mudancasTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Config -->
+    <div class="modal" id="configModal">
+        <div class="modal-content">
+            <h2 class="modal-header">⚙️ Configuração do Jira</h2>
+            <div class="form-group">
+                <label>URL do Jira</label>
+                <input type="text" id="configUrl" placeholder="https://suaempresa.atlassian.net">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="configEmail" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label>API Token</label>
+                <input type="password" id="configToken" placeholder="Seu API Token">
+                <p style="font-size: 12px; color: var(--ds-text-subtle); margin-top: 5px;">
+                    <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Gerar token aqui</a>
+                </p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeConfig()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveConfig()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chartStatus, chartResponsaveis;
+
+        // Verificar se tem config ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            const config = getConfig();
+            if (config.url && config.email && config.token) {
+                loadData();
+            } else {
+                document.getElementById('configNotice').style.display = 'block';
+            }
+        });
+
+        function getConfig() {
+            return {
+                url: localStorage.getItem('jira_url') || '',
+                email: localStorage.getItem('jira_email') || '',
+                token: localStorage.getItem('jira_token') || ''
+            };
+        }
+
+        function openConfig() {
+            const config = getConfig();
+            document.getElementById('configUrl').value = config.url;
+            document.getElementById('configEmail').value = config.email;
+            document.getElementById('configToken').value = config.token;
+            document.getElementById('configModal').classList.add('active');
+        }
+
+        function closeConfig() {
+            document.getElementById('configModal').classList.remove('active');
+        }
+
+        function saveConfig() {
+            localStorage.setItem('jira_url', document.getElementById('configUrl').value);
+            localStorage.setItem('jira_email', document.getElementById('configEmail').value);
+            localStorage.setItem('jira_token', document.getElementById('configToken').value);
+            closeConfig();
+            loadData();
+        }
+
+        async function loadData() {
+            const config = getConfig();
+            if (!config.url || !config.email || !config.token) {
+                document.getElementById('configNotice').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('configNotice').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('metrics').style.display = 'none';
+            document.getElementById('charts').style.display = 'none';
+            document.getElementById('tableCard').style.display = 'none';
+
+            try {
+                // JQL para buscar mudanças
+                const jql = 'project = OFBI AND type = "[System] Mudança" AND (created >= -90d OR updated >= -90d) ORDER BY created DESC';
+
+                const response = await fetch(`${config.url}/rest/api/3/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(config.email + ':' + config.token),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        jql: jql,
+                        fields: ['summary', 'status', 'created', 'assignee', 'reporter', 'priority'],
+                        maxResults: 100
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar dados: ' + response.status);
+                }
+
+                const data = await response.json();
+                renderDashboard(data.issues || []);
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao carregar dados do Jira. Verifique suas credenciais.');
+                document.getElementById('configNotice').style.display = 'block';
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function renderDashboard(issues) {
+            // Processar dados
+            const stats = {
+                total: issues.length,
+                aguardando: 0,
+                planejamento: 0,
+                concluido: 0,
+                statusCount: {},
+                responsaveis: {}
+            };
+
+            issues.forEach(issue => {
+                const status = issue.fields.status?.name || 'Desconhecido';
+                const assignee = issue.fields.assignee?.displayName || 'Sem responsável';
+
+                // Contar por status
+                stats.statusCount[status] = (stats.statusCount[status] || 0) + 1;
+
+                // Contar por responsável
+                stats.responsaveis[assignee] = (stats.responsaveis[assignee] || 0) + 1;
+
+                // Contadores específicos
+                if (status.includes('Aguardando')) stats.aguardando++;
+                if (status.includes('Planejamento')) stats.planejamento++;
+                if (status.includes('Concluído') || status.includes('Sucesso')) stats.concluido++;
+            });
+
+            // Atualizar métricas
+            document.getElementById('metricTotal').textContent = stats.total;
+            document.getElementById('metricAguardando').textContent = stats.aguardando;
+            document.getElementById('metricPlanejamento').textContent = stats.planejamento;
+            document.getElementById('metricConcluidas').textContent = stats.concluido;
+            document.getElementById('metrics').style.display = 'grid';
+
+            // Renderizar gráficos
+            renderCharts(stats);
+            document.getElementById('charts').style.display = 'grid';
+
+            // Renderizar tabela
+            renderTable(issues);
+            document.getElementById('tableCard').style.display = 'block';
+        }
+
+        function renderCharts(stats) {
+            // Gráfico de Status
+            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+            if (chartStatus) chartStatus.destroy();
+
+            chartStatus = new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(stats.statusCount),
+                    datasets: [{
+                        data: Object.values(stats.statusCount),
+                        backgroundColor: [
+                            '#FF991F', '#0052CC', '#00875A', '#DE350B', '#6554C0', '#00B8D9'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Gráfico de Responsáveis
+            const topResponsaveis = Object.entries(stats.responsaveis)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
+            if (chartResponsaveis) chartResponsaveis.destroy();
+
+            chartResponsaveis = new Chart(ctxResp, {
+                type: 'bar',
+                data: {
+                    labels: topResponsaveis.map(r => r[0]),
+                    datasets: [{
+                        label: 'Mudanças',
+                        data: topResponsaveis.map(r => r[1]),
+                        backgroundColor: '#0052CC'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderTable(issues) {
+            const tbody = document.getElementById('mudancasTableBody');
+            tbody.innerHTML = '';
+
+            issues.slice(0, 20).forEach(issue => {
+                const key = issue.key;
+                const summary = issue.fields.summary || '';
+                const status = issue.fields.status?.name || 'Desconhecido';
+                const assignee = issue.fields.assignee?.displayName || 'Sem responsável';
+                const created = new Date(issue.fields.created).toLocaleDateString('pt-BR');
+                const url = getConfig().url + '/browse/' + key;
+
+                let statusClass = 'status-badge ';
+                if (status.includes('Aguardando')) statusClass += 'status-aguardando';
+                else if (status.includes('Planejamento')) statusClass += 'status-planejamento';
+                else if (status.includes('Concluído')) statusClass += 'status-concluido';
+                else if (status.includes('Cancelado')) statusClass += 'status-cancelado';
+
+                const row = `
+                    <tr>
+                        <td><strong>${key}</strong></td>
+                        <td>${summary}</td>
+                        <td><span class="${statusClass}">${status}</span></td>
+                        <td>${assignee}</td>
+                        <td>${created}</td>
+                        <td><a href="${url}" target="_blank" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Ver</a></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>

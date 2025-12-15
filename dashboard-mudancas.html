@@ -384,6 +384,14 @@
                     <div class="metric-label">Concluídas</div>
                     <div class="metric-value" id="metricConcluidas" style="color: var(--ds-green);">0</div>
                 </div>
+                <div class="metric-card">
+                    <div class="metric-label">Cancelado</div>
+                    <div class="metric-value" id="metricCancelado" style="color: var(--ds-red);">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Rejeitado</div>
+                    <div class="metric-value" id="metricRejeitado" style="color: var(--ds-red);">0</div>
+                </div>
             </div>
 
             <div class="charts-grid">
@@ -556,6 +564,8 @@
                 aguardando: 0,
                 planejamento: 0,
                 concluido: 0,
+                cancelado: 0,
+                rejeitado: 0,
                 statusCount: {},
                 responsaveis: {}
             };
@@ -570,6 +580,8 @@
                 if (status.includes('Aguardando')) stats.aguardando++;
                 if (status.includes('Planejamento')) stats.planejamento++;
                 if (status.includes('Concluído') || status.includes('Sucesso')) stats.concluido++;
+                if (status === 'Cancelado') stats.cancelado++;
+                if (status === 'Rejeitado') stats.rejeitado++;
             });
 
             // Atualizar métricas
@@ -577,6 +589,8 @@
             document.getElementById('metricAguardando').textContent = stats.aguardando;
             document.getElementById('metricPlanejamento').textContent = stats.planejamento;
             document.getElementById('metricConcluidas').textContent = stats.concluido;
+            document.getElementById('metricCancelado').textContent = stats.cancelado;
+            document.getElementById('metricRejeitado').textContent = stats.rejeitado;
 
             // Renderizar gráficos
             renderCharts(stats);

@@ -450,6 +450,22 @@
                     <div class="metric-value" id="indicadorTempoCAB">-- dias</div>
                     <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Até próxima quarta 14h (CAB)</div>
                 </div>
+
+                <!-- Incidentes Causados -->
+                <div class="metric-card">
+                    <div class="metric-label">Incidentes Causados</div>
+                    <div class="metric-value" id="indicadorIncidentes">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 5%</div>
+                </div>
+            </div>
+
+            <!-- Gráfico de Mudanças por Tipo -->
+            <div class="chart-card" style="margin: 20px 0;">
+                <h3 class="chart-title">Mudanças por Tipo</h3>
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <canvas id="chartTipo"></canvas>
+                </div>
+                <div id="tipoLegend" style="text-align: center; margin-top: 15px; font-size: 13px; color: var(--ds-text-subtle);"></div>
             </div>
 
             <div class="charts-grid">
@@ -759,6 +775,36 @@
                     elTempoCAB.textContent = `${tempoMedio} dias`;
                     elTempoCAB.style.color = tempoMedio <= 7 ? 'var(--ds-green)' : (tempoMedio <= 14 ? 'var(--ds-yellow)' : 'var(--ds-red)');
                 }
+
+                // 6. Incidentes Causados por Mudanças
+                const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
+                const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
+                const elIncidentes = document.getElementById('indicadorIncidentes');
+                elIncidentes.textContent = `${percIncidentes}%`;
+                elIncidentes.style.color = percIncidentes < 5 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 7. Percentual por Tipo (baseado em labels)
+                const tipos = {
+                    'Normal': 0,
+                    'Emergencial': 0,
+                    'Planejada': 0,
+                    'Não Classificado': 0
+                };
+
+                mudancas.forEach(m => {
+                    const labels = m.labels || [];
+                    if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
+                        tipos.Normal++;
+                    } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
+                        tipos.Emergencial++;
+                    } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
+                        tipos.Planejada++;
+                    } else {
+                        tipos['Não Classificado']++;
+                    }
+                });
+
+                stats.tipos = tipos;
             }
 
             // Renderizar gráficos
@@ -833,6 +879,40 @@
                     }
                 }
             });
+
+            // Gráfico de Tipos
+            if (stats.tipos) {
+                const ctxTipo = document.getElementById('chartTipo').getContext('2d');
+                if (window.chartTipo) window.chartTipo.destroy();
+
+                const tipoLabels = Object.keys(stats.tipos);
+                const tipoValues = Object.values(stats.tipos);
+                const total = tipoValues.reduce((a, b) => a + b, 0);
+
+                window.chartTipo = new Chart(ctxTipo, {
+                    type: 'doughnut',
+                    data: {
+                        labels: tipoLabels,
+                        datasets: [{
+                            data: tipoValues,
+                            backgroundColor: ['#00875A', '#DE350B', '#FF991F', '#8993A4']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+
+                // Mostrar percentuais na legenda
+                const legendHtml = tipoLabels.map((label, i) => {
+                    const percent = ((tipoValues[i] / total) * 100).toFixed(1);
+                    return `${label}: ${tipoValues[i]} (${percent}%)`;
+                }).join(' | ');
+                document.getElementById('tipoLegend').textContent = legendHtml;
+            }
         }
 
         function renderTable(mudancas) {

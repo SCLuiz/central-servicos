@@ -57,20 +57,36 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 12px;
-            padding: 30px;
+            overflow: hidden;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 250px;
+            background-image: url('dash.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .header-content {
+            padding: 24px;
+            text-align: center;
         }
 
         .header h1 {
             font-size: 28px;
             font-weight: 600;
             color: var(--ds-text);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 15px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 16px;
         }
 
         .ultima-atualizacao {
@@ -312,17 +328,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <div style="width: 100%;">
-                <img src="dash.png" alt="Dashboard de Mudanças" style="width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 12px; margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <div>
-                        <h1>📊 Dashboard de Mudanças OFBI</h1>
-                        <div class="ultima-atualizacao" id="ultimaAtualizacao">Carregando...</div>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <a href="gestao-mudancas.html" class="btn btn-secondary">← Voltar</a>
-                        <button class="btn btn-primary" onclick="location.reload()">🔄 Atualizar</button>
-                    </div>
+            <div class="header-banner"></div>
+            <div class="header-content">
+                <h1>📊 Dashboard de Mudanças OFBI</h1>
+                <p>Visualização em tempo real de métricas, gráficos e análises das mudanças</p>
+                <div class="ultima-atualizacao" id="ultimaAtualizacao" style="margin-bottom: 16px;">Carregando...</div>
+                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                    <a href="gestao-mudancas.html" class="btn btn-secondary">← Voltar</a>
+                    <button class="btn btn-primary" onclick="location.reload()">🔄 Atualizar</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,119 @@
+name: Atualizar Dashboard de Mudanças
+
+on:
+  schedule:
+    # Executa a cada 1 hora
+    - cron: '0 * * * *'
+  workflow_dispatch: # Permite execução manual
+  push:
+    branches:
+      - main
+
+jobs:
+  atualizar-dados:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests python-dotenv
+
+      - name: Buscar dados do Jira
+        env:
+          JIRA_URL: ${{ secrets.JIRA_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: |
+          python << 'EOF'
+          import requests
+          from requests.auth import HTTPBasicAuth
+          import json
+          import os
+          from datetime import datetime
+
+          # Credenciais do Jira
+          JIRA_URL = os.environ['JIRA_URL']
+          JIRA_EMAIL = os.environ['JIRA_EMAIL']
+          JIRA_API_TOKEN = os.environ['JIRA_API_TOKEN']
+
+          auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
+          headers = {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          }
+
+          # JQL para buscar mudanças dos últimos 90 dias
+          jql = 'project = OFBI AND type = "[System] Mudança" AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
+
+          payload = {
+              'jql': jql,
+              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority'],
+              'maxResults': 100
+          }
+
+          print('Buscando dados do Jira...')
+          response = requests.post(
+              f'{JIRA_URL}/rest/api/3/search/jql',
+              auth=auth,
+              headers=headers,
+              json=payload,
+              timeout=30
+          )
+
+          if response.status_code == 200:
+              data = response.json()
+              issues = data.get('issues', [])
+
+              # Processar dados
+              mudancas = []
+              for issue in issues:
+                  key = issue.get('key')
+                  fields = issue.get('fields', {})
+
+                  assignee = fields.get('assignee', {})
+                  reporter = fields.get('reporter', {})
+                  priority = fields.get('priority', {})
+                  status = fields.get('status', {})
+
+                  mudancas.append({
+                      'key': key,
+                      'summary': fields.get('summary', ''),
+                      'status': status.get('name', '') if status else '',
+                      'priority': priority.get('name', '') if priority else '',
+                      'assignee': assignee.get('displayName', 'Sem responsável') if assignee else 'Sem responsável',
+                      'reporter': reporter.get('displayName', '') if reporter else '',
+                      'created': fields.get('created', ''),
+                      'updated': fields.get('updated', ''),
+                  })
+
+              # Salvar JSON
+              output = {
+                  'ultima_atualizacao': datetime.now().isoformat(),
+                  'total': len(mudancas),
+                  'mudancas': mudancas
+              }
+
+              with open('dados-mudancas.json', 'w', encoding='utf-8') as f:
+                  json.dump(output, f, ensure_ascii=False, indent=2)
+
+              print(f'✓ {len(mudancas)} mudanças exportadas para dados-mudancas.json')
+          else:
+              print(f'✗ Erro: {response.status_code}')
+              print(response.text)
+              exit(1)
+          EOF
+
+      - name: Commit e Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add dados-mudancas.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar dados do dashboard [skip ci]" && git push)

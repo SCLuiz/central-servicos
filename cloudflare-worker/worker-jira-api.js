@@ -47,7 +47,7 @@ export default {
           },
           body: JSON.stringify({
             jql: jql,
-            fields: ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_10037'],
+            fields: ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073'],
             maxResults: 100,
           }),
         }
@@ -87,7 +87,7 @@ export default {
           created: fields.created || '',
           updated: fields.updated || '',
           labels: fields.labels || [],
-          causouIncidente: fields.customfield_10037 || false,
+          causouIncidente: fields.customfield_11073 || false,
         };
       });
 

@@ -55,7 +55,7 @@ jobs:
 
           payload = {
               'jql': jql,
-              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073'],
+              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority'],
               'maxResults': 100
           }
 
@@ -92,8 +92,6 @@ jobs:
                       'reporter': reporter.get('displayName', '') if reporter else '',
                       'created': fields.get('created', ''),
                       'updated': fields.get('updated', ''),
-                      'labels': fields.get('labels', []),
-                      'causouIncidente': fields.get('customfield_11073', False),
                   })
 
               # Salvar JSON

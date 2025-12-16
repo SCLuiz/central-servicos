@@ -664,7 +664,7 @@
                 document.getElementById('content').style.display = 'block';
 
                 // Auto-refresh
-                const refreshInterval = dataSource === 'worker' ? 10000 : 60000;
+                const refreshInterval = 3600000; // 1 hora
                 setTimeout(loadData, refreshInterval);
 
             } catch (error) {

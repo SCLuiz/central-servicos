@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2025-12-16T21:56:38.297733",
+  "ultima_atualizacao": "2025-12-16T22:10:58.058640",
   "total": 100,
   "mudancas": [
     {
@@ -14,7 +14,8 @@
       "labels": [
         "tipo:emergencial"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4299",
@@ -28,7 +29,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4298",
@@ -42,7 +44,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4296",
@@ -56,7 +59,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4295",
@@ -70,7 +74,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4288",
@@ -84,7 +89,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4286",
@@ -98,7 +104,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4276",
@@ -112,7 +119,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4275",
@@ -126,7 +134,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4274",
@@ -140,7 +149,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4273",
@@ -154,7 +164,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4272",
@@ -168,7 +179,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4271",
@@ -182,7 +194,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4257",
@@ -196,7 +209,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4252",
@@ -210,7 +224,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4238",
@@ -224,7 +239,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4236",
@@ -238,7 +254,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4235",
@@ -252,7 +269,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4228",
@@ -266,7 +284,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4227",
@@ -280,7 +299,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4174",
@@ -294,7 +314,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4148",
@@ -308,7 +329,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4139",
@@ -322,7 +344,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4126",
@@ -336,7 +359,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4108",
@@ -350,7 +374,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4072",
@@ -364,7 +389,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4038",
@@ -378,7 +404,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-3451",
@@ -392,7 +419,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-3441",
@@ -406,7 +434,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-3430",
@@ -420,7 +449,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-2076",
@@ -434,7 +464,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-2075",
@@ -448,7 +479,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-2074",
@@ -462,7 +494,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-2025",
@@ -476,7 +509,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-2024",
@@ -490,7 +524,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1996",
@@ -504,7 +539,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1990",
@@ -518,7 +554,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1978",
@@ -532,7 +569,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1917",
@@ -546,7 +584,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1793",
@@ -560,7 +599,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1770",
@@ -574,7 +614,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1769",
@@ -588,7 +629,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1768",
@@ -602,7 +644,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1734",
@@ -616,7 +659,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1712",
@@ -630,7 +674,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1586",
@@ -644,7 +689,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1560",
@@ -658,7 +704,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1550",
@@ -672,7 +719,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1546",
@@ -686,7 +734,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1532",
@@ -700,7 +749,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1493",
@@ -714,7 +764,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1486",
@@ -728,7 +779,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1485",
@@ -742,7 +794,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1474",
@@ -756,7 +809,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1465",
@@ -770,7 +824,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1434",
@@ -784,7 +839,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1433",
@@ -798,7 +854,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1428",
@@ -812,7 +869,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1425",
@@ -826,7 +884,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1424",
@@ -840,7 +899,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1423",
@@ -854,7 +914,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1422",
@@ -868,7 +929,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1420",
@@ -882,7 +944,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1417",
@@ -896,7 +959,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1406",
@@ -910,7 +974,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1383",
@@ -924,7 +989,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1365",
@@ -938,7 +1004,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1318",
@@ -952,7 +1019,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1295",
@@ -966,7 +1034,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1260",
@@ -980,7 +1049,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1180",
@@ -994,7 +1064,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1161",
@@ -1008,7 +1079,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1075",
@@ -1022,7 +1094,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1046",
@@ -1036,7 +1109,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-1038",
@@ -1050,7 +1124,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-988",
@@ -1064,7 +1139,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-979",
@@ -1078,7 +1154,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-962",
@@ -1092,7 +1169,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-953",
@@ -1106,7 +1184,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-941",
@@ -1120,7 +1199,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-883",
@@ -1134,7 +1214,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-871",
@@ -1148,7 +1229,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-826",
@@ -1162,7 +1244,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-789",
@@ -1176,7 +1259,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-767",
@@ -1190,7 +1274,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-717",
@@ -1204,7 +1289,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-639",
@@ -1218,7 +1304,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-638",
@@ -1232,7 +1319,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-615",
@@ -1246,7 +1334,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-590",
@@ -1260,7 +1349,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-589",
@@ -1274,7 +1364,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-582",
@@ -1288,7 +1379,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-581",
@@ -1302,7 +1394,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-577",
@@ -1316,7 +1409,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-560",
@@ -1330,7 +1424,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-553",
@@ -1344,7 +1439,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-551",
@@ -1358,7 +1454,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-544",
@@ -1372,7 +1469,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-539",
@@ -1386,7 +1484,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-534",
@@ -1400,7 +1499,8 @@
       "labels": [
         "tipo:normal"
       ],
-      "causouIncidente": null
+      "causouIncidente": null,
+      "categoria": "Normal"
     }
   ]
 }

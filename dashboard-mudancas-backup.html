@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Mudanças - Open Finance Brasil</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-border: #DFE1E6;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-green: #00875A;
+            --ds-yellow: #FF991F;
+            --ds-red: #DE350B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg,
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 250px;
+            background-image: url('dash.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .header-content {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 15px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 16px;
+        }
+
+        .ultima-atualizacao {
+            font-size: 13px;
+            color: var(--ds-text-subtle);
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF1493 0%, #FFD700 100%);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--ds-surface-overlay);
+            color: var(--ds-text);
+        }
+
+        .btn-secondary:hover {
+            background: #EBECF0;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--ds-text);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 20px;
+        }
+
+        .table-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--ds-surface-overlay);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--ds-text);
+            font-size: 14px;
+            border-bottom: 2px solid var(--ds-border);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--ds-border);
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: var(--ds-surface-overlay);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-aguardando {
+            background: #FFF4E5;
+            color: #974F0C;
+        }
+
+        .status-planejamento {
+            background: var(--ds-blue-subtle);
+            color: var(--ds-blue);
+        }
+
+        .status-concluido {
+            background: #E3FCEF;
+            color: var(--ds-green);
+        }
+
+        .status-cancelado {
+            background: #FFEBE6;
+            color: var(--ds-red);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--ds-text-subtle);
+        }
+
+        .spinner {
+            border: 4px solid var(--ds-border);
+            border-top: 4px solid var(--ds-blue);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .filters-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 15px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ds-text-subtle);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 2px solid var(--ds-border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            background: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--ds-blue);
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .metric-card-small {
+            flex: 0 1 calc(14.28% - 15px); /* 7 cards por linha */
+            min-width: 140px;
+        }
+
+        .metric-card-small .metric-value {
+            font-size: 28px;
+        }
+
+        .metric-percent {
+            font-size: 12px;
+            color: var(--ds-text-subtle);
+            margin-top: 4px;
+        }
+
+            </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-banner"></div>
+            <div class="header-content">
+                <h1>Dashboard de Mudanças</h1>
+                <p>Visualização em tempo real de métricas, gráficos e análises das mudanças</p>
+                <div class="ultima-atualizacao" id="ultimaAtualizacao" style="margin-bottom: 16px;">Carregando...</div>
+                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                    <a href="gestao-mudancas.html" class="btn btn-secondary">← Voltar</a>
+                    <button class="btn btn-primary" onclick="location.reload()">🔄 Atualizar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Carregando dados...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <!-- Filtros -->
+            <div class="filters-card">
+                <div class="filters-title">🔍 Filtros</div>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Período</label>
+                        <select id="filterPeriodo" onchange="applyFilters()">
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="60">Últimos 60 dias</option>
+                            <option value="90" selected>Últimos 90 dias</option>
+                            <option value="180">Últimos 6 meses</option>
+                            <option value="365">Último ano</option>
+                            <option value="custom">Período personalizado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" id="customDateFrom" style="display: none;">
+                        <label>Data Início</label>
+                        <input type="date" id="filterDateFrom" onchange="applyFilters()">
+                    </div>
+                    <div class="filter-group" id="customDateTo" style="display: none;">
+                        <label>Data Fim</label>
+                        <input type="date" id="filterDateTo" onchange="applyFilters()">
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="filterStatus" onchange="applyFilters()">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Responsável</label>
+                        <select id="filterResponsavel" onchange="applyFilters()">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-label">Total de Mudanças</div>
+                    <div class="metric-value" id="metricTotal">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Aguardando Implantação</div>
+                    <div class="metric-value" id="metricAguardando" style="color: var(--ds-yellow);">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Em Planejamento</div>
+                    <div class="metric-value" id="metricPlanejamento" style="color: var(--ds-blue);">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Concluídas</div>
+                    <div class="metric-value" id="metricConcluidas" style="color: var(--ds-green);">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Cancelado</div>
+                    <div class="metric-value" id="metricCancelado" style="color: var(--ds-red);">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Rejeitado</div>
+                    <div class="metric-value" id="metricRejeitado" style="color: var(--ds-red);">0</div>
+                </div>
+            </div>
+
+            <!-- Indicadores de Performance -->
+            <h2 style="color: var(--ds-text); margin: 30px 0 15px 0; font-size: 20px; font-weight: 600;">Indicadores de Performance</h2>
+
+            <div class="metrics" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <!-- Taxa de Sucesso -->
+                <div class="metric-card">
+                    <div class="metric-label">Taxa de Sucesso</div>
+                    <div class="metric-value" id="indicadorSucesso">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: > 95%</div>
+                </div>
+
+                <!-- Mudanças Emergenciais -->
+                <div class="metric-card">
+                    <div class="metric-label">Mudanças Emergenciais</div>
+                    <div class="metric-value" id="indicadorEmergencial">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 10%</div>
+                </div>
+
+                <!-- Rollback -->
+                <div class="metric-card">
+                    <div class="metric-label">Mudanças Revertidas</div>
+                    <div class="metric-value" id="indicadorRollback">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 3%</div>
+                </div>
+
+                <!-- Aderência aos Prazos -->
+                <div class="metric-card">
+                    <div class="metric-label">Aderência aos Prazos</div>
+                    <div class="metric-value" id="indicadorPrazos">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Submissão até terça 12:00</div>
+                </div>
+
+                <!-- Tempo Médio de Análise -->
+                <div class="metric-card">
+                    <div class="metric-label">Tempo Médio de Análise</div>
+                    <div class="metric-value" id="indicadorTempoCAB">-- dias</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Até próxima quarta 14h (CAB)</div>
+                </div>
+
+                <!-- Incidentes Causados -->
+                <div class="metric-card">
+                    <div class="metric-label">Incidentes Causados</div>
+                    <div class="metric-value" id="indicadorIncidentes">--%</div>
+                    <div style="font-size: 11px; color: var(--ds-text-subtlest); margin-top: 5px;">Meta: < 5%</div>
+                </div>
+            </div>
+
+            <!-- Cards de Categoria -->
+            <div style="margin: 20px 0;">
+                <h3 style="font-size: 16px; font-weight: 600; color: var(--ds-text); margin-bottom: 15px;">Indicador por Categoria</h3>
+                <div class="metrics">
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Normal</div>
+                        <div class="metric-value" id="metricNormal">0</div>
+                        <div class="metric-percent" id="percentNormal">0%</div>
+                    </div>
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Emergencial</div>
+                        <div class="metric-value" id="metricEmergencial" style="color: var(--ds-red);">0</div>
+                        <div class="metric-percent" id="percentEmergencial">0%</div>
+                    </div>
+                    <div class="metric-card metric-card-small">
+                        <div class="metric-label">Planejada</div>
+                        <div class="metric-value" id="metricPlanejada" style="color: var(--ds-blue);">0</div>
+                        <div class="metric-percent" id="percentPlanejada">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Mudanças por Status</h3>
+                    <canvas id="chartStatus"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 10 Responsáveis</h3>
+                    <canvas id="chartResponsaveis"></canvas>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <h3 class="chart-title">Mudanças Recentes</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Chave</th>
+                                <th>Resumo</th>
+                                <th>Status</th>
+                                <th>Responsável</th>
+                                <th>Criado</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mudancasTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chartStatus, chartResponsaveis;
+        const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
+        let allMudancas = []; // Armazena todos os dados
+
+        // Carregar dados ao iniciar
+        window.addEventListener('DOMContentLoaded', loadData);
+
+        // Mostrar/esconder campos de data personalizada
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterPeriodo = document.getElementById('filterPeriodo');
+            if (filterPeriodo) {
+                filterPeriodo.addEventListener('change', () => {
+                    const isCustom = filterPeriodo.value === 'custom';
+                    document.getElementById('customDateFrom').style.display = isCustom ? 'flex' : 'none';
+                    document.getElementById('customDateTo').style.display = isCustom ? 'flex' : 'none';
+                });
+            }
+        });
+
+        // URL do Cloudflare Worker
+        const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+        let dataSource = 'loading'; // 'worker' ou 'json'
+
+        async function loadData() {
+            try {
+                let data = null;
+
+                // Tentar buscar do Cloudflare Worker primeiro (tempo real)
+                try {
+                    console.log('Tentando buscar do Cloudflare Worker...');
+                    const workerResponse = await fetch(WORKER_URL, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    if (workerResponse.ok) {
+                        data = await workerResponse.json();
+                        dataSource = 'worker';
+                        console.log('✓ Dados carregados do Worker (tempo real)');
+                    } else {
+                        throw new Error('Worker retornou erro');
+                    }
+                } catch (workerError) {
+                    console.warn('Worker indisponível, usando JSON de backup:', workerError);
+
+                    // Fallback: buscar JSON estático
+                    const jsonResponse = await fetch('dados-mudancas.json?v=2&t=' + Date.now());
+
+                    if (!jsonResponse.ok) {
+                        throw new Error('Erro ao carregar dados');
+                    }
+
+                    data = await jsonResponse.json();
+                    dataSource = 'json';
+                    console.log('✓ Dados carregados do JSON (backup)');
+                }
+
+                // Atualizar timestamp e fonte
+                const dataAtualizacao = new Date(data.ultima_atualizacao);
+                const fonte = dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache (1 min)';
+                document.getElementById('ultimaAtualizacao').textContent =
+                    `Última atualização: ${dataAtualizacao.toLocaleString('pt-BR')} | ${fonte}`;
+
+                // Salvar dados e renderizar dashboard
+                allMudancas = data.mudancas || [];
+                populateFilters();
+                applyFilters();
+
+                // Esconder loading
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+                // Auto-refresh: a cada 10 segundos se usando Worker, 60 segundos se usando JSON
+                const refreshInterval = dataSource === 'worker' ? 10000 : 60000;
+                setTimeout(loadData, refreshInterval);
+
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('loading').innerHTML = `
+                    <p style="color: var(--ds-red);">❌ Erro ao carregar dados</p>
+                    <p style="font-size: 14px; margin-top: 10px; color: #6B778C;">
+                        Erro: ${error.message}<br>
+                        <details style="margin-top: 10px;">
+                            <summary style="cursor: pointer;">Ver detalhes técnicos</summary>
+                            <pre style="background: #f4f5f7; padding: 10px; border-radius: 3px; margin-top: 5px; font-size: 12px; overflow-x: auto;">${error.stack || 'Sem stack trace'}</pre>
+                        </details>
+                    </p>
+                    <p style="font-size: 14px; margin-top: 10px;">Tentando novamente em 30 segundos...</p>
+                `;
+
+                // Tentar novamente após 30 segundos
+                setTimeout(loadData, 30000);
+            }
+        }
+
+        function populateFilters() {
+            // Popular select de Status
+            const statusSet = new Set();
+            allMudancas.forEach(m => statusSet.add(m.status));
+
+            const filterStatus = document.getElementById('filterStatus');
+            filterStatus.innerHTML = '<option value="">Todos</option>';
+            Array.from(statusSet).sort().forEach(status => {
+                const option = document.createElement('option');
+                option.value = status;
+                option.textContent = status;
+                filterStatus.appendChild(option);
+            });
+
+            // Popular select de Responsável
+            const assigneeSet = new Set();
+            allMudancas.forEach(m => assigneeSet.add(m.assignee));
+
+            const filterResp = document.getElementById('filterResponsavel');
+            filterResp.innerHTML = '<option value="">Todos</option>';
+            Array.from(assigneeSet).sort().forEach(assignee => {
+                const option = document.createElement('option');
+                option.value = assignee;
+                option.textContent = assignee;
+                filterResp.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const periodo = document.getElementById('filterPeriodo').value;
+            const status = document.getElementById('filterStatus').value;
+            const responsavel = document.getElementById('filterResponsavel').value;
+
+            let filtered = [...allMudancas];
+
+            // Filtro de período
+            const now = new Date();
+            if (periodo === 'custom') {
+                const dateFrom = document.getElementById('filterDateFrom').value;
+                const dateTo = document.getElementById('filterDateTo').value;
+
+                if (dateFrom) {
+                    filtered = filtered.filter(m => {
+                        const createdDate = new Date(m.created);
+                        return createdDate >= new Date(dateFrom);
+                    });
+                }
+
+                if (dateTo) {
+                    filtered = filtered.filter(m => {
+                        const createdDate = new Date(m.created);
+                        return createdDate <= new Date(dateTo + 'T23:59:59');
+                    });
+                }
+            } else {
+                const days = parseInt(periodo);
+                const cutoffDate = new Date(now.getTime() - (days * 24 * 60 * 60 * 1000));
+
+                filtered = filtered.filter(m => {
+                    const createdDate = new Date(m.created);
+                    return createdDate >= cutoffDate;
+                });
+            }
+
+            // Filtro de status
+            if (status) {
+                filtered = filtered.filter(m => m.status === status);
+            }
+
+            // Filtro de responsável
+            if (responsavel) {
+                filtered = filtered.filter(m => m.assignee === responsavel);
+            }
+
+            renderDashboard(filtered);
+        }
+
+        function renderDashboard(mudancas) {
+            // Calcular estatísticas
+            const stats = {
+                total: mudancas.length,
+                aguardando: 0,
+                planejamento: 0,
+                concluido: 0,
+                cancelado: 0,
+                rejeitado: 0,
+                statusCount: {},
+                responsaveis: {}
+            };
+
+            mudancas.forEach(m => {
+                const status = m.status || 'Desconhecido';
+                const assignee = m.assignee || 'Sem responsável';
+
+                stats.statusCount[status] = (stats.statusCount[status] || 0) + 1;
+                stats.responsaveis[assignee] = (stats.responsaveis[assignee] || 0) + 1;
+
+                if (status.includes('Aguardando')) stats.aguardando++;
+                if (status.includes('Planejamento')) stats.planejamento++;
+                if (status.includes('Concluído') || status.includes('Sucesso')) stats.concluido++;
+                if (status === 'Cancelado') stats.cancelado++;
+                if (status === 'Rejeitado') stats.rejeitado++;
+            });
+
+            // Atualizar métricas
+            document.getElementById('metricTotal').textContent = stats.total;
+            document.getElementById('metricAguardando').textContent = stats.aguardando;
+            document.getElementById('metricPlanejamento').textContent = stats.planejamento;
+            document.getElementById('metricConcluidas').textContent = stats.concluido;
+            document.getElementById('metricCancelado').textContent = stats.cancelado;
+            document.getElementById('metricRejeitado').textContent = stats.rejeitado;
+
+            // Calcular e atualizar indicadores
+            if (stats.total > 0) {
+                // 1. Taxa de Sucesso (Concluídas + Concluído com Sucesso / Total)
+                const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
+                const elSucesso = document.getElementById('indicadorSucesso');
+                elSucesso.textContent = `${taxaSucesso}%`;
+                elSucesso.style.color = taxaSucesso >= 95 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 2. Mudanças Emergenciais (baseado no summary contendo "emergência")
+                const emergenciais = mudancas.filter(m =>
+                    m.summary?.toLowerCase().includes('emergência') ||
+                    m.summary?.toLowerCase().includes('emergencial')
+                ).length;
+                const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
+                const elEmergencial = document.getElementById('indicadorEmergencial');
+                elEmergencial.textContent = `${percEmergencial}%`;
+                elEmergencial.style.color = percEmergencial < 10 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 3. Mudanças Revertidas/Rollback (baseado no summary ou status)
+                const rollbacks = mudancas.filter(m =>
+                    m.summary?.toLowerCase().includes('rollback') ||
+                    m.summary?.toLowerCase().includes('revert') ||
+                    m.status?.toLowerCase().includes('revertid')
+                ).length;
+                const percRollback = ((rollbacks / stats.total) * 100).toFixed(1);
+                const elRollback = document.getElementById('indicadorRollback');
+                elRollback.textContent = `${percRollback}%`;
+                elRollback.style.color = percRollback < 3 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 4. Aderência aos Prazos (submissão até terça 12:00)
+                const noPrazo = mudancas.filter(m => {
+                    if (!m.created) return false;
+                    const dataCriacao = new Date(m.created);
+                    const diaSemana = dataCriacao.getDay(); // 0=domingo, 2=terça
+                    const hora = dataCriacao.getHours();
+
+                    // Considera no prazo se criado antes de terça 12:00
+                    return diaSemana < 2 || (diaSemana === 2 && hora < 12);
+                }).length;
+                const percPrazos = ((noPrazo / stats.total) * 100).toFixed(1);
+                const elPrazos = document.getElementById('indicadorPrazos');
+                elPrazos.textContent = `${percPrazos}%`;
+                elPrazos.style.color = percPrazos >= 80 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 5. Tempo Médio de Análise no CAB (até próxima quarta 14h)
+                function getProximaQuarta14h(data) {
+                    const resultado = new Date(data);
+                    const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7; // 3 = quarta
+                    resultado.setDate(resultado.getDate() + diasAteQuarta);
+                    resultado.setHours(14, 0, 0, 0);
+
+                    // Se já passou da quarta 14h desta semana, pegar próxima semana
+                    if (resultado <= data) {
+                        resultado.setDate(resultado.getDate() + 7);
+                    }
+                    return resultado;
+                }
+
+                const temposAnalise = mudancas.map(m => {
+                    if (!m.created) return null;
+                    const dataCriacao = new Date(m.created);
+                    const proximoCAB = getProximaQuarta14h(dataCriacao);
+                    const diffMs = proximoCAB - dataCriacao;
+                    const diffDias = diffMs / (1000 * 60 * 60 * 24);
+                    return diffDias;
+                }).filter(t => t !== null);
+
+                if (temposAnalise.length > 0) {
+                    const tempoMedio = (temposAnalise.reduce((a, b) => a + b, 0) / temposAnalise.length).toFixed(1);
+                    const elTempoCAB = document.getElementById('indicadorTempoCAB');
+                    elTempoCAB.textContent = `${tempoMedio} dias`;
+                    elTempoCAB.style.color = tempoMedio <= 7 ? 'var(--ds-green)' : (tempoMedio <= 14 ? 'var(--ds-yellow)' : 'var(--ds-red)');
+                }
+
+                // 6. Incidentes Causados por Mudanças
+                const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
+                const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
+                const elIncidentes = document.getElementById('indicadorIncidentes');
+                elIncidentes.textContent = `${percIncidentes}%`;
+                elIncidentes.style.color = percIncidentes < 5 ? 'var(--ds-green)' : 'var(--ds-red)';
+
+                // 7. Percentual por Tipo (baseado em labels)
+                const tipos = {
+                    'Normal': 0,
+                    'Emergencial': 0,
+                    'Planejada': 0,
+                    'Não Classificado': 0
+                };
+
+                mudancas.forEach(m => {
+                    const labels = m.labels || [];
+                    if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
+                        tipos.Normal++;
+                    } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
+                        tipos.Emergencial++;
+                    } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
+                        tipos.Planejada++;
+                    } else {
+                        tipos['Não Classificado']++;
+                    }
+                });
+
+                stats.tipos = tipos;
+            }
+
+            // Renderizar gráficos
+            renderCharts(stats);
+
+            // Renderizar tabela
+            renderTable(mudancas);
+        }
+
+        function renderCharts(stats) {
+            // Gráfico de Status
+            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+            if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
+
+            // Mapeamento de cores por status
+            const statusColors = {
+                'Concluído com Sucesso': '#00875A',  // Verde
+                'Cancelado': '#DE350B',              // Vermelho
+                'Aguardando Implantação': '#FF991F', // Laranja
+                'Em Planejamento': '#0052CC',        // Azul
+                'Em Andamento': '#00B8D9',           // Ciano
+                'Aguardando Aprovação': '#6554C0',   // Roxo
+                'Concluída': '#00875A',              // Verde
+                'Rejeitado': '#DE350B'               // Vermelho
+            };
+
+            const statusLabels = Object.keys(stats.statusCount);
+            const statusColors_array = statusLabels.map(status =>
+                statusColors[status] || '#8993A4' // Cor padrão cinza se não encontrar
+            );
+
+            chartStatus = new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: {
+                    labels: statusLabels,
+                    datasets: [{
+                        data: Object.values(stats.statusCount),
+                        backgroundColor: statusColors_array
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Gráfico de Responsáveis
+            const topResponsaveis = Object.entries(stats.responsaveis)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
+            if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
+
+            chartResponsaveis = new Chart(ctxResp, {
+                type: 'bar',
+                data: {
+                    labels: topResponsaveis.map(r => r[0]),
+                    datasets: [{
+                        label: 'Mudanças',
+                        data: topResponsaveis.map(r => r[1]),
+                        backgroundColor: '#0052CC'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Popular cards de Categoria
+            if (stats.tipos) {
+                const total = stats.total || 1;
+
+                // Normal
+                const normal = stats.tipos.Normal || 0;
+                document.getElementById('metricNormal').textContent = normal;
+                document.getElementById('percentNormal').textContent = ((normal / total) * 100).toFixed(1) + '%';
+
+                // Emergencial
+                const emergencial = stats.tipos.Emergencial || 0;
+                document.getElementById('metricEmergencial').textContent = emergencial;
+                document.getElementById('percentEmergencial').textContent = ((emergencial / total) * 100).toFixed(1) + '%';
+
+                // Planejada
+                const planejada = stats.tipos.Planejada || 0;
+                document.getElementById('metricPlanejada').textContent = planejada;
+                document.getElementById('percentPlanejada').textContent = ((planejada / total) * 100).toFixed(1) + '%';
+            }
+        }
+
+        function renderTable(mudancas) {
+            const tbody = document.getElementById('mudancasTableBody');
+            tbody.innerHTML = '';
+
+            mudancas.slice(0, 20).forEach(m => {
+                const created = new Date(m.created).toLocaleDateString('pt-BR');
+                const url = `${JIRA_URL}/browse/${m.key}`;
+
+                let statusClass = 'status-badge ';
+                if (m.status.includes('Aguardando')) statusClass += 'status-aguardando';
+                else if (m.status.includes('Planejamento')) statusClass += 'status-planejamento';
+                else if (m.status.includes('Concluído')) statusClass += 'status-concluido';
+                else if (m.status.includes('Cancelado')) statusClass += 'status-cancelado';
+
+                const row = `
+                    <tr>
+                        <td><strong>${m.key}</strong></td>
+                        <td>${m.summary}</td>
+                        <td><span class="${statusClass}">${m.status}</span></td>
+                        <td>${m.assignee}</td>
+                        <td>${created}</td>
+                        <td><a href="${url}" target="_blank" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Ver</a></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>

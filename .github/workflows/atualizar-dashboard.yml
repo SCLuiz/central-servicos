@@ -58,7 +58,7 @@ jobs:
 
           payload = {
               'jql': jql,
-              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073'],
+              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_11106'],
               'maxResults': 100
           }
 
@@ -86,6 +86,20 @@ jobs:
                   priority = fields.get('priority', {})
                   status = fields.get('status', {})
 
+                  # Pegar categoria (se não tiver, inferir das labels)
+                  categoria = fields.get('customfield_11106', {})
+                  categoria_value = categoria.get('value', '') if categoria else ''
+                  
+                  # Se não tem categoria, tentar inferir das labels
+                  if not categoria_value:
+                      labels = fields.get('labels', [])
+                      if 'tipo:emergencial' in labels:
+                          categoria_value = 'Emergencial'
+                      elif 'tipo:planejada' in labels:
+                          categoria_value = 'Planejada'
+                      elif 'tipo:normal' in labels:
+                          categoria_value = 'Normal'
+                  
                   mudancas.append({
                       'key': key,
                       'summary': fields.get('summary', ''),
@@ -97,6 +111,7 @@ jobs:
                       'updated': fields.get('updated', ''),
                       'labels': fields.get('labels', []),
                       'causouIncidente': fields.get('customfield_11073', False),
+                      'categoria': categoria_value,
                   })
 
               # Salvar JSON

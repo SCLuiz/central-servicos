@@ -958,10 +958,9 @@
             event.target.classList.add('active');
 
             // Aplicar filtros combinados
-            applyFilters();
+            loadData();
         }
 
-        function applyFilters() {
         function applyPeriodFilter(days) {
             currentFilter = days;
             customDateRange = null;

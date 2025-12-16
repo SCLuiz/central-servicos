@@ -563,8 +563,7 @@
 
             mudancas.forEach(m => {
                 // Status
-                // Removido - calculado no final
-                else if (m.status.includes('Planejamento')) stats.planejamento++;
+                if (m.status.includes('Planejamento')) stats.planejamento++;
                 else if (m.status.includes('Concluído')) stats.concluido++;
                 else if (m.status.includes('Cancelado')) stats.cancelado++;
                 else if (m.status.includes('Rejeitado')) stats.rejeitado++;

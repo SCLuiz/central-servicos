@@ -34,10 +34,23 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--of-light-gray);
+            background: linear-gradient(135deg,
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: var(--of-dark);
             line-height: 1.5;
             min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {

@@ -318,6 +318,133 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Filtros de Período */
+        .filters-bar {
+            background: var(--of-white);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin: -20px auto 30px;
+            max-width: 1400px;
+            border-radius: 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filters-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--of-gray);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filters-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: var(--of-light-gray);
+            border: 2px solid transparent;
+            color: var(--of-dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(221, 36, 155, 0.1);
+            border-color: var(--of-magenta);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--of-magenta), #C2185B);
+            color: var(--of-white);
+            border-color: var(--of-magenta);
+            box-shadow: 0 4px 12px rgba(221, 36, 155, 0.3);
+        }
+
+        .filter-divider {
+            width: 1px;
+            height: 30px;
+            background: var(--of-light-gray);
+            margin: 0 5px;
+        }
+
+        .date-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .date-input-label {
+            font-size: 13px;
+            color: var(--of-gray);
+            font-weight: 600;
+        }
+
+        .date-input {
+            background: var(--of-light-gray);
+            border: 2px solid transparent;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--of-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .date-input:hover {
+            border-color: var(--of-magenta);
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: var(--of-magenta);
+            background: var(--of-white);
+        }
+
+        .apply-filter-btn {
+            background: var(--of-yellow);
+            color: var(--of-dark);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(247, 194, 15, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .filters-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-btn {
+                text-align: center;
+            }
+
+            .filter-divider {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -340,6 +467,33 @@
 
     <!-- Container principal -->
     <div class="container">
+
+        <!-- Filtros de Período -->
+        <div class="filters-bar">
+            <div class="filters-title">Período de Análise</div>
+            <div class="filters-buttons">
+                <button class="filter-btn active" onclick="applyPeriodFilter('all')">Todos</button>
+                <button class="filter-btn" onclick="applyPeriodFilter(20)">20 dias</button>
+                <button class="filter-btn" onclick="applyPeriodFilter(60)">60 dias</button>
+                <button class="filter-btn" onclick="applyPeriodFilter(90)">90 dias</button>
+                <button class="filter-btn" onclick="applyPeriodFilter(180)">6 meses</button>
+                <button class="filter-btn" onclick="applyPeriodFilter(365)">1 ano</button>
+
+                <div class="filter-divider"></div>
+
+                <div class="date-input-group">
+                    <span class="date-input-label">De:</span>
+                    <input type="date" id="dateFrom" class="date-input">
+                </div>
+                <div class="date-input-group">
+                    <span class="date-input-label">Até:</span>
+                    <input type="date" id="dateTo" class="date-input">
+                </div>
+                <button class="apply-filter-btn" onclick="applyCustomDateFilter()">Aplicar</button>
+            </div>
+        </div>
+
+
         <div id="loading" class="loading">
             <div class="spinner"></div>
             <p>Carregando dados do Jira...</p>
@@ -749,6 +903,79 @@
         }
 
         // Carregar ao iniciar
+
+        let currentFilter = 'all';
+        let customDateRange = null;
+
+        function applyPeriodFilter(days) {
+            currentFilter = days;
+            customDateRange = null;
+
+            // Atualizar UI dos botões
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Limpar datas customizadas
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+
+            // Filtrar dados
+            filterAndRender();
+        }
+
+        function applyCustomDateFilter() {
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            if (!dateFrom || !dateTo) {
+                alert('Por favor, selecione ambas as datas');
+                return;
+            }
+
+            customDateRange = {
+                from: new Date(dateFrom + 'T00:00:00'),
+                to: new Date(dateTo + 'T23:59:59')
+            };
+            currentFilter = 'custom';
+
+            // Remover active de todos os botões
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Filtrar dados
+            filterAndRender();
+        }
+
+        function filterAndRender() {
+            let filteredMudancas = [...allMudancas];
+
+            if (currentFilter === 'all') {
+                // Mostrar todos
+            } else if (currentFilter === 'custom' && customDateRange) {
+                // Filtro por data customizada
+                filteredMudancas = filteredMudancas.filter(m => {
+                    const created = new Date(m.created);
+                    return created >= customDateRange.from && created <= customDateRange.to;
+                });
+            } else {
+                // Filtro por período predefinido (dias)
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - currentFilter);
+
+                filteredMudancas = filteredMudancas.filter(m => {
+                    const created = new Date(m.created);
+                    return created >= cutoffDate;
+                });
+            }
+
+            // Re-renderizar dashboard com dados filtrados
+            renderDashboard(filteredMudancas);
+        }
+
+
         window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>

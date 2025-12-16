@@ -521,6 +521,16 @@
                 </div>
                 <button class="apply-filter-btn" onclick="applyCustomDateFilter()">Aplicar</button>
             </div>
+
+        <!-- Filtros de Categoria -->
+        <div class="filters-bar" style="margin-top: 20px;">
+            <div class="filters-title">Tipo de Mudança</div>
+            <div class="filters-buttons">
+                <button class="filter-btn active" onclick="applyCategoryFilter('all')">Todas</button>
+                <button class="filter-btn" onclick="applyCategoryFilter('normal')">Normal</button>
+                <button class="filter-btn" onclick="applyCategoryFilter('planejada')">Planejada</button>
+                <button class="filter-btn" onclick="applyCategoryFilter('emergencial')">Emergencial</button>
+            </div>
         </div>
 
 
@@ -937,6 +947,21 @@
         let currentFilter = 'all';
         let customDateRange = null;
 
+        
+        function applyCategoryFilter(category) {
+            currentCategoryFilter = category;
+
+            // Atualizar botões ativos
+            document.querySelectorAll('.filters-bar:nth-of-type(2) .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Aplicar filtros combinados
+            applyFilters();
+        }
+
+        function applyFilters() {
         function applyPeriodFilter(days) {
             currentFilter = days;
             customDateRange = null;

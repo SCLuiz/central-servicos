@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2025-12-17T13:59:48.549442",
+  "ultima_atualizacao": "2025-12-17T14:27:05.643041",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4309",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Pedro Arlego",
+      "reporter": "Pedro Arlego",
+      "created": "2025-12-17T11:22:47.825-0300",
+      "updated": "2025-12-17T11:22:47.952-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4308",
       "summary": "Solicitação de Mudanças",
@@ -1481,21 +1494,6 @@
       "reporter": "bruno castegliani",
       "created": "2023-12-15T16:38:48.539-0300",
       "updated": "2025-12-15T20:18:29.635-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-534",
-      "summary": "Criação de stack no cloudformation para monitoramento do banco de RDS e Lambda OrganisationSyncDB",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2023-12-11T11:43:59.032-0300",
-      "updated": "2025-12-15T20:18:31.037-0300",
       "labels": [
         "tipo:normal"
       ],

@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2025-12-17T14:48:10.931074",
+  "ultima_atualizacao": "2025-12-17T14:59:46.121062",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4309",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Pedro Arlego",
       "reporter": "Pedro Arlego",
       "created": "2025-12-17T11:22:47.825-0300",
-      "updated": "2025-12-17T11:28:52.332-0300",
+      "updated": "2025-12-17T11:54:34.984-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

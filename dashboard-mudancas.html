@@ -1032,7 +1032,7 @@
             if (currentCategoryFilter !== 'all') {
                 if (currentCategoryFilter === 'cancelado') {
                     // Filtrar por status "Cancelado"
-                    filteredMudancas = filteredMudancas.filter(m => {
+                    filteredMudancas = allMudancas.filter(m => {
                         return m.status === 'Cancelado';
                     });
                 } else {

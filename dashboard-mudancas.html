@@ -530,6 +530,7 @@
                 <button class="filter-btn" onclick="applyCategoryFilter('normal')">Normal</button>
                 <button class="filter-btn" onclick="applyCategoryFilter('planejada')">Planejada</button>
                 <button class="filter-btn" onclick="applyCategoryFilter('emergencial')">Emergencial</button>
+                <button class="filter-btn" onclick="applyCategoryFilter('cancelado')">Cancelado</button>
             </div>
         </div>
 
@@ -1029,14 +1030,22 @@
 
             // Filtro por categoria
             if (currentCategoryFilter !== 'all') {
-                const categoryLabel = `tipo:${currentCategoryFilter}`;
-                filteredMudancas = filteredMudancas.filter(m => {
-                    const labels = m.labels || [];
-                    const categoria = m.categoria || '';
-                    // Verificar tanto pela label quanto pelo campo categoria
-                    return labels.includes(categoryLabel) ||
-                           categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
-                });
+                if (currentCategoryFilter === 'cancelado') {
+                    // Filtrar por status "Cancelado"
+                    filteredMudancas = filteredMudancas.filter(m => {
+                        return m.status === 'Cancelado';
+                    });
+                } else {
+                    // Filtrar por categoria (Normal, Planejada, Emergencial)
+                    const categoryLabel = `tipo:${currentCategoryFilter}`;
+                    filteredMudancas = filteredMudancas.filter(m => {
+                        const labels = m.labels || [];
+                        const categoria = m.categoria || '';
+                        // Verificar tanto pela label quanto pelo campo categoria
+                        return labels.includes(categoryLabel) ||
+                               categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
+                    });
+                }
             }
 
             // Re-renderizar dashboard com dados filtrados

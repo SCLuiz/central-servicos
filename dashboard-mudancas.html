@@ -1027,7 +1027,17 @@
                 });
             }
 
-
+            // Filtro por categoria
+            if (currentCategoryFilter !== 'all') {
+                const categoryLabel = `tipo:${currentCategoryFilter}`;
+                filteredMudancas = filteredMudancas.filter(m => {
+                    const labels = m.labels || [];
+                    const categoria = m.categoria || '';
+                    // Verificar tanto pela label quanto pelo campo categoria
+                    return labels.includes(categoryLabel) ||
+                           categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
+                });
+            }
 
             // Re-renderizar dashboard com dados filtrados
             renderDashboard(filteredMudancas);

@@ -1038,7 +1038,7 @@
                 } else {
                     // Filtrar por categoria (Normal, Planejada, Emergencial)
                     const categoryLabel = `tipo:${currentCategoryFilter}`;
-                    filteredMudancas = filteredMudancas.filter(m => {
+                    filteredMudancas = allMudancas.filter(m => {
                         const labels = m.labels || [];
                         const categoria = m.categoria || '';
                         // Verificar tanto pela label quanto pelo campo categoria

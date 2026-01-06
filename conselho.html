@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,7 @@
             --ds-blue: #0052CC;
             --ds-blue-subtle: #DEEBFF;
             --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+            --of-white: #FFFFFF;
         }
 
         * {
@@ -29,11 +31,11 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: linear-gradient(135deg,
-                rgba(255, 20, 147, 0.55) 0%,
-                rgba(255, 105, 180, 0.50) 25%,
-                rgba(255, 182, 193, 0.45) 50%,
-                rgba(255, 215, 0, 0.50) 75%,
-                rgba(255, 165, 0, 0.55) 100%);
+                    rgba(255, 20, 147, 0.55) 0%,
+                    rgba(255, 105, 180, 0.50) 25%,
+                    rgba(255, 182, 193, 0.45) 50%,
+                    rgba(255, 215, 0, 0.50) 75%,
+                    rgba(255, 165, 0, 0.55) 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--ds-text);
@@ -43,9 +45,17 @@
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
@@ -121,13 +131,32 @@
             display: inline-block;
         }
 
-        .btn-secondary {
-            background: var(--ds-surface-overlay);
-            color: var(--ds-text);
+        .back-button {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: var(--of-white);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
         }
 
-        .btn-secondary:hover {
-            background: #EBECF0;
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateX(-3px);
+        }
+
+        .back-button::before {
+            content: '←';
+            font-size: 18px;
+            font-weight: bold;
         }
 
         /* Cards Grid */
@@ -202,7 +231,7 @@
             font-weight: 600;
             transition: all 0.2s;
             margin-top: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .card-button:hover {
@@ -230,6 +259,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -238,7 +268,9 @@
             <div class="header-content">
                 <h1>Conselho</h1>
                 <p>Governança, Transparência e Decisões Estratégicas</p>
-                <a href="index.html" class="btn btn-secondary">← Voltar para Central de Serviços</a>
+                <div class="header-info">
+                    <a href="index.html" class="back-button">Voltar para Central de Serviços</a>
+                </div>
             </div>
         </div>
 
@@ -251,7 +283,8 @@
                     <div class="card-title">Estrutura de Governança</div>
                 </div>
                 <div class="card-description">
-                    Define como a empresa é organizada em níveis de decisão (Conselho, Diretoria e Comitês) garantindo transparência, ética e eficiência nas deliberações.
+                    Define como a empresa é organizada em níveis de decisão (Conselho, Diretoria e Comitês) garantindo
+                    transparência, ética e eficiência nas deliberações.
                 </div>
                 <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
                     <span style="font-size: 20px;">🏛️</span>
@@ -266,7 +299,8 @@
                     <div class="card-title">Composição e Representantes</div>
                 </div>
                 <div class="card-description">
-                    Apresenta os membros do Conselho, suas funções e entidades representadas, assegurando diversidade e representatividade institucional.
+                    Apresenta os membros do Conselho, suas funções e entidades representadas, assegurando diversidade e
+                    representatividade institucional.
                 </div>
                 <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
                     <span style="font-size: 20px;">👥</span>
@@ -281,7 +315,8 @@
                     <div class="card-title">Regras e Mandatos</div>
                 </div>
                 <div class="card-description">
-                    Estabelece prazos, critérios de eleição e responsabilidades dos conselheiros, assegurando continuidade e legitimidade na governança.
+                    Estabelece prazos, critérios de eleição e responsabilidades dos conselheiros, assegurando
+                    continuidade e legitimidade na governança.
                 </div>
                 <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
                     <span style="font-size: 20px;">📜</span>
@@ -296,7 +331,8 @@
                     <div class="card-title">Relatórios e Atas de Reuniões</div>
                 </div>
                 <div class="card-description">
-                    Reúne documentos oficiais e registros das decisões do Conselho, promovendo transparência e histórico das deliberações.
+                    Reúne documentos oficiais e registros das decisões do Conselho, promovendo transparência e histórico
+                    das deliberações.
                 </div>
                 <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
                     <span style="font-size: 20px;">🧾</span>
@@ -311,7 +347,8 @@
                     <div class="card-title">Políticas e Decisões Estratégicas</div>
                 </div>
                 <div class="card-description">
-                    Divulga as diretrizes e resoluções aprovadas pelo Conselho que orientam a gestão e o posicionamento estratégico da organização.
+                    Divulga as diretrizes e resoluções aprovadas pelo Conselho que orientam a gestão e o posicionamento
+                    estratégico da organização.
                 </div>
                 <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
                     <span style="font-size: 20px;">⚙️</span>
@@ -331,7 +368,7 @@
         // Verificar autenticação
         window.addEventListener('DOMContentLoaded', () => {
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
-                                   sessionStorage.getItem('isAuthenticated') === 'true';
+                sessionStorage.getItem('isAuthenticated') === 'true';
 
             if (!isAuthenticated) {
                 window.location.href = 'login.html';
@@ -339,4 +376,5 @@
         });
     </script>
 </body>
+
 </html>

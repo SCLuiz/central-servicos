@@ -1,0 +1,112 @@
+[
+  {
+    "source": "Jira",
+    "key": "OFBI-4284",
+    "title": "OFBI-4284 - Solicitação de Modificação em Documentos",
+    "type_name": "[System] Solicitação de Serviço",
+    "tag_class": "tag-servico",
+    "status_name": "Fase de Análise",
+    "status_dot": "dot-info",
+    "date": "06/01/2026 15:15",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4284"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4311",
+    "title": "OFBI-4311 - Nova Solicitação de Acesso ao Quicksight",
+    "type_name": "[System] Solicitação de Serviço",
+    "tag_class": "tag-servico",
+    "status_name": "Fase de Análise",
+    "status_dot": "dot-info",
+    "date": "06/01/2026 12:09",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4311"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4310",
+    "title": "OFBI-4310 - Nova Solicitação de Acesso ao Quicksight",
+    "type_name": "[System] Solicitação de Serviço",
+    "tag_class": "tag-servico",
+    "status_name": "Fase de Análise",
+    "status_dot": "dot-info",
+    "date": "05/01/2026 09:52",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4310"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4309",
+    "title": "OFBI-4309 - Solicitação de Mudanças",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "17/12/2025 13:50",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4309"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4308",
+    "title": "OFBI-4308 - Solicitação de Mudanças",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "16/12/2025 14:09",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4308"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-533",
+    "title": "OFBI-533 - Instalação do agent do Dynatrace para monitoramento da aplicação",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "15/12/2025 20:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-533"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-534",
+    "title": "OFBI-534 - Criação de stack no cloudformation para monitoramento do banco de RDS e Lambda OrganisationSyncDB",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "15/12/2025 20:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-534"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-539",
+    "title": "OFBI-539 - [CISO] - Proteção avançada dos dispositivos Chicago",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "15/12/2025 20:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-539"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-544",
+    "title": "OFBI-544 - Atualização dos pacotes de segurança - MISP",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "15/12/2025 20:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-544"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-551",
+    "title": "OFBI-551 - MISP - Renovação do certificado SSL",
+    "type_name": "[System] Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Concluído com Sucesso",
+    "status_dot": "dot-info",
+    "date": "15/12/2025 20:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-551"
+  }
+]

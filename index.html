@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,11 +40,11 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: linear-gradient(135deg,
-                rgba(255, 20, 147, 0.55) 0%,
-                rgba(255, 105, 180, 0.50) 25%,
-                rgba(255, 182, 193, 0.45) 50%,
-                rgba(255, 215, 0, 0.50) 75%,
-                rgba(255, 165, 0, 0.55) 100%);
+                    rgba(255, 20, 147, 0.55) 0%,
+                    rgba(255, 105, 180, 0.50) 25%,
+                    rgba(255, 182, 193, 0.45) 50%,
+                    rgba(255, 215, 0, 0.50) 75%,
+                    rgba(255, 165, 0, 0.55) 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--ds-text);
@@ -281,9 +282,11 @@
             0% {
                 background-position: 0% 50%;
             }
+
             50% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 50%;
             }
@@ -294,6 +297,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -304,17 +308,203 @@
             animation: fadeIn 0.4s ease-out backwards;
         }
 
-        .service-card:nth-child(1) { animation-delay: 0.05s; }
-        .service-card:nth-child(2) { animation-delay: 0.1s; }
-        .service-card:nth-child(3) { animation-delay: 0.15s; }
-        .service-card:nth-child(4) { animation-delay: 0.2s; }
-        .service-card:nth-child(5) { animation-delay: 0.25s; }
-        .service-card:nth-child(6) { animation-delay: 0.3s; }
-        .service-card:nth-child(7) { animation-delay: 0.35s; }
-        .service-card:nth-child(8) { animation-delay: 0.4s; }
-        .service-card:nth-child(9) { animation-delay: 0.45s; }
+        .service-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .service-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .service-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .service-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .service-card:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .service-card:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .service-card:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .service-card:nth-child(8) {
+            animation-delay: 0.4s;
+        }
+
+        .service-card:nth-child(9) {
+            animation-delay: 0.45s;
+        }
+
+        /* News Feed Section */
+        .news-section {
+            padding: 40px 0;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding: 0 10px;
+        }
+
+        .news-header h2 {
+            font-size: 24px;
+            color: var(--ds-text);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .news-header h2::before {
+            content: '📢';
+            font-size: 24px;
+        }
+
+        .news-scroll-wrapper {
+            position: relative;
+        }
+
+        .news-scroll-wrapper::before,
+        .news-scroll-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .news-scroll-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--ds-background), transparent);
+        }
+
+        .news-scroll-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--ds-background), transparent);
+        }
+
+        .news-scroll-container {
+            display: flex;
+            gap: 20px;
+            animation: scroll-left 40s linear infinite;
+            width: max-content;
+        }
+
+        .news-scroll-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .news-card {
+            background: var(--ds-surface);
+            border: 1px solid var(--ds-border);
+            border-radius: 12px;
+            padding: 16px;
+            width: 300px;
+            box-shadow: var(--ds-shadow-card);
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(9, 30, 66, 0.15);
+        }
+
+        .news-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .tag-mudanca {
+            background: #EAE6FF;
+            color: #5243AA;
+        }
+
+        .tag-incidente {
+            background: #FFEBE6;
+            color: #DE350B;
+        }
+
+        .tag-servico {
+            background: #DEEBFF;
+            color: #0052CC;
+        }
+
+        .news-title {
+            color: var(--ds-text);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ds-text-subtle);
+            font-size: 12px;
+        }
+
+        .news-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-success {
+            background: #36B37E;
+        }
+
+        .dot-warning {
+            background: #FFAB00;
+        }
+
+        .dot-info {
+            background: #00B8D9;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -328,9 +518,11 @@
                 <p>Open Finance Brasil</p>
 
                 <!-- User Info -->
-                <div style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
+                <div
+                    style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
                     <span id="userName" style="font-size: 14px; font-weight: 500;"></span>
-                    <button onclick="fazerLogout()" style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
+                    <button onclick="fazerLogout()"
+                        style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
                         🚪 Sair
                     </button>
                 </div>
@@ -341,7 +533,9 @@
         <div class="cards-grid">
             <!-- Administrativo -->
             <a href="administrativo.html" class="service-card">
-                <div class="card-banner" style="background-image: url('administrativo.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('administrativo.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Solicitações administrativas, compras, contratos e gestão documental
                 </div>
@@ -352,7 +546,9 @@
 
             <!-- Conselho -->
             <a href="conselho.html" class="service-card">
-                <div class="card-banner" style="background-image: url('conselho.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('conselho.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Governança, transparência e decisões estratégicas
                 </div>
@@ -363,7 +559,9 @@
 
             <!-- Facilities -->
             <a href="facilities.html" class="service-card">
-                <div class="card-banner" style="background-image: url('facilities.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('facilities.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Manutenção, limpeza, mobiliário, agendamentos e segurança patrimonial
                 </div>
@@ -374,7 +572,9 @@
 
             <!-- Financeiro -->
             <a href="financeiro.html" class="service-card">
-                <div class="card-banner" style="background-image: url('financeiro.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('financeiro.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Contas a pagar, contas a receber, relatórios e gestão fiscal
                 </div>
@@ -385,7 +585,9 @@
 
             <!-- Gente e Gestão -->
             <a href="gente-gestao.html" class="service-card">
-                <div class="card-banner" style="background-image: url('gente-gestao.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('gente-gestao.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Gestão de pessoas, benefícios, clima organizacional e comunicação interna
                 </div>
@@ -396,7 +598,9 @@
 
             <!-- Jurídico -->
             <a href="juridico.html" class="service-card">
-                <div class="card-banner" style="background-image: url('juridico.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('juridico.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Contratos, compliance, procurações e demandas judiciais
                 </div>
@@ -407,7 +611,9 @@
 
             <!-- Marketing -->
             <a href="marketing.html" class="service-card">
-                <div class="card-banner" style="background-image: url('marketing.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('marketing.png?v=1'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Campanhas, audiovisual, design e marketing digital
                 </div>
@@ -418,7 +624,9 @@
 
             <!-- SecOps -->
             <a href="secops.html" class="service-card">
-                <div class="card-banner" style="background-image: url('secops.png?v=2'); background-size: cover !important; background-position: center left !important;"></div>
+                <div class="card-banner"
+                    style="background-image: url('secops.png?v=2'); background-size: cover !important; background-position: center left !important;">
+                </div>
                 <div class="card-description">
                     Segurança, Operações de TI, Monitoramento, Atendimento ao Usuário e resposta a incidentes
                 </div>
@@ -426,6 +634,178 @@
                     SOC • NOC
                 </div>
             </a>
+        </div>
+
+        <!-- News Feed (Marquee) -->
+        <div class="news-section">
+            <div class="news-header">
+                <h2>Últimas Atualizações</h2>
+            </div>
+            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
+                <div class="news-scroll-container">
+                    <!-- Card 1 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4309 - Atualização de Certificados do Portal</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>Há 2 dias</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">Quicksight</span>
+                        <div class="news-title">OFBI-4311 - Liberação de acesso para novos analistas</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-info"></span> Em Análise</div>
+                            <span>Hoje, 12:09</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-incidente">Incidente</span>
+                        <div class="news-title">OFBI-4283 - Indisponibilidade momentânea no Jira</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-warning"></span> Monitorando</div>
+                            <span>27/11/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 4 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4299 - Deploy da nova versão do Motor de Conformidade</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>09/12/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 5 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">AWS</span>
+                        <div class="news-title">OFBI-4267 - Criação de instâncias EC2 para Sandbox</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>04/11/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Repetindo cards para efeito infinito -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4309 - Atualização de Certificados do Portal</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>Há 2 dias</span>
+                        </div>
+                    </a>
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">Quicksight</span>
+                        <div class="news-title">OFBI-4311 - Liberação de acesso para novos analistas</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-info"></span> Em Análise</div>
+                            <span>Hoje, 12:09</span>
+                        </div>
+                    </a>
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-incidente">Incidente</span>
+                        <div class="news-title">OFBI-4283 - Indisponibilidade momentânea no Jira</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-warning"></span> Monitorando</div>
+                            <span>27/11/2025</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Feed (Marquee) -->
+        <div class="news-section">
+            <div class="news-header">
+                <h2>Últimas Atualizações</h2>
+            </div>
+            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
+                <div class="news-scroll-container">
+                    <!-- Card 1 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4309 - Atualização de Certificados do Portal</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>Há 2 dias</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">Quicksight</span>
+                        <div class="news-title">OFBI-4311 - Liberação de acesso para novos analistas</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-info"></span> Em Análise</div>
+                            <span>Hoje, 12:09</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-incidente">Incidente</span>
+                        <div class="news-title">OFBI-4283 - Indisponibilidade momentânea no Jira</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-warning"></span> Monitorando</div>
+                            <span>27/11/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 4 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4299 - Deploy da nova versão do Motor de Conformidade</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>09/12/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Card 5 -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">AWS</span>
+                        <div class="news-title">OFBI-4267 - Criação de instâncias EC2 para Sandbox</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>04/11/2025</span>
+                        </div>
+                    </a>
+
+                    <!-- Repetindo cards para efeito infinito -->
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-mudanca">Mudança</span>
+                        <div class="news-title">OFBI-4309 - Atualização de Certificados do Portal</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-success"></span> Concluído</div>
+                            <span>Há 2 dias</span>
+                        </div>
+                    </a>
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-servico">Quicksight</span>
+                        <div class="news-title">OFBI-4311 - Liberação de acesso para novos analistas</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-info"></span> Em Análise</div>
+                            <span>Hoje, 12:09</span>
+                        </div>
+                    </a>
+                    <a href="#" class="news-card">
+                        <span class="news-tag tag-incidente">Incidente</span>
+                        <div class="news-title">OFBI-4283 - Indisponibilidade momentânea no Jira</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot dot-warning"></span> Monitorando</div>
+                            <span>27/11/2025</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -439,7 +819,7 @@
         // Verificar autenticação ao carregar
         function verificarAutenticacao() {
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
-                                   sessionStorage.getItem('isAuthenticated') === 'true';
+                sessionStorage.getItem('isAuthenticated') === 'true';
 
             if (!isAuthenticated) {
                 // Não está autenticado, redirecionar para login
@@ -488,7 +868,60 @@
         // Executar verificação ao carregar
         window.addEventListener('DOMContentLoaded', () => {
             verificarAutenticacao();
+            loadNewsFeed();
         });
+
+        // Carregar Feed de Notícias
+        async function loadNewsFeed() {
+            const container = document.querySelector('.news-scroll-container');
+            if (!container) return;
+
+            try {
+                // Adicionar timestamp para evitar cache
+                const response = await fetch('news_data.json?v=' + new Date().getTime());
+                if (!response.ok) throw new Error('Falha ao carregar notícias');
+
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhuma atualização recente.</div>';
+                    return;
+                }
+
+                // Limpar conteúdo de loading
+                container.innerHTML = '';
+
+                // Função helper para criar card
+                const createCard = (item) => {
+                    const card = document.createElement('a');
+                    card.href = item.url || '#';
+                    card.className = 'news-card';
+                    card.target = '_blank'; // Abrir em nova aba
+
+                    card.innerHTML = `
+                        <span class="news-tag ${item.tag_class}">${item.type_name}</span>
+                        <div class="news-title">${item.title}</div>
+                        <div class="news-meta">
+                            <div class="news-status"><span class="status-dot ${item.status_dot}"></span> ${item.status_name}</div>
+                            <span>${item.date}</span>
+                        </div>
+                    `;
+                    return card;
+                };
+
+                // Adicionar items (x2 para loop infinito suave)
+                // Se tiver poucos items, duplicar mais vezes para preencher a tela
+                const repeatCount = data.length < 5 ? 4 : 2;
+
+                for (let i = 0; i < repeatCount; i++) {
+                    data.forEach(item => container.appendChild(createCard(item)));
+                }
+
+            } catch (error) {
+                console.warn('News Feed Error:', error);
+                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
+            }
+        }
     </script>
 </body>
+
 </html>

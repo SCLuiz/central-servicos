@@ -25,9 +25,9 @@ def fetch_jira_news():
     auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_TOKEN)
     headers = {"Accept": "application/json"}
     
-    # Buscar Mudanças (apenas abertas) e Incidentes (todos ou recentes)
-    # Mudanças: statusCategory != Done (para pegar apenas em aberto/em andamento)
-    jql = 'project = OFBI AND ((issuetype = "[System] Mudança" AND statusCategory != Done) OR issuetype = "[System] Incidente") ORDER BY updated DESC'
+    # Buscar APENAS Mudanças em aberto (removido Incidentes a pedido do usuário)
+    # Mudanças: statusCategory != Done
+    jql = 'project = OFBI AND issuetype = "[System] Mudança" AND statusCategory != Done ORDER BY updated DESC'
     
     url = f"{JIRA_URL}/rest/api/3/search/jql"
     params = {

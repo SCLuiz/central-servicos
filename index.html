@@ -501,6 +501,60 @@
             background: #FFAB00;
         }
 
+        /* Spaces Feed Styles */
+        .spaces-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .spaces-header h2 {
+            font-size: 20px;
+            color: var(--ds-text);
+            font-weight: 600;
+            padding-left: 10px;
+            margin-bottom: 16px;
+        }
+
+        .space-card {
+            background: linear-gradient(135deg, #6554C0 0%, #5243AA 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 16px;
+            width: 180px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            flex-shrink: 0;
+            box-shadow: var(--ds-shadow-card);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .space-card:hover {
+            transform: translateY(-4px);
+            opacity: 0.95;
+        }
+
+        .space-name {
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 1.3;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .space-key {
+            font-size: 10px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .dot-info {
             background: #00B8D9;
         }
@@ -653,6 +707,18 @@
 
 
 
+        <div class="spaces-section">
+            <div class="spaces-header">
+                <h2>Espaços & Anúncios</h2>
+            </div>
+            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
+                <div class="news-scroll-container spaces-container">
+                    <!-- O conteúdo será carregado via JavaScript (loadSpacesFeed) -->
+                    <div style="padding: 20px; color: var(--ds-text-subtle);">Carregando espaços...</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <div class="footer">
             <p>Selecione o departamento acima para abrir seu chamado</p>
@@ -714,7 +780,49 @@
         window.addEventListener('DOMContentLoaded', () => {
             verificarAutenticacao();
             loadNewsFeed();
+            loadSpacesFeed();
         });
+
+        // Carregar Feed de Espaços
+        async function loadSpacesFeed() {
+            const container = document.querySelector('.spaces-container');
+            if (!container) return;
+
+            try {
+                const response = await fetch('spaces_data.json?v=' + new Date().getTime());
+                if (!response.ok) throw new Error('Falha ao carregar espaços');
+
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhum espaço disponível.</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                const createSpaceCard = (item) => {
+                    const card = document.createElement('a');
+                    card.href = item.url || '#';
+                    card.className = 'space-card';
+                    card.target = '_blank';
+
+                    card.innerHTML = `
+                        <div class="space-key">${item.key}</div>
+                        <div class="space-name">${item.name}</div>
+                    `;
+                    return card;
+                };
+
+                const repeatCount = data.length < 6 ? 4 : 2;
+                for (let i = 0; i < repeatCount; i++) {
+                    data.forEach(item => container.appendChild(createSpaceCard(item)));
+                }
+
+            } catch (error) {
+                console.warn('Spaces Feed Error:', error);
+                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Erro ao carregar espaços.</div>';
+            }
+        }
 
         // Carregar Feed de Notícias
         async function loadNewsFeed() {

@@ -25,9 +25,9 @@ def fetch_jira_news():
     auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_TOKEN)
     headers = {"Accept": "application/json"}
     
-    # Buscar Mudanças e Incidentes com nomes corretos
-    # Os tipos têm prefixo [System] neste ambiente
-    jql = 'project = OFBI AND issuetype in ("[System] Mudança", "[System] Incidente") ORDER BY updated DESC'
+    # Buscar Mudanças (apenas abertas) e Incidentes (todos ou recentes)
+    # Mudanças: statusCategory != Done (para pegar apenas em aberto/em andamento)
+    jql = 'project = OFBI AND ((issuetype = "[System] Mudança" AND statusCategory != Done) OR issuetype = "[System] Incidente") ORDER BY updated DESC'
     
     url = f"{JIRA_URL}/rest/api/3/search/jql"
     params = {
@@ -63,7 +63,7 @@ def fetch_jira_news():
         
         if status_name in ["Concluído", "Resolvido", "Fechado", "Implementado"]:
             status_dot = "dot-success" # Verde
-        elif status_name in ["Monitorando", "Em progresso", "Em análise"]:
+        elif status_name in ["Monitorando", "Em progresso", "Em análise", "Aguardando"]:
             status_dot = "dot-warning" # Laranja/Amarelo
         
         # Formatar Data
@@ -80,7 +80,7 @@ def fetch_jira_news():
             "source": "Jira",
             "key": issue.get('key'),
             "title": f"{issue.get('key')} - {fields.get('summary')}",
-            "type_name": issue_type,
+            "type_name": issue_type.replace("[System] ", ""), # Remove prefixo feio se existir
             "tag_class": tag_class,
             "status_name": status_name,
             "status_dot": status_dot,
@@ -91,22 +91,92 @@ def fetch_jira_news():
         
     return news_items
 
+def fetch_confluence_news():
+    print("Conectando ao Confluence...")
+    auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_TOKEN)
+    headers = {"Accept": "application/json"}
+    
+    # Derivar URL do Confluence
+    base_url = JIRA_URL.replace(JIRA_URL.split('/')[-1], "") if JIRA_URL.endswith('/') else JIRA_URL
+    # Se JIRA_URL for algo como https://dominio.atlassian.net, ok.
+    # Ajuste fino pode ser necessário dependendo da URL exata do Jira enviada no env
+    if "atlassian.net" in base_url:
+        confluence_url = f"https://{base_url.split('//')[1].split('.')[0]}.atlassian.net/wiki"
+    else:
+        confluence_url = f"{base_url}/wiki"
+
+    # Buscar páginas com label 'portal-news'
+    # CQL: label = "portal-news" AND type = "page" order by created desc
+    cql = 'label = "portal-news" AND type = "page" order by created desc'
+    
+    url = f"{confluence_url}/rest/api/content/search"
+    params = {
+        "cql": cql,
+        "limit": 5,
+        "expand": "metadata.labels,history"
+    }
+    
+    response = requests.get(url, headers=headers, auth=auth, params=params)
+    
+    if response.status_code != 200:
+        # Tentar sem /wiki se falhar (algumas instances personalizadas)
+        print(f"Erro no Confluence ({url}): {response.status_code}. Tentando sem /wiki...")
+        confluence_url = base_url
+        url = f"{confluence_url}/rest/api/content/search"
+        response = requests.get(url, headers=headers, auth=auth, params=params)
+        
+        if response.status_code != 200:
+            print(f"Erro persistente no Confluence: {response.status_code} - {response.text}")
+            return []
+
+    results = response.json().get('results', [])
+    news_items = []
+    
+    for page in results:
+        title = page.get('title')
+        webui = page.get('_links', {}).get('webui')
+        full_url = f"{confluence_url}{webui}"
+        
+        # Data de criação
+        date_str = page.get('history', {}).get('createdDate', '')
+        formatted_date = ""
+        if date_str:
+            try:
+                dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+                formatted_date = dt.strftime("%d/%m/%Y")
+            except:
+                formatted_date = date_str[:10]
+
+        item = {
+            "source": "Confluence",
+            "key": page.get('id'),
+            "title": title,
+            "type_name": "Comunicado",
+            "tag_class": "tag-comunicado", # Classe nova a ser criada no CSS
+            "status_name": "Publicado",
+            "status_dot": "dot-info",
+            "date": formatted_date,
+            "url": full_url
+        }
+        news_items.append(item)
+        
+    return news_items
+
 def main():
     print("Iniciando atualização do Feed de Notícias...")
     
-    items = fetch_jira_news()
+    jira_items = fetch_jira_news()
+    confluence_items = fetch_confluence_news()
     
-    # Futuro: Integrar Confluence aqui
-    # confluence_items = fetch_confluence_news()
-    # items.extend(confluence_items)
-    
-    # Ordenar por data (se misturar fontes)? O JQL já traz ordenado, mas append pode bagunçar.
+    # Unir e ordenar por data
+    # (simplificado: concatena, idealmente parsear data para sort preciso se formato for igual)
+    all_items = jira_items + confluence_items
     
     output_file = "news_data.json"
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(items, f, indent=2, ensure_ascii=False)
+        json.dump(all_items, f, indent=2, ensure_ascii=False)
         
-    print(f"Sucesso! {len(items)} itens salvos em {output_file}.")
+    print(f"Sucesso! {len(all_items)} itens salvos em {output_file} (Jira: {len(jira_items)}, Confluence: {len(confluence_items)}).")
 
 if __name__ == "__main__":
     main()

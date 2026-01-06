@@ -709,7 +709,7 @@
 
         <div class="spaces-section">
             <div class="spaces-header">
-                <h2>Espaços & Anúncios</h2>
+                <h2>Confluence</h2>
             </div>
             <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
                 <div class="news-scroll-container spaces-container">
@@ -806,9 +806,20 @@
                     card.className = 'space-card';
                     card.target = '_blank';
 
+                    // Ícone ou Placeholder
+                    const iconHtml = item.icon
+                        ? `<img src="${item.icon}" class="space-icon" alt="">`
+                        : `<span style="font-size: 20px;">📘</span>`;
+
                     card.innerHTML = `
-                        <div class="space-key">${item.key}</div>
-                        <div class="space-name">${item.name}</div>
+                        <div class="space-header">
+                            ${iconHtml}
+                            <div class="space-name">${item.name}</div>
+                        </div>
+                        <div class="space-desc">${item.description || 'Acesse para ver mais detalhes.'}</div>
+                        <div class="space-footer">
+                            📌 ${item.latest_title}
+                        </div>
                     `;
                     return card;
                 };

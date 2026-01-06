@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Aniversariantes da semana! 🎂",
+        "description": "Parabéns aos aniversariantes da semana, Murilo Costa (ontem 05/01) e Luis Silveira!! Que este novo ano de vida seja repleto de saúde e conquistas!",
+        "author": "Nancy Pereira",
+        "date": "06/01/2026",
+        "type": "Celebração",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQG62tF8Tq0JFA/company-logo_200_200/company-logo_200_200/0/1630641154562?e=1744243200&v=beta&t=Lg56rZgL2WwG91T6JqQ8Q8JqQ8JqQ8JqQ8JqQ8JqQ8",
+        "url": "#"
+    },
+    {
+        "title": "Comunicado | Apresentação Open Finance 📢",
+        "description": "Hoje às 16h teremos uma apresentação com o diretor Elcio Calefi sobre a área e os produtos de Open Finance. Fiquem à vontade para participar!",
+        "author": "Priscila Vieira",
+        "date": "06/01/2026",
+        "type": "Evento",
+        "image": "",
+        "url": "#"
+    },
+    {
+        "title": "Bem vindos!! ✨",
+        "description": "Sejam muito bem vindos ao time! Desejamos uma excelente jornada por aqui.",
+        "author": "Agatha Fontoura",
+        "date": "05/01/2026",
+        "type": "Onboarding",
+        "image": "",
+        "url": "#"
+    }
+]

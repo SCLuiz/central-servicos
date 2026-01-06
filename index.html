@@ -748,6 +748,19 @@
             </div>
         </div>
 
+        <div class="spaces-section" style="margin-top: 20px;">
+            <div class="spaces-header">
+                <h2 style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 24px;">👥</span> Gente e Gestão
+                </h2>
+            </div>
+            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
+                <div class="news-scroll-container hr-container">
+                    <div style="padding: 20px; color: var(--ds-text-subtle);">Carregando novidades do RH...</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <div class="footer">
             <p>Selecione o departamento acima para abrir seu chamado</p>
@@ -810,7 +823,61 @@
             verificarAutenticacao();
             loadNewsFeed();
             loadSpacesFeed();
+            loadHRFeed();
         });
+
+        // Carregar Feed RH (Gente e Gestão)
+        async function loadHRFeed() {
+            const container = document.querySelector('.hr-container');
+            if (!container) return;
+
+            try {
+                const response = await fetch('hr_data.json?v=' + new Date().getTime());
+                if (!response.ok) throw new Error('Falha ao carregar RH');
+
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhuma novidade.</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                const createHRCard = (item) => {
+                    const card = document.createElement('div');
+                    card.className = 'space-card hr-card'; // Reutiliza estilo base mas adiciona especificidade
+                    // Override styles inline for manual quick fix or add to CSS block
+                    card.style.background = 'white';
+                    card.style.borderLeft = '4px solid #E35205'; // Laranja Teams/RH
+                    card.style.width = '300px';
+                    card.style.height = 'auto';
+                    card.style.minHeight = '140px';
+
+                    card.innerHTML = `
+                        <div class="space-header">
+                            <span style="background: #FFF0E6; color: #E35205; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">${item.type}</span>
+                            <div class="space-name" style="margin-left: auto; font-size: 11px; color: #666;">${item.date}</div>
+                        </div>
+                        <div class="space-name" style="margin-bottom: 6px; font-size: 15px;">${item.title}</div>
+                        <div class="space-desc" style="-webkit-line-clamp: 4;">${item.description}</div>
+                        <div class="space-footer" style="color: #444; border-top-color: #eee; display: flex; align-items: center; gap: 6px;">
+                            <span>✍️ ${item.author}</span>
+                        </div>
+                    `;
+                    return card;
+                };
+
+                // Duplicar para scroll se necessário
+                const repeatCount = data.length < 5 ? 4 : 2;
+                for (let i = 0; i < repeatCount; i++) {
+                    data.forEach(item => container.appendChild(createHRCard(item)));
+                }
+
+            } catch (error) {
+                console.warn('HR Feed Error:', error);
+                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Erro ao carregar RH.</div>';
+            }
+        }
 
         // Carregar Feed de Espaços
         async function loadSpacesFeed() {

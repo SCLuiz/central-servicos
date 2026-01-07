@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,6 +97,7 @@
             font-size: 14px;
             font-weight: 500;
         }
+
         .back-button {
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
@@ -140,8 +142,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* Container principal */
@@ -274,8 +283,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Tabela */
@@ -472,9 +486,9 @@
                 display: none;
             }
         }
-
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -483,7 +497,7 @@
             <p>Monitoramento em tempo real das mudanças Open Finance Brasil</p>
             <div class="header-info">
                 <a href="gestao-mudancas.html" class="back-button">Voltar</a>
-                
+
                 <div class="info-badge status-indicator">
                     <span class="status-dot"></span>
                     <span id="ultimaAtualizacao">Carregando...</span>
@@ -520,7 +534,14 @@
                     <input type="date" id="dateTo" class="date-input">
                 </div>
                 <button class="apply-filter-btn" onclick="applyCustomDateFilter()">Aplicar</button>
+
+                <div class="filter-divider"></div>
+
+                <button class="filter-btn" onclick="exportToCSV()" style="color: #2E7D32; border-color: #2E7D32;">
+                    ⬇ Exportar CSV
+                </button>
             </div>
+        </div>
 
         <!-- Filtros de Categoria -->
         <div class="filters-bar" style="margin-top: 20px;">
@@ -570,6 +591,14 @@
                 </div>
             </div>
 
+            <!-- Timeline Chart (NEW) -->
+            <div class="charts-grid" style="grid-template-columns: 1fr;">
+                <div class="chart-card">
+                    <h3 class="chart-title">Timeline de Mudanças (Criação)</h3>
+                    <canvas id="chartTimeline" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+
             <!-- Indicadores de Performance -->
             <div class="indicators-section">
                 <h2 class="section-title">Indicadores de Performance</h2>
@@ -583,355 +612,405 @@
                         <div class="metric-label">Mudanças Emergenciais</div>
                         <div class="metric-value" id="indEmergencial">0%</div>
                         <div class="metric-meta">Meta: < 10%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Mudanças Revertidas</div>
-                        <div class="metric-value" id="indRevertidas">0%</div>
-                        <div class="metric-meta">Meta: < 3%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Aderência aos Prazos</div>
-                        <div class="metric-value" id="indPrazos">0%</div>
-                        <div class="metric-meta">Submissão até terça 12:00</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Tempo Médio CAB</div>
-                        <div class="metric-value" id="indTempoCAB">0 dias</div>
-                        <div class="metric-meta">Até próxima quarta 14h</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Incidentes Causados</div>
-                        <div class="metric-value" id="indIncidentes">0%</div>
-                        <div class="metric-meta">Meta: < 5%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Mudanças Revertidas</div>
+                            <div class="metric-value" id="indRevertidas">0%</div>
+                            <div class="metric-meta">Meta: < 3%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Aderência aos Prazos</div>
+                                <div class="metric-value" id="indPrazos">0%</div>
+                                <div class="metric-meta">Submissão até terça 12:00</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Tempo Médio CAB</div>
+                                <div class="metric-value" id="indTempoCAB">0 dias</div>
+                                <div class="metric-meta">Até próxima quarta 14h</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Incidentes Causados</div>
+                                <div class="metric-value" id="indIncidentes">0%</div>
+                                <div class="metric-meta">Meta: < 5%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Categoria -->
+                        <div class="indicators-section">
+                            <h2 class="section-title">Indicador por Categoria</h2>
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-label">Normal</div>
+                                    <div class="metric-value" id="metricNormal">0</div>
+                                    <div class="metric-meta" id="percentNormal">0%</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Emergencial</div>
+                                    <div class="metric-value" id="metricEmergencial" style="color: #F44336;">0</div>
+                                    <div class="metric-meta" id="percentEmergencial">0%</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Planejada</div>
+                                    <div class="metric-value" id="metricPlanejada" style="color: #2196F3;">0</div>
+                                    <div class="metric-meta" id="percentPlanejada">0%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráficos -->
+                        <div class="charts-grid">
+                            <div class="chart-card">
+                                <h3 class="chart-title">Mudanças por Status</h3>
+                                <canvas id="chartStatus"></canvas>
+                            </div>
+                            <div class="chart-card">
+                                <h3 class="chart-title">Top 10 Responsáveis</h3>
+                                <canvas id="chartResponsaveis"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Tabela -->
+                        <div style="margin-top: 30px;">
+                            <h2 class="section-title">Últimas 20 Mudanças</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Status</th>
+                                        <th>Responsável</th>
+                                        <th>Criado em</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mudancasTableBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Categoria -->
-            <div class="indicators-section">
-                <h2 class="section-title">Indicador por Categoria</h2>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Normal</div>
-                        <div class="metric-value" id="metricNormal">0</div>
-                        <div class="metric-meta" id="percentNormal">0%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Emergencial</div>
-                        <div class="metric-value" id="metricEmergencial" style="color: #F44336;">0</div>
-                        <div class="metric-meta" id="percentEmergencial">0%</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Planejada</div>
-                        <div class="metric-value" id="metricPlanejada" style="color: #2196F3;">0</div>
-                        <div class="metric-meta" id="percentPlanejada">0%</div>
-                    </div>
-                </div>
-            </div>
+                <script>
+                    const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+                    const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
+                    let allMudancas = [];
+                    let currentFilteredData = []; // Store for export
+                    let dataSource = 'loading';
 
-            <!-- Gráficos -->
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <h3 class="chart-title">Mudanças por Status</h3>
-                    <canvas id="chartStatus"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3 class="chart-title">Top 10 Responsáveis</h3>
-                    <canvas id="chartResponsaveis"></canvas>
-                </div>
-            </div>
+                    async function loadData() {
+                        try {
+                            let data = null;
 
-            <!-- Tabela -->
-            <div style="margin-top: 30px;">
-                <h2 class="section-title">Últimas 20 Mudanças</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Status</th>
-                            <th>Responsável</th>
-                            <th>Criado em</th>
-                        </tr>
-                    </thead>
-                    <tbody id="mudancasTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                            // Tentar Worker primeiro
+                            try {
+                                const workerResponse = await fetch(WORKER_URL);
+                                if (workerResponse.ok) {
+                                    data = await workerResponse.json();
+                                    dataSource = 'worker';
+                                    console.log('Dados do Worker');
+                                } else {
+                                    throw new Error('Worker falhou');
+                                }
+                            } catch {
+                                // Fallback para JSON
+                                const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
+                                if (!jsonResponse.ok) throw new Error('Erro ao carregar dados');
+                                data = await jsonResponse.json();
+                                dataSource = 'json';
+                                console.log('Dados do JSON');
+                            }
 
-    <script>
-        const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
-        const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
-        let allMudancas = [];
-        let dataSource = 'loading';
+                            // Atualizar UI
+                            const dataAtualizacao = new Date(data.ultima_atualizacao);
+                            document.getElementById('ultimaAtualizacao').textContent =
+                                dataAtualizacao.toLocaleString('pt-BR');
 
-        async function loadData() {
-            try {
-                let data = null;
+                            document.getElementById('dataSourceBadge').textContent =
+                                dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
 
-                // Tentar Worker primeiro
-                try {
-                    const workerResponse = await fetch(WORKER_URL);
-                    if (workerResponse.ok) {
-                        data = await workerResponse.json();
-                        dataSource = 'worker';
-                        console.log('Dados do Worker');
-                    } else {
-                        throw new Error('Worker falhou');
-                    }
-                } catch {
-                    // Fallback para JSON
-                    const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
-                    if (!jsonResponse.ok) throw new Error('Erro ao carregar dados');
-                    data = await jsonResponse.json();
-                    dataSource = 'json';
-                    console.log('Dados do JSON');
-                }
+                            allMudancas = data.mudancas || [];
+                            filterAndRender();
 
-                // Atualizar UI
-                const dataAtualizacao = new Date(data.ultima_atualizacao);
-                document.getElementById('ultimaAtualizacao').textContent =
-                    dataAtualizacao.toLocaleString('pt-BR');
+                            document.getElementById('loading').style.display = 'none';
+                            document.getElementById('content').style.display = 'block';
 
-                document.getElementById('dataSourceBadge').textContent =
-                    dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
+                            // Auto-refresh
+                            const refreshInterval = 3600000; // 1 hora
+                            setTimeout(loadData, refreshInterval);
 
-                allMudancas = data.mudancas || [];
-                filterAndRender();
-
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-
-                // Auto-refresh
-                const refreshInterval = 3600000; // 1 hora
-                setTimeout(loadData, refreshInterval);
-
-            } catch (error) {
-                console.error('Erro:', error);
-                document.getElementById('loading').innerHTML = `
+                        } catch (error) {
+                            console.error('Erro:', error);
+                            document.getElementById('loading').innerHTML = `
                     <div class="spinner"></div>
                     <p style="color: #F44336;">Erro: ${error.message}</p>
                     <p style="font-size: 14px; margin-top: 10px;">Tentando novamente em 30 segundos...</p>
                 `;
-                setTimeout(loadData, 30000);
-            }
-        }
+                            setTimeout(loadData, 30000);
+                        }
+                    }
 
-        function renderDashboard(mudancas) {
-            const stats = calculateStats(mudancas);
+                    function renderDashboard(mudancas) {
+                        const stats = calculateStats(mudancas);
 
-            // Métricas principais
-            document.getElementById('metricTotal').textContent = stats.total;
-            document.getElementById('metricAbertas').textContent = stats.abertas;
-            document.getElementById('metricPlanejamento').textContent = stats.planejamento;
-            document.getElementById('metricConcluido').textContent = stats.concluido;
-            document.getElementById('metricCancelado').textContent = stats.cancelado;
-            document.getElementById('metricRejeitado').textContent = stats.rejeitado;
+                        // Métricas principais
+                        document.getElementById('metricTotal').textContent = stats.total;
+                        document.getElementById('metricAbertas').textContent = stats.abertas;
+                        document.getElementById('metricPlanejamento').textContent = stats.planejamento;
+                        document.getElementById('metricConcluido').textContent = stats.concluido;
+                        document.getElementById('metricCancelado').textContent = stats.cancelado;
+                        document.getElementById('metricRejeitado').textContent = stats.rejeitado;
 
-            // Indicadores
-            renderIndicadores(stats, mudancas);
+                        // Indicadores
+                        renderIndicadores(stats, mudancas);
 
-            // Categoria
-            renderCategoria(stats);
+                        // Categoria
+                        renderCategoria(stats);
 
-            // Gráficos
-            renderCharts(stats);
+                        // Gráficos (Status, Responsáveis e Timeline)
+                        renderCharts(stats, mudancas);
 
-            // Tabela
-            renderTable(mudancas);
-        }
+                        // Tabela
+                        renderTable(mudancas);
+                    }
 
-        function calculateStats(mudancas) {
-            const stats = {
-                total: mudancas.length,
-                abertas: 0,
-                planejamento: 0,
-                concluido: 0,
-                cancelado: 0,
-                rejeitado: 0,
-                statusCount: {},
-                responsaveisCount: {},
-                tipos: { Normal: 0, Emergencial: 0, Planejada: 0 }
-            };
+                    function calculateStats(mudancas) {
+                        const stats = {
+                            total: mudancas.length,
+                            abertas: 0,
+                            planejamento: 0,
+                            concluido: 0,
+                            cancelado: 0,
+                            rejeitado: 0,
+                            statusCount: {},
+                            responsaveisCount: {},
+                            tipos: { Normal: 0, Emergencial: 0, Planejada: 0 }
+                        };
 
-            mudancas.forEach(m => {
-                // Status
-                if (m.status.includes('Planejamento')) stats.planejamento++;
-                else if (m.status.includes('Concluído')) stats.concluido++;
-                else if (m.status.includes('Cancelado')) stats.cancelado++;
-                else if (m.status.includes('Rejeitado')) stats.rejeitado++;
+                        mudancas.forEach(m => {
+                            // Status
+                            if (m.status.includes('Planejamento')) stats.planejamento++;
+                            else if (m.status.includes('Concluído')) stats.concluido++;
+                            else if (m.status.includes('Cancelado')) stats.cancelado++;
+                            else if (m.status.includes('Rejeitado')) stats.rejeitado++;
 
-                stats.statusCount[m.status] = (stats.statusCount[m.status] || 0) + 1;
-                stats.responsaveisCount[m.assignee] = (stats.responsaveisCount[m.assignee] || 0) + 1;
+                            stats.statusCount[m.status] = (stats.statusCount[m.status] || 0) + 1;
+                            stats.responsaveisCount[m.assignee] = (stats.responsaveisCount[m.assignee] || 0) + 1;
 
-                // Tipos
-                const labels = m.labels || [];
-                if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
-                    stats.tipos.Normal++;
-                } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
-                    stats.tipos.Emergencial++;
-                } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
-                    stats.tipos.Planejada++;
-                }
-            });
+                            // Tipos
+                            const labels = m.labels || [];
+                            if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
+                                stats.tipos.Normal++;
+                            } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
+                                stats.tipos.Emergencial++;
+                            } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
+                                stats.tipos.Planejada++;
+                            }
+                        });
 
-            // Calcular abertas (total - finalizadas)
-            stats.abertas = stats.total - stats.concluido - stats.cancelado - stats.rejeitado;
+                        // Calcular abertas (total - finalizadas)
+                        stats.abertas = stats.total - stats.concluido - stats.cancelado - stats.rejeitado;
 
-            return stats;
-        }
+                        return stats;
+                    }
 
-        function renderIndicadores(stats, mudancas) {
-            // Taxa de Sucesso
-            const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
-            document.getElementById('indSucesso').textContent = taxaSucesso + '%';
-            document.getElementById('indSucesso').style.color =
-                taxaSucesso >= 95 ? '#4CAF50' : '#F44336';
+                    function renderIndicadores(stats, mudancas) {
+                        // Taxa de Sucesso
+                        const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
+                        document.getElementById('indSucesso').textContent = isNaN(taxaSucesso) ? '0%' : taxaSucesso + '%';
+                        document.getElementById('indSucesso').style.color =
+                            taxaSucesso >= 95 ? '#4CAF50' : '#F44336';
 
-            // Emergenciais
-            const emergenciais = mudancas.filter(m =>
-                m.summary?.toLowerCase().includes('emergência') ||
-                m.summary?.toLowerCase().includes('emergencial') ||
-                (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'))
-            ).length;
-            const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
-            document.getElementById('indEmergencial').textContent = percEmergencial + '%';
-            document.getElementById('indEmergencial').style.color =
-                percEmergencial < 10 ? '#4CAF50' : '#F44336';
+                        // Emergenciais
+                        const emergenciais = mudancas.filter(m =>
+                            m.summary?.toLowerCase().includes('emergência') ||
+                            m.summary?.toLowerCase().includes('emergencial') ||
+                            (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'))
+                        ).length;
+                        const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
+                        document.getElementById('indEmergencial').textContent = isNaN(percEmergencial) ? '0%' : percEmergencial + '%';
+                        document.getElementById('indEmergencial').style.color =
+                            percEmergencial < 10 ? '#4CAF50' : '#F44336';
 
-            // Revertidas
-            const revertidas = mudancas.filter(m =>
-                m.summary?.toLowerCase().includes('rollback') ||
-                m.summary?.toLowerCase().includes('reverter')
-            ).length;
-            const percRevertidas = ((revertidas / stats.total) * 100).toFixed(1);
-            document.getElementById('indRevertidas').textContent = percRevertidas + '%';
-            document.getElementById('indRevertidas').style.color =
-                percRevertidas < 3 ? '#4CAF50' : '#F44336';
+                        // Revertidas
+                        const revertidas = mudancas.filter(m =>
+                            m.summary?.toLowerCase().includes('rollback') ||
+                            m.summary?.toLowerCase().includes('reverter')
+                        ).length;
+                        const percRevertidas = ((revertidas / stats.total) * 100).toFixed(1);
+                        document.getElementById('indRevertidas').textContent = isNaN(percRevertidas) ? '0%' : percRevertidas + '%';
+                        document.getElementById('indRevertidas').style.color =
+                            percRevertidas < 3 ? '#4CAF50' : '#F44336';
 
-            // Aderência aos prazos
-            const nosPrazos = mudancas.filter(m => {
-                const created = new Date(m.created);
-                const diaSemana = created.getDay();
-                const hora = created.getHours();
-                return (diaSemana < 2) || (diaSemana === 2 && hora < 12);
-            }).length;
-            const percPrazos = ((nosPrazos / stats.total) * 100).toFixed(1);
-            document.getElementById('indPrazos').textContent = percPrazos + '%';
+                        // Aderência aos prazos
+                        const nosPrazos = mudancas.filter(m => {
+                            const created = new Date(m.created);
+                            const diaSemana = created.getDay();
+                            const hora = created.getHours();
+                            return (diaSemana < 2) || (diaSemana === 2 && hora < 12);
+                        }).length;
+                        const percPrazos = ((nosPrazos / stats.total) * 100).toFixed(1);
+                        document.getElementById('indPrazos').textContent = isNaN(percPrazos) ? '0%' : percPrazos + '%';
 
-            // Tempo médio CAB
-            let totalDias = 0;
-            mudancas.forEach(m => {
-                const created = new Date(m.created);
-                const proximaQuarta = getProximaQuarta14h(created);
-                const dias = (proximaQuarta - created) / (1000 * 60 * 60 * 24);
-                totalDias += dias;
-            });
-            const mediaDias = (totalDias / stats.total).toFixed(1);
-            document.getElementById('indTempoCAB').textContent = mediaDias + ' dias';
+                        // Tempo médio CAB
+                        let totalDias = 0;
+                        mudancas.forEach(m => {
+                            const created = new Date(m.created);
+                            const proximaQuarta = getProximaQuarta14h(created);
+                            const dias = (proximaQuarta - created) / (1000 * 60 * 60 * 24);
+                            totalDias += dias;
+                        });
+                        const mediaDias = (totalDias / stats.total).toFixed(1);
+                        document.getElementById('indTempoCAB').textContent = isNaN(mediaDias) ? '0 dias' : mediaDias + ' dias';
 
-            // Incidentes
-            const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
-            const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
-            document.getElementById('indIncidentes').textContent = percIncidentes + '%';
-            document.getElementById('indIncidentes').style.color =
-                percIncidentes < 5 ? '#4CAF50' : '#F44336';
-        }
+                        // Incidentes
+                        const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
+                        const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
+                        document.getElementById('indIncidentes').textContent = isNaN(percIncidentes) ? '0%' : percIncidentes + '%';
+                        document.getElementById('indIncidentes').style.color =
+                            percIncidentes < 5 ? '#4CAF50' : '#F44336';
+                    }
 
-        function renderCategoria(stats) {
-            const total = stats.total || 1;
+                    function renderCategoria(stats) {
+                        const total = stats.total || 1;
 
-            document.getElementById('metricNormal').textContent = stats.tipos.Normal || 0;
-            document.getElementById('percentNormal').textContent =
-                ((stats.tipos.Normal / total) * 100).toFixed(1) + '%';
+                        document.getElementById('metricNormal').textContent = stats.tipos.Normal || 0;
+                        document.getElementById('percentNormal').textContent =
+                            ((stats.tipos.Normal / total) * 100).toFixed(1) + '%';
 
-            document.getElementById('metricEmergencial').textContent = stats.tipos.Emergencial || 0;
-            document.getElementById('percentEmergencial').textContent =
-                ((stats.tipos.Emergencial / total) * 100).toFixed(1) + '%';
+                        document.getElementById('metricEmergencial').textContent = stats.tipos.Emergencial || 0;
+                        document.getElementById('percentEmergencial').textContent =
+                            ((stats.tipos.Emergencial / total) * 100).toFixed(1) + '%';
 
-            document.getElementById('metricPlanejada').textContent = stats.tipos.Planejada || 0;
-            document.getElementById('percentPlanejada').textContent =
-                ((stats.tipos.Planejada / total) * 100).toFixed(1) + '%';
-        }
+                        document.getElementById('metricPlanejada').textContent = stats.tipos.Planejada || 0;
+                        document.getElementById('percentPlanejada').textContent =
+                            ((stats.tipos.Planejada / total) * 100).toFixed(1) + '%';
+                    }
 
-        function getProximaQuarta14h(data) {
-            const resultado = new Date(data);
-            const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7;
-            resultado.setDate(resultado.getDate() + diasAteQuarta);
-            resultado.setHours(14, 0, 0, 0);
-            if (resultado <= data) {
-                resultado.setDate(resultado.getDate() + 7);
-            }
-            return resultado;
-        }
+                    function getProximaQuarta14h(data) {
+                        const resultado = new Date(data);
+                        const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7;
+                        resultado.setDate(resultado.getDate() + diasAteQuarta);
+                        resultado.setHours(14, 0, 0, 0);
+                        if (resultado <= data) {
+                            resultado.setDate(resultado.getDate() + 7);
+                        }
+                        return resultado;
+                    }
 
-        let chartStatus, chartResponsaveis;
+                    let chartStatus, chartResponsaveis, chartTimeline;
 
-        function renderCharts(stats) {
-            // Status
-            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
-            if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
+                    function renderCharts(stats, mudancas) {
+                        // Status
+                        const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+                        if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
 
-            chartStatus = new Chart(ctxStatus, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(stats.statusCount),
-                    datasets: [{
-                        label: 'Quantidade',
-                        data: Object.values(stats.statusCount),
-                        backgroundColor: '#D81B60',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { display: false } }
-                }
-            });
+                        chartStatus = new Chart(ctxStatus, {
+                            type: 'bar',
+                            data: {
+                                labels: Object.keys(stats.statusCount),
+                                datasets: [{
+                                    label: 'Quantidade',
+                                    data: Object.values(stats.statusCount),
+                                    backgroundColor: '#D81B60',
+                                    borderRadius: 8
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: { legend: { display: false } }
+                            }
+                        });
 
-            // Responsáveis
-            const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
-            if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
+                        // Responsáveis
+                        const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
+                        if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
 
-            const topResponsaveis = Object.entries(stats.responsaveisCount)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
+                        const topResponsaveis = Object.entries(stats.responsaveisCount)
+                            .sort((a, b) => b[1] - a[1])
+                            .slice(0, 10);
 
-            chartResponsaveis = new Chart(ctxResp, {
-                type: 'bar',
-                data: {
-                    labels: topResponsaveis.map(r => r[0]),
-                    datasets: [{
-                        label: 'Mudanças',
-                        data: topResponsaveis.map(r => r[1]),
-                        backgroundColor: '#FFC107',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
+                        chartResponsaveis = new Chart(ctxResp, {
+                            type: 'bar',
+                            data: {
+                                labels: topResponsaveis.map(r => r[0]),
+                                datasets: [{
+                                    label: 'Mudanças',
+                                    data: topResponsaveis.map(r => r[1]),
+                                    backgroundColor: '#FFC107',
+                                    borderRadius: 8
+                                }]
+                            },
+                            options: {
+                                indexAxis: 'y',
+                                responsive: true,
+                                plugins: { legend: { display: false } }
+                            }
+                        });
 
-        function renderTable(mudancas) {
-            const tbody = document.getElementById('mudancasTableBody');
-            tbody.innerHTML = '';
+                        // Timeline (NEW)
+                        const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
+                        if (chartTimeline && typeof chartTimeline.destroy === "function") chartTimeline.destroy();
 
-            mudancas.slice(0, 20).forEach(m => {
-                const created = new Date(m.created).toLocaleDateString('pt-BR');
-                const url = `${JIRA_URL}/browse/${m.key}`;
+                        // Group by date
+                        const changesByDate = {};
+                        mudancas.forEach(m => {
+                            const date = new Date(m.created).toLocaleDateString('pt-BR');
+                            changesByDate[date] = (changesByDate[date] || 0) + 1;
+                        });
 
-                let statusClass = 'status-badge ';
-                if (m.status.includes('Concluído')) statusClass += 'status-concluido';
-                else if (m.status.includes('Aguardando')) statusClass += 'status-aguardando';
-                else if (m.status.includes('Cancelado')) statusClass += 'status-cancelado';
+                        // Sort dates
+                        const sortedDates = Object.keys(changesByDate).sort((a, b) => {
+                            const [da, ma, ya] = a.split('/');
+                            const [db, mb, yb] = b.split('/');
+                            return new Date(ya, ma - 1, da) - new Date(yb, mb - 1, db);
+                        });
 
-                tbody.innerHTML += `
+                        chartTimeline = new Chart(ctxTimeline, {
+                            type: 'line',
+                            data: {
+                                labels: sortedDates,
+                                datasets: [{
+                                    label: 'Mudanças Criadas',
+                                    data: sortedDates.map(d => changesByDate[d]),
+                                    borderColor: '#2196F3',
+                                    backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                                    fill: true,
+                                    tension: 0.4
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                interaction: {
+                                    intersect: false,
+                                    mode: 'index',
+                                },
+                                plugins: {
+                                    legend: { display: false }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: { precision: 0 }
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    function renderTable(mudancas) {
+                        const tbody = document.getElementById('mudancasTableBody');
+                        tbody.innerHTML = '';
+
+                        mudancas.slice(0, 20).forEach(m => {
+                            const created = new Date(m.created).toLocaleDateString('pt-BR');
+                            const url = `${JIRA_URL}/browse/${m.key}`;
+
+                            let statusClass = 'status-badge ';
+                            if (m.status.includes('Concluído')) statusClass += 'status-concluido';
+                            else if (m.status.includes('Aguardando')) statusClass += 'status-aguardando';
+                            else if (m.status.includes('Cancelado')) statusClass += 'status-cancelado';
+
+                            tbody.innerHTML += `
                     <tr>
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
                         <td>${m.summary}</td>
@@ -940,120 +1019,160 @@
                         <td>${created}</td>
                     </tr>
                 `;
-            });
-        }
+                        });
+                    }
 
-        // Carregar ao iniciar
+                    function exportToCSV() {
+                        if (!currentFilteredData || currentFilteredData.length === 0) {
+                            alert("Sem dados para exportar.");
+                            return;
+                        }
 
-        let currentFilter = 'all';
-        let customDateRange = null;
-        let currentCategoryFilter = 'all';
+                        const headers = ['ID', 'Resumo', 'Status', 'Responsavel', 'Criado em', 'Categoria'];
+                        const csvRows = [headers.join(',')];
 
-        
-        function applyCategoryFilter(category) {
-            currentCategoryFilter = category;
+                        currentFilteredData.forEach(m => {
+                            const row = [
+                                m.key,
+                                `"${(m.summary || '').replace(/"/g, '""')}"`, // Escape quotes
+                                m.status,
+                                m.assignee,
+                                new Date(m.created).toLocaleDateString('pt-BR'),
+                                m.categoria || ''
+                            ];
+                            csvRows.push(row.join(','));
+                        });
 
-            // Atualizar botões ativos - pegar apenas os botões de categoria
-            const categoryButtons = document.querySelectorAll('.filters-bar')[1].querySelectorAll('.filter-btn');
-            categoryButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+                        const csvContent = csvRows.join('\n');
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 
-            // Aplicar filtros combinados
-            loadData();
-        }
+                        const link = document.createElement("a");
+                        if (link.download !== undefined) {
+                            const url = URL.createObjectURL(blob);
+                            link.setAttribute("href", url);
+                            link.setAttribute("download", `mudancas_export_${new Date().toISOString().slice(0, 10)}.csv`);
+                            link.style.visibility = 'hidden';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                    }
 
-        function applyPeriodFilter(days) {
-            currentFilter = days;
-            customDateRange = null;
+                    // Carregar ao iniciar
 
-            // Atualizar UI dos botões
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Limpar datas customizadas
-            document.getElementById('dateFrom').value = '';
-            document.getElementById('dateTo').value = '';
-
-            // Filtrar dados
-            filterAndRender();
-        }
-
-        function applyCustomDateFilter() {
-            const dateFrom = document.getElementById('dateFrom').value;
-            const dateTo = document.getElementById('dateTo').value;
-
-            if (!dateFrom || !dateTo) {
-                alert('Por favor, selecione ambas as datas');
-                return;
-            }
-
-            customDateRange = {
-                from: new Date(dateFrom + 'T00:00:00'),
-                to: new Date(dateTo + 'T23:59:59')
-            };
-            currentFilter = 'custom';
-
-            // Remover active de todos os botões
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Filtrar dados
-            filterAndRender();
-        }
-
-        function filterAndRender() {
-            let filteredMudancas = [...allMudancas];
-
-            if (currentFilter === 'all') {
-                // Mostrar todos
-            } else if (currentFilter === 'custom' && customDateRange) {
-                // Filtro por data customizada
-                filteredMudancas = filteredMudancas.filter(m => {
-                    const created = new Date(m.created);
-                    return created >= customDateRange.from && created <= customDateRange.to;
-                });
-            } else {
-                // Filtro por período predefinido (dias)
-                const cutoffDate = new Date();
-                cutoffDate.setDate(cutoffDate.getDate() - currentFilter);
-
-                filteredMudancas = filteredMudancas.filter(m => {
-                    const created = new Date(m.created);
-                    return created >= cutoffDate;
-                });
-            }
-
-            // Filtro por categoria
-            if (currentCategoryFilter !== 'all') {
-                if (currentCategoryFilter === 'cancelado') {
-                    // Filtrar por status "Cancelado"
-                    filteredMudancas = allMudancas.filter(m => {
-                        return m.status === 'Cancelado';
-                    });
-                } else {
-                    // Filtrar por categoria (Normal, Planejada, Emergencial)
-                    const categoryLabel = `tipo:${currentCategoryFilter}`;
-                    filteredMudancas = allMudancas.filter(m => {
-                        const labels = m.labels || [];
-                        const categoria = m.categoria || '';
-                        // Verificar tanto pela label quanto pelo campo categoria
-                        return labels.includes(categoryLabel) ||
-                               categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
-                    });
-                }
-            }
-
-            // Re-renderizar dashboard com dados filtrados
-            renderDashboard(filteredMudancas);
-        }
+                    let currentFilter = 'all';
+                    let customDateRange = null;
+                    let currentCategoryFilter = 'all';
 
 
-        window.addEventListener('DOMContentLoaded', loadData);
-    </script>
+                    function applyCategoryFilter(category) {
+                        currentCategoryFilter = category;
+
+                        // Atualizar botões ativos - pegar apenas os botões de categoria
+                        const categoryButtons = document.querySelectorAll('.filters-bar')[1].querySelectorAll('.filter-btn');
+                        categoryButtons.forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        event.target.classList.add('active');
+
+                        // Aplicar filtros combinados
+                        filterAndRender();
+                    }
+
+                    function applyPeriodFilter(days) {
+                        currentFilter = days;
+                        customDateRange = null;
+
+                        // Atualizar UI dos botões
+                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        event.target.classList.add('active');
+
+                        // Limpar datas customizadas
+                        document.getElementById('dateFrom').value = '';
+                        document.getElementById('dateTo').value = '';
+
+                        // Filtrar dados
+                        filterAndRender();
+                    }
+
+                    function applyCustomDateFilter() {
+                        const dateFrom = document.getElementById('dateFrom').value;
+                        const dateTo = document.getElementById('dateTo').value;
+
+                        if (!dateFrom || !dateTo) {
+                            alert('Por favor, selecione ambas as datas');
+                            return;
+                        }
+
+                        customDateRange = {
+                            from: new Date(dateFrom + 'T00:00:00'),
+                            to: new Date(dateTo + 'T23:59:59')
+                        };
+                        currentFilter = 'custom';
+
+                        // Remover active de todos os botões
+                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+
+                        // Filtrar dados
+                        filterAndRender();
+                    }
+
+                    function filterAndRender() {
+                        let filteredMudancas = [...allMudancas];
+
+                        if (currentFilter === 'all') {
+                            // Mostrar todos
+                        } else if (currentFilter === 'custom' && customDateRange) {
+                            // Filtro por data customizada
+                            filteredMudancas = filteredMudancas.filter(m => {
+                                const created = new Date(m.created);
+                                return created >= customDateRange.from && created <= customDateRange.to;
+                            });
+                        } else {
+                            // Filtro por período predefinido (dias)
+                            const cutoffDate = new Date();
+                            cutoffDate.setDate(cutoffDate.getDate() - currentFilter);
+
+                            filteredMudancas = filteredMudancas.filter(m => {
+                                const created = new Date(m.created);
+                                return created >= cutoffDate;
+                            });
+                        }
+
+                        // Filtro por categoria
+                        if (currentCategoryFilter !== 'all') {
+                            if (currentCategoryFilter === 'cancelado') {
+                                // Filtrar por status "Cancelado"
+                                filteredMudancas = filteredMudancas.filter(m => {
+                                    return m.status === 'Cancelado';
+                                });
+                            } else {
+                                // Filtrar por categoria (Normal, Planejada, Emergencial)
+                                const categoryLabel = `tipo:${currentCategoryFilter}`;
+                                filteredMudancas = filteredMudancas.filter(m => {
+                                    const labels = m.labels || [];
+                                    const categoria = m.categoria || '';
+                                    // Verificar tanto pela label quanto pelo campo categoria
+                                    return labels.includes(categoryLabel) ||
+                                        categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
+                                });
+                            }
+                        }
+
+                        // Save filtered data for export
+                        currentFilteredData = filteredMudancas;
+
+                        // Re-renderizar dashboard com dados filtrados
+                        renderDashboard(filteredMudancas);
+                    }
+
+
+                    window.addEventListener('DOMContentLoaded', loadData);
+                </script>
 </body>
+
 </html>

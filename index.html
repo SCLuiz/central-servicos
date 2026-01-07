@@ -985,13 +985,26 @@
                     return card;
                 };
 
-                // Adicionar items (x2 para loop infinito suave)
-                // Se tiver poucos items, duplicar mais vezes para preencher a tela
-                const repeatCount = data.length < 5 ? 4 : 2;
+                // Lógica de Exibição:
+                // 1. NÃO duplicar cards (Pedido do usuário).
+                // 2. Se houver poucos cards (<= 4), mostrar estático e centralizado.
+                // 3. Se houver muitos cards, manter animação (com gap no loop, pois não há duplicação).
 
-                for (let i = 0; i < repeatCount; i++) {
-                    data.forEach(item => container.appendChild(createCard(item)));
+                data.forEach(item => container.appendChild(createCard(item)));
+
+                if (data.length <= 4) {
+                    // Poucos itens: Desativar animação e centralizar
+                    container.style.animation = 'none';
+                    container.style.justifyContent = 'center';
+
+                    // Em mobile, permitir scroll manual se 4 cards não couberem
+                    if (window.innerWidth < 768 && data.length > 1) {
+                        container.style.justifyContent = 'flex-start';
+                        container.parentElement.style.overflowX = 'auto';
+                    }
                 }
+                // Se > 4, mantém o CSS original (animation: scroll-left)
+
             } catch (error) {
                 console.warn('News Feed Error:', error);
                 container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';

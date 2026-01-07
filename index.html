@@ -984,12 +984,10 @@
 
                 // Adicionar items (apenas uma vez, sem repetição)
                 data.forEach(item => container.appendChild(createCard(item)));
-            }
-
             } catch (error) {
-            console.warn('News Feed Error:', error);
-            container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
-        }
+                console.warn('News Feed Error:', error);
+                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
+            }
         }
     </script>
 </body>

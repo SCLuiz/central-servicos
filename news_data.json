@@ -5,9 +5,9 @@
     "title": "OFBI-4312 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "07/01/2026 11:31",
+    "date": "07/01/2026 11:54",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4312"
   }
 ]

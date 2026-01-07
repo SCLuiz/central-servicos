@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-07T14:01:33.747975",
+  "ultima_atualizacao": "2026-01-07T14:33:23.106990",
   "total": 100,
   "mudancas": [
     {
@@ -10,10 +10,10 @@
       "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2026-01-07T09:34:48.823-0300",
-      "updated": "2026-01-07T11:00:20.006-0300",
+      "updated": "2026-01-07T11:31:43.276-0300",
       "labels": [],
       "causouIncidente": null,
-      "categoria": "Normal"
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4309",

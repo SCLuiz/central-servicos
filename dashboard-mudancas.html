@@ -1109,7 +1109,11 @@
 
                         doc.setFontSize(10);
                         doc.setTextColor(100, 100, 100);
+                        const activePeriod = document.querySelectorAll('.filters-bar')[0].querySelector('.filter-btn.active').textContent;
+                        const activeCategory = document.querySelectorAll('.filters-bar')[1].querySelector('.filter-btn.active').textContent;
+
                         doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 28);
+                        doc.text(`Filtros: ${activePeriod} | Tipo: ${activeCategory}`, 14, 33);
 
                         // Resumo Executivo
                         const total = currentFilteredData.length;

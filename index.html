@@ -10,6 +10,9 @@
     <!-- Version: 2025-10-22 11:30 - Removed Abrir Chamado from home -->
     <style>
         :root {
+            --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
+            --of-white: #FFFFFF;
             --ds-surface: #FFFFFF;
             --ds-surface-overlay: #F4F5F7;
             --ds-text: #172B4D;
@@ -49,7 +52,6 @@
             animation: gradientShift 15s ease infinite;
             color: var(--ds-text);
             line-height: 1.5;
-            padding: 12px;
             min-height: 100vh;
         }
 
@@ -59,40 +61,58 @@
         }
 
         /* Header */
+        /* Header Estilo Premium (Open Finance) */
         .header {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
+            padding: 40px 20px;
+            position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        .header-banner {
-            width: 100%;
-            height: 180px;
-            background-image: url('capa.png?v=1');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
         }
 
         .header-content {
-            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ds-text);
-            margin-bottom: 6px;
+            color: var(--of-white);
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .header p {
-            font-size: 14px;
-            color: var(--ds-text-subtle);
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+            margin-bottom: 20px;
         }
 
         /* Section Title */
@@ -591,28 +611,25 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <!-- Banner -->
-            <div class="header-banner"></div>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Central de Serviços</h1>
+            <p>Open Finance Brasil</p>
 
-            <!-- Content -->
-            <div class="header-content">
-                <h1>Central de Serviços</h1>
-                <p>Open Finance Brasil</p>
-
-                <!-- User Info -->
-                <div
-                    style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
-                    <span id="userName" style="font-size: 14px; font-weight: 500;"></span>
-                    <button onclick="fazerLogout()"
-                        style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
-                        🚪 Sair
-                    </button>
-                </div>
+            <!-- User Info -->
+            <div
+                style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.3);">
+                <span id="userName" style="font-size: 14px; font-weight: 500; color: white;"></span>
+                <button onclick="fazerLogout()"
+                    style="padding: 6px 12px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s; color: white; font-weight: 600;">
+                    🚪 Sair
+                </button>
             </div>
         </div>
+    </div>
+
+    <div class="container">
 
         <!-- Cards de Serviços -->
         <div class="cards-grid">

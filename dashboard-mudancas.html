@@ -541,16 +541,7 @@
 
                 <div class="filter-divider"></div>
 
-                <div style="display: flex; gap: 8px;">
-                    <button class="filter-btn" onclick="exportToExcel()"
-                        style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px;">
-                        <span style="font-size: 1.2em;">📊</span> Excel
-                    </button>
-                    <button class="filter-btn" onclick="exportToPDF()"
-                        style="color: #D32F2F; border-color: #D32F2F; display: flex; align-items: center; gap: 5px;">
-                        <span style="font-size: 1.2em;">📄</span> PDF
-                    </button>
-                </div>
+
             </div>
         </div>
 
@@ -682,8 +673,22 @@
                         </div>
 
                         <!-- Tabela -->
-                        <div style="margin-top: 30px;">
-                            <h2 class="section-title">Últimas 20 Mudanças</h2>
+                        <!-- Tabela com Header Flex -->
+                        <div
+                            style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h2 class="section-title" style="margin-bottom: 0;">Últimas 20 Mudanças</h2>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="filter-btn" onclick="exportToExcel()"
+                                    style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
+                                    <span style="font-size: 1.2em;">📊</span> Excel
+                                </button>
+                                <button class="filter-btn" onclick="exportToPDF()"
+                                    style="color: #D32F2F; border-color: #D32F2F; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
+                                    <span style="font-size: 1.2em;">📄</span> PDF
+                                </button>
+                            </div>
+                        </div>
+                        <div>
                             <table>
                                 <thead>
                                     <tr>

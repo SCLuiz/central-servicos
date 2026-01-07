@@ -947,36 +947,75 @@
                             }
                         });
 
-                        // Timeline (NEW)
+                        // Timeline (Monthly: Created vs Resolved vs Cancelled)
                         const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
                         if (chartTimeline && typeof chartTimeline.destroy === "function") chartTimeline.destroy();
 
-                        // Group by date
-                        const changesByDate = {};
+                        const monthlyData = {};
+                        const allMonths = new Set();
+
                         mudancas.forEach(m => {
-                            const date = new Date(m.created).toLocaleDateString('pt-BR');
-                            changesByDate[date] = (changesByDate[date] || 0) + 1;
+                            // Creation Date
+                            const createdDate = new Date(m.created);
+                            const createdKey = `${(createdDate.getMonth() + 1).toString().padStart(2, '0')}/${createdDate.getFullYear()}`;
+                            allMonths.add(createdKey);
+
+                            // Resolution/Cancellation Date (using updated as proxy)
+                            let statusKey = null;
+                            const updatedDate = new Date(m.updated);
+                            const updatedKey = `${(updatedDate.getMonth() + 1).toString().padStart(2, '0')}/${updatedDate.getFullYear()}`;
+
+                            if (!monthlyData[createdKey]) monthlyData[createdKey] = { created: 0, resolved: 0, cancelled: 0 };
+                            monthlyData[createdKey].created++;
+
+                            if (m.status.includes('Concluído') || m.status.includes('Resolvido')) {
+                                allMonths.add(updatedKey);
+                                if (!monthlyData[updatedKey]) monthlyData[updatedKey] = { created: 0, resolved: 0, cancelled: 0 };
+                                monthlyData[updatedKey].resolved++;
+                            } else if (m.status.includes('Cancelado')) {
+                                allMonths.add(updatedKey);
+                                if (!monthlyData[updatedKey]) monthlyData[updatedKey] = { created: 0, resolved: 0, cancelled: 0 };
+                                monthlyData[updatedKey].cancelled++;
+                            }
                         });
 
-                        // Sort dates
-                        const sortedDates = Object.keys(changesByDate).sort((a, b) => {
-                            const [da, ma, ya] = a.split('/');
-                            const [db, mb, yb] = b.split('/');
-                            return new Date(ya, ma - 1, da) - new Date(yb, mb - 1, db);
+                        // Sort months
+                        const sortedMonths = Array.from(allMonths).sort((a, b) => {
+                            const [ma, ya] = a.split('/');
+                            const [mb, yb] = b.split('/');
+                            return new Date(ya, ma - 1, 1) - new Date(yb, mb - 1, 1);
                         });
 
                         chartTimeline = new Chart(ctxTimeline, {
                             type: 'line',
                             data: {
-                                labels: sortedDates,
-                                datasets: [{
-                                    label: 'Mudanças Criadas',
-                                    data: sortedDates.map(d => changesByDate[d]),
-                                    borderColor: '#2196F3',
-                                    backgroundColor: 'rgba(33, 150, 243, 0.1)',
-                                    fill: true,
-                                    tension: 0.4
-                                }]
+                                labels: sortedMonths,
+                                datasets: [
+                                    {
+                                        label: 'Criação',
+                                        data: sortedMonths.map(m => monthlyData[m]?.created || 0),
+                                        borderColor: '#2196F3', // Blue
+                                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                                        fill: false,
+                                        tension: 0.4
+                                    },
+                                    {
+                                        label: 'Resolvido/Concluído',
+                                        data: sortedMonths.map(m => monthlyData[m]?.resolved || 0),
+                                        borderColor: '#4CAF50', // Green
+                                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                                        fill: false,
+                                        tension: 0.4
+                                    },
+                                    {
+                                        label: 'Cancelado',
+                                        data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0),
+                                        borderColor: '#F44336', // Red
+                                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                                        fill: false,
+                                        tension: 0.4
+                                    }
+                                ]
                             },
                             options: {
                                 responsive: true,
@@ -985,7 +1024,7 @@
                                     mode: 'index',
                                 },
                                 plugins: {
-                                    legend: { display: false }
+                                    legend: { display: true, position: 'top' }
                                 },
                                 scales: {
                                     y: {
@@ -996,7 +1035,6 @@
                             }
                         });
                     }
-
                     function renderTable(mudancas) {
                         const tbody = document.getElementById('mudancasTableBody');
                         tbody.innerHTML = '';

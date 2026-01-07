@@ -541,9 +541,16 @@
 
                 <div class="filter-divider"></div>
 
-                <button class="filter-btn" onclick="exportToCSV()" style="color: #2E7D32; border-color: #2E7D32;">
-                    ⬇ Exportar CSV
-                </button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="filter-btn" onclick="exportToExcel()"
+                        style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px;">
+                        <span style="font-size: 1.2em;">📊</span> Excel
+                    </button>
+                    <button class="filter-btn" onclick="exportToPDF()"
+                        style="color: #D32F2F; border-color: #D32F2F; display: flex; align-items: center; gap: 5px;">
+                        <span style="font-size: 1.2em;">📄</span> PDF
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -1064,40 +1071,96 @@
                         });
                     }
 
-                    function exportToCSV() {
+                    function exportToExcel() {
                         if (!currentFilteredData || currentFilteredData.length === 0) {
                             alert("Sem dados para exportar.");
                             return;
                         }
 
-                        const headers = ['ID', 'Resumo', 'Status', 'Responsavel', 'Criado em', 'Categoria'];
-                        const csvRows = [headers.join(',')];
+                        const rows = currentFilteredData.map(m => ({
+                            "ID": m.key,
+                            "Resumo": m.summary,
+                            "Status": m.status,
+                            "Responsável": m.assignee,
+                            "Data Criação": new Date(m.created).toLocaleDateString('pt-BR'),
+                            "Categoria": m.categoria || 'N/A'
+                        }));
+
+                        const worksheet = XLSX.utils.json_to_sheet(rows);
+                        const workbook = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(workbook, worksheet, "Mudanças");
+
+                        XLSX.writeFile(workbook, `Mudancas_Export_${new Date().toISOString().slice(0, 10)}.xlsx`);
+                    }
+
+                    function exportToPDF() {
+                        if (!currentFilteredData || currentFilteredData.length === 0) {
+                            alert("Sem dados para exportar.");
+                            return;
+                        }
+
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF();
+
+                        // Título
+                        doc.setFontSize(18);
+                        doc.setTextColor(40, 40, 40);
+                        doc.text("Relatório de Gestão de Mudanças", 14, 22);
+
+                        doc.setFontSize(10);
+                        doc.setTextColor(100, 100, 100);
+                        doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 28);
+
+                        // Resumo Executivo
+                        const total = currentFilteredData.length;
+                        const concluido = currentFilteredData.filter(m => m.status.includes('Concluído')).length;
+                        const cancelado = currentFilteredData.filter(m => m.status.includes('Cancelado')).length;
+                        const aberto = total - concluido - cancelado;
+
+                        doc.setDrawColor(200, 200, 200);
+                        doc.line(14, 38, 196, 38);
+
+                        doc.setFontSize(12);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text("Resumo Executivo", 14, 45);
+
+                        doc.setFontSize(10);
+                        doc.text(`Total no Período: ${total}`, 14, 52);
+                        doc.text(`Concluídas: ${concluido} (${total > 0 ? ((concluido / total) * 100).toFixed(1) : 0}%)`, 60, 52);
+                        doc.text(`Canceladas: ${cancelado}`, 110, 52);
+                        doc.text(`Em Aberto: ${aberto}`, 150, 52);
+
+                        // Tabela
+                        const tableColumn = ["ID", "Status", "Responsável", "Criação", "Resumo"];
+                        const tableRows = [];
 
                         currentFilteredData.forEach(m => {
-                            const row = [
+                            const changeData = [
                                 m.key,
-                                `"${(m.summary || '').replace(/"/g, '""')}"`, // Escape quotes
                                 m.status,
-                                m.assignee,
+                                m.assignee || 'N/A',
                                 new Date(m.created).toLocaleDateString('pt-BR'),
-                                m.categoria || ''
+                                m.summary
                             ];
-                            csvRows.push(row.join(','));
+                            tableRows.push(changeData);
                         });
 
-                        const csvContent = csvRows.join('\n');
-                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        doc.autoTable({
+                            head: [tableColumn],
+                            body: tableRows,
+                            startY: 60,
+                            styles: { fontSize: 8 },
+                            columnStyles: {
+                                0: { cellWidth: 25 },
+                                1: { cellWidth: 30 },
+                                2: { cellWidth: 40 },
+                                3: { cellWidth: 20 },
+                                4: { cellWidth: 'auto' }
+                            },
+                            headStyles: { fillColor: [46, 125, 50] } // Green header
+                        });
 
-                        const link = document.createElement("a");
-                        if (link.download !== undefined) {
-                            const url = URL.createObjectURL(blob);
-                            link.setAttribute("href", url);
-                            link.setAttribute("download", `mudancas_export_${new Date().toISOString().slice(0, 10)}.csv`);
-                            link.style.visibility = 'hidden';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }
+                        doc.save(`Relatorio_Mudancas_${new Date().toISOString().slice(0, 10)}.pdf`);
                     }
 
                     // Carregar ao iniciar

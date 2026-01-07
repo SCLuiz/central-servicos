@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-01-07T12:19:16.752218",
+  "ultima_atualizacao": "2026-01-07T13:09:17.938778",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4312",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2026-01-07T09:34:48.823-0300",
+      "updated": "2026-01-07T09:35:02.120-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4309",
       "summary": "Solicitação de Mudanças",
@@ -1479,21 +1492,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2023-12-20T16:39:05.052-0300",
       "updated": "2025-12-15T20:18:27.407-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-539",
-      "summary": "[CISO] - Proteção avançada dos dispositivos Chicago",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "bruno castegliani",
-      "created": "2023-12-15T16:38:48.539-0300",
-      "updated": "2025-12-15T20:18:29.635-0300",
       "labels": [
         "tipo:normal"
       ],

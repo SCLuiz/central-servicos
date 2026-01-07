@@ -226,20 +226,32 @@
 
 
         .card-button {
-            background: linear-gradient(90deg, var(--of-magenta), var(--of-yellow));
-            color: var(--of-white);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            background: transparent;
+            color: var(--ds-text);
+            border: 2px solid var(--ds-border);
+            padding: 10px 24px;
+            border-radius: 25px;
+            /* Pill shape like back-button */
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             margin-top: auto;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(221, 36, 155, 0.3);
+            box-shadow: none;
+            /* Remove shadow */
+        }
+
+        .card-button:hover {
+            border-color: var(--of-magenta);
+            color: var(--of-magenta);
+            background: rgba(221, 36, 155, 0.05);
+            /* Subtle magenta tint on hover */
+            transform: translateY(-2px);
         }
 
 

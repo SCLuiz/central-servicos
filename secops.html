@@ -48,7 +48,6 @@
             animation: gradientShift 15s ease infinite;
             color: var(--ds-text);
             line-height: 1.5;
-            padding: 12px;
             min-height: 100vh;
         }
 
@@ -104,10 +103,20 @@
         }
 
         .header-content {
-            padding: 24px;
-            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
+            text-align: center;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .header h1 {
@@ -284,8 +293,7 @@
         <div class="header-content">
             <h1>Segurança & Operações de TI</h1>
             <p>Monitoramento, Atendimento ao Usuário e Resposta a Incidentes</p>
-            <div class="header-info"
-                style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 20px;">
+            <div class="header-info">
                 <a href="index.html" class="back-button">Voltar para Central de Serviços</a>
             </div>
         </div>

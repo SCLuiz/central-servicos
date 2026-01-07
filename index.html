@@ -418,12 +418,9 @@
         .news-scroll-container {
             display: flex;
             gap: 20px;
-            animation: scroll-left 40s linear infinite;
             width: max-content;
-        }
-
-        .news-scroll-container:hover {
-            animation-play-state: paused;
+            /* Scroll manual em vez de animação */
+            /* animation: scroll-left 40s linear infinite; */
         }
 
         @keyframes scroll-left {
@@ -985,18 +982,14 @@
                     return card;
                 };
 
-                // Adicionar items (x2 para loop infinito suave)
-                // Se tiver poucos items, duplicar mais vezes para preencher a tela
-                const repeatCount = data.length < 5 ? 4 : 2;
-
-                for (let i = 0; i < repeatCount; i++) {
-                    data.forEach(item => container.appendChild(createCard(item)));
-                }
+                // Adicionar items (apenas uma vez, sem repetição)
+                data.forEach(item => container.appendChild(createCard(item)));
+            }
 
             } catch (error) {
-                console.warn('News Feed Error:', error);
-                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
-            }
+            console.warn('News Feed Error:', error);
+            container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
+        }
         }
     </script>
 </body>

@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4315",
+    "title": "OFBI-4315 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "08/01/2026 15:36",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4315"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4312",
     "title": "OFBI-4312 - Solicitação de Mudanças",
     "type_name": "Mudança",

@@ -5,9 +5,9 @@
     "title": "OFBI-4316 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
+    "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "09/01/2026 17:15",
+    "date": "09/01/2026 17:24",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4316"
   },
   {

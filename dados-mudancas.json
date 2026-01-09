@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-01-09T19:57:24.585440",
+  "ultima_atualizacao": "2026-01-09T20:21:04.991900",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4316",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thiago da Silva Pereira",
+      "reporter": "Thiago da Silva Pereira",
+      "created": "2026-01-09T17:15:35.586-0300",
+      "updated": "2026-01-09T17:15:35.767-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4315",
       "summary": "Solicitação de Mudanças",
@@ -1475,21 +1488,6 @@
       "reporter": "Marcos Antonio Vilela",
       "created": "2024-01-09T16:16:07.421-0300",
       "updated": "2025-12-15T20:18:22.188-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-551",
-      "summary": "MISP - Renovação do certificado SSL",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Usuário inativo",
-      "reporter": "Cassia Vieira de Souza",
-      "created": "2024-01-04T14:25:47.474-0300",
-      "updated": "2025-12-15T20:18:25.548-0300",
       "labels": [
         "tipo:normal"
       ],

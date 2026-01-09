@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-01-09T20:21:04.991900",
+  "ultima_atualizacao": "2026-01-09T20:41:56.128821",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4316",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Thiago da Silva Pereira",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Thiago da Silva Pereira",
       "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-09T17:15:35.767-0300",
+      "updated": "2026-01-09T17:24:49.226-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4316",
+    "title": "OFBI-4316 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/01/2026 09:32",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4316"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4318",
     "title": "OFBI-4318 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -12,17 +23,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-4316",
-    "title": "OFBI-4316 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "09/01/2026 17:57",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4316"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4315",
     "title": "OFBI-4315 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -31,16 +31,5 @@
     "status_dot": "dot-info",
     "date": "08/01/2026 15:36",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4315"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4312",
-    "title": "OFBI-4312 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "07/01/2026 11:54",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4312"
   }
 ]

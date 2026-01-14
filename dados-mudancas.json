@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-14T12:48:21.555963",
+  "ultima_atualizacao": "2026-01-14T13:30:54.318423",
   "total": 100,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Thiago da Silva Pereira",
       "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-14T09:32:31.593-0300",
+      "updated": "2026-01-14T10:08:47.278-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

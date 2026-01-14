@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-14T11:58:40.368211",
+  "ultima_atualizacao": "2026-01-14T12:48:21.555963",
   "total": 100,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Thiago da Silva Pereira",
       "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-09T17:57:19.698-0300",
+      "updated": "2026-01-14T09:32:31.593-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4312",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2026-01-07T09:34:48.823-0300",
-      "updated": "2026-01-07T11:54:21.764-0300",
+      "updated": "2026-01-14T09:20:54.656-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

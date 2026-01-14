@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-01-14T17:00:43.580207",
+  "ultima_atualizacao": "2026-01-14T17:32:25.998806",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4318",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Thomas Rabelo",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-13T11:37:31.927-0300",
-      "updated": "2026-01-13T11:37:32.084-0300",
+      "updated": "2026-01-14T14:27:33.472-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4316",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Thiago da Silva Pereira",
       "reporter": "Thiago da Silva Pereira",
       "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-14T10:08:47.278-0300",
+      "updated": "2026-01-14T14:30:58.937-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4315",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Thomas Rabelo",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-08T15:36:00.470-0300",
-      "updated": "2026-01-08T15:36:00.619-0300",
+      "updated": "2026-01-14T14:27:55.960-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-01-20T14:42:21.169724",
+  "ultima_atualizacao": "2026-01-20T15:02:22.936222",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4341",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Pedro Arlego",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Pedro Arlego",
       "created": "2026-01-20T11:39:25.243-0300",
-      "updated": "2026-01-20T11:39:25.366-0300",
+      "updated": "2026-01-20T11:44:32.266-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-21T07:04:58.063228",
+  "ultima_atualizacao": "2026-01-21T07:38:50.299912",
   "total": 100,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Pedro Arlego",
       "created": "2026-01-20T11:39:25.243-0300",
-      "updated": "2026-01-20T11:44:32.266-0300",
+      "updated": "2026-01-21T04:18:41.320-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

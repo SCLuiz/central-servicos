@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-01-21T17:06:22.978933",
+  "ultima_atualizacao": "2026-01-21T18:02:03.282518",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4341",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Pedro Arlego",
       "reporter": "Pedro Arlego",
       "created": "2026-01-20T11:39:25.243-0300",
-      "updated": "2026-01-21T04:18:41.320-0300",
+      "updated": "2026-01-21T14:43:05.763-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -23,7 +23,7 @@
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-20T11:36:13.852-0300",
-      "updated": "2026-01-20T11:36:14.038-0300",
+      "updated": "2026-01-21T14:10:27.113-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

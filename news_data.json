@@ -1,24 +1,13 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-4341",
-    "title": "OFBI-4341 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "21/01/2026 04:18",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4341"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4340",
     "title": "OFBI-4340 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "20/01/2026 11:36",
+    "date": "21/01/2026 14:10",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4340"
   }
 ]

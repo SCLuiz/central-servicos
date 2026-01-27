@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-27T12:50:59.665949",
+  "ultima_atualizacao": "2026-01-27T13:37:03.451235",
   "total": 100,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4340",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-20T11:36:13.852-0300",
-      "updated": "2026-01-21T14:10:27.113-0300",
+      "updated": "2026-01-27T10:35:50.823-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

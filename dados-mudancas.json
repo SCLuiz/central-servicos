@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-01-28T11:59:37.883716",
+  "ultima_atualizacao": "2026-01-28T12:57:56.104653",
   "total": 100,
   "mudancas": [
     {
@@ -36,7 +36,7 @@
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-20T11:36:13.852-0300",
-      "updated": "2026-01-27T22:29:39.663-0300",
+      "updated": "2026-01-28T09:28:47.317-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

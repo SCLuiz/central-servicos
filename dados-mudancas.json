@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-01-28T01:23:12.011902",
+  "ultima_atualizacao": "2026-01-28T03:15:05.483798",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4348",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2026-01-27T22:29:05.348-0300",
+      "updated": "2026-01-27T22:29:05.527-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4341",
       "summary": "Solicitação de Mudanças",
@@ -18,12 +31,12 @@
     {
       "key": "OFBI-4340",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-20T11:36:13.852-0300",
-      "updated": "2026-01-27T10:35:50.823-0300",
+      "updated": "2026-01-27T22:29:39.663-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -1467,21 +1480,6 @@
       "reporter": "Marcos Antonio Vilela",
       "created": "2024-02-05T15:00:22.648-0300",
       "updated": "2025-12-15T20:18:14.809-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-581",
-      "summary": "Atualização conselheiro suplente 1.3 - Homologação",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2024-02-05T14:58:23.711-0300",
-      "updated": "2025-12-15T20:18:17.495-0300",
       "labels": [
         "tipo:normal"
       ],

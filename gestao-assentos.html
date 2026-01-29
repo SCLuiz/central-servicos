@@ -167,8 +167,8 @@
 <body>
 
     <div class="controls">
-        <h2 style="margin: 0; margin-right: 20px;">Gestão de Assentos</h2>
-
+        <h2 style="margin: 0; margin-right: 20px; color: #0052cc;">Gestão de Assentos - V7 (Correção)</h2>
+        <!-- Controles ocultos para simplificar -->
         <div id="edit-controls" style="display: none;">
             <span class="mode-badge mode-edit">ADMIN</span>
             <button class="btn btn-primary" onclick="addSeatCenter()">+ Mesa</button>
@@ -182,7 +182,7 @@
     </div>
 
     <div class="instructions" id="instructions-text">
-        👉 <b>Clique na mesa</b> rosa para reservar.
+        👉 <b>Dê DOIS CLIQUES RÁPIDOS</b> na mesa rosa para reservar.
     </div>
 
     <div id="viewport">
@@ -194,53 +194,58 @@
     <div id="tooltip" class="tooltip"></div>
 
     <!-- BOTÃO DE EMERGÊNCIA RESET -->
-    <button onclick="hardReset()"
-        style="position: fixed; bottom: 10px; right: 10px; padding: 5px; font-size: 11px; z-index: 999999; border: 1px solid #ccc; background: #eee; cursor: pointer;">
+    <button onclick="localStorage.clear(); location.reload();"
+        style="position:fixed; bottom:10px; right:10px; padding: 5px; font-size: 11px; z-index: 999999; border: 1px solid #ccc; background: #eee; cursor: pointer;">
         🔄 Resetar
     </button>
 
     <script>
-        function hardReset() {
-            if (confirm('Isso vai apagar todas as configurações locais e corrigir problemas. Continuar?')) {
-                localStorage.removeItem('of_seats_config_v2');
-                window.location.reload(true);
-            }
-        }
-
-        // === VARIÁVEIS GLOBAIS ===
+        // === CONFIGURAÇÃO V7 ===
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
-        let isEditMode = false;
+        let isEditMode = false; // FORÇADO PARA USUÁRIO
         let seatCounter = 1;
-        let selectedSeat = null;
         let activeSeat = null;
         let startX = 0, startY = 0;
         let initialLeft = 0, initialTop = 0;
 
-        // === ELEMENTOS ===
+        // Elementos
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
         const tooltip = document.getElementById('tooltip');
 
-        // === INICIALIZAÇÃO ===
+        // Inicialização
         window.onload = () => {
-            console.log("V6: Sistema iniciado");
             if (mapImg.complete) init();
             else mapImg.onload = init;
 
-            fetchJiraUsers();
+            // Tenta carregar Jira (mas não bloqueia)
+            fetch(WORKER_URL + '/users?type=users')
+                .then(r => r.json())
+                .then(d => { if (Array.isArray(d)) jiraUsers = d; })
+                .catch(e => console.log('Sem Jira'));
 
-            const urlParams = new URLSearchParams(window.location.search);
-            isEditMode = (urlParams.get('mode') === 'edit');
-            toggleMode(isEditMode);
+            // Força modo visualização
+            isEditMode = false;
+            document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'pointer');
         };
 
         function init() {
-            loadSeats();
             container.style.width = mapImg.naturalWidth + 'px';
             container.style.height = mapImg.naturalHeight + 'px';
 
-            // ADMIN: Criação rápida
+            // Carrega ou Cria Default
+            if (!loadSeats()) {
+                // Cria 3 mesas de teste se não tiver nada
+                createSeatElement(1, 100, 100, 'available');
+                createSeatElement(2, 200, 100, 'available');
+                createSeatElement(3, 300, 100, 'available');
+                createSeatElement(4, 400, 100, 'available');
+                createSeatElement(5, 500, 100, 'available');
+                alert('Modo Teste: 5 mesas criadas. Tente clicar nelas.');
+            }
+
+            // ADMIN: Criação rápida (mantido para compatibilidade, mas não usado no modo view)
             container.addEventListener('dblclick', (e) => {
                 if (!isEditMode) return;
                 const rect = container.getBoundingClientRect();
@@ -250,20 +255,7 @@
             });
         }
 
-        async function fetchJiraUsers() {
-            try {
-                const response = await fetch(`${WORKER_URL}/users?type=users`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (Array.isArray(data)) jiraUsers = data;
-                    else jiraUsers = [];
-                }
-            } catch (e) {
-                jiraUsers = [];
-            }
-        }
-
-        // === LÓGICA DE ASSENTOS ===
+        // === CRIAÇÃO ===
         function createSeatElement(id, x, y, status, user = null) {
             const seat = document.createElement('div');
             seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
@@ -285,42 +277,37 @@
                 initialTop = seat.offsetTop;
             });
 
-            // ADMIN: Delete
+            // Lógica EXPLICITA de Duplo Clique
             seat.addEventListener('dblclick', (e) => {
-                if (!isEditMode) return;
                 e.stopPropagation();
-                seat.remove();
-                saveConfiguration();
-            });
-
-            // USER: CLIQUE PARA RESERVAR (Infalível)
-            seat.addEventListener('click', (e) => {
-                // Impede clique em elementos abaixo
                 e.preventDefault();
-                e.stopPropagation();
 
-                if (isEditMode) return;
+                // DIAGNÓSTICO: Se aparecer isso, o clique funciona.
+                alert('Duplo Clique Recebido!');
 
-                // Feedback tátil
-                selectSeat(seat);
-
-                // Lógica de Reserva/Liberação
                 if (seat.classList.contains('occupied')) {
-                    const dono = seat.dataset.user || 'Desconhecido';
-                    // Timeout mínimo para não travar o visual do clique
-                    setTimeout(() => {
-                        if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
-                            seat.classList.remove('occupied');
-                            seat.dataset.user = '';
-                            saveConfiguration();
-                        } else {
-                            seat.classList.remove('selected');
-                        }
-                    }, 10);
+                    const dono = seat.dataset.user || 'Alguém';
+                    if (confirm(`Mesa de ${dono}. Liberar?`)) {
+                        seat.classList.remove('occupied');
+                        seat.dataset.user = '';
+                        saveConfiguration();
+                    }
                 } else {
-                    setTimeout(() => {
-                        confirmReservation();
-                    }, 10);
+                    let nome = '';
+                    if (Array.isArray(jiraUsers) && jiraUsers.length > 0) {
+                        nome = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
+                        const found = jiraUsers.find(u => u.displayName.toLowerCase() === (nome || '').toLowerCase());
+                        if (found) nome = found.displayName;
+                    } else {
+                        nome = prompt('Digite seu nome para reservar:');
+                    }
+
+                    if (nome) {
+                        seat.classList.add('occupied');
+                        seat.classList.remove('available');
+                        seat.dataset.user = nome;
+                        saveConfiguration();
+                    }
                 }
             });
 
@@ -337,37 +324,6 @@
             seat.addEventListener('mouseleave', hideTooltip);
 
             container.appendChild(seat);
-        }
-
-        function selectSeat(seat) {
-            if (selectedSeat) selectedSeat.classList.remove('selected');
-            selectedSeat = seat;
-            selectedSeat.classList.add('selected');
-        }
-
-        function confirmReservation() {
-            if (!selectedSeat) return;
-
-            let userName = '';
-            if (Array.isArray(jiraUsers) && jiraUsers.length > 0) {
-                userName = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
-                const found = jiraUsers.find(u => u.displayName.toLowerCase() === (userName || '').toLowerCase());
-                if (found) userName = found.displayName;
-            } else {
-                userName = prompt("Qual seu nome?", "");
-            }
-
-            if (userName) {
-                selectedSeat.classList.remove('selected');
-                selectedSeat.classList.add('occupied');
-                selectedSeat.classList.remove('available');
-                selectedSeat.dataset.user = userName;
-                saveConfiguration();
-                selectedSeat = null;
-            } else {
-                selectedSeat.classList.remove('selected');
-                selectedSeat = null;
-            }
         }
 
         // === DRAG GLOBAL (ADMIN) ===
@@ -388,7 +344,7 @@
             }
         });
 
-        // === PERSISTÊNCIA ===
+        // === PERSISTÊNCIA SIMPLES ===
         function saveConfiguration() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
@@ -408,11 +364,14 @@
             if (savedSeats) {
                 try {
                     const seats = JSON.parse(savedSeats);
+                    if (seats.length === 0) return false;
                     seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user));
                     const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
                     seatCounter = maxId + 1;
-                } catch (e) { }
+                    return true;
+                } catch (e) { return false; }
             }
+            return false;
         }
 
         function clearAllSeats() {
@@ -435,7 +394,7 @@
                 document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'grab');
             } else {
                 editControls.style.display = 'none';
-                instructions.innerHTML = '👉 <b>Clique na mesa</b> rosa para reservar.';
+                instructions.innerHTML = '👉 <b>Dê DOIS CLIQUES RÁPIDOS</b> na mesa rosa para reservar.';
                 document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'pointer');
             }
         }

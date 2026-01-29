@@ -113,8 +113,8 @@
             position: absolute;
             width: 24px;
             height: 24px;
-            background-color: rgba(38, 132, 255, 0.9);
-            /* Azul translúcido */
+            background-color: #f7c20f;
+            /* Amarelo solicitado */
             border: 2px solid #fff;
             border-radius: 50%;
             cursor: grab;
@@ -122,7 +122,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #172b4d;
+            /* Texto escuro para contraste */
             font-size: 11px;
             font-weight: bold;
             z-index: 10;
@@ -148,6 +149,8 @@
             background-color: #ff5630;
             /* Vermelho ocupado */
             border-color: #fff;
+            color: white;
+            /* Texto branco no vermelho */
         }
 
         .seat.occupied:hover {
@@ -161,6 +164,7 @@
             border: 3px solid #fff;
             box-shadow: 0 0 0 4px rgba(54, 179, 126, 0.3);
             z-index: 30;
+            color: white;
         }
 
         /* Tooltip */
@@ -316,6 +320,13 @@
                 startY = e.clientY;
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
+            });
+
+            // Duplo clique para excluir (Modo Edição)
+            seat.addEventListener('dblclick', (e) => {
+                if (!isEditMode) return;
+                e.stopPropagation(); // Impede criação de nova mesa
+                seat.remove();
             });
 
             // Evento de Clique para Seleção (Modo Reserva)

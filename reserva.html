@@ -4,68 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva de Assentos - Open Finance</title>
+    <title>Reserva de Posições - Open Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
+            --of-white: #FFFFFF;
+            --ds-text: #172B4D;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f4f5f7;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            /* Full width header */
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             user-select: none;
         }
 
-        .controls {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
+        /* === HEADER PADRÃO OPEN FINANCE === */
+        .header {
+            width: 100%;
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: white;
             display: flex;
-            gap: 15px;
+            justify-content: center;
+        }
+
+        /* Formas Geométricas de Fundo */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
             align-items: center;
-            z-index: 100;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .header-title-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* === PAINEL DE CONTROLES (Integrado) === */
+        .controls-panel {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 12px;
+            display: flex;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            color: white;
-            margin-right: 5px;
+            color: var(--ds-text);
+            background: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary {
             background: #0052cc;
+            color: white;
         }
 
         .btn-success {
             background: #36b37e;
+            color: white;
         }
 
         .btn-danger {
             background: #ff5630;
+            color: white;
         }
 
-        .btn-secondary {
-            background: #6B778C;
-            border: 1px solid #ccc;
+        .btn-back {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
+        .btn-back:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* === VIEWPORT DO MAPA === */
         #viewport {
             position: relative;
-            width: 95vw;
-            height: 85vh;
-            border: 2px solid #ccc;
+            width: 95%;
+            max-width: 1400px;
+            height: 75vh;
+            border: 1px solid #dfe1e6;
+            border-radius: 12px;
             overflow: auto;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Permite scroll */
+            background: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            margin-top: -30px;
+            /* Sobrepõe levemente o header */
+            z-index: 20;
         }
 
         #map-container {
@@ -78,12 +191,12 @@
             user-drag: none;
         }
 
+        /* === ASSENTOS === */
         .seat {
             position: absolute;
             width: 24px;
             height: 24px;
-            background-color: #DD249b;
-            /* Rosa */
+            background-color: var(--of-magenta);
             border: 2px solid white;
             border-radius: 50%;
             cursor: grab;
@@ -103,51 +216,55 @@
         }
 
         .seat:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
             z-index: 99999;
-            border-color: yellow;
+            border-color: var(--of-yellow);
         }
 
         .seat.occupied {
             background-color: #ff5630;
         }
 
-        /* Vermelho */
-
-        .instructions {
-            margin-bottom: 10px;
-            color: #555;
+        .instructions-bar {
+            margin-top: 10px;
+            color: #6B778C;
+            font-size: 13px;
             text-align: center;
+            background: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- MONITOR DE SISTEMA (RESPOSTA AO USUÁRIO) -->
+    <!-- MONITOR DE LOGS (Mantido oculto/discreto se não houver erro) -->
     <div id="system-monitor"
-        style="position: fixed; top: 10px; right: 10px; width: 300px; height: 400px; background: rgba(0,0,0,0.85); color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; border-radius: 8px; z-index: 9999999; overflow-y: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); pointer-events: none;">
-        <div
-            style="border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 5px; font-weight: bold; color: #fff;">
-            MONITOR DE EVENTOS (LOGS)
-        </div>
+        style="display: none; position: fixed; bottom: 10px; right: 10px; width: 300px; height: 200px; background: rgba(0,0,0,0.9); color: #0f0; font-family: monospace; font-size: 10px; padding: 10px; border-radius: 8px; z-index: 9999999; overflow-y: auto;">
         <div id="log-content"></div>
     </div>
 
-    <div class="controls">
-        <a href="facilities.html" class="btn btn-secondary"
-            style="text-decoration: none; display: flex; align-items: center;">← Voltar</a>
-        <h2 style="margin:0; margin-right:15px; color:#0052cc;">Reserva de Mesas</h2>
-        <div style="border-left: 1px solid #ccc; padding-left: 15px; display: flex; gap: 10px;">
-            <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
-            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
-            <button class="btn btn-danger" onclick="clearAll()">🗑️ Limpar Tudo</button>
-        </div>
-    </div>
+    <!-- HEADER PREMIUM -->
+    <div class="header">
+        <div class="header-content">
+            <div class="header-title-group">
+                <a href="facilities.html" class="btn btn-back">← Voltar</a>
+                <div class="header-icon">📅</div>
+                <div>
+                    <h1>Reserva de Posições</h1>
+                    <p id="welcome-msg">Gestão de Espaços Open Finance</p>
+                </div>
+            </div>
 
-    <div class="instructions">
-        <span id="welcome-msg" style="font-weight: bold; color: #0052cc;"></span><br>
-        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Duplo-Clique na MESA</b> para reservar.
+            <!-- Controles no Header -->
+            <div class="controls-panel">
+                <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
+                <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
+                <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
+            </div>
+        </div>
     </div>
 
     <div id="viewport">
@@ -156,20 +273,21 @@
         </div>
     </div>
 
+    <div class="instructions-bar">
+        <b>Dica:</b> Duplo-Clique cria/edita mesa. Arraste para mover. Shift+Duplo-Clique deleta.
+    </div>
+
     <script>
-        // === FERRAMENTA DE LOGS ===
+        // === MONITOR DE DEBUG ===
         function monitor(msg, type = 'info') {
+            const container = document.getElementById('system-monitor');
+            // container.style.display = 'block'; // Ativar se precisar debugar visualmente
             const el = document.getElementById('log-content');
             const line = document.createElement('div');
-            const time = new Date().toLocaleTimeString();
-            line.innerHTML = `<span style="color:#888">[${time}]</span> ${msg}`;
-
-            if (type === 'error') line.style.color = '#ff3333';
-            if (type === 'success') line.style.color = '#00ff00';
-            if (type === 'action') line.style.color = '#ffff00';
-
+            line.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            if (type == 'error') line.style.color = 'red';
             el.insertBefore(line, el.firstChild);
-            console.log(`[MONITOR] ${msg}`);
+            console.log(msg);
         }
 
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
@@ -184,21 +302,14 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // === RESET TOTAL (A PEDIDO DO USUÁRIO) ===
+            // === RESET AUTOMÁTICO (SOLICITADO) ===
             localStorage.removeItem('of_seats_config_v2');
-            monitor('Memória limpa! Sistema pronto para começar do zero.', 'action');
-            // ==========================================
+            monitor('Reset executado.', 'action');
+            // =====================================
 
-            // Check Login
             currentUser = localStorage.getItem('userName');
             const msgEl = document.getElementById('welcome-msg');
-
-            if (currentUser) {
-                msgEl.innerText = `Olá, ${currentUser}!`;
-                monitor(`Usuário Logado: ${currentUser}`, 'success');
-            } else {
-                msgEl.innerText = "Modo Visitante";
-            }
+            if (currentUser) msgEl.innerText = `Olá, ${currentUser}! Organize seu espaço.`;
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
@@ -212,7 +323,6 @@
         function init() {
             container.style.width = mapImg.naturalWidth + "px";
             container.style.height = mapImg.naturalHeight + "px";
-            monitor(`Mapa OK. Pode criar sua primeira mesa!`, 'info');
             loadSeats();
 
             container.addEventListener('dblclick', (e) => {
@@ -220,7 +330,6 @@
                 const rect = container.getBoundingClientRect();
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
-                monitor(`Criando Mesa ${seatCounter}...`, 'action');
                 createSeat(seatCounter++, x, y);
             });
         }
@@ -235,34 +344,21 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // --- EVENTOS ---
-
-            // Arrastar
+            // DRAG
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
-                e.preventDefault();
-                e.stopPropagation();
-
+                e.preventDefault(); e.stopPropagation();
                 activeSeat = seat;
-                startX = e.clientX;
-                startY = e.clientY;
-                initialLeft = seat.offsetLeft;
-                initialTop = seat.offsetTop;
+                startX = e.clientX; startY = e.clientY;
+                initialLeft = seat.offsetLeft; initialTop = seat.offsetTop;
                 seat.style.zIndex = 999999;
-                monitor(`Movendo mesa ${id}...`, 'info');
             });
 
-            // Reservar / Deletar
+            // ACTION
             seat.addEventListener('dblclick', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
+                e.preventDefault(); e.stopPropagation();
                 if (e.shiftKey) {
-                    if (confirm(`Apagar mesa ${id}?`)) {
-                        seat.remove();
-                        monitor(`Mesa ${id} removida.`, 'error');
-                        saveConfiguration();
-                    }
+                    if (confirm(`Apagar mesa ${id}?`)) seat.remove();
                 } else {
                     toggleReservation(seat);
                 }
@@ -273,11 +369,9 @@
         }
 
         function updateTooltip(seat) {
-            seat.title = `Mesa ${seat.dataset.id}`;
-            if (seat.dataset.user) seat.title += ` - Reservado por: ${seat.dataset.user}`;
+            seat.title = `Mesa ${seat.dataset.id}` + (seat.dataset.user ? ` (${seat.dataset.user})` : '');
         }
 
-        // --- MOUSE ---
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
             e.preventDefault();
@@ -288,75 +382,58 @@
         });
 
         document.addEventListener('mouseup', () => {
-            if (activeSeat) {
-                activeSeat.style.zIndex = 1000;
-                activeSeat = null;
-            }
+            if (activeSeat) { activeSeat.style.zIndex = 1000; activeSeat = null; }
         });
 
         function toggleReservation(seat) {
             if (seat.classList.contains('occupied')) {
                 const dono = seat.dataset.user || 'Alguém';
-                if (confirm(`Mesa de: ${dono}.\nLiberar?`)) {
+                if (confirm(`Liberar ${dono}?`)) {
                     seat.classList.remove('occupied');
                     seat.dataset.user = '';
                     updateTooltip(seat);
-                    monitor('Mesa liberada.', 'success');
                 }
             } else {
-                let nome = currentUser;
-                if (nome) {
-                    if (confirm(`Reservar para ${nome}?`)) doReserve(seat, nome);
-                } else {
-                    nome = prompt("Nome para reserva:");
-                    if (nome) doReserve(seat, nome);
+                let nome = currentUser || prompt("Nome:");
+                if (nome && confirm(`Reservar para ${nome}?`)) {
+                    seat.classList.add('occupied');
+                    seat.dataset.user = nome;
+                    updateTooltip(seat);
                 }
             }
-            saveConfiguration();
-        }
-
-        function doReserve(seat, name) {
-            seat.classList.add('occupied');
-            seat.dataset.user = name;
-            updateTooltip(seat);
-            monitor(`Reservado para ${name}!`, 'success');
+            saveConfig(); // Autosave
         }
 
         function saveConfiguration() {
-            try {
-                const seats = [];
-                document.querySelectorAll('.seat').forEach(s => {
-                    seats.push({
-                        id: s.dataset.id,
-                        x: parseInt(s.style.left),
-                        y: parseInt(s.style.top),
-                        status: s.classList.contains('occupied') ? 'occupied' : 'available',
-                        user: s.dataset.user || null
-                    });
+            saveConfig();
+            alert('Configuração Salva!');
+        }
+
+        function saveConfig() {
+            const seats = [];
+            document.querySelectorAll('.seat').forEach(s => {
+                seats.push({
+                    id: s.dataset.id,
+                    x: parseInt(s.style.left),
+                    y: parseInt(s.style.top),
+                    status: s.classList.contains('occupied') ? 'occupied' : 'available',
+                    user: s.dataset.user || null
                 });
-                localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-                monitor('Salvo com sucesso!', 'success');
-            } catch (e) {
-                monitor('Erro ao salvar!', 'error');
-            }
+            });
+            localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
         }
 
         function loadSeats() {
-            // Nesta versão de RESET, esta função apenas garante que não criamos nada antigo
-            // Tudo começa do zero
+            // Reset Mode = Empty
             seatCounter = 1;
         }
 
         function clearAll() {
-            if (confirm("Apagar TUDO?")) {
-                localStorage.removeItem('of_seats_config_v2');
-                location.reload();
-            }
+            if (confirm("Reiniciar tudo?")) location.reload();
         }
 
         function createSeatCenter() {
-            createSeat(seatCounter++, 150, 150);
-            monitor('Mesa criada no centro.', 'action');
+            createSeat(seatCounter++, 100, 100);
         }
     </script>
 </body>

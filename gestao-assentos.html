@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Assentos - Open Finance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #0052cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0043a8;
+        }
+
+        .btn-success {
+            background: #36b37e;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ff5630;
+            color: white;
+        }
+
+        .mode-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .mode-edit {
+            background: #fffae6;
+            color: #bf6c00;
+        }
+
+        .mode-view {
+            background: #e3fcef;
+            color: #006644;
+        }
+
+        #map-container {
+            position: relative;
+            width: 1200px;
+            height: 800px;
+            background-image: url('mapa-escritorio.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 2px solid #dfe1e6;
+            border-radius: 8px;
+            background-color: #fff;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .seat {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #2684ff;
+            /* Azul disponível */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            user-select: none;
+        }
+
+        .seat:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .seat.occupied {
+            background-color: #ff5630;
+            /* Vermelho ocupado */
+            cursor: not-allowed;
+        }
+
+        .seat.selected {
+            background-color: #36b37e;
+            /* Verde selecionado */
+            transform: scale(1.3);
+            border: 2px solid white;
+        }
+
+        .seat.dragging {
+            opacity: 0.8;
+            cursor: grabbing;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: #172b4d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <h2 style="margin: 0; margin-right: 20px;">Reserva de Assentos</h2>
+
+        <div id="edit-controls">
+            <span class="mode-badge mode-edit">Modo Edição (Admin)</span>
+            <button class="btn btn-primary" onclick="addSeat()">+ Adicionar Assento</button>
+            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar Tudo</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">Salvar Layout</button>
+            <button class="btn" onclick="toggleMode()">Ir para Modo Reserva</button>
+        </div>
+
+        <div id="view-controls" style="display: none;">
+            <span class="mode-badge mode-view">Modo Reserva (Usuário)</span>
+            <span id="selected-info" style="margin: 0 10px; color: #5e6c84;">Nenhum assento selecionado</span>
+            <button class="btn btn-primary" onclick="confirmReservation()" disabled id="btn-confirm">Confirmar
+                Reserva</button>
+            <button class="btn" onclick="toggleMode()">Voltar para Edição</button>
+        </div>
+    </div>
+
+    <div id="map-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <!-- Assentos serão injetados aqui via JS -->
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <script>
+        let isEditMode = true;
+        let seatCounter = 1;
+        let selectedSeat = null;
+        const container = document.getElementById('map-container');
+        const tooltip = document.getElementById('tooltip');
+
+        // Carregar do LocalStorage se existir
+        window.onload = () => {
+            const savedSeats = localStorage.getItem('of_seats_config');
+            if (savedSeats) {
+                const seats = JSON.parse(savedSeats);
+                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status));
+                seatCounter = seats.length + 1;
+            }
+        };
+
+        function toggleMode() {
+            isEditMode = !isEditMode;
+            document.getElementById('edit-controls').style.display = isEditMode ? 'flex' : 'none';
+            document.getElementById('view-controls').style.display = isEditMode ? 'none' : 'flex';
+
+            // Tira seleção ao trocar de modo
+            if (selectedSeat) {
+                selectedSeat.classList.remove('selected');
+                selectedSeat = null;
+            }
+            updateView();
+        }
+
+        function updateView() {
+            const seats = document.querySelectorAll('.seat');
+            seats.forEach(seat => {
+                if (isEditMode) {
+                    seat.style.cursor = 'grab';
+                    seat.draggable = true;
+                    seat.onclick = null; // Remove clique de reserva
+                } else {
+                    seat.style.cursor = 'pointer';
+                    seat.draggable = false;
+                    seat.onclick = () => selectSeat(seat);
+                }
+            });
+        }
+
+        function addSeat() {
+            createSeatElement(seatCounter++, 50, 50, 'available');
+        }
+
+        function createSeatElement(id, x, y, status) {
+            const seat = document.createElement('div');
+            seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
+            seat.id = 'seat-' + id;
+            seat.style.left = x + 'px';
+            seat.style.top = y + 'px';
+            seat.innerText = id;
+            seat.dataset.id = id;
+
+            // Drag Logic (Edição)
+            seat.draggable = true;
+            seat.ondragstart = drag;
+
+            // Tooltip logic
+            seat.onmouseover = (e) => showTooltip(e, `Mesa ${id}`);
+            seat.onmouseout = hideTooltip;
+
+            container.appendChild(seat);
+            updateView(); // Aplica regras do modo atual
+        }
+
+        // Drag & Drop
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            if (!isEditMode) {
+                ev.preventDefault();
+                return;
+            }
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.target.classList.add('dragging');
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const seat = document.getElementById(data);
+
+            if (seat) {
+                const rect = container.getBoundingClientRect();
+                const x = ev.clientX - rect.left - 10; // centralizar
+                const y = ev.clientY - rect.top - 10;
+
+                seat.style.left = x + 'px';
+                seat.style.top = y + 'px';
+                seat.classList.remove('dragging');
+            }
+        }
+
+        // Reserva Logic
+        function selectSeat(seat) {
+            if (isEditMode) return;
+            if (seat.classList.contains('occupied')) {
+                alert('Este assento já está ocupado!');
+                return;
+            }
+
+            // Deselecionar anterior
+            if (selectedSeat) selectedSeat.classList.remove('selected');
+
+            selectedSeat = seat;
+            selectedSeat.classList.add('selected');
+
+            document.getElementById('selected-info').innerText = `Selecionado: Mesa ${seat.dataset.id}`;
+            document.getElementById('btn-confirm').disabled = false;
+        }
+
+        function confirmReservation() {
+            if (!selectedSeat) return;
+
+            const confirm = window.confirm(`Confirmar reserva para a Mesa ${selectedSeat.dataset.id}?`);
+            if (confirm) {
+                selectedSeat.classList.remove('selected');
+                selectedSeat.classList.add('occupied');
+                selectedSeat = null;
+                document.getElementById('selected-info').innerText = 'Reserva confirmada!';
+                document.getElementById('btn-confirm').disabled = true;
+                // Aqui chamaria a API do Jira
+                saveConfiguration(); // Salva estado ocupado localmente
+            }
+        }
+
+        // Persistência
+        function saveConfiguration() {
+            const seats = [];
+            document.querySelectorAll('.seat').forEach(s => {
+                seats.push({
+                    id: s.dataset.id,
+                    x: parseInt(s.style.left),
+                    y: parseInt(s.style.top),
+                    status: s.classList.contains('occupied') ? 'occupied' : 'available'
+                });
+            });
+            localStorage.setItem('of_seats_config', JSON.stringify(seats));
+            // alert('Configuração salva no navegador!');
+        }
+
+        function clearAllSeats() {
+            if (confirm("Tem certeza que deseja apagar todos os assentos?")) {
+                container.innerHTML = '';
+                seatCounter = 1;
+                localStorage.removeItem('of_seats_config');
+            }
+        }
+
+        // UI Helpers
+        function showTooltip(e, text) {
+            tooltip.style.display = 'block';
+            tooltip.innerText = text;
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY + 10) + 'px';
+        }
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

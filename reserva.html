@@ -50,7 +50,6 @@
             }
         }
 
-        /* HEADER IDENTICO GESTAO MUDANCAS */
         .header {
             background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
             padding: 40px 20px;
@@ -124,7 +123,6 @@
             transform: translateX(-3px);
         }
 
-        /* CONTROLS (AGORA COM DATA) */
         .controls-bar {
             max-width: 900px;
             margin: 0 auto 30px;
@@ -138,7 +136,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* DATA INPUT STYLE */
         .date-input-group {
             display: flex;
             align-items: center;
@@ -186,15 +183,10 @@
             background: #0052cc;
         }
 
-        .btn-success {
-            background: #36b37e;
-        }
-
         .btn-danger {
             background: #ff5630;
         }
 
-        /* VIEWPORT */
         #viewport {
             width: 100%;
             display: flex;
@@ -240,7 +232,6 @@
             transition: background-color 0.3s;
         }
 
-        /* Cor de ocupado varia? Por enquanto mantemos padrão */
         .seat.occupied {
             background-color: #ff5630;
         }
@@ -259,7 +250,6 @@
 </head>
 
 <body>
-
     <div class="header">
         <h1>Reserva de Posições</h1>
         <p>Gestão Inteligente de Espaços e Assentos</p>
@@ -267,17 +257,13 @@
     </div>
 
     <div class="controls-bar">
-        <!-- SELETOR DE DATA -->
         <div class="date-input-group">
             <span class="date-label">📅 Data:</span>
             <input type="date" id="reservation-date">
         </div>
-
         <div style="width: 1px; height: 30px; background: #dfe1e6; margin: 0 10px;"></div>
-
         <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
-        <button class="btn btn-success" onclick="saveLayout()">💾 Salvar Layout</button>
-        <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
+        <button class="btn btn-danger" onclick="clearDay()">🗑️ Limpar este Dia</button>
     </div>
 
     <div id="viewport">
@@ -292,16 +278,11 @@
 
     <script>
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
-        let jiraUsers = [];
         let seatCounter = 1;
         let currentUser = null;
-        let currentDate = ''; // Data atual selecionada (YYYY-MM-DD)
-
-        // Estado do Mouse
+        let currentDate = '';
         let activeSeat = null;
         let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-
-        // Elementos
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
         const dateInput = document.getElementById('reservation-date');
@@ -310,58 +291,95 @@
             document.body.onselectstart = function () { return false; }
             currentUser = localStorage.getItem('userName');
 
-            // 1. Inicializa Data (Hoje)
             const today = new Date().toISOString().split('T')[0];
             dateInput.value = today;
             currentDate = today;
 
-            // 2. Listener de troca de data
             dateInput.addEventListener('change', (e) => {
                 currentDate = e.target.value;
-                updateMapVisuals(); // Recarrega mapinha para a nova data
+                loadDayData(); // Troca de dia = troca de layout
             });
 
-            if (mapImg.complete) init();
-            else mapImg.onload = init;
-
-            fetch(WORKER_URL + '/users?type=users').then(r => r.json()).then(d => { if (Array.isArray(d)) jiraUsers = d; }).catch(e => { });
+            if (mapImg.complete) init(); else mapImg.onload = init;
         };
 
         function init() {
             container.style.width = mapImg.naturalWidth + "px";
             container.style.height = mapImg.naturalHeight + "px";
+            loadDayData();
 
-            loadLayoutAndReservations();
-
-            // Eventos de Mapa
             container.addEventListener('dblclick', (e) => {
                 e.preventDefault();
                 if (e.target !== container && e.target !== mapImg) return;
                 const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left - 12;
-                const y = e.clientY - rect.top - 12;
-                createSeat(seatCounter++, x, y);
+                createSeatElement(seatCounter++, (e.clientX - rect.left - 12) + 'px', (e.clientY - rect.top - 12) + 'px', '');
+                saveCurrentState();
                 if (window.getSelection) { window.getSelection().removeAllRanges(); }
             });
             mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
-        // --- CORE LÓGICA DE MESAS ---
+        // --- CORE: DATA MANAGEMENT ---
 
-        function createSeat(id, x, y, status = 'available', user = null) {
+        function getAllData() {
+            const data = localStorage.getItem('of_daily_data_v1');
+            return data ? JSON.parse(data) : {};
+        }
+
+        function saveAllData(db) {
+            localStorage.setItem('of_daily_data_v1', JSON.stringify(db));
+        }
+
+        function saveCurrentState() {
+            const seats = [];
+            document.querySelectorAll('.seat').forEach(s => {
+                seats.push({
+                    id: s.innerText,
+                    x: s.style.left,
+                    y: s.style.top,
+                    user: s.dataset.user || ''
+                });
+            });
+            const db = getAllData();
+            db[currentDate] = seats;
+            saveAllData(db);
+        }
+
+        function loadDayData() {
+            // Limpa TUDO da tela
+            document.querySelectorAll('.seat').forEach(s => s.remove());
+
+            // Puxa dados da data atual
+            const db = getAllData();
+            const dailySeats = db[currentDate] || [];
+
+            let maxId = 0;
+            dailySeats.forEach(data => {
+                createSeatElement(data.id, data.x, data.y, data.user);
+                let idNum = parseInt(data.id);
+                if (idNum > maxId) maxId = idNum;
+            });
+            seatCounter = maxId + 1;
+        }
+
+        // --- VISUAL ELEMENTS ---
+
+        function createSeatElement(id, x, y, user = '') {
             const seat = document.createElement('div');
-            // Nota: Status agora é visual, calculado dinamicamente
             seat.className = 'seat';
-            if (status === 'occupied') seat.classList.add('occupied');
+            if (user) {
+                seat.classList.add('occupied');
+                seat.dataset.user = user;
+                seat.title = `Mesa ${id}: ${user}`;
+            } else {
+                seat.title = `Mesa ${id}`;
+            }
 
             seat.id = 'seat-' + id;
             seat.innerText = id;
-            seat.style.left = x + 'px';
-            seat.style.top = y + 'px';
-            seat.dataset.id = id;
-            if (user) seat.dataset.user = user;
+            seat.style.left = x;
+            seat.style.top = y;
 
-            // Drag
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
                 e.stopPropagation();
@@ -371,26 +389,44 @@
                 seat.style.zIndex = 999999;
             });
 
-            // Smart Click
             let clicks = 0;
             let timer = null;
             seat.addEventListener('click', (e) => {
                 e.preventDefault(); e.stopPropagation();
                 clicks++;
                 if (clicks === 1) {
-                    timer = setTimeout(() => { clicks = 0; toggleReservation(seat); }, 250);
+                    timer = setTimeout(() => { clicks = 0; handleReservation(seat); }, 250);
                 } else {
                     clearTimeout(timer); clicks = 0;
-                    if (confirm(`Excluir Mesa ${id} do Layout?`)) {
+                    if (confirm(`Excluir Mesa ${id} de ${formatDate(currentDate)}?`)) {
                         seat.remove();
-                        saveLayout(false); // Salva mudança estrutural
+                        saveCurrentState();
                     }
                     if (window.getSelection) { window.getSelection().removeAllRanges(); }
                 }
             });
 
-            seat.title = `Mesa ${id}`;
             container.appendChild(seat);
+        }
+
+        function handleReservation(seat) {
+            const currentUserOnSeat = seat.dataset.user;
+            if (currentUserOnSeat) {
+                if (confirm(`Liberar mesa de ${currentUserOnSeat}?`)) {
+                    seat.classList.remove('occupied');
+                    delete seat.dataset.user;
+                    seat.title = `Mesa ${seat.innerText}`;
+                    saveCurrentState();
+                }
+            } else {
+                let nome = currentUser || prompt("Nome da reserva:");
+                if (nome && confirm(`Reservar para ${nome}?`)) {
+                    seat.classList.add('occupied');
+                    seat.dataset.user = nome;
+                    seat.title = `Mesa ${seat.innerText}: ${nome}`;
+                    saveCurrentState();
+                }
+            }
         }
 
         document.addEventListener('mousemove', (e) => {
@@ -403,135 +439,22 @@
         });
 
         document.addEventListener('mouseup', () => {
-            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveLayout(false); }
+            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveCurrentState(); }
         });
 
-
-        // --- LÓGICA DE RESERVA DIÁRIA ---
-
-        function getDailyReservations() {
-            // Retorna objeto: { '2025-10-01': { '1': 'Luiz' }, ... }
-            const data = localStorage.getItem('of_reservations_db');
-            return data ? JSON.parse(data) : {};
-        }
-
-        function saveDailyReservations(db) {
-            localStorage.setItem('of_reservations_db', JSON.stringify(db));
-        }
-
-        function toggleReservation(seat) {
-            const seatId = seat.dataset.id;
-            const db = getDailyReservations();
-
-            // Garante que existe entrada para o dia
-            if (!db[currentDate]) db[currentDate] = {};
-
-            const dayReservations = db[currentDate];
-            const currentOwner = dayReservations[seatId];
-
-            if (currentOwner) {
-                // LIBERAR
-                if (confirm(`Liberar mesa ${seatId} de ${currentOwner} no dia ${formatDate(currentDate)}?`)) {
-                    delete dayReservations[seatId];
-                    saveDailyReservations(db);
-                    updateMapVisuals(); // Atualiza cor
-                }
-            } else {
-                // RESERVAR
-                let nome = currentUser || prompt("Nome da reserva:");
-                if (nome && confirm(`Reservar mesa ${seatId} para ${nome} no dia ${formatDate(currentDate)}?`)) {
-                    dayReservations[seatId] = nome;
-                    saveDailyReservations(db);
-                    updateMapVisuals(); // Atualiza cor
-                }
+        function clearDay() {
+            if (confirm(`Limpar TODAS as posições do dia ${formatDate(currentDate)}?`)) {
+                const db = getAllData();
+                delete db[currentDate];
+                saveAllData(db);
+                loadDayData();
             }
         }
-
-        function updateMapVisuals() {
-            const db = getDailyReservations();
-            const dayReservations = db[currentDate] || {};
-
-            document.querySelectorAll('.seat').forEach(seat => {
-                const seatId = seat.dataset.id;
-                const owner = dayReservations[seatId];
-
-                if (owner) {
-                    seat.classList.add('occupied');
-                    seat.dataset.user = owner;
-                    seat.title = `Mesa ${seatId}: ${owner}`;
-                } else {
-                    seat.classList.remove('occupied');
-                    seat.dataset.user = '';
-                    seat.title = `Mesa ${seatId}: Livre`;
-                }
-            });
+        function createSeatCenter() {
+            createSeatElement(seatCounter++, '100px', '100px', '');
+            saveCurrentState();
         }
-
-        // --- GESTÃO DE LAYOUT (POSIÇÕES) ---
-
-        function saveLayout(alertUser = true) {
-            const seats = [];
-            let maxId = 0;
-            document.querySelectorAll('.seat').forEach(s => {
-                const idNum = parseInt(s.innerText);
-                if (idNum > maxId) maxId = idNum;
-                seats.push({
-                    id: s.dataset.id,
-                    x: parseInt(s.style.left),
-                    y: parseInt(s.style.top)
-                });
-            });
-            localStorage.setItem('of_layout_v1', JSON.stringify(seats));
-            if (alertUser) alert('Layout Salvo!');
-        }
-
-        function loadLayoutAndReservations() {
-            // Tenta carregar o layout NOVO (apenas posições)
-            const layoutData = localStorage.getItem('of_layout_v1');
-
-            if (layoutData) {
-                const positions = JSON.parse(layoutData);
-                let maxId = 0;
-                positions.forEach(p => {
-                    createSeat(p.id, p.x, p.y);
-                    let idNum = parseInt(p.id);
-                    if (idNum > maxId) maxId = idNum;
-                });
-                seatCounter = maxId + 1;
-            } else {
-                // Tenta importar do legado (of_seats_config_v2) na primeira vez
-                const oldData = localStorage.getItem('of_seats_config_v2');
-                if (oldData) {
-                    const oldSeats = JSON.parse(oldData);
-                    let maxId = 0;
-                    oldSeats.forEach(s => {
-                        createSeat(s.id, s.x, s.y); // Ignora status antigo, pois agora é por dia
-                        let idNum = parseInt(s.id);
-                        if (idNum > maxId) maxId = idNum;
-                    });
-                    seatCounter = maxId + 1;
-                }
-            }
-
-            // Depois de criar as mesas, aplica as cores do dia atual
-            updateMapVisuals();
-        }
-
-        function clearAll() {
-            if (confirm("ATENÇÃO: Isso apagará o LAYOUT (mesas) e TODAS as reservas. Continuar?")) {
-                localStorage.removeItem('of_layout_v1');
-                localStorage.removeItem('of_reservations_db');
-                localStorage.removeItem('of_seats_config_v2'); // limpa legado
-                location.reload();
-            }
-        }
-
-        function createSeatCenter() { createSeat(seatCounter++, 100, 100); }
-
-        function formatDate(dateStr) {
-            const parts = dateStr.split('-');
-            return `${parts[2]}/${parts[1]}`;
-        }
+        function formatDate(d) { const p = d.split('-'); return `${p[2]}/${p[1]}`; }
     </script>
 </body>
 

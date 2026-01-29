@@ -231,6 +231,9 @@
     <div id="tooltip" class="tooltip"></div>
 
     <script>
+        const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+        let jiraUsers = [];
+
         let isEditMode = true;
         let seatCounter = 1;
         let selectedSeat = null;
@@ -248,10 +251,26 @@
 
         // Inicialização
         window.onload = () => {
-            // Garante que o mapa carregou para saber tamanhos, se precisar
             if (mapImg.complete) init();
             else mapImg.onload = init;
+
+            // Carregar Usuários do Jira (Background)
+            fetchJiraUsers();
         };
+
+        async function fetchJiraUsers() {
+            try {
+                // Tenta buscar do worker
+                const response = await fetch(`${WORKER_URL}/users?type=users`);
+                if (response.ok) {
+                    jiraUsers = await response.json();
+                    console.log(`${jiraUsers.length} usuários do Jira carregados.`);
+                }
+            } catch (e) {
+                console.warn('Falha ao carregar usuários do Jira:', e);
+                // Fallback para lista vazia, o prompt manual ainda funcionará
+            }
+        }
 
         function init() {
             loadSeats();
@@ -297,7 +316,7 @@
 
         // --- MANIPULAÇÃO DE ASSENTOS ---
 
-        function createSeatElement(id, x, y, status) {
+        function createSeatElement(id, x, y, status, user = null) {
             const seat = document.createElement('div');
             seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
             seat.id = 'seat-' + id;
@@ -305,6 +324,7 @@
             seat.style.top = y + 'px';
             seat.innerText = id;
             seat.dataset.id = id;
+            if (user) seat.dataset.user = user;
 
             // Evento Mouse Down para Iniciar Drag
             seat.addEventListener('mousedown', (e) => {
@@ -341,7 +361,13 @@
                 let text = `Mesa ${id}`;
                 if (status === 'occupied') {
                     const user = seat.dataset.user || 'Usuário Desconhecido';
-                    text += ` - Reservado por: ${user}`;
+                    text += `\nReservado por: ${user}`;
+
+                    // Tenta achar avatar na lista carregada
+                    const jiraUser = jiraUsers.find(u => u.displayName === user);
+                    if (jiraUser && jiraUser.avatarUrl) {
+                        // Poderia injetar HTML no tooltip aqui se quisesse ser muito chique
+                    }
                 } else {
                     text += ' - Livre';
                 }
@@ -427,9 +453,21 @@
         function confirmReservation() {
             if (!selectedSeat) return;
 
-            // Simula pegar o usuário logado ou pede input
-            // Em produção viria de: const currentUser = jiraUser.displayName;
-            const userName = prompt("Para quem é a reserva? (Simulando usuário Jira)", "Luiz Santos");
+            let userName = '';
+
+            // Se temos usuários do Jira carregados, cria um prompt melhorzinho (Gambiarra de luxo)
+            if (jiraUsers.length > 0) {
+                const names = jiraUsers.map(u => u.displayName).join('\n');
+                // Idealmente aqui abriria um Modal Customizado, mas vamos usar prompt com sugestão
+                // Como a lista pode ser grande, vamos pedir o nome e validar
+                userName = prompt("Digite seu nome (como está no Jira):", "");
+
+                // Validar se existe (Opcional, mas legal)
+                const found = jiraUsers.find(u => u.displayName.toLowerCase() === (userName || '').toLowerCase());
+                if (found) userName = found.displayName; // Normaliza nome
+            } else {
+                userName = prompt("Para quem é a reserva?", "Luiz Santos");
+            }
 
             if (userName) {
                 selectedSeat.classList.remove('selected');

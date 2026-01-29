@@ -272,17 +272,15 @@
     </div>
 
     <script>
-        // BACKEND REAL (CLOUD)
+        // BACKEND REAL (CLOUD V26)
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
 
-        // Estado
         let seatCounter = 1;
         let currentUser = null;
         let currentDate = '';
         let activeSeat = null;
         let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
 
-        // Elementos
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
         const dateInput = document.getElementById('reservation-date');
@@ -297,7 +295,7 @@
 
             dateInput.addEventListener('change', (e) => {
                 currentDate = e.target.value;
-                loadDayData(); // Carrega da Nuvem
+                loadDayData();
             });
 
             if (mapImg.complete) init(); else mapImg.onload = init;
@@ -319,7 +317,7 @@
             mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
-        // --- CORE: CLOUD DATA MANAGEMENT (V24) ---
+        // --- CORE: CLOUD DATA MANAGEMENT ---
 
         async function fetchDayData(date) {
             try {
@@ -339,7 +337,6 @@
 
         async function saveRemote(date, seats) {
             try {
-                // Salva na nuvem
                 await fetch(`${WORKER_URL}/reservations`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -362,17 +359,14 @@
             });
 
             checkEmptyState(seats.length);
-            await saveRemote(currentDate, seats); // Salva Async
+            await saveRemote(currentDate, seats);
         }
 
         async function loadDayData() {
-            // 1. Limpa Tela
             document.querySelectorAll('.seat').forEach(s => s.remove());
 
-            // 2. Busca da Nuvem
             const dailySeats = await fetchDayData(currentDate);
 
-            // 3. Renderiza
             checkEmptyState(dailySeats.length);
 
             let maxId = 0;
@@ -387,20 +381,9 @@
         // --- VISUAL ELEMENTS ---
 
         function checkEmptyState(count) {
-            let emptyMsg = document.getElementById('empty-msg-overlay');
-            if (!emptyMsg) {
-                emptyMsg = document.createElement('div');
-                emptyMsg.id = 'empty-msg-overlay';
-                emptyMsg.style.cssText = "position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.95); padding:20px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); text-align:center; pointer-events:none; z-index:500; min-width:200px;";
-                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Dia Limpo</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Carregando...</p>';
-                container.appendChild(emptyMsg);
-            }
-            if (count === 0) {
-                emptyMsg.style.display = 'block';
-                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Layout Vazio</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Dia novo!<br>Adicione mesas para começar.</p>';
-            } else {
-                emptyMsg.style.display = 'none';
-            }
+            // OVERLAY REMOVIDO: O usuário prefere a tela limpa.
+            const oldMsg = document.getElementById('empty-msg-overlay');
+            if (oldMsg) oldMsg.style.display = 'none';
         }
 
         function showLoading(show) {
@@ -449,7 +432,7 @@
 
         async function clearDay() {
             if (confirm(`Limpar layout do dia ${currentDate}?`)) {
-                await saveRemote(currentDate, []); // Salva array vazio na nuvem
+                await saveRemote(currentDate, []);
                 loadDayData();
             }
         }

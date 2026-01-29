@@ -3,14 +3,9 @@ main = "worker-jira-api.js"
 compatibility_date = "2024-10-23"
 
 # Variáveis de ambiente (Jira)
-# [vars]
-# JIRA_URL = "..."
-
-# BINDING DO KV (BANCO DE DADOS)
-# Você precisa criar um namespace com: wrangler kv:namespace create "RESERVATIONS_KV"
-# E colar o ID abaixo em 'id' e o preview_id (se tiver).
+# Configure via 'wrangler secret put' se necessário, mas o worker já lê de env vars
 
 [[kv_namespaces]]
 binding = "RESERVATIONS_KV"
-id = "xxx_PLACEHOLDER_ID_xxx"
-preview_id = "xxx_PLACEHOLDER_PREVIEW_ID_xxx"
+id = "c4b76fc7817f4778b86a96c1cb59a609"
+preview_id = "c4b76fc7817f4778b86a96c1cb59a609"

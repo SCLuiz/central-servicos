@@ -17,11 +17,15 @@
             --of-magenta: #DD249b;
             --of-yellow: #f7c20f;
             --of-dark: #1A1A1A;
-            --of-gray: #424242;
-            --of-white: #FFFFFF;
             --ds-border: #DFE1E6;
             --ds-text: #172B4D;
             --ds-text-subtle: #5E6C84;
+            --tag-yellow: #FFF0B3;
+            --tag-green: #E3FCEF;
+            --tag-blue: #DEEBFF;
+            --tag-red: #FFEBE6;
+            --tag-teal: #E6FCFF;
+            --tag-purple: #EAE6FF;
         }
 
         body {
@@ -33,61 +37,53 @@
 
         .header {
             background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: 10%;
-            width: 300px;
-            height: 300px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-        }
-
         .header h1 {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             position: relative;
             z-index: 1;
         }
 
         .header p {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.9;
             position: relative;
             z-index: 1;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 20px 40px;
         }
 
         .toolbar {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: white;
             padding: 15px 20px;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .search-box {
             position: relative;
-            width: 300px;
+            flex-grow: 1;
+            max-width: 400px;
         }
 
         .search-box input {
@@ -97,6 +93,11 @@
             border-radius: 4px;
             font-size: 14px;
             outline: none;
+            transition: border 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: #0052cc;
         }
 
         .search-box::before {
@@ -109,81 +110,109 @@
             opacity: 0.5;
         }
 
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
+        .stats {
+            font-size: 13px;
+            color: var(--ds-text-subtle);
+            font-weight: 500;
         }
 
-        .btn-primary {
-            background: #0052cc;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0747a6;
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .cmdb-table {
             width: 100%;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border-collapse: collapse;
-            overflow: hidden;
+            min-width: 1000px;
         }
 
         .cmdb-table th {
-            background: #f4f5f7;
+            background: #fafbfc;
             padding: 12px 16px;
             text-align: left;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             color: var(--ds-text-subtle);
             text-transform: uppercase;
             border-bottom: 2px solid var(--ds-border);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
         }
 
         .cmdb-table td {
-            padding: 14px 16px;
+            padding: 10px 16px;
             border-bottom: 1px solid var(--ds-border);
             color: var(--ds-text);
-            font-size: 14px;
-        }
-
-        .cmdb-table tr:last-child td {
-            border-bottom: none;
+            font-size: 13px;
+            vertical-align: middle;
         }
 
         .cmdb-table tr:hover {
-            background: #fafbfc;
+            background: #f4f5f7;
         }
 
-        .status-badge {
+        .machine-tag {
+            font-family: 'Consolas', monospace;
+            background: #ecedf0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #091e42;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Badges de Área para facilitar leitura */
+        .badge {
             padding: 2px 8px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
-        .status-active {
+        .area-arquitetura {
             background: #E3FCEF;
             color: #006644;
         }
 
-        .status-maintenance {
+        .area-seguranca {
+            background: #FFEBE6;
+            color: #BF2600;
+        }
+
+        .area-facilities {
+            background: #EAE6FF;
+            color: #403294;
+        }
+
+        .area-juridico {
             background: #FFF0B3;
             color: #172B4D;
         }
 
-        .status-retired {
-            background: #DFE1E6;
-            color: #42526E;
+        .area-engenharia {
+            background: #DEEBFF;
+            color: #0747A6;
+        }
+
+        .area-telemetria {
+            background: #E6FCFF;
+            color: #008DA6;
+        }
+
+        .email-link {
+            color: var(--ds-text-subtle);
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+            color: #0052cc;
         }
 
         .back-link {
@@ -192,85 +221,160 @@
             color: var(--ds-text-subtle);
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
         }
 
         .back-link:hover {
-            color: var(--ds-text);
-            text-decoration: underline;
+            color: #0052cc;
         }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>CMDB</h1>
-        <p>Configuration Management Database - Inventário de Ativos</p>
+        <h1>CMDB - Gestão de Ativos</h1>
+        <p>Inventário de Máquinas e Colaboradores</p>
     </div>
 
     <div class="container">
         <div class="toolbar">
             <div class="search-box">
-                <input type="text" placeholder="Buscar ativo (Ex: SRV-01)...">
+                <input type="text" id="searchInput" placeholder="Buscar por nome, máquina, área..."
+                    onkeyup="filterTable()">
             </div>
-            <button class="btn btn-primary" onclick="alert('Funcionalidade em desenvolvimento!')">+ Novo Ativo</button>
+            <div class="stats" id="recordCount">Carregando...</div>
         </div>
 
-        <table class="cmdb-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>IP / Endpoint</th>
-                    <th>Status</th>
-                    <th>Responsável</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>AS-1001</td>
-                    <td><strong>SRV-APP-01</strong></td>
-                    <td>Servidor Virtual</td>
-                    <td>10.0.1.15</td>
-                    <td><span class="status-badge status-active">Ativo</span></td>
-                    <td>Luiz Santos</td>
-                </tr>
-                <tr>
-                    <td>AS-1002</td>
-                    <td><strong>DB-PROD-SQL</strong></td>
-                    <td>Database</td>
-                    <td>10.0.2.50</td>
-                    <td><span class="status-badge status-active">Ativo</span></td>
-                    <td>Equipe DBA</td>
-                </tr>
-                <tr>
-                    <td>AS-1003</td>
-                    <td><strong>FW-EDGE-01</strong></td>
-                    <td>Firewall</td>
-                    <td>192.168.1.1</td>
-                    <td><span class="status-badge status-maintenance">Manutenção</span></td>
-                    <td>SecOps Team</td>
-                </tr>
-                <tr>
-                    <td>AS-1004</td>
-                    <td><strong>Voz-Gateway</strong></td>
-                    <td>VoIP Gateway</td>
-                    <td>172.16.0.254</td>
-                    <td><span class="status-badge status-retired">Desativado</span></td>
-                    <td>Facilities</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="cmdb-table" id="assetsTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cargo</th>
+                        <th>Email</th>
+                        <th>Área</th>
+                        <th>Máquina (Hostname)</th>
+                        <th>Modelo</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Preenchido via JS -->
+                </tbody>
+            </table>
+        </div>
 
         <a href="operacoes-ti.html" class="back-link">← Voltar para Operações de TI</a>
     </div>
 
     <script>
-        // Simples verificação de sessão (Mesmo padrão do projeto)
-        const user = localStorage.getItem('userName');
-        if (!user && !sessionStorage.getItem('userName')) {
-            // Se precisar travar: window.location.href = 'login.html';
+        // DADOS EXTRAÍDOS DA IMAGEM
+        const assets = [
+            { nome: "Alessandra Pena", email: "alessandra.pena@openfinancebrasil.org.br", cargo: "ANALISTA DE BI PLENO", area: "ARQUITETURA", maquina: "ALK-PE0DP8Y7", modelo: "21NQ" },
+            { nome: "Alfonso Briceno", email: "alfonso.briceno@openfinancebrasil.org.br", cargo: "ARQUITETO DE QUALIDADE DE DADOS SÊNIOR", area: "ARQUITETURA", maquina: "ALK-PE0ESHDW", modelo: "21M4576U00" },
+            { nome: "André Shimizu", email: "andre.shimizu@openfinancebrasil.org.br", cargo: "ANALISTA DE PRODUTO SÊNIOR", area: "ARQUITETURA", maquina: "ALK-PE0DP8Z5", modelo: "21NQ" },
+            { nome: "Christian Balz", email: "christian.balz@openfinancebrasil.org.br", cargo: "GERENTE DE ARQUITETURA E PLATAFORMA", area: "ARQUITETURA", maquina: "DESKTOP-5DJVH1D", modelo: "Vostro 15 3510" },
+            { nome: "Daniel Gonzales", email: "daniel.gonzales@openfinancebrasil.org.br", cargo: "ARQUITETO DE INFRAESTRUTURA SÊNIOR", area: "ARQUITETURA", maquina: "DESKTOP-GLD9M74", modelo: "Latitude 3550" },
+            { nome: "Felipe Carvalho", email: "felipe.carvalho@openfinancebrasil.org.br", cargo: "ANALISTA DE PRODUTO PLENO", area: "ARQUITETURA", maquina: "DESKTOP-EUAMF4Q", modelo: "Latitude 3550" },
+            { nome: "Luis Silveira", email: "luis.silveira@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE PRODUTO", area: "ARQUITETURA", maquina: "ALK-PE0DNLDH", modelo: "21NQ" },
+            { nome: "Marcus Carvalho", email: "marcus.carvalho@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE PRODUTO", area: "ARQUITETURA", maquina: "DESKTOP-SD4M8HN", modelo: "Latitude 3550" },
+            { nome: "Pedro Santana", email: "pedro.santana@openfinancebrasil.org.br", cargo: "ANALISTA DE PRODUTO SÊNIOR", area: "ARQUITETURA", maquina: "ALK-PE0DP86V", modelo: "21NQ" },
+            { nome: "Raul Pilati", email: "raul.pilati@openfinancebrasil.org.br", cargo: "GERENTE DE COMUNICAÇÃO INSTITUCIONAL", area: "COMUNICAÇÃO", maquina: "ALK-PE0DP8ZP", modelo: "21NQ" },
+            { nome: "Ariane Cordeiro", email: "ariane.cordeiro@openfinancebrasil.org.br", cargo: "ANALISTA DE COMUNICAÇÃO SÊNIOR", area: "COMUNICAÇÃO", maquina: "ALK-PE0DP8N8", modelo: "21NQ" },
+            { nome: "Aline Cristine", email: "aline.cristine@openfinancebrasil.org.br", cargo: "ANALISTA DE ATENDIMENTO SÊNIOR", area: "CONFORMIDADE", maquina: "ALK-PE0DP8WC", modelo: "21NQ" },
+            { nome: "Leilane Camargo", email: "leilane.camargo@openfinancebrasil.org.br", cargo: "GERENTE DE CONFORMIDADE", area: "CONFORMIDADE", maquina: "ALK-PE0DNLF9", modelo: "21NQ" },
+            { nome: "Matheus de Souza", email: "matheus.souza@openfinancebrasil.org.br", cargo: "ANALISTA DE CONFORMIDADE PLENO", area: "CONFORMIDADE", maquina: "ALK-PE0DPBQZ", modelo: "21NQ" },
+            { nome: "Leandro de Oliveira", email: "leandro.oliveira@openfinancebrasil.org.br", cargo: "ANALISTA DE CONFORMIDADE PLENO", area: "CONFORMIDADE", maquina: "ALK-PE0DRA35", modelo: "21NQ" },
+            { nome: "Paola Arcanjo", email: "paola.arcanjo@openfinancebrasil.org.br", cargo: "ANALISTA DE CONFORMIDADE SÊNIOR", area: "CONFORMIDADE", maquina: "ALK-PE0DRBFT", modelo: "21NQ" },
+            { nome: "Rodrigo Andrade", email: "rodrigo.andrade@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE OPERAÇÕES DE ATENDIMENTO", area: "CONFORMIDADE", maquina: "DESKTOP-JQ2FC64", modelo: "Latitude 5450" },
+            { nome: "Sabrina Thieghi", email: "sabrina.thieghi@openfinancebrasil.org.br", cargo: "ANALISTA DE ATENDIMENTO JUNIOR", area: "CONFORMIDADE", maquina: "ALK-PE0DRA21", modelo: "21NQ" },
+            { nome: "Christina de Aguiar", email: "christina.aguiar@openfinancebrasil.org.br", cargo: "ESPECIALISTA EM GOVERNANÇA DE DADOS", area: "ENGENHARIA", maquina: "ALK-PE0DRA2J", modelo: "21NQ" },
+            { nome: "Giovani Stefani", email: "giovani.stefani@openfinancebrasil.org.br", cargo: "ARQUITETO DE DADOS SÊNIOR", area: "ENGENHARIA", maquina: "DESKTOP-38R2CZ3", modelo: "" },
+            { nome: "Pedro Haupenthal", email: "pedro.haupenthal@openfinancebrasil.org.br", cargo: "ENGENHEIRO DE SOFTWARE SÊNIOR", area: "ENGENHARIA", maquina: "DESKTOP-RFLN5UR", modelo: "Latitude 3540" },
+            { nome: "Thiago Pereira", email: "thiago.pereira@openfinancebrasil.org.br", cargo: "ENGENHEIRO DE DADOS SÊNIOR", area: "ENGENHARIA", maquina: "ALK-PE0DHB08", modelo: "21M8S26Y00" },
+            { nome: "Ihiaré Costa", email: "ihiare.costa@openfinancebrasil.org.br", cargo: "GERENTE DE ENGENHARIA DE SOFTWARE E DADOS", area: "ENGENHARIA", maquina: "ALK-PE0DRABX", modelo: "21NQ" },
+            { nome: "Thomas Rabelo", email: "thomas.rabelo@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE ENGENHARIA DE SOFTWARE", area: "ENGENHARIA", maquina: "ALK-PE0DRBL1", modelo: "21NQ" },
+            { nome: "Cleber Almeida", email: "cleber.almeida@openfinancebrasil.org.br", cargo: "ANALISTA DE EXPERIÊNCIA DO CLIENTE PLENO", area: "EXPERIÊNCIA DO CLIENTE", maquina: "ALK-PE0DPA6J", modelo: "21NQ" },
+            { nome: "Eduardo Coelho", email: "eduardo.coelho@openfinancebrasil.org.br", cargo: "ANALISTA DE SUCESSO DO PARTICIPANTE SÊNIOR", area: "EXPERIÊNCIA DO CLIENTE", maquina: "DESKTOP-K2GAV1N", modelo: "" },
+            { nome: "Iago Magalhães", email: "iago.magalhaes@openfinancebrasil.org.br", cargo: "ANALISTA DE SUCESSO DO PARTICIPANTE SÊNIOR", area: "EXPERIÊNCIA DO CLIENTE", maquina: "ALK-PE0DRCJ2", modelo: "21NQ" },
+            { nome: "Paloma Silva", email: "paloma.silva@openfinancebrasil.org.br", cargo: "ANALISTA DE EXPERIÊNCIA DO CLIENTE PLENO", area: "EXPERIÊNCIA DO CLIENTE", maquina: "ALK-PE0DP8Q8", modelo: "21NQ" },
+            { nome: "Vivian Romano", email: "vivian.romano@openfinancebrasil.org.br", cargo: "ANALISTA DE EXPERIÊNCIA DO CLIENTE PLENO", area: "EXPERIÊNCIA DO CLIENTE", maquina: "DESKTOP-GHNKLH8", modelo: "Latitude 3550" },
+            { nome: "Ana Lagoa", email: "ana.lagoa@openfinancebrasil.org.br", cargo: "SECRETÁRIA EXECUTIVA", area: "FACILITIES", maquina: "ALK-PE0DP7KZ", modelo: "21NQ" },
+            { nome: "Joyce Souza", email: "joyce.souza@openfinancebrasil.org.br", cargo: "ANALISTA DE FACILITIES E COMPRAS PLENO", area: "FACILITIES", maquina: "ALK-PE0DP874", modelo: "21NQ" },
+            { nome: "Tomás Trombetta", email: "tomas.trombetta@openfinancebrasil.org.br", cargo: "COORDENADOR ADMINISTRATIVO E DE FACILITIES", area: "FACILITIES", maquina: "ALK-PE0DP8Z2", modelo: "21NQ" },
+            { nome: "Andre Araujo", email: "andre.araujo@openfinancebrasil.org.br", cargo: "GERENTE DE FINANÇAS E CONTROLADORIA", area: "FINANÇAS E CONTROLADORIA", maquina: "ALK-PE0DP8XE", modelo: "21NQ" },
+            { nome: "Beatriz Figueiredo", email: "beatriz.figueiredo@openfinancebrasil.org.br", cargo: "ANALISTA SÊNIOR DE TESOURARIA", area: "FINANÇAS E CONTROLADORIA", maquina: "ALK-PE0DP8XR", modelo: "21NQ" },
+            { nome: "Thais Gutierrez", email: "thais.gutierrez@openfinancebrasil.org.br", cargo: "ANALISTA DE FP&A SÊNIOR", area: "FINANÇAS E CONTROLADORIA", maquina: "ALK-PE0DP8TB", modelo: "21NQ" },
+            { nome: "Ana Nunes", email: "ana.nunes@openfinancebrasil.org.br", cargo: "ANALISTA DE QUALIDADE PLENO", area: "GESTÃO DE PRODUTO", maquina: "ALK-PE0DRA2P", modelo: "21NQ" },
+            { nome: "Silvio Ricardo", email: "silvio.ricardo@openfinancebrasil.org.br", cargo: "ARQUITETO DE INTEGRAÇÃO SÊNIOR", area: "GESTÃO DE PRODUTO", maquina: "ALK-PE0DP8C4", modelo: "21NQ" },
+            { nome: "Adriana Babi", email: "adriana.babi@openfinancebrasil.org.br", cargo: "ADVOGADA ESPECIALISTA EM REGULAÇÃO", area: "JURIDICO E COMPLIANCE", area_class: "area-juridico", maquina: "ALK-PE0DP87V", modelo: "21NQ" },
+            { nome: "Mariana Arruda", email: "mariana.arruda@openfinancebrasil.org.br", cargo: "COORDENADORA DE SECRETARIADO E GOVERNANÇA", area: "JURIDICO E COMPLIANCE", area_class: "area-juridico", maquina: "ALK-PE0DP8P7", modelo: "21NQ" },
+            { nome: "Verônica Barros", email: "veronica.barros@openfinancebrasil.org.br", cargo: "GERENTE JURÍDICO", area: "JURIDICO E COMPLIANCE", area_class: "area-juridico", maquina: "ALK-PE0DNL7B", modelo: "21NQ" },
+            { nome: "Agatha Fontoura", email: "agatha.fontoura@openfinancebrasil.org.br", cargo: "ANALISTA DE PMO SÊNIOR", area: "PLANEJAMENTO", maquina: "ALK-PE0DP8Y1", modelo: "21NQ" },
+            { nome: "Douglas Ferreira", email: "douglas.ferreira@openfinancebrasil.org.br", cargo: "COORDENADOR DE PROJETOS", area: "PLANEJAMENTO", maquina: "ALK-PE0DP8Y2", modelo: "21NQ" },
+            { nome: "Ana Abrão", email: "ana.abrao@openfinancebrasil.org.br", cargo: "CEO", area: "PRESIDÊNCIA", maquina: "DESKTOP-6308GPG", modelo: "Latitude 5450" },
+            { nome: "Ana Paula", email: "ana.paula@openfinancebrasil.org.br", cargo: "DIRETOR ADMINISTRATIVO FINANCEIRO", area: "PRESIDÊNCIA", maquina: "DESKTOP-53DNN74", modelo: "Latitude 3550" },
+            { nome: "Karina Wu", email: "karina.wu@openfinancebrasil.org.br", cargo: "GERENTE DE RECURSOS HUMANOS", area: "RECURSOS HUMANOS", maquina: "ALK-PE0DNL6", modelo: "21NQ" },
+            { nome: "Bianca Vasconcelos", email: "bianca.vasconcelos@openfinancebrasil.org.br", cargo: "ANALISTA DE RISCOS E CONTR. INTERNOS PLENO", area: "RISCOS", maquina: "ALK-PE0DP8DJ", modelo: "21NQ" },
+            { nome: "Fábio Szescsik", email: "fabio.szescsik@openfinancebrasil.org.br", cargo: "GERENTE DE SEGURANÇA E OPERAÇÕES", area: "SEGURANÇA", area_class: "area-seguranca", maquina: "DESKTOP-9THY8X3", modelo: "" },
+            { nome: "Guilherme Machado", email: "guilherme.machado@openfinancebrasil.org.br", cargo: "ANALISTA DE SEGURANÇA DA INFORMAÇÃO PLENO", area: "SEGURANÇA", area_class: "area-seguranca", maquina: "ALK-PE0DNLFJ", modelo: "21NQ" },
+            { nome: "Luiz Santos", email: "luiz.santos@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE OPERAÇÕES DE TECNOLOGIA", area: "SEGURANÇA", area_class: "area-seguranca", maquina: "ALK-PE0DP8Z1", modelo: "21NQ" },
+            { nome: "Marcos Santana", email: "marcos.santana@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE SEGURANÇA DA INFORMAÇÃO", area: "SEGURANÇA", area_class: "area-seguranca", maquina: "DESKTOP-MCKPR4N", modelo: "Latitude 5440" },
+            { nome: "Constantino Neto", email: "constantino.neto@openfinancebrasil.org.br", cargo: "ANALISTA DE ANALYTICS E DADOS PLENO", area: "TELEMETRIA", area_class: "area-telemetria", maquina: "DESKTOP 2WBNN74", modelo: "" },
+            { nome: "Gabriel Trabuco", email: "gabriel.trabuco@openfinancebrasil.org.br", cargo: "GERENTE DE TELEMETRIA & PERFORMANCE", area: "TELEMETRIA", area_class: "area-telemetria", maquina: "ALK-PE0DNLDX", modelo: "21NQ" },
+            { nome: "Elysia Souza", email: "elysia.souza@openfinancebrasil.org.br", cargo: "ESPECIALISTA DE UX", area: "UX E FVP", maquina: "ALK-PE0DP8N8", modelo: "21NQ" },
+            { nome: "Felippe Silva", email: "felippe.silva@openfinancebrasil.org.br", cargo: "ANALISTA DE TESTES JUNIOR", area: "UX E FVP", maquina: "ALK-PE0DP8RF", modelo: "21NQ" }
+        ];
+
+        function getAreaClass(areaName) {
+            const map = {
+                'ARQUITETURA': 'area-arquitetura',
+                'SEGURANÇA': 'area-seguranca',
+                'FACILITIES': 'area-facilities',
+                'JURIDICO': 'area-juridico',
+                'JURIDICO E COMPLIANCE': 'area-juridico',
+                'ENGENHARIA': 'area-engenharia',
+                'TELEMETRIA': 'area-telemetria'
+            };
+            return map[areaName] || '';
         }
+
+        const tableBody = document.getElementById('tableBody');
+        const recordCount = document.getElementById('recordCount');
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const areaClass = item.area_class || getAreaClass(item.area);
+                const areaBadge = `<span class="badge ${areaClass}" style="${!areaClass ? 'background:#eee;color:#333' : ''}">${item.area}</span>`;
+
+                row.innerHTML = `
+                    <td style="font-weight:600;">${item.nome}</td>
+                    <td>${item.cargo}</td>
+                    <td><a href="mailto:${item.email}" class="email-link">${item.email}</a></td>
+                    <td>${areaBadge}</td>
+                    <td><span class="machine-tag">${item.maquina}</span></td>
+                    <td style="color:#666;">${item.modelo}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            recordCount.textContent = `${data.length} ativos encontrados`;
+        }
+
+        function filterTable() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = assets.filter(item =>
+                item.nome.toLowerCase().includes(query) ||
+                item.maquina.toLowerCase().includes(query) ||
+                item.area.toLowerCase().includes(query) ||
+                item.cargo.toLowerCase().includes(query)
+            );
+            renderTable(filtered);
+        }
+
+        // Init
+        renderTable(assets);
+
     </script>
 </body>
 

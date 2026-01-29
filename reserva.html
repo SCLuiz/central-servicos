@@ -4,194 +4,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva de Posições - Open Finance</title>
+    <title>Reserva de Posições - Central de Serviços</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --of-magenta: #DD249b;
-            --of-yellow: #f7c20f;
-            --of-white: #FFFFFF;
+            --ds-surface: #FFFFFF;
+            --ds-surface-overlay: #F4F5F7;
             --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+            --ds-text-subtlest: #6B778C;
+            --ds-border: #DFE1E6;
+            --ds-border-focused: #4C9AFF;
+            --ds-blue: #0052CC;
+            --ds-blue-subtle: #DEEBFF;
+            --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+            --of-white: #FFFFFF;
+            --of-magenta: #DD249b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f5f7;
-            margin: 0;
-            padding: 0;
-            /* Full width header */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg,
+                    rgba(255, 20, 147, 0.55) 0%,
+                    rgba(255, 105, 180, 0.50) 25%,
+                    rgba(255, 182, 193, 0.45) 50%,
+                    rgba(255, 215, 0, 0.50) 75%,
+                    rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--ds-text);
+            line-height: 1.5;
+            padding: 12px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            user-select: none;
         }
 
-        /* === HEADER PADRÃO OPEN FINANCE === */
-        .header {
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
             width: 100%;
-            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
-            padding: 30px 20px;
-            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Header Estilo Facilities */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
             margin-bottom: 20px;
-            color: white;
-            display: flex;
-            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            position: relative;
         }
 
-        /* Formas Geométricas de Fundo */
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: 10%;
-            width: 300px;
-            height: 300px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: 5%;
-            width: 200px;
-            height: 200px;
-            border: 3px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            pointer-events: none;
+        .header-banner {
+            width: 100%;
+            height: 250px;
+            background-image: url('facilities.png?v=1');
+            /* Reuso da imagem oficial */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .header-content {
-            max-width: 1200px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 10;
-        }
-
-        .header-title-group {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .header-icon {
-            font-size: 48px;
-            background: rgba(255, 255, 255, 0.2);
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
+            padding: 24px;
+            text-align: center;
+            position: relative;
         }
 
         .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 8px;
         }
 
         .header p {
-            margin: 5px 0 0 0;
-            opacity: 0.9;
-            font-size: 16px;
+            font-size: 15px;
+            color: var(--ds-text-subtle);
+            margin-bottom: 16px;
         }
 
-        /* === PAINEL DE CONTROLES (Integrado) === */
+        .back-button {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Controles (Estilo Botão Premium) */
         .controls-panel {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 10px 20px;
-            border-radius: 12px;
             display: flex;
+            justify-content: center;
             gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
         }
 
         .btn {
             padding: 10px 20px;
             border: none;
             border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            font-weight: 600;
-            color: var(--ds-text);
-            background: white;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            color: white;
             display: flex;
             align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            gap: 6px;
         }
 
         .btn-primary {
             background: #0052cc;
-            color: white;
         }
 
         .btn-success {
             background: #36b37e;
-            color: white;
         }
 
         .btn-danger {
             background: #ff5630;
-            color: white;
         }
 
-        .btn-back {
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-back:hover {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        /* === VIEWPORT DO MAPA === */
+        /* MAPA */
         #viewport {
-            position: relative;
-            width: 95%;
-            max-width: 1400px;
-            height: 75vh;
-            border: 1px solid #dfe1e6;
-            border-radius: 12px;
-            overflow: auto;
-            /* Permite scroll */
             background: white;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-            margin-top: -30px;
-            /* Sobrepõe levemente o header */
-            z-index: 20;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+            width: 100%;
+            height: 70vh;
+            position: relative;
         }
 
         #map-container {
             position: relative;
+            display: inline-block;
         }
 
         #office-map {
             display: block;
             pointer-events: none;
-            user-drag: none;
         }
 
-        /* === ASSENTOS === */
+        /* ASSENTOS */
         .seat {
             position: absolute;
             width: 24px;
@@ -200,96 +189,59 @@
             border: 2px solid white;
             border-radius: 50%;
             cursor: grab;
-            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
-            z-index: 1000;
-            transition: transform 0.1s;
+            z-index: 100;
         }
 
         .seat:active {
             cursor: grabbing;
         }
 
-        .seat:hover {
-            transform: scale(1.2);
-            z-index: 99999;
-            border-color: var(--of-yellow);
-        }
-
         .seat.occupied {
             background-color: #ff5630;
         }
 
-        .instructions-bar {
-            margin-top: 10px;
-            color: #6B778C;
-            font-size: 13px;
-            text-align: center;
-            background: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        /* Monitor Oculto */
+        #system-monitor {
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- MONITOR DE LOGS (Mantido oculto/discreto se não houver erro) -->
-    <div id="system-monitor"
-        style="display: none; position: fixed; bottom: 10px; right: 10px; width: 300px; height: 200px; background: rgba(0,0,0,0.9); color: #0f0; font-family: monospace; font-size: 10px; padding: 10px; border-radius: 8px; z-index: 9999999; overflow-y: auto;">
-        <div id="log-content"></div>
-    </div>
+    <div class="container">
+        <!-- HEADER IDENTICO AO FACILITIES -->
+        <div class="header">
+            <a href="facilities.html" class="back-button">← Voltar</a>
+            <div class="header-banner"></div>
+            <div class="header-content">
+                <h1>Reserva de Posições</h1> <!-- Título Personalizado -->
+                <p id="welcome-msg">Agende seu espaço de trabalho no Open Finance</p>
 
-    <!-- HEADER PREMIUM -->
-    <div class="header">
-        <div class="header-content">
-            <div class="header-title-group">
-                <a href="facilities.html" class="btn btn-back">← Voltar</a>
-                <div class="header-icon">📅</div>
-                <div>
-                    <h1>Reserva de Posições</h1>
-                    <p id="welcome-msg">Gestão de Espaços Open Finance</p>
+                <div class="controls-panel">
+                    <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
+                    <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
+                    <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
                 </div>
             </div>
+        </div>
 
-            <!-- Controles no Header -->
-            <div class="controls-panel">
-                <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
-                <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
-                <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
+        <div id="viewport">
+            <div id="map-container">
+                <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
             </div>
         </div>
     </div>
 
-    <div id="viewport">
-        <div id="map-container">
-            <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
-        </div>
-    </div>
-
-    <div class="instructions-bar">
-        <b>Dica:</b> Duplo-Clique cria/edita mesa. Arraste para mover. Shift+Duplo-Clique deleta.
-    </div>
-
+    <!-- SCRIPT (Lógica V11 mantida) -->
     <script>
-        // === MONITOR DE DEBUG ===
-        function monitor(msg, type = 'info') {
-            const container = document.getElementById('system-monitor');
-            // container.style.display = 'block'; // Ativar se precisar debugar visualmente
-            const el = document.getElementById('log-content');
-            const line = document.createElement('div');
-            line.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
-            if (type == 'error') line.style.color = 'red';
-            el.insertBefore(line, el.firstChild);
-            console.log(msg);
-        }
-
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
         let seatCounter = 1;
@@ -302,14 +254,12 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // === RESET AUTOMÁTICO (SOLICITADO) ===
+            // RESET AUTOMÁTICO
             localStorage.removeItem('of_seats_config_v2');
-            monitor('Reset executado.', 'action');
-            // =====================================
 
             currentUser = localStorage.getItem('userName');
             const msgEl = document.getElementById('welcome-msg');
-            if (currentUser) msgEl.innerText = `Olá, ${currentUser}! Organize seu espaço.`;
+            if (currentUser) msgEl.innerText = `Olá, ${currentUser}! Reserve seu espaço.`;
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
@@ -344,7 +294,6 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // DRAG
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
                 e.preventDefault(); e.stopPropagation();
@@ -354,7 +303,6 @@
                 seat.style.zIndex = 999999;
             });
 
-            // ACTION
             seat.addEventListener('dblclick', (e) => {
                 e.preventDefault(); e.stopPropagation();
                 if (e.shiftKey) {
@@ -364,12 +312,8 @@
                 }
             });
 
-            updateTooltip(seat);
+            seat.title = `Mesa ${id}`;
             container.appendChild(seat);
-        }
-
-        function updateTooltip(seat) {
-            seat.title = `Mesa ${seat.dataset.id}` + (seat.dataset.user ? ` (${seat.dataset.user})` : '');
         }
 
         document.addEventListener('mousemove', (e) => {
@@ -382,7 +326,7 @@
         });
 
         document.addEventListener('mouseup', () => {
-            if (activeSeat) { activeSeat.style.zIndex = 1000; activeSeat = null; }
+            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; }
         });
 
         function toggleReservation(seat) {
@@ -391,17 +335,15 @@
                 if (confirm(`Liberar ${dono}?`)) {
                     seat.classList.remove('occupied');
                     seat.dataset.user = '';
-                    updateTooltip(seat);
                 }
             } else {
-                let nome = currentUser || prompt("Nome:");
+                let nome = currentUser || prompt("Nome da reserva:");
                 if (nome && confirm(`Reservar para ${nome}?`)) {
                     seat.classList.add('occupied');
                     seat.dataset.user = nome;
-                    updateTooltip(seat);
                 }
             }
-            saveConfig(); // Autosave
+            saveConfig();
         }
 
         function saveConfiguration() {
@@ -423,10 +365,7 @@
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
         }
 
-        function loadSeats() {
-            // Reset Mode = Empty
-            seatCounter = 1;
-        }
+        function loadSeats() { seatCounter = 1; }
 
         function clearAll() {
             if (confirm("Reiniciar tudo?")) location.reload();

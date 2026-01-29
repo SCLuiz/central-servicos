@@ -286,8 +286,15 @@
         }
 
         @keyframes zoomIn {
-            from {transform: scale(0.9); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-image {
@@ -307,7 +314,7 @@
             font-weight: bold;
             cursor: pointer;
             z-index: 1010;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
         .close-modal:hover,
@@ -412,7 +419,7 @@
                 <div class="card-description">
                     Reserva de salas, auditórios e ambientes corporativos.
                 </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
+                <a href="reserva.html" class="card-button">
                     <span style="font-size: 20px;">📅</span>
                     <span>Reservar Espaço</span>
                 </a>
@@ -480,8 +487,8 @@
         function closeMapModal(event) {
             // Se clicar no X ou fora da imagem (no overlay)
             if (event) {
-               // A lógica de clique fora está implícita pois o onclick do overlay chama essa função,
-               // e o onclick do content tem stopPropagation.
+                // A lógica de clique fora está implícita pois o onclick do overlay chama essa função,
+                // e o onclick do content tem stopPropagation.
             }
             const modal = document.getElementById('mapModal');
             modal.classList.remove('show');
@@ -490,9 +497,9 @@
                 document.body.style.overflow = 'auto'; // Restaura o scroll
             }, 300); // Espera a transição
         }
-        
+
         // Fechar com ESC
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === "Escape") {
                 closeMapModal();
             }

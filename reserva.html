@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Assentos - ADMIN</title>
+    <title>Reserva de Assentos - Open Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -53,14 +53,19 @@
             background: #ff5630;
         }
 
+        .btn-secondary {
+            background: #6B778C;
+            border: 1px solid #ccc;
+        }
+
         #viewport {
             position: relative;
             width: 95vw;
             height: 85vh;
             border: 2px solid #ccc;
             overflow: auto;
-            /* Permite rolar se o mapa for grande */
             background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         #map-container {
@@ -70,7 +75,6 @@
         #office-map {
             display: block;
             pointer-events: none;
-            /* Deixa clique passar para container */
             user-drag: none;
         }
 
@@ -83,7 +87,6 @@
             border: 2px solid white;
             border-radius: 50%;
             cursor: grab;
-            /* Mãozinha para arrastar */
             box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
@@ -92,10 +95,16 @@
             font-size: 11px;
             font-weight: bold;
             z-index: 1000;
+            transition: transform 0.1s;
         }
 
         .seat:active {
             cursor: grabbing;
+        }
+
+        .seat:hover {
+            transform: scale(1.1);
+            z-index: 99999;
         }
 
         .seat.occupied {
@@ -107,6 +116,7 @@
         .instructions {
             margin-bottom: 10px;
             color: #555;
+            text-align: center;
         }
     </style>
 </head>
@@ -114,15 +124,21 @@
 <body>
 
     <div class="controls">
-        <h2 style="margin:0; margin-right:15px; color:#cc0000;">MODO EDITOR</h2>
-        <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa (Centro)</button>
-        <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Tudo</button>
-        <button class="btn btn-danger" onclick="clearAll()">🗑️ Apagar Tudo</button>
+        <a href="facilities.html" class="btn btn-secondary"
+            style="text-decoration: none; display: flex; align-items: center;">← Voltar</a>
+        <h2 style="margin:0; margin-right:15px; color:#0052cc;">Reserva de Mesas</h2>
+        <div style="border-left: 1px solid #ccc; padding-left: 15px; display: flex; gap: 10px;">
+            <!-- Botões de Admin apenas visualmente separados -->
+            <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
+            <button class="btn btn-danger" onclick="clearAll()">🗑️ Limpar</button>
+        </div>
     </div>
 
     <div class="instructions">
-        Double-Click no MAPA cria mesa. <b>Arraste a mesa</b> para posicionar. <b>Double-Click na mesa</b> para
-        reservar/testar.
+        <span id="welcome-msg" style="font-weight: bold; color: #0052cc;"></span><br>
+        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Arraste</b> para mover. <b>Duplo-Clique na MESA</b> para
+        reservar.
     </div>
 
     <div id="viewport">
@@ -135,6 +151,7 @@
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
         let seatCounter = 1;
+        let currentUser = null; // Usuário logado
 
         // Drag Variables
         let activeSeat = null;
@@ -144,9 +161,24 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
+            // 1. Check Login
+            currentUser = localStorage.getItem('userName');
+            const msgEl = document.getElementById('welcome-msg');
+
+            if (currentUser) {
+                msgEl.innerText = `Olá, ${currentUser}!`;
+            } else {
+                msgEl.innerText = "Modo Visitante (Login não detectado)";
+                // Não bloqueio, mas aviso
+            }
+
             if (mapImg.complete) init();
             else mapImg.onload = init;
-            fetchJiraUsers();
+
+            // Jira users só pra ter base
+            fetch(WORKER_URL + '/users?type=users').then(r => r.json()).then(d => {
+                if (Array.isArray(d)) jiraUsers = d;
+            }).catch(e => { });
         };
 
         function init() {
@@ -154,13 +186,12 @@
             container.style.height = mapImg.naturalHeight + "px";
             loadSeats();
 
-            // CRIA MESA ONDE CLICAR NO FUNDO
+            // CRIA MESA (Duplo clique no fundo)
             container.addEventListener('dblclick', (e) => {
                 if (e.target !== container && e.target !== mapImg) return;
 
-                // Pega coordenada relativa
                 const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left - 12; // -12 pra centrar
+                const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
 
                 createSeat(seatCounter++, x, y);
@@ -179,31 +210,34 @@
 
             // 1. ARRASTAR (Mousedown)
             seat.addEventListener('mousedown', (e) => {
-                e.stopPropagation(); // Não propaga pro container
+                if (e.button !== 0) return; // Só botão esquerdo
+                e.stopPropagation();
                 activeSeat = seat;
                 startX = e.clientX;
                 startY = e.clientY;
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
-                seat.style.zIndex = 9999; // Traz pra frente
+                seat.style.zIndex = 999999;
             });
 
-            // 2. RESERVAR / DELETAR (DblClick)
+            // 2. RESERVAR (DblClick)
             seat.addEventListener('dblclick', (e) => {
                 e.stopPropagation();
-                // Se segurar SHIFT, apaga a mesa
                 if (e.shiftKey) {
-                    if (confirm('Apagar mesa ' + id + '?')) seat.remove();
+                    if (confirm('Apagar esta mesa?')) seat.remove();
                 } else {
-                    // Teste de Reserva
                     toggleReservation(seat);
                 }
             });
 
+            // Tooltip nativo simples
+            seat.title = `Mesa ${id}`;
+            if (user) seat.title += ` - Reservado por: ${user}`;
+
             container.appendChild(seat);
         }
 
-        // Movimento do Drag
+        // Movimento do Drag Global
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
             e.preventDefault();
@@ -215,33 +249,45 @@
 
         document.addEventListener('mouseup', () => {
             if (activeSeat) {
-                activeSeat.style.zIndex = 1000; // Volta z-index normal
+                activeSeat.style.zIndex = 1000;
                 activeSeat = null;
-                // Auto-save opcional
-                // saveConfiguration(); 
             }
         });
 
-        // Toggle Reserva (Lógica da V7)
+        // LÓGICA DE RESERVA (INTELIGENTE)
         function toggleReservation(seat) {
+
             if (seat.classList.contains('occupied')) {
+                // LIBERAÇÃO
                 const dono = seat.dataset.user || 'Alguém';
-                if (confirm(`Liberar mesa de ${dono}?`)) {
+                // Se for o mesmo usuário ou admin (aqui todo mundo é admin), libera
+                if (confirm(`Mesa ocupada por: ${dono}.\nLiberar assento?`)) {
                     seat.classList.remove('occupied');
                     seat.dataset.user = '';
+                    seat.title = `Mesa ${seat.dataset.id}`;
                 }
             } else {
-                let nome = prompt("Reservar para quem?");
-                if (nome) {
-                    // Auto-complete tosco só pra ajudar
-                    const found = jiraUsers.find(u => u.displayName.toLowerCase().includes(nome.toLowerCase()));
-                    if (found) nome = found.displayName;
+                // RESERVA
+                let nomeParaReserva = currentUser;
 
-                    seat.classList.add('occupied');
-                    seat.dataset.user = nome;
+                if (nomeParaReserva) {
+                    // Confirmação rápida
+                    if (confirm(`Reservar mesa para ${nomeParaReserva}?`)) {
+                        doReserve(seat, nomeParaReserva);
+                    }
+                } else {
+                    // Manual
+                    const input = prompt("Digite seu nome para reservar:");
+                    if (input) doReserve(seat, input);
                 }
             }
             saveConfiguration();
+        }
+
+        function doReserve(seat, name) {
+            seat.classList.add('occupied');
+            seat.dataset.user = name;
+            seat.title = `Mesa ${seat.dataset.id} - ${name}`;
         }
 
         function saveConfiguration() {
@@ -256,39 +302,29 @@
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-
-            // Botão feedback
-            const btn = document.querySelector('.btn-success');
-            const txt = btn.innerText;
-            btn.innerText = "Salvo!";
-            setTimeout(() => btn.innerText = txt, 1000);
+            alert('Configuração Salva!');
         }
 
         function loadSeats() {
             const data = localStorage.getItem('of_seats_config_v2');
             if (data) {
-                const arr = JSON.parse(data);
-                arr.forEach(s => createSeat(s.id, s.x, s.y, s.status, s.user));
-                if (arr.length > 0) seatCounter = Math.max(...arr.map(s => parseInt(s.id))) + 1;
+                try {
+                    const arr = JSON.parse(data);
+                    arr.forEach(s => createSeat(s.id, s.x, s.y, s.status, s.user));
+                    if (arr.length > 0) seatCounter = Math.max(...arr.map(s => parseInt(s.id) || 0)) + 1;
+                } catch (e) { }
             }
         }
 
         function clearAll() {
-            if (confirm("Apagar todas as mesas?")) {
+            if (confirm("Tem certeza? Isso apaga todas as mesas.")) {
                 localStorage.removeItem('of_seats_config_v2');
                 location.reload();
             }
         }
 
         function createSeatCenter() {
-            createSeat(seatCounter++, 100, 100);
-        }
-
-        async function fetchJiraUsers() {
-            try {
-                const r = await fetch(WORKER_URL + '/users?type=users');
-                if (r.ok) jiraUsers = await r.json();
-            } catch (e) { }
+            createSeat(seatCounter++, 150, 150);
         }
     </script>
 </body>

@@ -361,16 +361,16 @@
                 } else {
                     // User: Reserva Rápida
                     if (seat.classList.contains('occupied')) return;
-                    selectSeat(seat); // Seleciona visualmente
-                    confirmReservation(); // Já abre o prompt
+                    selectSeat(seat); // Garante seleção
+                    confirmReservation(); // Abre prompt
                 }
             });
 
-            // Clique simples (apenas feedback visual no modo user)
+            // Clique simples (Feedback visual e seleção para botão)
             seat.addEventListener('click', (e) => {
                 if (isEditMode) return;
                 e.stopPropagation();
-                // selectSeat(seat); // Opcional, se quiser que fique verde ao clicar 1x
+                selectSeat(seat);
             });
 
             // Tooltips

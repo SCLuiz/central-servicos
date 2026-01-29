@@ -17,7 +17,6 @@
             align-items: center;
             height: 100vh;
             user-select: none;
-            /* Evita selecionar texto ao arrastar rápido */
         }
 
         .controls {
@@ -48,10 +47,6 @@
             color: white;
         }
 
-        .btn-primary:hover {
-            background: #0043a8;
-        }
-
         .btn-success {
             background: #36b37e;
             color: white;
@@ -80,7 +75,6 @@
             color: #006644;
         }
 
-        /* Container do Mapa */
         #viewport {
             position: relative;
             width: 90vw;
@@ -89,7 +83,6 @@
             border-radius: 8px;
             background-color: #fff;
             overflow: hidden;
-            /* Corta o que sair */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
@@ -98,13 +91,11 @@
             top: 0;
             left: 0;
             transform-origin: 0 0;
-            /* Tamanho inicial arbitrário, ajustaremos via JS ou deixamos conteiner se virar */
         }
 
         #office-map {
             display: block;
             pointer-events: none;
-            /* Deixa cliques passarem para o container se precisar, mas aqui o container pega */
             user-drag: none;
             -webkit-user-drag: none;
         }
@@ -117,13 +108,13 @@
             /* Rosa Open Finance */
             border: 2px solid #fff;
             border-radius: 50%;
-            cursor: grab;
+            cursor: pointer !important;
+            pointer-events: auto !important;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            /* Texto branco no rosa */
             font-size: 11px;
             font-weight: bold;
             z-index: 10;
@@ -134,43 +125,32 @@
             transform: scale(1.1);
             z-index: 20;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            border: 2px solid #0052cc;
+            /* Feedback visual forte de hover */
         }
 
         .seat.moving {
-            cursor: grabbing;
+            cursor: grabbing !important;
             opacity: 0.9;
             transform: scale(1.15);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             z-index: 100;
-            /* Sempre no topo ao mover */
         }
 
         .seat.occupied {
             background-color: #ff5630;
-            /* Vermelho ocupado */
             border-color: #fff;
-            color: white;
-            /* Texto branco no vermelho */
-        }
-
-        .seat.occupied:hover {
-            cursor: not-allowed;
         }
 
         .seat.selected {
             background-color: #36b37e;
-            /* Verde selecionado */
             transform: scale(1.3);
             border: 3px solid #fff;
             box-shadow: 0 0 0 4px rgba(54, 179, 126, 0.3);
             z-index: 30;
-            color: white;
         }
 
-        /* Tooltip */
         .tooltip {
             position: fixed;
-            /* Fixed para não bugar com scroll */
             background: #172b4d;
             color: white;
             padding: 6px 12px;
@@ -196,135 +176,119 @@
     <div class="controls">
         <h2 style="margin: 0; margin-right: 20px;">Gestão de Assentos</h2>
 
-        <div id="edit-controls">
-            <span class="mode-badge mode-edit">Modo Edição</span>
-            <button class="btn btn-primary" onclick="addSeatCenter()">+ Adicionar Mesa (Centro)</button>
-            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar Tudo</button>
-            <button class="btn btn-success" onclick="saveConfiguration()">Salvar Layout</button>
+        <div id="edit-controls" style="display: none;">
+            <span class="mode-badge mode-edit">ADMIN</span>
+            <button class="btn btn-primary" onclick="addSeatCenter()">+ Mesa</button>
+            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">Salvar</button>
             <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
-            <button class="btn" onclick="toggleMode()">Ir para Teste de Reserva</button>
+            <button class="btn" onclick="toggleMode(false)">Sair</button>
         </div>
 
         <div id="view-controls" style="display: none;">
-            <span class="mode-badge mode-view">Modo Reserva</span>
-            <span id="selected-info" style="margin: 0 10px; color: #5e6c84; font-weight: 500;">Selecione um
-                assento</span>
-            <button class="btn btn-primary" onclick="confirmReservation()" disabled id="btn-confirm">Confirmar
-                Reserva</button>
-            <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
-            <button class="btn" onclick="toggleMode()">Voltar para Edição</button>
+            <!-- Painel para USER - Atualmente oculto por pedido do cliente -->
         </div>
     </div>
 
     <div class="instructions" id="instructions-text">
-        ⚡ <b>Dica Admin:</b> Clique DUAS VEZES em qualquer lugar do mapa para criar uma mesa lá instantaneamente.
-        Arraste para ajustar.
+        👉 <b>Clique na mesa</b> rosa para reservar.
     </div>
 
     <div id="viewport">
         <div id="map-container">
             <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
-            <!-- Assentos injetados aqui -->
         </div>
     </div>
 
     <div id="tooltip" class="tooltip"></div>
 
+    <!-- CONSOLE DE DIAGNÓSTICO -->
+    <div id="debug-console"
+        style="position: fixed; bottom: 0; left: 0; right: 0; background: #000; color: #0f0; padding: 5px; font-family: monospace; font-size: 11px; height: 80px; overflow-y: scroll; z-index: 99999; opacity: 0.9; border-top: 1px solid #0f0;">
+        [Sistema] Inicializando...
+    </div>
+
     <script>
+        // === SISTEMA DE DEBUG ===
+        function log(msg) {
+            const el = document.getElementById('debug-console');
+            if (el) {
+                const line = document.createElement('div');
+                line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+                el.insertBefore(line, el.firstChild);
+            }
+            console.log(msg);
+        }
+
+        window.onerror = function (msg, url, line) {
+            log(`ERRO CRÍTICO JS: ${msg} (Linha ${line})`);
+            return false; // Deixa o navegador tbm lidar com o erro
+        };
+
+        // === VARIÁVEIS GLOBAIS ===
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
-
-        let isEditMode = true;
+        let isEditMode = false;
         let seatCounter = 1;
         let selectedSeat = null;
+        let activeSeat = null; // Drag
+        let startX = 0, startY = 0;
+        let initialLeft = 0, initialTop = 0;
 
-        // Elementos
-        const viewport = document.getElementById('viewport');
+        // === ELEMENTOS ===
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
         const tooltip = document.getElementById('tooltip');
 
-        // Drag Variables
-        let activeSeat = null;
-        let startX = 0, startY = 0;
-        let initialLeft = 0, initialTop = 0;
-
-        // Inicialização
+        // === INICIALIZAÇÃO ===
         window.onload = () => {
-            if (mapImg.complete) init();
-            else mapImg.onload = init;
+            log('window.onload disparado.');
 
-            // Carregar Usuários do Jira (Background)
+            if (mapImg.complete) {
+                init();
+            } else {
+                mapImg.onload = init;
+                mapImg.onerror = () => log('ERRO: Imagem mapa falhou.');
+            }
+
             fetchJiraUsers();
 
-            // Checa se é admin pela URL (?mode=edit)
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('mode') === 'edit') {
-                isEditMode = true;
-            } else {
-                isEditMode = false;
-            }
-            toggleMode(isEditMode); // Força o estado correto
+            isEditMode = (urlParams.get('mode') === 'edit');
+            log(`Modo: ${isEditMode ? 'ADMIN' : 'USER'}`);
+            toggleMode(isEditMode);
         };
 
-        async function fetchJiraUsers() {
-            try {
-                // Tenta buscar do worker
-                const response = await fetch(`${WORKER_URL}/users?type=users`);
-                if (response.ok) {
-                    jiraUsers = await response.json();
-                    console.log(`${jiraUsers.length} usuários do Jira carregados.`);
-                }
-            } catch (e) {
-                console.warn('Falha ao carregar usuários do Jira:', e);
-                // Fallback para lista vazia, o prompt manual ainda funcionará
-            }
-        }
-
         function init() {
+            log('Iniciando mapa...');
             loadSeats();
-            // Ajustar tamanho do container ao da imagem
             container.style.width = mapImg.naturalWidth + 'px';
             container.style.height = mapImg.naturalHeight + 'px';
 
-            // Adicionar evento de duplo clique no container para criar mesa
+            // ADMIN: Criação rápida
             container.addEventListener('dblclick', (e) => {
                 if (!isEditMode) return;
-                // Coordenadas relativas ao container
                 const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left - 12; // -12 para centralizar (metade de 24px)
+                const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
                 createSeatElement(seatCounter++, x, y, 'available');
+                log('Admin: Mesa criada');
             });
         }
 
-        // --- SISTEMA DE DRAG AND DROP MANUAL (Fluido) ---
-
-        // Listener global para mover o assento ativo
-        document.addEventListener('mousemove', (e) => {
-            if (!activeSeat || !isEditMode) return;
-
-            e.preventDefault();
-
-            // Calcula deslocamento
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-
-            // Nova posição
-            activeSeat.style.left = (initialLeft + dx) + 'px';
-            activeSeat.style.top = (initialTop + dy) + 'px';
-        });
-
-        document.addEventListener('mouseup', () => {
-            if (activeSeat) {
-                activeSeat.classList.remove('moving');
-                activeSeat = null;
-                // Aqui poderia salvar automático se quisesse
+        async function fetchJiraUsers() {
+            try {
+                const response = await fetch(`${WORKER_URL}/users?type=users`);
+                if (response.ok) {
+                    jiraUsers = await response.json();
+                    log(`Jira: ${jiraUsers.length} usuários carregados.`);
+                }
+            } catch (e) {
+                log('Jira: Offline ou erro de rede.');
             }
-        });
+        }
 
-        // --- MANIPULAÇÃO DE ASSENTOS ---
-
+        // === LÓGICA DE ASSENTOS ===
         function createSeatElement(id, x, y, status, user = null) {
             const seat = document.createElement('div');
             seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
@@ -335,7 +299,7 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // Evento Mouse Down para Iniciar Drag (Apenas Admin)
+            // ADMIN: Drag start
             seat.addEventListener('mousedown', (e) => {
                 if (!isEditMode) return;
                 activeSeat = seat;
@@ -346,61 +310,54 @@
                 initialTop = seat.offsetTop;
             });
 
-            // USER: Clique Simples para Ação Imediata (Resolução de Bugs)
+            // ADMIN: Delete
+            seat.addEventListener('dblclick', (e) => {
+                if (!isEditMode) return;
+                e.stopPropagation();
+                seat.remove();
+                saveConfiguration();
+            });
+
+            // USER: CLIQUE PARA RESERVAR (Ação Imediata)
             seat.addEventListener('click', (e) => {
                 e.stopPropagation();
-
-                // Se for Admin, ignora clique simples (usa dblclick/drag)
                 if (isEditMode) return;
 
-                console.log('Fired click on seat:', id);
+                log(`Clique na mesa ${id}`);
 
                 try {
-                    // 1. Feedback Visual
-                    selectSeat(seat);
+                    selectSeat(seat); // Efeito visual
 
-                    // 2. Ação baseada no estado
-                    setTimeout(() => { // Timeout minúsculo para garantir renderização do selected
+                    // Delay minúsculo para garantir rendering
+                    setTimeout(() => {
                         if (seat.classList.contains('occupied')) {
-                            const dono = seat.dataset.user || 'alguém';
-                            if (confirm(`Mesa ocupada por ${dono}.\nDeseja liberar?`)) {
+                            // Mesa Ocupada: Liberar?
+                            const dono = seat.dataset.user || 'Desconhecido';
+                            // Confirmação simples
+                            if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
                                 seat.classList.remove('occupied');
                                 seat.dataset.user = '';
                                 saveConfiguration();
-                                alert('Mesa liberada!');
+                                log('Mesa liberada.');
+                            } else {
+                                seat.classList.remove('selected');
                             }
                         } else {
-                            // Está livre -> Reservar
+                            // Mesa Livre: Reservar
                             confirmReservation();
                         }
                     }, 50);
 
                 } catch (err) {
-                    alert('Erro crítico JS: ' + err.message);
+                    alert('Erro no script: ' + err.message);
                 }
             });
-
-            // Mantém dblclick nativo APENAS para Admin (remoção)
-            seat.addEventListener('dblclick', (e) => {
-                if (!isEditMode) return;
-                e.stopPropagation();
-                seat.remove();
-            });
-
-            // Clique simples removido para não interferir no dblclick
 
             // Tooltips
             seat.addEventListener('mouseenter', (e) => {
                 let text = `Mesa ${id}`;
                 if (status === 'occupied') {
-                    const user = seat.dataset.user || 'Usuário Desconhecido';
-                    text += `\nReservado por: ${user}`;
-
-                    // Tenta achar avatar na lista carregada
-                    const jiraUser = jiraUsers.find(u => u.displayName === user);
-                    if (jiraUser && jiraUser.avatarUrl) {
-                        // Poderia injetar HTML no tooltip aqui se quisesse ser muito chique
-                    }
+                    text += `\nReservado: ${seat.dataset.user || '?'}`;
                 } else {
                     text += ' - Livre';
                 }
@@ -409,118 +366,61 @@
             seat.addEventListener('mouseleave', hideTooltip);
 
             container.appendChild(seat);
-            updateViewOne(seat);
-        }
-
-        function addSeatCenter() {
-            // Adiciona no centro visível do viewport
-            const rect = viewport.getBoundingClientRect();
-            // Posição relativa ao container do mapa
-            // Assumindo scroll 0 por simplicidade, ou pegando scroll
-            const scrollLeft = viewport.scrollLeft;
-            const scrollTop = viewport.scrollTop;
-
-            createSeatElement(seatCounter++, scrollLeft + 100, scrollTop + 100, 'available');
-        }
-
-        // --- LÓGICA DE MODO E RESERVA ---
-
-        function toggleMode(forceState = null) {
-            // Se passou estado forçado, usa ele. Senão inverte.
-            if (forceState !== null) isEditMode = forceState;
-            else isEditMode = !isEditMode;
-
-            const editControls = document.getElementById('edit-controls');
-            const viewControls = document.getElementById('view-controls');
-            // Elemento de instruções removido para limpeza visual no modo user
-            const instructions = document.getElementById('instructions-text');
-
-            if (isEditMode) {
-                editControls.style.display = 'flex';
-                viewControls.style.display = 'none'; // Admin não precisa ver controles de user
-                instructions.style.display = 'block';
-                instructions.innerHTML = '⚡ <b>Modo ADMIN:</b> Clique 2x no mapa para criar. Clique 2x na mesa para apagar. Arraste para mover.';
-            } else {
-                editControls.style.display = 'none';
-                // Interface limpa: sem botões
-                viewControls.style.display = 'none';
-                instructions.style.display = 'block';
-                instructions.innerHTML = '👉 <b>Duplo Clique</b> na mesa para reservar ou liberar.';
-            }
-        }
-
-        updateAllSeatsCursor();
-        }
-
-        function updateAllSeatsCursor() {
-            document.querySelectorAll('.seat').forEach(updateViewOne);
-        }
-
-        function updateViewOne(seat) {
-            if (isEditMode) {
-                seat.style.cursor = 'grab';
-                // Remove visualmente estado de ocupado pra facilitar edição? Não, mantem.
-            } else {
-                if (seat.classList.contains('occupied')) {
-                    seat.style.cursor = 'not-allowed';
-                } else {
-                    seat.style.cursor = 'pointer';
-                }
-            }
         }
 
         function selectSeat(seat) {
-            if (seat.classList.contains('occupied')) {
-                // alert('Ocupada!'); 
-                return;
-            }
-
             if (selectedSeat) selectedSeat.classList.remove('selected');
-
             selectedSeat = seat;
             selectedSeat.classList.add('selected');
-
-            document.getElementById('selected-info').innerText = `Mesa ${seat.dataset.id} selecionada`;
-            document.getElementById('btn-confirm').disabled = false;
         }
 
         function confirmReservation() {
             if (!selectedSeat) return;
 
             let userName = '';
-
-            // Se temos usuários do Jira carregados, cria um prompt melhorzinho (Gambiarra de luxo)
+            // Auto-complete fake do Jira para ajudar
             if (jiraUsers.length > 0) {
-                const names = jiraUsers.map(u => u.displayName).join('\n');
-                // Idealmente aqui abriria um Modal Customizado, mas vamos usar prompt com sugestão
-                // Como a lista pode ser grande, vamos pedir o nome e validar
-                userName = prompt("Digite seu nome (como está no Jira):", "");
-
-                // Validar se existe (Opcional, mas legal)
+                userName = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
+                // Tenta achar o match mais próximo
                 const found = jiraUsers.find(u => u.displayName.toLowerCase() === (userName || '').toLowerCase());
-                if (found) userName = found.displayName; // Normaliza nome
+                if (found) userName = found.displayName;
             } else {
-                userName = prompt("Para quem é a reserva?", "Luiz Santos");
+                userName = prompt("Qual seu nome?", "");
             }
 
             if (userName) {
                 selectedSeat.classList.remove('selected');
                 selectedSeat.classList.add('occupied');
                 selectedSeat.classList.remove('available');
-                selectedSeat.dataset.user = userName; // Salva o nome no elemento
-
-                const seatId = selectedSeat.dataset.id;
-                selectedSeat = null;
-
-                document.getElementById('selected-info').innerText = `Reserva confirmada para ${userName}!`;
-                document.getElementById('btn-confirm').disabled = true;
-
+                selectedSeat.dataset.user = userName;
                 saveConfiguration();
+                log(`Reserva feita: ${userName}`);
+                selectedSeat = null;
+            } else {
+                selectedSeat.classList.remove('selected');
+                selectedSeat = null;
             }
         }
 
-        // --- PERSISTÊNCIA ---
+        // === DRAG GLOBAL (ADMIN) ===
+        document.addEventListener('mousemove', (e) => {
+            if (!activeSeat || !isEditMode) return;
+            e.preventDefault();
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            activeSeat.style.left = (initialLeft + dx) + 'px';
+            activeSeat.style.top = (initialTop + dy) + 'px';
+        });
 
+        document.addEventListener('mouseup', () => {
+            if (activeSeat) {
+                activeSeat.classList.remove('moving');
+                activeSeat = null;
+                saveConfiguration(); // Salva posição ao soltar
+            }
+        });
+
+        // === PERSISTÊNCIA ===
         function saveConfiguration() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
@@ -529,25 +429,21 @@
                     x: parseInt(s.style.left),
                     y: parseInt(s.style.top),
                     status: s.classList.contains('occupied') ? 'occupied' : 'available',
-                    user: s.dataset.user || null // Persiste o usuário
+                    user: s.dataset.user || null
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-
-            const btn = document.querySelector('.btn-success');
-            const originalText = btn.innerText;
-            btn.innerText = 'Salvo! ✓';
-            setTimeout(() => btn.innerText = originalText, 1500);
         }
 
         function loadSeats() {
             const savedSeats = localStorage.getItem('of_seats_config_v2');
             if (savedSeats) {
-                const seats = JSON.parse(savedSeats);
-                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user)); // Passa o user
-
-                const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
-                seatCounter = maxId + 1;
+                try {
+                    const seats = JSON.parse(savedSeats);
+                    seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user));
+                    const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
+                    seatCounter = maxId + 1;
+                } catch (e) { log('Erro localStorage'); }
             }
         }
 
@@ -556,10 +452,28 @@
                 document.querySelectorAll('.seat').forEach(e => e.remove());
                 seatCounter = 1;
                 localStorage.removeItem('of_seats_config_v2');
+                log('Tudo apagado.');
             }
         }
 
-        // --- UI UTILS ---
+        // === UI UTILS ===
+        function toggleMode(mode) {
+            isEditMode = mode;
+            const editControls = document.getElementById('edit-controls');
+            const instructions = document.getElementById('instructions-text');
+
+            if (isEditMode) {
+                editControls.style.display = 'flex';
+                instructions.innerHTML = '🔧 <b>ADMIN:</b> DblClick cria/apaga. Drag move.';
+            } else {
+                editControls.style.display = 'none';
+                instructions.innerHTML = '👉 <b>Clique na mesa</b> para reservar.';
+            }
+        }
+
+        function addSeatCenter() {
+            createSeatElement(seatCounter++, 100, 100, 'available');
+        }
 
         function showTooltip(e, text) {
             tooltip.style.display = 'block';

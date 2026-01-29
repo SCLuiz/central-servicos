@@ -108,8 +108,7 @@
             /* Rosa Open Finance */
             border: 2px solid #fff;
             border-radius: 50%;
-            cursor: pointer !important;
-            pointer-events: auto !important;
+            cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
@@ -126,11 +125,10 @@
             z-index: 20;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             border: 2px solid #0052cc;
-            /* Feedback visual forte de hover */
         }
 
         .seat.moving {
-            cursor: grabbing !important;
+            cursor: grabbing;
             opacity: 0.9;
             transform: scale(1.15);
             z-index: 100;
@@ -179,14 +177,14 @@
         <div id="edit-controls" style="display: none;">
             <span class="mode-badge mode-edit">ADMIN</span>
             <button class="btn btn-primary" onclick="addSeatCenter()">+ Mesa</button>
-            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar</button>
+            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar Tudo</button>
             <button class="btn btn-success" onclick="saveConfiguration()">Salvar</button>
             <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
             <button class="btn" onclick="toggleMode(false)">Sair</button>
         </div>
 
         <div id="view-controls" style="display: none;">
-            <!-- Painel para USER - Atualmente oculto por pedido do cliente -->
+            <!-- Painel para USER - Atualmente oculto por simplicidade -->
         </div>
     </div>
 
@@ -202,35 +200,14 @@
 
     <div id="tooltip" class="tooltip"></div>
 
-    <!-- CONSOLE DE DIAGNÓSTICO -->
-    <div id="debug-console"
-        style="position: fixed; bottom: 0; left: 0; right: 0; background: #000; color: #0f0; padding: 5px; font-family: monospace; font-size: 11px; height: 80px; overflow-y: scroll; z-index: 99999; opacity: 0.9; border-top: 1px solid #0f0;">
-        [Sistema] Inicializando...
-    </div>
-
     <script>
-        // === SISTEMA DE DEBUG ===
-        function log(msg) {
-            const el = document.getElementById('debug-console');
-            if (el) {
-                const line = document.createElement('div');
-                line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-                el.insertBefore(line, el.firstChild);
-            }
-            console.log(msg);
-        }
-
-        window.onerror = function (msg, url, line) {
-            log(`ERRO CRÍTICO JS: ${msg} (Linha ${line})`);
-            return false; // Deixa o navegador tbm lidar com o erro
-        };
-
         // === VARIÁVEIS GLOBAIS ===
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
         let isEditMode = false;
         let seatCounter = 1;
         let selectedSeat = null;
+
         let activeSeat = null; // Drag
         let startX = 0, startY = 0;
         let initialLeft = 0, initialTop = 0;
@@ -242,25 +219,17 @@
 
         // === INICIALIZAÇÃO ===
         window.onload = () => {
-            log('window.onload disparado.');
-
-            if (mapImg.complete) {
-                init();
-            } else {
-                mapImg.onload = init;
-                mapImg.onerror = () => log('ERRO: Imagem mapa falhou.');
-            }
+            if (mapImg.complete) init();
+            else mapImg.onload = init;
 
             fetchJiraUsers();
 
             const urlParams = new URLSearchParams(window.location.search);
             isEditMode = (urlParams.get('mode') === 'edit');
-            log(`Modo: ${isEditMode ? 'ADMIN' : 'USER'}`);
             toggleMode(isEditMode);
         };
 
         function init() {
-            log('Iniciando mapa...');
             loadSeats();
             container.style.width = mapImg.naturalWidth + 'px';
             container.style.height = mapImg.naturalHeight + 'px';
@@ -272,7 +241,6 @@
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
                 createSeatElement(seatCounter++, x, y, 'available');
-                log('Admin: Mesa criada');
             });
         }
 
@@ -280,11 +248,18 @@
             try {
                 const response = await fetch(`${WORKER_URL}/users?type=users`);
                 if (response.ok) {
-                    jiraUsers = await response.json();
-                    log(`Jira: ${jiraUsers.length} usuários carregados.`);
+                    const data = await response.json();
+                    if (Array.isArray(data)) {
+                        jiraUsers = data;
+                        console.log(`${jiraUsers.length} usuários carregados.`);
+                    } else {
+                        console.warn('Jira API: Formato inválido recebido.');
+                        jiraUsers = []; // Proteção contra undefined
+                    }
                 }
             } catch (e) {
-                log('Jira: Offline ou erro de rede.');
+                console.warn('Jira API Offline ou erro:', e);
+                jiraUsers = []; // Fallback
             }
         }
 
@@ -318,29 +293,27 @@
                 saveConfiguration();
             });
 
-            // USER: CLIQUE PARA RESERVAR (Ação Imediata - Síncrona)
+            // USER: CLIQUE PARA RESERVAR (Sem delay)
             seat.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (isEditMode) return;
 
-                log(`Clique na mesa ${id}`);
-
                 try {
-                    selectSeat(seat); // Efeito visual
+                    selectSeat(seat); // Feedback visual
 
-                    // Execução SÍNCRONA (Sem setTimeout) para garantir que o Prompt abra
                     if (seat.classList.contains('occupied')) {
+                        // Mesa Ocupada: Liberar?
                         const dono = seat.dataset.user || 'Desconhecido';
-                        if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
+                        if (confirm(`Mesa reservada por: ${dono}\n\nDeseja liberar esta mesa?`)) {
                             seat.classList.remove('occupied');
                             seat.dataset.user = '';
                             saveConfiguration();
-                            log('Mesa liberada.');
                         } else {
+                            // Cancelou liberação
                             seat.classList.remove('selected');
                         }
                     } else {
-                        // Mesa Livre: Reserva
+                        // Mesa Livre: Reservar
                         confirmReservation();
                     }
 
@@ -374,10 +347,10 @@
             if (!selectedSeat) return;
 
             let userName = '';
-            // Auto-complete fake do Jira para ajudar
-            if (jiraUsers.length > 0) {
+            // Auto-complete (Protegido)
+            if (Array.isArray(jiraUsers) && jiraUsers.length > 0) {
                 userName = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
-                // Tenta achar o match mais próximo
+                // Match seguro
                 const found = jiraUsers.find(u => u.displayName.toLowerCase() === (userName || '').toLowerCase());
                 if (found) userName = found.displayName;
             } else {
@@ -390,9 +363,9 @@
                 selectedSeat.classList.remove('available');
                 selectedSeat.dataset.user = userName;
                 saveConfiguration();
-                log(`Reserva feita: ${userName}`);
                 selectedSeat = null;
             } else {
+                // Cancelou
                 selectedSeat.classList.remove('selected');
                 selectedSeat = null;
             }
@@ -412,7 +385,7 @@
             if (activeSeat) {
                 activeSeat.classList.remove('moving');
                 activeSeat = null;
-                saveConfiguration(); // Salva posição ao soltar
+                saveConfiguration();
             }
         });
 
@@ -439,7 +412,7 @@
                     seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user));
                     const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
                     seatCounter = maxId + 1;
-                } catch (e) { log('Erro localStorage'); }
+                } catch (e) { }
             }
         }
 
@@ -448,7 +421,6 @@
                 document.querySelectorAll('.seat').forEach(e => e.remove());
                 seatCounter = 1;
                 localStorage.removeItem('of_seats_config_v2');
-                log('Tudo apagado.');
             }
         }
 
@@ -461,9 +433,11 @@
             if (isEditMode) {
                 editControls.style.display = 'flex';
                 instructions.innerHTML = '🔧 <b>ADMIN:</b> DblClick cria/apaga. Drag move.';
+                document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'grab');
             } else {
                 editControls.style.display = 'none';
-                instructions.innerHTML = '👉 <b>Clique na mesa</b> para reservar.';
+                instructions.innerHTML = '👉 <b>Clique na mesa</b> rosa para reservar.';
+                document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'pointer');
             }
         }
 

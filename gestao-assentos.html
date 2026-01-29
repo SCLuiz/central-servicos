@@ -346,38 +346,37 @@
                 initialTop = seat.offsetTop;
             });
 
-            // Implementação Robusta de Duplo Clique (Manual)
-            let lastClickTime = 0;
-
+            // USER: Clique Simples para Ação Imediata (Resolução de Bugs)
             seat.addEventListener('click', (e) => {
                 e.stopPropagation();
 
-                const currentTime = new Date().getTime();
-                const timeDiff = currentTime - lastClickTime;
+                // Se for Admin, ignora clique simples (usa dblclick/drag)
+                if (isEditMode) return;
 
-                // Se foi rápido o suficiente (< 400ms), considera duplo clique
-                if (timeDiff < 400 && timeDiff > 0) {
-                    try {
-                        if (isEditMode) return; // Admin usa dblclick nativo ou drag
+                console.log('Fired click on seat:', id);
 
+                try {
+                    // 1. Feedback Visual
+                    selectSeat(seat);
+
+                    // 2. Ação baseada no estado
+                    setTimeout(() => { // Timeout minúsculo para garantir renderização do selected
                         if (seat.classList.contains('occupied')) {
-                            if (confirm('Mesa Ocupada. Liberar?')) {
+                            const dono = seat.dataset.user || 'alguém';
+                            if (confirm(`Mesa ocupada por ${dono}.\nDeseja liberar?`)) {
                                 seat.classList.remove('occupied');
                                 seat.dataset.user = '';
                                 saveConfiguration();
+                                alert('Mesa liberada!');
                             }
                         } else {
-                            selectSeat(seat);
+                            // Está livre -> Reservar
                             confirmReservation();
                         }
-                    } catch (err) {
-                        alert('Erro ao processar: ' + err.message);
-                    }
-                    lastClickTime = 0; // Reset
-                } else {
-                    lastClickTime = currentTime;
-                    // Opcional: Feedback visual de clique simples (seleção)
-                    // selectSeat(seat); 
+                    }, 50);
+
+                } catch (err) {
+                    alert('Erro crítico JS: ' + err.message);
                 }
             });
 

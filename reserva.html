@@ -7,7 +7,6 @@
     <title>Reserva de Posições - Open Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ESTILOS BASE */
         * {
             margin: 0;
             padding: 0;
@@ -24,12 +23,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg,
-                    rgba(255, 20, 147, 0.55) 0%,
-                    rgba(255, 105, 180, 0.50) 25%,
-                    rgba(255, 182, 193, 0.45) 50%,
-                    rgba(255, 215, 0, 0.50) 75%,
-                    rgba(255, 165, 0, 0.55) 100%);
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.55) 0%, rgba(255, 105, 180, 0.50) 25%, rgba(255, 182, 193, 0.45) 50%, rgba(255, 215, 0, 0.50) 75%, rgba(255, 165, 0, 0.55) 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--of-dark);
@@ -194,6 +188,7 @@
             padding-bottom: 60px;
         }
 
+        /* MAPA PURO E LIMPO */
         #map-container {
             position: relative;
             display: inline-block;
@@ -296,8 +291,14 @@
             currentDate = today;
 
             dateInput.addEventListener('change', (e) => {
-                currentDate = e.target.value;
-                loadDayData(); // Troca de dia = troca de layout
+                const newDate = e.target.value;
+                // Força um pequeno reflow visual para garantir que o usuário perceba a troca
+                container.style.opacity = '0.5';
+                setTimeout(() => {
+                    currentDate = newDate;
+                    loadDayData();
+                    container.style.opacity = '1';
+                }, 150);
             });
 
             if (mapImg.complete) init(); else mapImg.onload = init;
@@ -343,23 +344,44 @@
             const db = getAllData();
             db[currentDate] = seats;
             saveAllData(db);
+
+            // Esconde msg de vazio se tiver mesas
+            const msg = document.getElementById('empty-msg-overlay');
+            if (msg) msg.style.display = seats.length === 0 ? 'block' : 'none';
         }
 
         function loadDayData() {
-            // Limpa TUDO da tela
-            document.querySelectorAll('.seat').forEach(s => s.remove());
+            // 1. REMOVE TUDO (Reset Visual Completo)
+            const oldSeats = document.querySelectorAll('.seat');
+            oldSeats.forEach(s => s.remove());
 
-            // Puxa dados da data atual
+            // 2. Carrega Dados
             const db = getAllData();
             const dailySeats = db[currentDate] || [];
 
-            let maxId = 0;
-            dailySeats.forEach(data => {
-                createSeatElement(data.id, data.x, data.y, data.user);
-                let idNum = parseInt(data.id);
-                if (idNum > maxId) maxId = idNum;
-            });
-            seatCounter = maxId + 1;
+            // 3. Feedback Visual "Vazio"
+            let emptyMsg = document.getElementById('empty-msg-overlay');
+            if (!emptyMsg) {
+                emptyMsg = document.createElement('div');
+                emptyMsg.id = 'empty-msg-overlay';
+                emptyMsg.style.cssText = "position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.95); padding:20px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); text-align:center; pointer-events:none; z-index:500; min-width:200px;";
+                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Layout Vazio</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Dia novo!<br>Adicione mesas para começar.</p>';
+                container.appendChild(emptyMsg);
+            }
+
+            if (dailySeats.length === 0) {
+                emptyMsg.style.display = 'block';
+                seatCounter = 1;
+            } else {
+                emptyMsg.style.display = 'none';
+                let maxId = 0;
+                dailySeats.forEach(data => {
+                    createSeatElement(data.id, data.x, data.y, data.user);
+                    let idNum = parseInt(data.id);
+                    if (idNum > maxId) maxId = idNum;
+                });
+                seatCounter = maxId + 1;
+            }
         }
 
         // --- VISUAL ELEMENTS ---
@@ -374,87 +396,35 @@
             } else {
                 seat.title = `Mesa ${id}`;
             }
-
             seat.id = 'seat-' + id;
             seat.innerText = id;
             seat.style.left = x;
             seat.style.top = y;
-
-            seat.addEventListener('mousedown', (e) => {
-                if (e.button !== 0) return;
-                e.stopPropagation();
-                activeSeat = seat;
-                startX = e.clientX; startY = e.clientY;
-                initialLeft = seat.offsetLeft; initialTop = seat.offsetTop;
-                seat.style.zIndex = 999999;
-            });
-
-            let clicks = 0;
-            let timer = null;
+            seat.addEventListener('mousedown', (e) => { if (e.button !== 0) return; e.stopPropagation(); activeSeat = seat; startX = e.clientX; startY = e.clientY; initialLeft = seat.offsetLeft; initialTop = seat.offsetTop; seat.style.zIndex = 999999; });
+            let clicks = 0; let timer = null;
             seat.addEventListener('click', (e) => {
-                e.preventDefault(); e.stopPropagation();
-                clicks++;
-                if (clicks === 1) {
-                    timer = setTimeout(() => { clicks = 0; handleReservation(seat); }, 250);
-                } else {
-                    clearTimeout(timer); clicks = 0;
-                    if (confirm(`Excluir Mesa ${id} de ${formatDate(currentDate)}?`)) {
-                        seat.remove();
-                        saveCurrentState();
-                    }
-                    if (window.getSelection) { window.getSelection().removeAllRanges(); }
-                }
+                e.preventDefault(); e.stopPropagation(); clicks++;
+                if (clicks === 1) { timer = setTimeout(() => { clicks = 0; handleReservation(seat); }, 250); }
+                else { clearTimeout(timer); clicks = 0; if (confirm(`Excluir Mesa ${id}?`)) { seat.remove(); saveCurrentState(); } if (window.getSelection) { window.getSelection().removeAllRanges(); } }
             });
-
             container.appendChild(seat);
         }
 
         function handleReservation(seat) {
             const currentUserOnSeat = seat.dataset.user;
             if (currentUserOnSeat) {
-                if (confirm(`Liberar mesa de ${currentUserOnSeat}?`)) {
-                    seat.classList.remove('occupied');
-                    delete seat.dataset.user;
-                    seat.title = `Mesa ${seat.innerText}`;
-                    saveCurrentState();
-                }
+                if (confirm(`Liberar mesa de ${currentUserOnSeat}?`)) { seat.classList.remove('occupied'); delete seat.dataset.user; seat.title = `Mesa ${seat.innerText}`; saveCurrentState(); }
             } else {
                 let nome = currentUser || prompt("Nome da reserva:");
-                if (nome && confirm(`Reservar para ${nome}?`)) {
-                    seat.classList.add('occupied');
-                    seat.dataset.user = nome;
-                    seat.title = `Mesa ${seat.innerText}: ${nome}`;
-                    saveCurrentState();
-                }
+                if (nome && confirm(`Reservar para ${nome}?`)) { seat.classList.add('occupied'); seat.dataset.user = nome; seat.title = `Mesa ${seat.innerText}: ${nome}`; saveCurrentState(); }
             }
         }
 
-        document.addEventListener('mousemove', (e) => {
-            if (!activeSeat) return;
-            e.preventDefault();
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            activeSeat.style.left = (initialLeft + dx) + 'px';
-            activeSeat.style.top = (initialTop + dy) + 'px';
-        });
+        document.addEventListener('mousemove', (e) => { if (!activeSeat) return; e.preventDefault(); const dx = e.clientX - startX; const dy = e.clientY - startY; activeSeat.style.left = (initialLeft + dx) + 'px'; activeSeat.style.top = (initialTop + dy) + 'px'; });
+        document.addEventListener('mouseup', () => { if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveCurrentState(); } });
 
-        document.addEventListener('mouseup', () => {
-            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveCurrentState(); }
-        });
-
-        function clearDay() {
-            if (confirm(`Limpar TODAS as posições do dia ${formatDate(currentDate)}?`)) {
-                const db = getAllData();
-                delete db[currentDate];
-                saveAllData(db);
-                loadDayData();
-            }
-        }
-        function createSeatCenter() {
-            createSeatElement(seatCounter++, '100px', '100px', '');
-            saveCurrentState();
-        }
-        function formatDate(d) { const p = d.split('-'); return `${p[2]}/${p[1]}`; }
+        function clearDay() { if (confirm(`Limpar layout do dia ${currentDate}?`)) { const db = getAllData(); delete db[currentDate]; saveAllData(db); loadDayData(); } }
+        function createSeatCenter() { createSeatElement(seatCounter++, '100px', '100px', ''); saveCurrentState(); }
     </script>
 </body>
 

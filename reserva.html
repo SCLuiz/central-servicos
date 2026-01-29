@@ -164,32 +164,27 @@
             background: #ff5630;
         }
 
-        /* VIEWPORT CLEAN (Sem caixa branca) */
+        /* VIEWPORT CLEAN */
         #viewport {
             width: 100%;
             display: flex;
             justify-content: center;
             padding-bottom: 60px;
-            /* background: transparent; <- Implicito no body */
         }
 
         #map-container {
             position: relative;
             display: inline-block;
-            /* ZERO BACKGROUND, ZERO SHADOW NO CONTAINER */
             line-height: 0;
         }
 
         #office-map {
             display: block;
             max-width: 95vw;
-            /* Margem de segurança */
             height: auto;
             pointer-events: auto;
             user-select: none;
             -webkit-user-drag: none;
-
-            /* Sombra e borda NA IMAGEM, não no container */
             border-radius: 12px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
         }
@@ -212,7 +207,6 @@
             z-index: 100;
             user-select: none;
             line-height: 24px;
-            /* Centraliza texto */
         }
 
         .seat.occupied {
@@ -262,6 +256,7 @@
         let seatCounter = 1;
         let currentUser = null;
 
+        // Estado
         let activeSeat = null;
         let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
 
@@ -270,7 +265,11 @@
 
         window.onload = () => {
             document.body.onselectstart = function () { return false; }
-            localStorage.removeItem('of_seats_config_v2');
+
+            // ATENÇÃO: PERSISTÊNCIA ATIVADA
+            // O código anterior apagava, agora mantemos.
+            // localStorage.removeItem('of_seats_config_v2'); 
+
             currentUser = localStorage.getItem('userName');
 
             if (mapImg.complete) init();
@@ -280,7 +279,11 @@
         };
 
         function init() {
-            loadSeats();
+            container.style.width = mapImg.naturalWidth + "px"; // Garante sistema de coordenas 1:1
+            container.style.height = mapImg.naturalHeight + "px";
+
+            loadConfig(); // Carrega do LocalStorage
+
             container.addEventListener('dblclick', (e) => {
                 e.preventDefault();
                 if (e.target !== container && e.target !== mapImg) return;
@@ -322,7 +325,10 @@
                     timer = setTimeout(() => { clicks = 0; toggleReservation(seat); }, 250);
                 } else {
                     clearTimeout(timer); clicks = 0;
-                    if (confirm(`Excluir Mesa ${id}?`)) seat.remove();
+                    if (confirm(`Excluir Mesa ${id}?`)) {
+                        seat.remove();
+                        saveConfiguration(false); // Salva silenciosamente ao excluir
+                    }
                     if (window.getSelection) { window.getSelection().removeAllRanges(); }
                 }
             });
@@ -358,12 +364,15 @@
                     seat.dataset.user = nome;
                 }
             }
-            saveConfig();
+            saveConfiguration(false); // Salva state da reserva
         }
 
-        function saveConfiguration() {
+        function saveConfiguration(alertUser = true) {
             const seats = [];
+            let maxId = 0;
             document.querySelectorAll('.seat').forEach(s => {
+                const idNum = parseInt(s.innerText);
+                if (idNum > maxId) maxId = idNum;
                 seats.push({
                     id: s.dataset.id,
                     x: parseInt(s.style.left),
@@ -373,11 +382,30 @@
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-            alert('Configuração Salva!');
+            if (alertUser) alert('Layout e Reservas Salvos com Sucesso!');
         }
 
-        function loadSeats() { seatCounter = 1; }
-        function clearAll() { if (confirm("Resetar?")) location.reload(); }
+        function loadConfig() {
+            const data = localStorage.getItem('of_seats_config_v2');
+            if (data) {
+                const seats = JSON.parse(data);
+                let maxId = 0;
+                seats.forEach(s => {
+                    createSeat(s.id, s.x, s.y, s.status, s.user);
+                    let idNum = parseInt(s.id);
+                    if (idNum > maxId) maxId = idNum;
+                });
+                seatCounter = maxId + 1;
+            }
+        }
+
+        function clearAll() {
+            if (confirm("ATENÇÃO: Isso apagará TODO o layout salvo. Continuar?")) {
+                localStorage.removeItem('of_seats_config_v2');
+                location.reload();
+            }
+        }
+
         function createSeatCenter() { createSeat(seatCounter++, 100, 100); }
     </script>
 </body>

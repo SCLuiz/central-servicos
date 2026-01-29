@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMDB - Open Finance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
+            --of-dark: #1A1A1A;
+            --of-gray: #424242;
+            --of-white: #FFFFFF;
+            --ds-border: #DFE1E6;
+            --ds-text: #172B4D;
+            --ds-text-subtle: #5E6C84;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F4F5F7;
+            color: var(--of-dark);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 10px 10px 35px;
+            border: 1px solid var(--ds-border);
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #0052cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0747a6;
+        }
+
+        .cmdb-table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .cmdb-table th {
+            background: #f4f5f7;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ds-text-subtle);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--ds-border);
+        }
+
+        .cmdb-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--ds-border);
+            color: var(--ds-text);
+            font-size: 14px;
+        }
+
+        .cmdb-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cmdb-table tr:hover {
+            background: #fafbfc;
+        }
+
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #E3FCEF;
+            color: #006644;
+        }
+
+        .status-maintenance {
+            background: #FFF0B3;
+            color: #172B4D;
+        }
+
+        .status-retired {
+            background: #DFE1E6;
+            color: #42526E;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--ds-text-subtle);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: var(--ds-text);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CMDB</h1>
+        <p>Configuration Management Database - Inventário de Ativos</p>
+    </div>
+
+    <div class="container">
+        <div class="toolbar">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar ativo (Ex: SRV-01)...">
+            </div>
+            <button class="btn btn-primary" onclick="alert('Funcionalidade em desenvolvimento!')">+ Novo Ativo</button>
+        </div>
+
+        <table class="cmdb-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>IP / Endpoint</th>
+                    <th>Status</th>
+                    <th>Responsável</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AS-1001</td>
+                    <td><strong>SRV-APP-01</strong></td>
+                    <td>Servidor Virtual</td>
+                    <td>10.0.1.15</td>
+                    <td><span class="status-badge status-active">Ativo</span></td>
+                    <td>Luiz Santos</td>
+                </tr>
+                <tr>
+                    <td>AS-1002</td>
+                    <td><strong>DB-PROD-SQL</strong></td>
+                    <td>Database</td>
+                    <td>10.0.2.50</td>
+                    <td><span class="status-badge status-active">Ativo</span></td>
+                    <td>Equipe DBA</td>
+                </tr>
+                <tr>
+                    <td>AS-1003</td>
+                    <td><strong>FW-EDGE-01</strong></td>
+                    <td>Firewall</td>
+                    <td>192.168.1.1</td>
+                    <td><span class="status-badge status-maintenance">Manutenção</span></td>
+                    <td>SecOps Team</td>
+                </tr>
+                <tr>
+                    <td>AS-1004</td>
+                    <td><strong>Voz-Gateway</strong></td>
+                    <td>VoIP Gateway</td>
+                    <td>172.16.0.254</td>
+                    <td><span class="status-badge status-retired">Desativado</span></td>
+                    <td>Facilities</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="operacoes-ti.html" class="back-link">← Voltar para Operações de TI</a>
+    </div>
+
+    <script>
+        // Simples verificação de sessão (Mesmo padrão do projeto)
+        const user = localStorage.getItem('userName');
+        if (!user && !sessionStorage.getItem('userName')) {
+            // Se precisar travar: window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

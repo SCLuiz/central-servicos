@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Assentos - Open Finance</title>
+    <title>Gestão de Assentos - ADMIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -29,8 +29,6 @@
             gap: 15px;
             align-items: center;
             z-index: 100;
-            flex-wrap: wrap;
-            justify-content: center;
         }
 
         .btn {
@@ -39,65 +37,41 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
-            transition: 0.2s;
+            color: white;
+            margin-right: 5px;
         }
 
         .btn-primary {
             background: #0052cc;
-            color: white;
         }
 
         .btn-success {
             background: #36b37e;
-            color: white;
         }
 
         .btn-danger {
             background: #ff5630;
-            color: white;
-        }
-
-        .mode-badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .mode-edit {
-            background: #fffae6;
-            color: #bf6c00;
-        }
-
-        .mode-view {
-            background: #e3fcef;
-            color: #006644;
         }
 
         #viewport {
             position: relative;
-            width: 90vw;
-            height: 80vh;
-            border: 2px solid #dfe1e6;
-            border-radius: 8px;
-            background-color: #fff;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 95vw;
+            height: 85vh;
+            border: 2px solid #ccc;
+            overflow: auto;
+            /* Permite rolar se o mapa for grande */
+            background: #fff;
         }
 
         #map-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: 0 0;
+            position: relative;
         }
 
         #office-map {
             display: block;
             pointer-events: none;
+            /* Deixa clique passar para container */
             user-drag: none;
-            -webkit-user-drag: none;
         }
 
         .seat {
@@ -105,61 +79,34 @@
             width: 24px;
             height: 24px;
             background-color: #DD249b;
-            /* Rosa Open Finance */
-            border: 3px solid #fff;
+            /* Rosa */
+            border: 2px solid white;
             border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: grab;
+            /* Mãozinha para arrastar */
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 11px;
             font-weight: bold;
-            z-index: 99999 !important;
-            /* Força bruta para ficar acima de tudo */
-            transition: transform 0.1s;
+            z-index: 1000;
         }
 
-        .seat:hover {
-            transform: scale(1.2);
-            border-color: #0052cc;
-        }
-
-        .seat.moving {
+        .seat:active {
             cursor: grabbing;
-            opacity: 0.9;
-            transform: scale(1.15);
         }
 
         .seat.occupied {
             background-color: #ff5630;
         }
 
-        .seat.selected {
-            background-color: #36b37e;
-            transform: scale(1.4);
-            border-color: #ffff00;
-        }
-
-        .tooltip {
-            position: fixed;
-            background: #172b4d;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            pointer-events: none;
-            display: none;
-            z-index: 100000;
-            white-space: nowrap;
-        }
+        /* Vermelho */
 
         .instructions {
-            margin-top: 10px;
-            font-size: 13px;
-            color: #6b778c;
-            text-align: center;
+            margin-bottom: 10px;
+            color: #555;
         }
     </style>
 </head>
@@ -167,22 +114,15 @@
 <body>
 
     <div class="controls">
-        <h2 style="margin: 0; margin-right: 20px; color: #0052cc;">Gestão de Assentos - V7 (Correção)</h2>
-        <!-- Controles ocultos para simplificar -->
-        <div id="edit-controls" style="display: none;">
-            <span class="mode-badge mode-edit">ADMIN</span>
-            <button class="btn btn-primary" onclick="addSeatCenter()">+ Mesa</button>
-            <button class="btn btn-danger" onclick="clearAllSeats()">Limpar Tudo</button>
-            <button class="btn btn-success" onclick="saveConfiguration()">Salvar</button>
-            <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
-            <button class="btn" onclick="toggleMode(false)">Sair</button>
-        </div>
-
-        <div id="view-controls" style="display: none;"></div>
+        <h2 style="margin:0; margin-right:15px; color:#cc0000;">MODO EDITOR</h2>
+        <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa (Centro)</button>
+        <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Tudo</button>
+        <button class="btn btn-danger" onclick="clearAll()">🗑️ Apagar Tudo</button>
     </div>
 
-    <div class="instructions" id="instructions-text">
-        👉 <b>Dê DOIS CLIQUES RÁPIDOS</b> na mesa rosa para reservar.
+    <div class="instructions">
+        Double-Click no MAPA cria mesa. <b>Arraste a mesa</b> para posicionar. <b>Double-Click na mesa</b> para
+        reservar/testar.
     </div>
 
     <div id="viewport">
@@ -191,144 +131,81 @@
         </div>
     </div>
 
-    <div id="tooltip" class="tooltip"></div>
-
-    <!-- BOTÃO DE EMERGÊNCIA RESET -->
-    <button onclick="localStorage.clear(); location.reload();"
-        style="position:fixed; bottom:10px; right:10px; padding: 5px; font-size: 11px; z-index: 999999; border: 1px solid #ccc; background: #eee; cursor: pointer;">
-        🔄 Resetar
-    </button>
-
     <script>
-        // === CONFIGURAÇÃO V7 ===
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
-        let isEditMode = false; // FORÇADO PARA USUÁRIO
         let seatCounter = 1;
-        let activeSeat = null;
-        let startX = 0, startY = 0;
-        let initialLeft = 0, initialTop = 0;
 
-        // Elementos
+        // Drag Variables
+        let activeSeat = null;
+        let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
-        const tooltip = document.getElementById('tooltip');
 
-        // Inicialização
         window.onload = () => {
             if (mapImg.complete) init();
             else mapImg.onload = init;
-
-            // Tenta carregar Jira (mas não bloqueia)
-            fetch(WORKER_URL + '/users?type=users')
-                .then(r => r.json())
-                .then(d => { if (Array.isArray(d)) jiraUsers = d; })
-                .catch(e => console.log('Sem Jira'));
-
-            // Força modo visualização
-            isEditMode = false;
-            document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'pointer');
+            fetchJiraUsers();
         };
 
         function init() {
-            container.style.width = mapImg.naturalWidth + 'px';
-            container.style.height = mapImg.naturalHeight + 'px';
+            container.style.width = mapImg.naturalWidth + "px";
+            container.style.height = mapImg.naturalHeight + "px";
+            loadSeats();
 
-            // Carrega ou Cria Default
-            if (!loadSeats()) {
-                // Cria 3 mesas de teste se não tiver nada
-                createSeatElement(1, 100, 100, 'available');
-                createSeatElement(2, 200, 100, 'available');
-                createSeatElement(3, 300, 100, 'available');
-                createSeatElement(4, 400, 100, 'available');
-                createSeatElement(5, 500, 100, 'available');
-                alert('Modo Teste: 5 mesas criadas. Tente clicar nelas.');
-            }
-
-            // ADMIN: Criação rápida (mantido para compatibilidade, mas não usado no modo view)
+            // CRIA MESA ONDE CLICAR NO FUNDO
             container.addEventListener('dblclick', (e) => {
-                if (!isEditMode) return;
+                if (e.target !== container && e.target !== mapImg) return;
+
+                // Pega coordenada relativa
                 const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left - 12;
+                const x = e.clientX - rect.left - 12; // -12 pra centrar
                 const y = e.clientY - rect.top - 12;
-                createSeatElement(seatCounter++, x, y, 'available');
+
+                createSeat(seatCounter++, x, y);
             });
         }
 
-        // === CRIAÇÃO ===
-        function createSeatElement(id, x, y, status, user = null) {
+        function createSeat(id, x, y, status = 'available', user = null) {
             const seat = document.createElement('div');
             seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
             seat.id = 'seat-' + id;
+            seat.innerText = id;
             seat.style.left = x + 'px';
             seat.style.top = y + 'px';
-            seat.innerText = id;
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // ADMIN: Drag start
+            // 1. ARRASTAR (Mousedown)
             seat.addEventListener('mousedown', (e) => {
-                if (!isEditMode) return;
+                e.stopPropagation(); // Não propaga pro container
                 activeSeat = seat;
-                activeSeat.classList.add('moving');
                 startX = e.clientX;
                 startY = e.clientY;
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
+                seat.style.zIndex = 9999; // Traz pra frente
             });
 
-            // Lógica EXPLICITA de Duplo Clique
+            // 2. RESERVAR / DELETAR (DblClick)
             seat.addEventListener('dblclick', (e) => {
                 e.stopPropagation();
-                e.preventDefault();
-
-                // DIAGNÓSTICO: Se aparecer isso, o clique funciona.
-                alert('Duplo Clique Recebido!');
-
-                if (seat.classList.contains('occupied')) {
-                    const dono = seat.dataset.user || 'Alguém';
-                    if (confirm(`Mesa de ${dono}. Liberar?`)) {
-                        seat.classList.remove('occupied');
-                        seat.dataset.user = '';
-                        saveConfiguration();
-                    }
+                // Se segurar SHIFT, apaga a mesa
+                if (e.shiftKey) {
+                    if (confirm('Apagar mesa ' + id + '?')) seat.remove();
                 } else {
-                    let nome = '';
-                    if (Array.isArray(jiraUsers) && jiraUsers.length > 0) {
-                        nome = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
-                        const found = jiraUsers.find(u => u.displayName.toLowerCase() === (nome || '').toLowerCase());
-                        if (found) nome = found.displayName;
-                    } else {
-                        nome = prompt('Digite seu nome para reservar:');
-                    }
-
-                    if (nome) {
-                        seat.classList.add('occupied');
-                        seat.classList.remove('available');
-                        seat.dataset.user = nome;
-                        saveConfiguration();
-                    }
+                    // Teste de Reserva
+                    toggleReservation(seat);
                 }
             });
-
-            // Tooltips
-            seat.addEventListener('mouseenter', (e) => {
-                let text = `Mesa ${id}`;
-                if (status === 'occupied') {
-                    text += `\nReservado: ${seat.dataset.user || '?'}`;
-                } else {
-                    text += ' - Livre';
-                }
-                showTooltip(e, text);
-            });
-            seat.addEventListener('mouseleave', hideTooltip);
 
             container.appendChild(seat);
         }
 
-        // === DRAG GLOBAL (ADMIN) ===
+        // Movimento do Drag
         document.addEventListener('mousemove', (e) => {
-            if (!activeSeat || !isEditMode) return;
+            if (!activeSeat) return;
             e.preventDefault();
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
@@ -338,13 +215,35 @@
 
         document.addEventListener('mouseup', () => {
             if (activeSeat) {
-                activeSeat.classList.remove('moving');
+                activeSeat.style.zIndex = 1000; // Volta z-index normal
                 activeSeat = null;
-                saveConfiguration();
+                // Auto-save opcional
+                // saveConfiguration(); 
             }
         });
 
-        // === PERSISTÊNCIA SIMPLES ===
+        // Toggle Reserva (Lógica da V7)
+        function toggleReservation(seat) {
+            if (seat.classList.contains('occupied')) {
+                const dono = seat.dataset.user || 'Alguém';
+                if (confirm(`Liberar mesa de ${dono}?`)) {
+                    seat.classList.remove('occupied');
+                    seat.dataset.user = '';
+                }
+            } else {
+                let nome = prompt("Reservar para quem?");
+                if (nome) {
+                    // Auto-complete tosco só pra ajudar
+                    const found = jiraUsers.find(u => u.displayName.toLowerCase().includes(nome.toLowerCase()));
+                    if (found) nome = found.displayName;
+
+                    seat.classList.add('occupied');
+                    seat.dataset.user = nome;
+                }
+            }
+            saveConfiguration();
+        }
+
         function saveConfiguration() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
@@ -357,61 +256,39 @@
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
+
+            // Botão feedback
+            const btn = document.querySelector('.btn-success');
+            const txt = btn.innerText;
+            btn.innerText = "Salvo!";
+            setTimeout(() => btn.innerText = txt, 1000);
         }
 
         function loadSeats() {
-            const savedSeats = localStorage.getItem('of_seats_config_v2');
-            if (savedSeats) {
-                try {
-                    const seats = JSON.parse(savedSeats);
-                    if (seats.length === 0) return false;
-                    seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user));
-                    const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
-                    seatCounter = maxId + 1;
-                    return true;
-                } catch (e) { return false; }
+            const data = localStorage.getItem('of_seats_config_v2');
+            if (data) {
+                const arr = JSON.parse(data);
+                arr.forEach(s => createSeat(s.id, s.x, s.y, s.status, s.user));
+                if (arr.length > 0) seatCounter = Math.max(...arr.map(s => parseInt(s.id))) + 1;
             }
-            return false;
         }
 
-        function clearAllSeats() {
-            if (confirm("Apagar TUDO?")) {
-                document.querySelectorAll('.seat').forEach(e => e.remove());
-                seatCounter = 1;
+        function clearAll() {
+            if (confirm("Apagar todas as mesas?")) {
                 localStorage.removeItem('of_seats_config_v2');
+                location.reload();
             }
         }
 
-        // === UI UTILS ===
-        function toggleMode(mode) {
-            isEditMode = mode;
-            const editControls = document.getElementById('edit-controls');
-            const instructions = document.getElementById('instructions-text');
-
-            if (isEditMode) {
-                editControls.style.display = 'flex';
-                instructions.innerHTML = '🔧 <b>ADMIN:</b> DblClick cria/apaga. Drag move.';
-                document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'grab');
-            } else {
-                editControls.style.display = 'none';
-                instructions.innerHTML = '👉 <b>Dê DOIS CLIQUES RÁPIDOS</b> na mesa rosa para reservar.';
-                document.querySelectorAll('.seat').forEach(s => s.style.cursor = 'pointer');
-            }
+        function createSeatCenter() {
+            createSeat(seatCounter++, 100, 100);
         }
 
-        function addSeatCenter() {
-            createSeatElement(seatCounter++, 100, 100, 'available');
-        }
-
-        function showTooltip(e, text) {
-            tooltip.style.display = 'block';
-            tooltip.innerText = text;
-            tooltip.style.left = (e.clientX + 15) + 'px';
-            tooltip.style.top = (e.clientY + 15) + 'px';
-        }
-
-        function hideTooltip() {
-            tooltip.style.display = 'none';
+        async function fetchJiraUsers() {
+            try {
+                const r = await fetch(WORKER_URL + '/users?type=users');
+                if (r.ok) jiraUsers = await r.json();
+            } catch (e) { }
         }
     </script>
 </body>

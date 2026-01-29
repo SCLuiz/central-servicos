@@ -147,8 +147,7 @@
 
     <div class="instructions">
         <span id="welcome-msg" style="font-weight: bold; color: #0052cc;"></span><br>
-        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Duplo-Clique na MESA</b> para reservar. <b>Arrastar</b> para
-        ajustar.
+        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Duplo-Clique na MESA</b> para reservar.
     </div>
 
     <div id="viewport">
@@ -185,7 +184,10 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            monitor('Iniciando sistema...', 'info');
+            // === RESET TOTAL (A PEDIDO DO USUÁRIO) ===
+            localStorage.removeItem('of_seats_config_v2');
+            monitor('Memória limpa! Sistema pronto para começar do zero.', 'action');
+            // ==========================================
 
             // Check Login
             currentUser = localStorage.getItem('userName');
@@ -196,7 +198,6 @@
                 monitor(`Usuário Logado: ${currentUser}`, 'success');
             } else {
                 msgEl.innerText = "Modo Visitante";
-                monitor('Nenhum login (Modo Visitante)', 'action');
             }
 
             if (mapImg.complete) init();
@@ -211,7 +212,7 @@
         function init() {
             container.style.width = mapImg.naturalWidth + "px";
             container.style.height = mapImg.naturalHeight + "px";
-            monitor(`Mapa OK: ${mapImg.naturalWidth}x${mapImg.naturalHeight}`, 'info');
+            monitor(`Mapa OK. Pode criar sua primeira mesa!`, 'info');
             loadSeats();
 
             container.addEventListener('dblclick', (e) => {
@@ -219,7 +220,7 @@
                 const rect = container.getBoundingClientRect();
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
-                monitor('Nova mesa criada!', 'action');
+                monitor(`Criando Mesa ${seatCounter}...`, 'action');
                 createSeat(seatCounter++, x, y);
             });
         }
@@ -234,9 +235,9 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // --- EVENTOS DE INTERAÇÃO (CRÍTICOS) ---
+            // --- EVENTOS ---
 
-            // 1. Mousedown = Arrastar
+            // Arrastar
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
                 e.preventDefault();
@@ -248,23 +249,21 @@
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
                 seat.style.zIndex = 999999;
-                monitor(`Arrastando mesa ${id}...`, 'info');
+                monitor(`Movendo mesa ${id}...`, 'info');
             });
 
-            // 2. DblClick = Reservar ou Deletar
+            // Reservar / Deletar
             seat.addEventListener('dblclick', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
                 if (e.shiftKey) {
-                    // SHIFT + CLICK = DELETAR
                     if (confirm(`Apagar mesa ${id}?`)) {
                         seat.remove();
                         monitor(`Mesa ${id} removida.`, 'error');
                         saveConfiguration();
                     }
                 } else {
-                    // NORMAL CLICK = RESERVAR
                     toggleReservation(seat);
                 }
             });
@@ -278,7 +277,7 @@
             if (seat.dataset.user) seat.title += ` - Reservado por: ${seat.dataset.user}`;
         }
 
-        // --- MOVIMENTO DO MOUSE GLOBAL ---
+        // --- MOUSE ---
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
             e.preventDefault();
@@ -343,21 +342,9 @@
         }
 
         function loadSeats() {
-            const data = localStorage.getItem('of_seats_config_v2');
-            if (data) {
-                try {
-                    // LIMPEZA CRÍTICA: Remove duplicatas visuais
-                    document.querySelectorAll('.seat').forEach(e => e.remove());
-
-                    const arr = JSON.parse(data);
-                    arr.forEach(s => createSeat(s.id, s.x, s.y, s.status, s.user));
-
-                    if (arr.length > 0) seatCounter = Math.max(...arr.map(s => parseInt(s.id) || 0)) + 1;
-                    monitor(`${arr.length} mesas recarregadas e ATIVAS.`, 'success');
-                } catch (e) {
-                    monitor('Erro na carga de dados.', 'error');
-                }
-            }
+            // Nesta versão de RESET, esta função apenas garante que não criamos nada antigo
+            // Tudo começa do zero
+            seatCounter = 1;
         }
 
         function clearAll() {

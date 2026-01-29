@@ -105,6 +105,7 @@
         .seat:hover {
             transform: scale(1.1);
             z-index: 99999;
+            border-color: yellow;
         }
 
         .seat.occupied {
@@ -123,12 +124,21 @@
 
 <body>
 
+    <!-- MONITOR DE SISTEMA (RESPOSTA AO USUÁRIO) -->
+    <div id="system-monitor"
+        style="position: fixed; top: 10px; right: 10px; width: 300px; height: 400px; background: rgba(0,0,0,0.85); color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; border-radius: 8px; z-index: 9999999; overflow-y: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); pointer-events: none;">
+        <div
+            style="border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 5px; font-weight: bold; color: #fff;">
+            MONITOR DE EVENTOS (LOGS)
+        </div>
+        <div id="log-content"></div>
+    </div>
+
     <div class="controls">
         <a href="facilities.html" class="btn btn-secondary"
             style="text-decoration: none; display: flex; align-items: center;">← Voltar</a>
         <h2 style="margin:0; margin-right:15px; color:#0052cc;">Reserva de Mesas</h2>
         <div style="border-left: 1px solid #ccc; padding-left: 15px; display: flex; gap: 10px;">
-            <!-- Botões de Admin apenas visualmente separados -->
             <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
             <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
             <button class="btn btn-danger" onclick="clearAll()">🗑️ Limpar</button>
@@ -137,8 +147,8 @@
 
     <div class="instructions">
         <span id="welcome-msg" style="font-weight: bold; color: #0052cc;"></span><br>
-        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Arraste</b> para mover. <b>Duplo-Clique na MESA</b> para
-        reservar.
+        <b>Duplo-Clique no MAPA</b> cria mesa nova. <b>Duplo-Clique na MESA</b> para reservar. (Use o painel ao lado
+        para ver se funcionou)
     </div>
 
     <div id="viewport">
@@ -148,10 +158,25 @@
     </div>
 
     <script>
+        // === FERRAMENTA DE LOGS ===
+        function monitor(msg, type = 'info') {
+            const el = document.getElementById('log-content');
+            const line = document.createElement('div');
+            const time = new Date().toLocaleTimeString();
+            line.innerHTML = `<span style="color:#888">[${time}]</span> ${msg}`;
+
+            if (type === 'error') line.style.color = '#ff3333';
+            if (type === 'success') line.style.color = '#00ff00';
+            if (type === 'action') line.style.color = '#ffff00';
+
+            el.insertBefore(line, el.firstChild);
+            console.log(`[MONITOR] ${msg}`);
+        }
+
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
         let seatCounter = 1;
-        let currentUser = null; // Usuário logado
+        let currentUser = null;
 
         // Drag Variables
         let activeSeat = null;
@@ -161,39 +186,46 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // 1. Check Login
+            monitor('Iniciando sistema...', 'info');
+
+            // Teste de Memória e Autenticação
             currentUser = localStorage.getItem('userName');
             const msgEl = document.getElementById('welcome-msg');
 
             if (currentUser) {
                 msgEl.innerText = `Olá, ${currentUser}!`;
+                monitor(`Usuário Logado: ${currentUser}`, 'success');
             } else {
-                msgEl.innerText = "Modo Visitante (Login não detectado)";
-                // Não bloqueio, mas aviso
+                msgEl.innerText = "Modo Visitante";
+                monitor('Nenhum login detectado (Modo Visitante)', 'action');
             }
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
 
-            // Jira users só pra ter base
-            fetch(WORKER_URL + '/users?type=users').then(r => r.json()).then(d => {
-                if (Array.isArray(d)) jiraUsers = d;
-            }).catch(e => { });
+            fetch(WORKER_URL + '/users?type=users')
+                .then(r => r.json())
+                .then(d => {
+                    if (Array.isArray(d)) {
+                        jiraUsers = d;
+                        monitor(`Jira: ${d.length} usuários carregados.`, 'info');
+                    }
+                })
+                .catch(e => monitor('Jira: Offline (sem sugestões)', 'error'));
         };
 
         function init() {
             container.style.width = mapImg.naturalWidth + "px";
             container.style.height = mapImg.naturalHeight + "px";
+            monitor(`Mapa carregado: ${mapImg.naturalWidth}x${mapImg.naturalHeight}`, 'info');
             loadSeats();
 
-            // CRIA MESA (Duplo clique no fundo)
             container.addEventListener('dblclick', (e) => {
                 if (e.target !== container && e.target !== mapImg) return;
-
                 const rect = container.getBoundingClientRect();
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
-
+                monitor('Criando nova mesa...', 'action');
                 createSeat(seatCounter++, x, y);
             });
         }
@@ -208,9 +240,8 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // 1. ARRASTAR (Mousedown)
             seat.addEventListener('mousedown', (e) => {
-                if (e.button !== 0) return; // Só botão esquerdo
+                if (e.button !== 0) return;
                 e.stopPropagation();
                 activeSeat = seat;
                 startX = e.clientX;
@@ -218,26 +249,32 @@
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
                 seat.style.zIndex = 999999;
+                monitor(`Movendo mesa ${id}...`, 'info');
             });
 
-            // 2. RESERVAR (DblClick)
             seat.addEventListener('dblclick', (e) => {
                 e.stopPropagation();
+                monitor(`Duplo-Clique na Mesa ${id}`, 'action');
                 if (e.shiftKey) {
-                    if (confirm('Apagar esta mesa?')) seat.remove();
+                    if (confirm('Apagar esta mesa?')) {
+                        seat.remove();
+                        monitor(`Mesa ${id} removida.`, 'error');
+                        saveConfiguration();
+                    }
                 } else {
                     toggleReservation(seat);
                 }
             });
 
-            // Tooltip nativo simples
-            seat.title = `Mesa ${id}`;
-            if (user) seat.title += ` - Reservado por: ${user}`;
-
+            updateTooltip(seat);
             container.appendChild(seat);
         }
 
-        // Movimento do Drag Global
+        function updateTooltip(seat) {
+            seat.title = `Mesa ${seat.dataset.id}`;
+            if (seat.dataset.user) seat.title += ` - Reservado por: ${seat.dataset.user}`;
+        }
+
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
             e.preventDefault();
@@ -249,36 +286,39 @@
 
         document.addEventListener('mouseup', () => {
             if (activeSeat) {
+                // monitor(`Posição mesa ${activeSeat.dataset.id} finalizada.`, 'info');
                 activeSeat.style.zIndex = 1000;
                 activeSeat = null;
             }
         });
 
-        // LÓGICA DE RESERVA (INTELIGENTE)
         function toggleReservation(seat) {
-
             if (seat.classList.contains('occupied')) {
-                // LIBERAÇÃO
                 const dono = seat.dataset.user || 'Alguém';
-                // Se for o mesmo usuário ou admin (aqui todo mundo é admin), libera
-                if (confirm(`Mesa ocupada por: ${dono}.\nLiberar assento?`)) {
+                monitor(`Tentando liberar mesa de ${dono}...`, 'action');
+
+                if (confirm(`Mesa de: ${dono}.\nLiberar?`)) {
                     seat.classList.remove('occupied');
                     seat.dataset.user = '';
-                    seat.title = `Mesa ${seat.dataset.id}`;
+                    updateTooltip(seat);
+                    monitor('Mesa liberada com sucesso!', 'success');
+                } else {
+                    monitor('Liberação cancelada.', 'info');
                 }
             } else {
-                // RESERVA
-                let nomeParaReserva = currentUser;
+                let nome = currentUser;
+                monitor(`Iniciando reserva para: ${nome || 'Visitante'}`, 'action');
 
-                if (nomeParaReserva) {
-                    // Confirmação rápida
-                    if (confirm(`Reservar mesa para ${nomeParaReserva}?`)) {
-                        doReserve(seat, nomeParaReserva);
+                if (nome) {
+                    if (confirm(`Reservar para ${nome}?`)) {
+                        doReserve(seat, nome);
+                    } else {
+                        monitor('Reserva cancelada pelo usuário.', 'info');
                     }
                 } else {
-                    // Manual
-                    const input = prompt("Digite seu nome para reservar:");
-                    if (input) doReserve(seat, input);
+                    nome = prompt("Digite seu nome:");
+                    if (nome) doReserve(seat, nome);
+                    else monitor('Reserva cancelada (nome vazio).', 'info');
                 }
             }
             saveConfiguration();
@@ -287,22 +327,27 @@
         function doReserve(seat, name) {
             seat.classList.add('occupied');
             seat.dataset.user = name;
-            seat.title = `Mesa ${seat.dataset.id} - ${name}`;
+            updateTooltip(seat);
+            monitor(`Mesa reservada para ${name}!`, 'success');
         }
 
         function saveConfiguration() {
-            const seats = [];
-            document.querySelectorAll('.seat').forEach(s => {
-                seats.push({
-                    id: s.dataset.id,
-                    x: parseInt(s.style.left),
-                    y: parseInt(s.style.top),
-                    status: s.classList.contains('occupied') ? 'occupied' : 'available',
-                    user: s.dataset.user || null
+            try {
+                const seats = [];
+                document.querySelectorAll('.seat').forEach(s => {
+                    seats.push({
+                        id: s.dataset.id,
+                        x: parseInt(s.style.left),
+                        y: parseInt(s.style.top),
+                        status: s.classList.contains('occupied') ? 'occupied' : 'available',
+                        user: s.dataset.user || null
+                    });
                 });
-            });
-            localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-            alert('Configuração Salva!');
+                localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
+                monitor('Dados salvos no navegador.', 'success');
+            } catch (e) {
+                monitor('ERRO CRÍTICO AO SALVAR: ' + e.message, 'error');
+            }
         }
 
         function loadSeats() {
@@ -312,19 +357,26 @@
                     const arr = JSON.parse(data);
                     arr.forEach(s => createSeat(s.id, s.x, s.y, s.status, s.user));
                     if (arr.length > 0) seatCounter = Math.max(...arr.map(s => parseInt(s.id) || 0)) + 1;
-                } catch (e) { }
+                    monitor(`${arr.length} mesas recuperadas da memória.`, 'success');
+                } catch (e) {
+                    monitor('Erro ao ler memória (dados corrompidos?)', 'error');
+                }
+            } else {
+                monitor('Nenhuma configuração salva encontrada.', 'info');
             }
         }
 
         function clearAll() {
-            if (confirm("Tem certeza? Isso apaga todas as mesas.")) {
+            if (confirm("Tem certeza? Isso apaga todas as mesas e limpa a memória.")) {
                 localStorage.removeItem('of_seats_config_v2');
+                monitor('Memória limpa. Recarregando...', 'action');
                 location.reload();
             }
         }
 
         function createSeatCenter() {
             createSeat(seatCounter++, 150, 150);
+            monitor('Mesa criada no centro.', 'action');
         }
     </script>
 </body>

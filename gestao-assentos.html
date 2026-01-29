@@ -426,13 +426,15 @@
                 instructions.innerHTML = '⚡ <b>Modo ADMIN:</b> Clique 2x no mapa para criar. Clique 2x na mesa para apagar. Arraste para mover.';
             } else {
                 editControls.style.display = 'none';
-                // Simplifica: usuário não precisa de botões, só clica na mesa
-                viewControls.style.display = 'none';
+                // Fallback: mostra botão de confirmar
+                viewControls.style.display = 'flex';
                 instructions.style.display = 'block';
-                instructions.innerHTML = '👉 <b>Clique duas vezes</b> em uma mesa rosa para reservar.';
-            }
+                instructions.innerHTML = '👉 <b>Clique</b> para selecionar ou <b>Clique Duplo</b> para reservar direto.';
+            } instructions.style.display = 'block';
+            instructions.innerHTML = '👉 <b>Clique duas vezes</b> em uma mesa rosa para reservar.';
+        }
 
-            updateAllSeatsCursor();
+        updateAllSeatsCursor();
         }
 
         function updateAllSeatsCursor() {

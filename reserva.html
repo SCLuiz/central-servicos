@@ -124,27 +124,57 @@
             transform: translateX(-3px);
         }
 
-        /* CONTROLS */
+        /* CONTROLS (AGORA COM DATA) */
         .controls-bar {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto 30px;
             background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
+            padding: 15px 25px;
             border-radius: 50px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
+        /* DATA INPUT STYLE */
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f0f2f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #dfe1e6;
+        }
+
+        .date-label {
+            font-weight: 600;
+            color: #42526E;
+            font-size: 14px;
+        }
+
+        input[type="date"] {
+            border: none;
+            background: transparent;
+            font-family: 'Inter';
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ds-text);
+            outline: none;
+            cursor: pointer;
+        }
+
         .btn {
-            padding: 10px 25px;
+            padding: 10px 20px;
             border: none;
             border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             color: white;
             transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 13px;
         }
 
         .btn:hover {
@@ -164,7 +194,7 @@
             background: #ff5630;
         }
 
-        /* VIEWPORT CLEAN */
+        /* VIEWPORT */
         #viewport {
             width: 100%;
             display: flex;
@@ -207,8 +237,10 @@
             z-index: 100;
             user-select: none;
             line-height: 24px;
+            transition: background-color 0.3s;
         }
 
+        /* Cor de ocupado varia? Por enquanto mantemos padrão */
         .seat.occupied {
             background-color: #ff5630;
         }
@@ -235,9 +267,17 @@
     </div>
 
     <div class="controls-bar">
-        <button class="btn btn-primary" onclick="createSeatCenter()">+ Adicionar Mesa</button>
-        <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Layout</button>
-        <button class="btn btn-danger" onclick="clearAll()">🗑️ Resetar</button>
+        <!-- SELETOR DE DATA -->
+        <div class="date-input-group">
+            <span class="date-label">📅 Data:</span>
+            <input type="date" id="reservation-date">
+        </div>
+
+        <div style="width: 1px; height: 30px; background: #dfe1e6; margin: 0 10px;"></div>
+
+        <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
+        <button class="btn btn-success" onclick="saveLayout()">💾 Salvar Layout</button>
+        <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
     </div>
 
     <div id="viewport">
@@ -255,22 +295,31 @@
         let jiraUsers = [];
         let seatCounter = 1;
         let currentUser = null;
+        let currentDate = ''; // Data atual selecionada (YYYY-MM-DD)
 
-        // Estado
+        // Estado do Mouse
         let activeSeat = null;
         let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
 
+        // Elementos
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
+        const dateInput = document.getElementById('reservation-date');
 
         window.onload = () => {
             document.body.onselectstart = function () { return false; }
-
-            // ATENÇÃO: PERSISTÊNCIA ATIVADA
-            // O código anterior apagava, agora mantemos.
-            // localStorage.removeItem('of_seats_config_v2'); 
-
             currentUser = localStorage.getItem('userName');
+
+            // 1. Inicializa Data (Hoje)
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+            currentDate = today;
+
+            // 2. Listener de troca de data
+            dateInput.addEventListener('change', (e) => {
+                currentDate = e.target.value;
+                updateMapVisuals(); // Recarrega mapinha para a nova data
+            });
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
@@ -279,11 +328,12 @@
         };
 
         function init() {
-            container.style.width = mapImg.naturalWidth + "px"; // Garante sistema de coordenas 1:1
+            container.style.width = mapImg.naturalWidth + "px";
             container.style.height = mapImg.naturalHeight + "px";
 
-            loadConfig(); // Carrega do LocalStorage
+            loadLayoutAndReservations();
 
+            // Eventos de Mapa
             container.addEventListener('dblclick', (e) => {
                 e.preventDefault();
                 if (e.target !== container && e.target !== mapImg) return;
@@ -296,9 +346,14 @@
             mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
+        // --- CORE LÓGICA DE MESAS ---
+
         function createSeat(id, x, y, status = 'available', user = null) {
             const seat = document.createElement('div');
-            seat.className = `seat ${status === 'occupied' ? 'occupied' : ''}`;
+            // Nota: Status agora é visual, calculado dinamicamente
+            seat.className = 'seat';
+            if (status === 'occupied') seat.classList.add('occupied');
+
             seat.id = 'seat-' + id;
             seat.innerText = id;
             seat.style.left = x + 'px';
@@ -306,6 +361,7 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
+            // Drag
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
                 e.stopPropagation();
@@ -315,7 +371,7 @@
                 seat.style.zIndex = 999999;
             });
 
-            // Smart Click V16
+            // Smart Click
             let clicks = 0;
             let timer = null;
             seat.addEventListener('click', (e) => {
@@ -325,9 +381,9 @@
                     timer = setTimeout(() => { clicks = 0; toggleReservation(seat); }, 250);
                 } else {
                     clearTimeout(timer); clicks = 0;
-                    if (confirm(`Excluir Mesa ${id}?`)) {
+                    if (confirm(`Excluir Mesa ${id} do Layout?`)) {
                         seat.remove();
-                        saveConfiguration(false); // Salva silenciosamente ao excluir
+                        saveLayout(false); // Salva mudança estrutural
                     }
                     if (window.getSelection) { window.getSelection().removeAllRanges(); }
                 }
@@ -347,27 +403,73 @@
         });
 
         document.addEventListener('mouseup', () => {
-            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; }
+            if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveLayout(false); }
         });
 
-        function toggleReservation(seat) {
-            if (seat.classList.contains('occupied')) {
-                const dono = seat.dataset.user || 'Alguém';
-                if (confirm(`Liberar ${dono}?`)) {
-                    seat.classList.remove('occupied');
-                    seat.dataset.user = '';
-                }
-            } else {
-                let nome = currentUser || prompt("Nome da reserva:");
-                if (nome && confirm(`Reservar para ${nome}?`)) {
-                    seat.classList.add('occupied');
-                    seat.dataset.user = nome;
-                }
-            }
-            saveConfiguration(false); // Salva state da reserva
+
+        // --- LÓGICA DE RESERVA DIÁRIA ---
+
+        function getDailyReservations() {
+            // Retorna objeto: { '2025-10-01': { '1': 'Luiz' }, ... }
+            const data = localStorage.getItem('of_reservations_db');
+            return data ? JSON.parse(data) : {};
         }
 
-        function saveConfiguration(alertUser = true) {
+        function saveDailyReservations(db) {
+            localStorage.setItem('of_reservations_db', JSON.stringify(db));
+        }
+
+        function toggleReservation(seat) {
+            const seatId = seat.dataset.id;
+            const db = getDailyReservations();
+
+            // Garante que existe entrada para o dia
+            if (!db[currentDate]) db[currentDate] = {};
+
+            const dayReservations = db[currentDate];
+            const currentOwner = dayReservations[seatId];
+
+            if (currentOwner) {
+                // LIBERAR
+                if (confirm(`Liberar mesa ${seatId} de ${currentOwner} no dia ${formatDate(currentDate)}?`)) {
+                    delete dayReservations[seatId];
+                    saveDailyReservations(db);
+                    updateMapVisuals(); // Atualiza cor
+                }
+            } else {
+                // RESERVAR
+                let nome = currentUser || prompt("Nome da reserva:");
+                if (nome && confirm(`Reservar mesa ${seatId} para ${nome} no dia ${formatDate(currentDate)}?`)) {
+                    dayReservations[seatId] = nome;
+                    saveDailyReservations(db);
+                    updateMapVisuals(); // Atualiza cor
+                }
+            }
+        }
+
+        function updateMapVisuals() {
+            const db = getDailyReservations();
+            const dayReservations = db[currentDate] || {};
+
+            document.querySelectorAll('.seat').forEach(seat => {
+                const seatId = seat.dataset.id;
+                const owner = dayReservations[seatId];
+
+                if (owner) {
+                    seat.classList.add('occupied');
+                    seat.dataset.user = owner;
+                    seat.title = `Mesa ${seatId}: ${owner}`;
+                } else {
+                    seat.classList.remove('occupied');
+                    seat.dataset.user = '';
+                    seat.title = `Mesa ${seatId}: Livre`;
+                }
+            });
+        }
+
+        // --- GESTÃO DE LAYOUT (POSIÇÕES) ---
+
+        function saveLayout(alertUser = true) {
             const seats = [];
             let maxId = 0;
             document.querySelectorAll('.seat').forEach(s => {
@@ -376,37 +478,60 @@
                 seats.push({
                     id: s.dataset.id,
                     x: parseInt(s.style.left),
-                    y: parseInt(s.style.top),
-                    status: s.classList.contains('occupied') ? 'occupied' : 'available',
-                    user: s.dataset.user || null
+                    y: parseInt(s.style.top)
                 });
             });
-            localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-            if (alertUser) alert('Layout e Reservas Salvos com Sucesso!');
+            localStorage.setItem('of_layout_v1', JSON.stringify(seats));
+            if (alertUser) alert('Layout Salvo!');
         }
 
-        function loadConfig() {
-            const data = localStorage.getItem('of_seats_config_v2');
-            if (data) {
-                const seats = JSON.parse(data);
+        function loadLayoutAndReservations() {
+            // Tenta carregar o layout NOVO (apenas posições)
+            const layoutData = localStorage.getItem('of_layout_v1');
+
+            if (layoutData) {
+                const positions = JSON.parse(layoutData);
                 let maxId = 0;
-                seats.forEach(s => {
-                    createSeat(s.id, s.x, s.y, s.status, s.user);
-                    let idNum = parseInt(s.id);
+                positions.forEach(p => {
+                    createSeat(p.id, p.x, p.y);
+                    let idNum = parseInt(p.id);
                     if (idNum > maxId) maxId = idNum;
                 });
                 seatCounter = maxId + 1;
+            } else {
+                // Tenta importar do legado (of_seats_config_v2) na primeira vez
+                const oldData = localStorage.getItem('of_seats_config_v2');
+                if (oldData) {
+                    const oldSeats = JSON.parse(oldData);
+                    let maxId = 0;
+                    oldSeats.forEach(s => {
+                        createSeat(s.id, s.x, s.y); // Ignora status antigo, pois agora é por dia
+                        let idNum = parseInt(s.id);
+                        if (idNum > maxId) maxId = idNum;
+                    });
+                    seatCounter = maxId + 1;
+                }
             }
+
+            // Depois de criar as mesas, aplica as cores do dia atual
+            updateMapVisuals();
         }
 
         function clearAll() {
-            if (confirm("ATENÇÃO: Isso apagará TODO o layout salvo. Continuar?")) {
-                localStorage.removeItem('of_seats_config_v2');
+            if (confirm("ATENÇÃO: Isso apagará o LAYOUT (mesas) e TODAS as reservas. Continuar?")) {
+                localStorage.removeItem('of_layout_v1');
+                localStorage.removeItem('of_reservations_db');
+                localStorage.removeItem('of_seats_config_v2'); // limpa legado
                 location.reload();
             }
         }
 
         function createSeatCenter() { createSeat(seatCounter++, 100, 100); }
+
+        function formatDate(dateStr) {
+            const parts = dateStr.split('-');
+            return `${parts[2]}/${parts[1]}`;
+        }
     </script>
 </body>
 

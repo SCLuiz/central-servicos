@@ -188,11 +188,11 @@
             padding-bottom: 60px;
         }
 
-        /* MAPA PURO E LIMPO */
         #map-container {
             position: relative;
             display: inline-block;
             line-height: 0;
+            transition: opacity 0.2s;
         }
 
         #office-map {
@@ -272,12 +272,17 @@
     </div>
 
     <script>
+        // BACKEND REAL (CLOUD)
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+
+        // Estado
         let seatCounter = 1;
         let currentUser = null;
         let currentDate = '';
         let activeSeat = null;
         let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+        // Elementos
         const container = document.getElementById('map-container');
         const mapImg = document.getElementById('office-map');
         const dateInput = document.getElementById('reservation-date');
@@ -291,14 +296,8 @@
             currentDate = today;
 
             dateInput.addEventListener('change', (e) => {
-                const newDate = e.target.value;
-                // Força um pequeno reflow visual para garantir que o usuário perceba a troca
-                container.style.opacity = '0.5';
-                setTimeout(() => {
-                    currentDate = newDate;
-                    loadDayData();
-                    container.style.opacity = '1';
-                }, 150);
+                currentDate = e.target.value;
+                loadDayData(); // Carrega da Nuvem
             });
 
             if (mapImg.complete) init(); else mapImg.onload = init;
@@ -320,18 +319,38 @@
             mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
-        // --- CORE: DATA MANAGEMENT ---
+        // --- CORE: CLOUD DATA MANAGEMENT (V24) ---
 
-        function getAllData() {
-            const data = localStorage.getItem('of_daily_data_v1');
-            return data ? JSON.parse(data) : {};
+        async function fetchDayData(date) {
+            try {
+                showLoading(true);
+                const res = await fetch(`${WORKER_URL}/reservations?date=${date}`);
+                if (!res.ok) throw new Error('Erro ao carregar');
+                const data = await res.json();
+                return Array.isArray(data) ? data : [];
+            } catch (e) {
+                console.error(e);
+                alert('Erro de conexão: ' + e.message);
+                return [];
+            } finally {
+                showLoading(false);
+            }
         }
 
-        function saveAllData(db) {
-            localStorage.setItem('of_daily_data_v1', JSON.stringify(db));
+        async function saveRemote(date, seats) {
+            try {
+                // Salva na nuvem
+                await fetch(`${WORKER_URL}/reservations`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ date, seats })
+                });
+            } catch (e) {
+                console.error('Falha ao salvar online', e);
+            }
         }
 
-        function saveCurrentState() {
+        async function saveCurrentState() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
                 seats.push({
@@ -341,50 +360,53 @@
                     user: s.dataset.user || ''
                 });
             });
-            const db = getAllData();
-            db[currentDate] = seats;
-            saveAllData(db);
 
-            // Esconde msg de vazio se tiver mesas
-            const msg = document.getElementById('empty-msg-overlay');
-            if (msg) msg.style.display = seats.length === 0 ? 'block' : 'none';
+            checkEmptyState(seats.length);
+            await saveRemote(currentDate, seats); // Salva Async
         }
 
-        function loadDayData() {
-            // 1. REMOVE TUDO (Reset Visual Completo)
-            const oldSeats = document.querySelectorAll('.seat');
-            oldSeats.forEach(s => s.remove());
+        async function loadDayData() {
+            // 1. Limpa Tela
+            document.querySelectorAll('.seat').forEach(s => s.remove());
 
-            // 2. Carrega Dados
-            const db = getAllData();
-            const dailySeats = db[currentDate] || [];
+            // 2. Busca da Nuvem
+            const dailySeats = await fetchDayData(currentDate);
 
-            // 3. Feedback Visual "Vazio"
+            // 3. Renderiza
+            checkEmptyState(dailySeats.length);
+
+            let maxId = 0;
+            dailySeats.forEach(data => {
+                createSeatElement(data.id, data.x, data.y, data.user);
+                let idNum = parseInt(data.id);
+                if (idNum > maxId) maxId = idNum;
+            });
+            seatCounter = maxId + 1;
+        }
+
+        // --- VISUAL ELEMENTS ---
+
+        function checkEmptyState(count) {
             let emptyMsg = document.getElementById('empty-msg-overlay');
             if (!emptyMsg) {
                 emptyMsg = document.createElement('div');
                 emptyMsg.id = 'empty-msg-overlay';
                 emptyMsg.style.cssText = "position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.95); padding:20px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); text-align:center; pointer-events:none; z-index:500; min-width:200px;";
-                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Layout Vazio</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Dia novo!<br>Adicione mesas para começar.</p>';
+                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Dia Limpo</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Carregando...</p>';
                 container.appendChild(emptyMsg);
             }
-
-            if (dailySeats.length === 0) {
+            if (count === 0) {
                 emptyMsg.style.display = 'block';
-                seatCounter = 1;
+                emptyMsg.innerHTML = '<h3 style="color:#555; margin:0; font-size:18px;">Layout Vazio</h3><p style="margin:5px 0 0; color:#888; font-size:14px;">Dia novo!<br>Adicione mesas para começar.</p>';
             } else {
                 emptyMsg.style.display = 'none';
-                let maxId = 0;
-                dailySeats.forEach(data => {
-                    createSeatElement(data.id, data.x, data.y, data.user);
-                    let idNum = parseInt(data.id);
-                    if (idNum > maxId) maxId = idNum;
-                });
-                seatCounter = maxId + 1;
             }
         }
 
-        // --- VISUAL ELEMENTS ---
+        function showLoading(show) {
+            container.style.opacity = show ? '0.5' : '1';
+            container.style.pointerEvents = show ? 'none' : 'auto';
+        }
 
         function createSeatElement(id, x, y, user = '') {
             const seat = document.createElement('div');
@@ -400,7 +422,9 @@
             seat.innerText = id;
             seat.style.left = x;
             seat.style.top = y;
+
             seat.addEventListener('mousedown', (e) => { if (e.button !== 0) return; e.stopPropagation(); activeSeat = seat; startX = e.clientX; startY = e.clientY; initialLeft = seat.offsetLeft; initialTop = seat.offsetTop; seat.style.zIndex = 999999; });
+
             let clicks = 0; let timer = null;
             seat.addEventListener('click', (e) => {
                 e.preventDefault(); e.stopPropagation(); clicks++;
@@ -423,7 +447,12 @@
         document.addEventListener('mousemove', (e) => { if (!activeSeat) return; e.preventDefault(); const dx = e.clientX - startX; const dy = e.clientY - startY; activeSeat.style.left = (initialLeft + dx) + 'px'; activeSeat.style.top = (initialTop + dy) + 'px'; });
         document.addEventListener('mouseup', () => { if (activeSeat) { activeSeat.style.zIndex = 100; activeSeat = null; saveCurrentState(); } });
 
-        function clearDay() { if (confirm(`Limpar layout do dia ${currentDate}?`)) { const db = getAllData(); delete db[currentDate]; saveAllData(db); loadDayData(); } }
+        async function clearDay() {
+            if (confirm(`Limpar layout do dia ${currentDate}?`)) {
+                await saveRemote(currentDate, []); // Salva array vazio na nuvem
+                loadDayData();
+            }
+        }
         function createSeatCenter() { createSeatElement(seatCounter++, '100px', '100px', ''); saveCurrentState(); }
     </script>
 </body>

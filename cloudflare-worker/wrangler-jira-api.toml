@@ -2,7 +2,15 @@ name = "jira-api-proxy"
 main = "worker-jira-api.js"
 compatibility_date = "2024-10-23"
 
-# Variáveis de ambiente (configurar via wrangler secret)
-# JIRA_URL = "https://openfinancebrasil.atlassian.net"
-# JIRA_EMAIL = "luiz.santos@openfinancebrasil.org.br"
-# JIRA_API_TOKEN = "seu_token_aqui"
+# Variáveis de ambiente (Jira)
+# [vars]
+# JIRA_URL = "..."
+
+# BINDING DO KV (BANCO DE DADOS)
+# Você precisa criar um namespace com: wrangler kv:namespace create "RESERVATIONS_KV"
+# E colar o ID abaixo em 'id' e o preview_id (se tiver).
+
+[[kv_namespaces]]
+binding = "RESERVATIONS_KV"
+id = "xxx_PLACEHOLDER_ID_xxx"
+preview_id = "xxx_PLACEHOLDER_PREVIEW_ID_xxx"

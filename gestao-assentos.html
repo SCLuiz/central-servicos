@@ -256,6 +256,15 @@
 
             // Carregar Usuários do Jira (Background)
             fetchJiraUsers();
+
+            // Checa se é admin pela URL (?mode=edit)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'edit') {
+                isEditMode = true;
+            } else {
+                isEditMode = false;
+            }
+            toggleMode(isEditMode); // Força o estado correto
         };
 
         async function fetchJiraUsers() {
@@ -342,18 +351,26 @@
                 initialTop = seat.offsetTop;
             });
 
-            // Duplo clique para excluir (Modo Edição)
+            // Lógica de Duplo Clique Unificada
             seat.addEventListener('dblclick', (e) => {
-                if (!isEditMode) return;
-                e.stopPropagation(); // Impede criação de nova mesa
-                seat.remove();
+                e.stopPropagation();
+
+                if (isEditMode) {
+                    // Admin: Exclui
+                    seat.remove();
+                } else {
+                    // User: Reserva Rápida
+                    if (seat.classList.contains('occupied')) return;
+                    selectSeat(seat); // Seleciona visualmente
+                    confirmReservation(); // Já abre o prompt
+                }
             });
 
-            // Evento de Clique para Seleção (Modo Reserva)
+            // Clique simples (apenas feedback visual no modo user)
             seat.addEventListener('click', (e) => {
-                if (isEditMode) return; // No modo edição, clique é ignorado (só drag importa)
+                if (isEditMode) return;
                 e.stopPropagation();
-                selectSeat(seat);
+                // selectSeat(seat); // Opcional, se quiser que fique verde ao clicar 1x
             });
 
             // Tooltips
@@ -392,27 +409,27 @@
 
         // --- LÓGICA DE MODO E RESERVA ---
 
-        function toggleMode() {
-            isEditMode = !isEditMode;
+        function toggleMode(forceState = null) {
+            // Se passou estado forçado, usa ele. Senão inverte.
+            if (forceState !== null) isEditMode = forceState;
+            else isEditMode = !isEditMode;
 
             const editControls = document.getElementById('edit-controls');
             const viewControls = document.getElementById('view-controls');
+            // Elemento de instruções removido para limpeza visual no modo user
             const instructions = document.getElementById('instructions-text');
 
             if (isEditMode) {
                 editControls.style.display = 'flex';
-                viewControls.style.display = 'none';
-                instructions.innerHTML = '⚡ <b>Dica Admin:</b> Clique DUAS VEZES em qualquer lugar do mapa para criar uma mesa lá instantaneamente. Arraste para mover.';
-
-                // Reset seleção
-                if (selectedSeat) {
-                    selectedSeat.classList.remove('selected');
-                    selectedSeat = null;
-                }
+                viewControls.style.display = 'none'; // Admin não precisa ver controles de user
+                instructions.style.display = 'block';
+                instructions.innerHTML = '⚡ <b>Modo ADMIN:</b> Clique 2x no mapa para criar. Clique 2x na mesa para apagar. Arraste para mover.';
             } else {
                 editControls.style.display = 'none';
-                viewControls.style.display = 'flex';
-                instructions.innerHTML = '👉 Clique em uma mesa azul para selecionar e confirme sua reserva.';
+                // Simplifica: usuário não precisa de botões, só clica na mesa
+                viewControls.style.display = 'none';
+                instructions.style.display = 'block';
+                instructions.innerHTML = '👉 <b>Clique duas vezes</b> em uma mesa rosa para reservar.';
             }
 
             updateAllSeatsCursor();

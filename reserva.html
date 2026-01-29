@@ -28,6 +28,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* BLOQUEIO GERAL DE SELEÇÃO */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .container {
@@ -37,7 +40,6 @@
             padding-bottom: 20px;
         }
 
-        /* HEADER BANNER - IMAGEM FIXA (Gerada por IA) */
         .header-banner {
             width: 100%;
             height: 250px;
@@ -69,7 +71,6 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        /* BARRA DE CONTROLES */
         .controls-bar {
             background: white;
             padding: 15px;
@@ -126,16 +127,27 @@
             max-width: 1400px;
             height: 70vh;
             position: relative;
+            /* SEGREDO ANTI-AZUL */
+            user-select: none;
+            -webkit-user-select: none;
+            outline: none;
         }
 
         #map-container {
             position: relative;
             display: inline-block;
+            outline: none;
         }
 
         #office-map {
             display: block;
-            pointer-events: none;
+            pointer-events: auto;
+            /* Permite clicar */
+            user-select: none;
+            /* Impede selecionar */
+            -webkit-user-drag: none;
+            /* Impede arrastar imagem */
+            user-drag: none;
         }
 
         .seat {
@@ -154,6 +166,7 @@
             font-size: 10px;
             font-weight: bold;
             z-index: 100;
+            user-select: none;
         }
 
         .seat:active {
@@ -168,7 +181,6 @@
             display: none;
         }
 
-        /* Oculto pois a imagem já tem texto */
         #system-monitor {
             display: none;
         }
@@ -178,12 +190,9 @@
 <body>
 
     <div class="container">
-        <!-- HEADER ONDE A IMAGEM FAZ O TRABALHO -->
         <div class="header-banner">
             <a href="facilities.html" class="back-button">← Voltar</a>
         </div>
-
-        <!-- BARRA DE CONTROLES -->
         <div class="controls-bar">
             <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
             <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
@@ -191,11 +200,10 @@
         </div>
     </div>
 
-    <!-- ÁREA DO MAPA -->
     <div id="viewport-wrapper">
         <div id="viewport">
             <div id="map-container">
-                <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
+                <img src="mapa-escritorio.png" id="office-map" alt="Mapa" onmousedown="return false">
             </div>
         </div>
     </div>
@@ -213,10 +221,13 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // RESET AUTOMÁTICO
+            // RESET (Início limpo)
             localStorage.removeItem('of_seats_config_v2');
 
             currentUser = localStorage.getItem('userName');
+
+            // PREVINE SELEÇÃO AO ARRASTAR NO CONTAINER
+            document.body.onselectstart = function () { return false; }
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
@@ -232,12 +243,24 @@
             container.style.height = mapImg.naturalHeight + "px";
             loadSeats();
 
+            // EVENTO DE CRIAÇÃO
             container.addEventListener('dblclick', (e) => {
+                // Impede que o dblclick selecione texto
+                e.preventDefault();
+
                 if (e.target !== container && e.target !== mapImg) return;
                 const rect = container.getBoundingClientRect();
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
                 createSeat(seatCounter++, x, y);
+
+                // Remove qualquer seleção acidental
+                if (window.getSelection) { window.getSelection().removeAllRanges(); }
+            });
+
+            // Bloqueio extra no mousedown do mapa
+            mapImg.addEventListener('mousedown', (e) => {
+                e.preventDefault(); // O segredo anti-seleção
             });
         }
 
@@ -262,6 +285,8 @@
 
             seat.addEventListener('dblclick', (e) => {
                 e.preventDefault(); e.stopPropagation();
+                if (window.getSelection) { window.getSelection().removeAllRanges(); } // Limpa seleção
+
                 if (e.shiftKey) {
                     if (confirm(`Apagar mesa ${id}?`)) seat.remove();
                 } else {
@@ -275,7 +300,7 @@
 
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
-            e.preventDefault();
+            e.preventDefault(); // Impede seleção enquanto arrasta
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
             activeSeat.style.left = (initialLeft + dx) + 'px';

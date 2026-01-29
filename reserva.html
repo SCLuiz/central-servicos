@@ -226,7 +226,7 @@
 
             currentUser = localStorage.getItem('userName');
 
-            // PREVINE SELEÇÃO AO ARRASTAR NO CONTAINER
+            // PREVINE SELEÇÃO GLOBAL
             document.body.onselectstart = function () { return false; }
 
             if (mapImg.complete) init();
@@ -243,25 +243,18 @@
             container.style.height = mapImg.naturalHeight + "px";
             loadSeats();
 
-            // EVENTO DE CRIAÇÃO
+            // CRIAÇÃO (Duplo Clique no MAPA)
             container.addEventListener('dblclick', (e) => {
-                // Impede que o dblclick selecione texto
                 e.preventDefault();
-
                 if (e.target !== container && e.target !== mapImg) return;
                 const rect = container.getBoundingClientRect();
                 const x = e.clientX - rect.left - 12;
                 const y = e.clientY - rect.top - 12;
                 createSeat(seatCounter++, x, y);
-
-                // Remove qualquer seleção acidental
                 if (window.getSelection) { window.getSelection().removeAllRanges(); }
             });
 
-            // Bloqueio extra no mousedown do mapa
-            mapImg.addEventListener('mousedown', (e) => {
-                e.preventDefault(); // O segredo anti-seleção
-            });
+            mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
         function createSeat(id, x, y, status = 'available', user = null) {
@@ -274,23 +267,42 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
+            // ARRASTAR
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
-                e.preventDefault(); e.stopPropagation();
+                // NÃO dar stopPropagation se quiser que o mouseup/click funcione bem em todos browsers
+                // Mas aqui precisamos para não conflitar com o mapa
+                e.stopPropagation();
+
                 activeSeat = seat;
                 startX = e.clientX; startY = e.clientY;
                 initialLeft = seat.offsetLeft; initialTop = seat.offsetTop;
                 seat.style.zIndex = 999999;
             });
 
-            seat.addEventListener('dblclick', (e) => {
-                e.preventDefault(); e.stopPropagation();
-                if (window.getSelection) { window.getSelection().removeAllRanges(); } // Limpa seleção
+            // --- LÓGICA SMART CLICK ---
+            let clicks = 0;
+            let timer = null;
 
-                if (e.shiftKey) {
-                    if (confirm(`Apagar mesa ${id}?`)) seat.remove();
+            seat.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                clicks++;
+
+                if (clicks === 1) {
+                    timer = setTimeout(() => {
+                        clicks = 0;
+                        // CLIQUE ÚNICO = RESERVAR
+                        toggleReservation(seat);
+                    }, 250); // Delay curto
                 } else {
-                    toggleReservation(seat);
+                    clearTimeout(timer);
+                    clicks = 0;
+                    // DUPLO CLIQUE = EXCLUIR
+                    if (confirm(`Excluir Mesa ${id}?`)) {
+                        seat.remove();
+                    }
+                    if (window.getSelection) { window.getSelection().removeAllRanges(); }
                 }
             });
 
@@ -300,7 +312,7 @@
 
         document.addEventListener('mousemove', (e) => {
             if (!activeSeat) return;
-            e.preventDefault(); // Impede seleção enquanto arrasta
+            e.preventDefault();
             const dx = e.clientX - startX;
             const dy = e.clientY - startY;
             activeSeat.style.left = (initialLeft + dx) + 'px';

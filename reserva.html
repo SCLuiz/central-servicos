@@ -9,17 +9,8 @@
     <style>
         :root {
             --ds-surface: #FFFFFF;
-            --ds-surface-overlay: #F4F5F7;
             --ds-text: #172B4D;
-            --ds-text-subtle: #5E6C84;
-            --ds-text-subtlest: #6B778C;
-            --ds-border: #DFE1E6;
-            --ds-border-focused: #4C9AFF;
-            --ds-blue: #0052CC;
-            --ds-blue-subtle: #DEEBFF;
-            --of-white: #FFFFFF;
             --of-magenta: #DD249b;
-            --of-yellow: #f7c20f;
         }
 
         * {
@@ -46,103 +37,39 @@
             padding-bottom: 20px;
         }
 
-        /* HEADER BANNER CSS (Sem Imagem Fixa) */
+        /* HEADER BANNER - IMAGEM FIXA (Gerada por IA) */
         .header-banner {
             width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 60%, var(--of-yellow) 100%);
+            height: 250px;
+            background-image: url('reserva_header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            overflow: hidden;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Formas Decorativas */
-        .header-banner::before {
-            content: '';
-            position: absolute;
-            top: -60px;
-            right: 10%;
-            width: 300px;
-            height: 300px;
-            border: 4px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-        }
-
-        .header-banner::after {
-            content: '';
-            position: absolute;
-            bottom: -60px;
-            left: 5%;
-            width: 200px;
-            height: 200px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-
-        .banner-content {
-            z-index: 10;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .banner-icon {
-            font-size: 56px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-            background: rgba(255, 255, 255, 0.2);
-            width: 90px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .banner-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
-
-        .banner-subtitle {
-            font-size: 16px;
-            margin-top: 5px;
-            opacity: 0.95;
-            font-weight: 500;
         }
 
         .back-button {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 8px 16px;
             border-radius: 20px;
             color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(5px);
             z-index: 20;
             transition: background 0.2s;
         }
 
         .back-button:hover {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.4);
         }
 
-        /* BARRA DE CONTROLES (Abaixo do Banner) */
+        /* BARRA DE CONTROLES */
         .controls-bar {
             background: white;
             padding: 15px;
@@ -183,7 +110,6 @@
             background: #ff5630;
         }
 
-        /* VIEWPORT */
         #viewport-wrapper {
             padding: 20px;
             display: flex;
@@ -238,6 +164,11 @@
             background-color: #ff5630;
         }
 
+        #welcome-msg {
+            display: none;
+        }
+
+        /* Oculto pois a imagem já tem texto */
         #system-monitor {
             display: none;
         }
@@ -247,15 +178,9 @@
 <body>
 
     <div class="container">
-        <!-- HEADER BANNER (CSS PURO) -->
+        <!-- HEADER ONDE A IMAGEM FAZ O TRABALHO -->
         <div class="header-banner">
             <a href="facilities.html" class="back-button">← Voltar</a>
-
-            <div class="banner-content">
-                <div class="banner-icon">📅</div>
-                <h1 class="banner-title">Reserva de Posições</h1>
-                <p class="banner-subtitle" id="welcome-msg">Gestão Inteligente de Espaços</p>
-            </div>
         </div>
 
         <!-- BARRA DE CONTROLES -->
@@ -288,12 +213,10 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // RESET AUTOMÁTICO (Mantido para início limpo)
+            // RESET AUTOMÁTICO
             localStorage.removeItem('of_seats_config_v2');
 
             currentUser = localStorage.getItem('userName');
-            const msgEl = document.getElementById('welcome-msg');
-            if (currentUser) msgEl.innerText = `Olá, ${currentUser}!`;
 
             if (mapImg.complete) init();
             else mapImg.onload = init;

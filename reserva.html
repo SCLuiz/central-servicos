@@ -4,82 +4,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva de Posições - Central de Serviços</title>
+    <title>Reserva de Posições - Open Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ds-surface: #FFFFFF;
-            --ds-text: #172B4D;
-            --of-magenta: #DD249b;
-        }
-
+        /* ==========================================================================
+           ESTILOS CLONADOS DE gestao-mudancas.html
+           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
+            --of-dark: #1A1A1A;
+            --of-gray: #424242;
+            --of-light-gray: #d9d9d9;
+            --of-white: #FFFFFF;
+            --ds-text: #172B4D;
+            --ds-blue: #0052CC;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background-color: #f4f5f7;
-            color: var(--ds-text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg,
+                    rgba(255, 20, 147, 0.55) 0%,
+                    rgba(255, 105, 180, 0.50) 25%,
+                    rgba(255, 182, 193, 0.45) 50%,
+                    rgba(255, 215, 0, 0.50) 75%,
+                    rgba(255, 165, 0, 0.55) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--of-dark);
             line-height: 1.5;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* BLOQUEIO GERAL DE SELEÇÃO */
-            user-select: none;
-            -webkit-user-select: none;
         }
 
-        .container {
-            width: 100%;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding-bottom: 20px;
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        .header-banner {
-            width: 100%;
-            height: 160px;
-            /* Reduzido de 250px */
-            background-image: url('reserva_header.png');
-            background-size: cover;
-            /* Ou 100% se a imagem já for wide */
-            background-position: center;
-            background-repeat: no-repeat;
+        /* Header com design Open Finance (Igual gestao-mudancas) */
+        .header {
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
+            padding: 40px 20px;
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--of-white);
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: var(--of-white);
             font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(5px);
-            z-index: 20;
-            transition: background 0.2s;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
         }
 
         .back-button:hover {
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateX(-3px);
+        }
+
+        .back-button::before {
+            content: '←';
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           ÁREA ESPECÍFICA DO MAPA (Reserva)
+           ========================================================================== */
+
+        .container-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .controls-bar {
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             padding: 15px;
-            border-bottom: 1px solid #dfe1e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             gap: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .btn {
@@ -89,16 +177,12 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: transform 0.2s;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
@@ -113,23 +197,17 @@
             background: #ff5630;
         }
 
-        #viewport-wrapper {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
         #viewport {
             background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            /* Sombra mais forte igual cards */
             overflow: auto;
             width: 100%;
-            max-width: 1400px;
             height: 70vh;
             position: relative;
-            /* SEGREDO ANTI-AZUL */
+
+            /* Lógica Anti-Seleção (V16) Mantida */
             user-select: none;
             -webkit-user-select: none;
             outline: none;
@@ -144,12 +222,8 @@
         #office-map {
             display: block;
             pointer-events: auto;
-            /* Permite clicar */
             user-select: none;
-            /* Impede selecionar */
             -webkit-user-drag: none;
-            /* Impede arrastar imagem */
-            user-drag: none;
         }
 
         .seat {
@@ -171,43 +245,58 @@
             user-select: none;
         }
 
-        .seat:active {
-            cursor: grabbing;
-        }
-
         .seat.occupied {
             background-color: #ff5630;
         }
 
-        #welcome-msg {
-            display: none;
+        .seat:active {
+            cursor: grabbing;
         }
 
-        #system-monitor {
-            display: none;
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--of-gray);
+            font-size: 14px;
+            margin-top: 40px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="header-banner">
-            <a href="facilities.html" class="back-button">← Voltar</a>
-        </div>
-        <div class="controls-bar">
-            <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
-            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
-            <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
+    <!-- Header (Idêntico ao gestao-mudancas.html) -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Reserva de Posições</h1>
+            <p>Gestão Inteligente de Espaços e Assentos</p>
+            <div class="header-info">
+                <a href="facilities.html" class="back-button">Voltar para Facilities</a>
+            </div>
         </div>
     </div>
 
-    <div id="viewport-wrapper">
+    <!-- Conteúdo Principal -->
+    <div class="container-map">
+
+        <div class="controls-bar">
+            <button class="btn btn-primary" onclick="createSeatCenter()">+ Adicionar Mesa</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Layout</button>
+            <button class="btn btn-danger" onclick="clearAll()">🗑️ Resetar Tudo</button>
+        </div>
+
         <div id="viewport">
             <div id="map-container">
                 <img src="mapa-escritorio.png" id="office-map" alt="Mapa" onmousedown="return false">
             </div>
         </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Open Finance Brasil</strong> - Facilities Management</p>
+        <p style="margin-top: 8px; opacity: 0.7;">Sistema de Reserva de Posições © 2025</p>
     </div>
 
     <script>
@@ -223,12 +312,16 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // RESET (Início limpo)
+            // Autenticação igual gestao-mudancas
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
+                sessionStorage.getItem('isAuthenticated') === 'true';
+
+            // RESET (Mantido por enquanto)
             localStorage.removeItem('of_seats_config_v2');
 
             currentUser = localStorage.getItem('userName');
 
-            // PREVINE SELEÇÃO GLOBAL
+            // Previne seleção
             document.body.onselectstart = function () { return false; }
 
             if (mapImg.complete) init();
@@ -245,7 +338,6 @@
             container.style.height = mapImg.naturalHeight + "px";
             loadSeats();
 
-            // CRIAÇÃO (Duplo Clique no MAPA)
             container.addEventListener('dblclick', (e) => {
                 e.preventDefault();
                 if (e.target !== container && e.target !== mapImg) return;
@@ -269,20 +361,16 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // ARRASTAR
             seat.addEventListener('mousedown', (e) => {
                 if (e.button !== 0) return;
-                // NÃO dar stopPropagation se quiser que o mouseup/click funcione bem em todos browsers
-                // Mas aqui precisamos para não conflitar com o mapa
                 e.stopPropagation();
-
                 activeSeat = seat;
                 startX = e.clientX; startY = e.clientY;
                 initialLeft = seat.offsetLeft; initialTop = seat.offsetTop;
                 seat.style.zIndex = 999999;
             });
 
-            // --- LÓGICA SMART CLICK ---
+            // SMART CLICK V16 (MANTIDO)
             let clicks = 0;
             let timer = null;
 
@@ -294,13 +382,11 @@
                 if (clicks === 1) {
                     timer = setTimeout(() => {
                         clicks = 0;
-                        // CLIQUE ÚNICO = RESERVAR
                         toggleReservation(seat);
-                    }, 250); // Delay curto
+                    }, 250);
                 } else {
                     clearTimeout(timer);
                     clicks = 0;
-                    // DUPLO CLIQUE = EXCLUIR
                     if (confirm(`Excluir Mesa ${id}?`)) {
                         seat.remove();
                     }
@@ -343,11 +429,6 @@
         }
 
         function saveConfiguration() {
-            saveConfig();
-            alert('Configuração Salva!');
-        }
-
-        function saveConfig() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
                 seats.push({
@@ -359,12 +440,13 @@
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
+            alert('Configuração Salva!');
         }
 
         function loadSeats() { seatCounter = 1; }
 
         function clearAll() {
-            if (confirm("Reiniciar tudo?")) location.reload();
+            if (confirm("Confirma o reset total?")) location.reload();
         }
 
         function createSeatCenter() {

@@ -346,28 +346,46 @@
                 initialTop = seat.offsetTop;
             });
 
-            // Admin: Duplo clique para excluir permanentemente
-            seat.addEventListener('dblclick', (e) => {
+            // Implementação Robusta de Duplo Clique (Manual)
+            let lastClickTime = 0;
+
+            seat.addEventListener('click', (e) => {
                 e.stopPropagation();
 
-                if (isEditMode) {
-                    // Admin: Remove a bolinha do mapa
-                    seat.remove();
-                } else {
-                    // User: Fluxo de Reserva / Cancelamento
-                    if (seat.classList.contains('occupied')) {
-                        // Se já é minha, posso cancelar? (Simulação)
-                        if (confirm('Esta mesa está ocupada. Deseja liberar?')) {
-                            seat.classList.remove('occupied');
-                            seat.dataset.user = '';
-                            saveConfiguration();
+                const currentTime = new Date().getTime();
+                const timeDiff = currentTime - lastClickTime;
+
+                // Se foi rápido o suficiente (< 400ms), considera duplo clique
+                if (timeDiff < 400 && timeDiff > 0) {
+                    try {
+                        if (isEditMode) return; // Admin usa dblclick nativo ou drag
+
+                        if (seat.classList.contains('occupied')) {
+                            if (confirm('Mesa Ocupada. Liberar?')) {
+                                seat.classList.remove('occupied');
+                                seat.dataset.user = '';
+                                saveConfiguration();
+                            }
+                        } else {
+                            selectSeat(seat);
+                            confirmReservation();
                         }
-                    } else {
-                        // Reservar
-                        selectSeat(seat); // Seleciona internamente
-                        confirmReservation(); // Dispara fluxo
+                    } catch (err) {
+                        alert('Erro ao processar: ' + err.message);
                     }
+                    lastClickTime = 0; // Reset
+                } else {
+                    lastClickTime = currentTime;
+                    // Opcional: Feedback visual de clique simples (seleção)
+                    // selectSeat(seat); 
                 }
+            });
+
+            // Mantém dblclick nativo APENAS para Admin (remoção)
+            seat.addEventListener('dblclick', (e) => {
+                if (!isEditMode) return;
+                e.stopPropagation();
+                seat.remove();
             });
 
             // Clique simples removido para não interferir no dblclick

@@ -7,9 +7,7 @@
     <title>Reserva de Posições - Open Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ==========================================================================
-           ESTILOS CLONADOS DE gestao-mudancas.html
-           ========================================================================== */
+        /* ESTILOS PADRÃO (Clone Gestão Mudanças) */
         * {
             margin: 0;
             padding: 0;
@@ -21,14 +19,11 @@
             --of-yellow: #f7c20f;
             --of-dark: #1A1A1A;
             --of-gray: #424242;
-            --of-light-gray: #d9d9d9;
             --of-white: #FFFFFF;
-            --ds-text: #172B4D;
-            --ds-blue: #0052CC;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg,
                     rgba(255, 20, 147, 0.55) 0%,
                     rgba(255, 105, 180, 0.50) 25%,
@@ -38,7 +33,6 @@
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--of-dark);
-            line-height: 1.5;
             min-height: 100vh;
         }
 
@@ -56,7 +50,6 @@
             }
         }
 
-        /* Header com design Open Finance (Igual gestao-mudancas) */
         .header {
             background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
             padding: 40px 20px;
@@ -64,6 +57,7 @@
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .header::before {
@@ -88,42 +82,32 @@
             border-radius: 50%;
         }
 
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
         .header h1 {
-            color: var(--of-white);
+            color: white;
             font-size: 48px;
             font-weight: 700;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
             color: rgba(255, 255, 255, 0.95);
             font-size: 18px;
             margin-bottom: 20px;
-        }
-
-        .header-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .back-button {
+            position: relative;
+            z-index: 2;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
             padding: 10px 20px;
             border-radius: 25px;
-            color: var(--of-white);
+            color: white;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
@@ -136,34 +120,16 @@
 
         .back-button:hover {
             background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.8);
             transform: translateX(-3px);
         }
 
-        .back-button::before {
-            content: '←';
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        /* ==========================================================================
-           ÁREA ESPECÍFICA DO MAPA (Reserva)
-           ========================================================================== */
-
-        .container-map {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        /* AREA MAPA */
         .controls-bar {
+            max-width: 1400px;
+            margin: 0 auto 20px;
             background: rgba(255, 255, 255, 0.9);
             padding: 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -174,7 +140,6 @@
             padding: 10px 20px;
             border: none;
             border-radius: 6px;
-            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             color: white;
@@ -197,30 +162,30 @@
             background: #ff5630;
         }
 
+        /* VIEWPORT LIVRE (Sem Scroll Lock) */
         #viewport {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            /* Sombra mais forte igual cards */
-            overflow: auto;
             width: 100%;
-            height: 70vh;
-            position: relative;
-
-            /* Lógica Anti-Seleção (V16) Mantida */
-            user-select: none;
-            -webkit-user-select: none;
-            outline: none;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 60px;
+            /* Margem inferior */
         }
 
         #map-container {
             position: relative;
             display: inline-block;
-            outline: none;
+            background: white;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+            /* Sombra elegante */
+            border-radius: 12px;
+            /* Importante: Sem overflow:hidden ou scroll aqui */
         }
 
         #office-map {
             display: block;
+            max-width: 100%;
+            /* Responsivo */
+            height: auto;
             pointer-events: auto;
             user-select: none;
             -webkit-user-drag: none;
@@ -255,48 +220,35 @@
 
         .footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 30px;
             color: var(--of-gray);
             font-size: 14px;
-            margin-top: 40px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Header (Idêntico ao gestao-mudancas.html) -->
     <div class="header">
-        <div class="header-content">
-            <h1>Reserva de Posições</h1>
-            <p>Gestão Inteligente de Espaços e Assentos</p>
-            <div class="header-info">
-                <a href="facilities.html" class="back-button">Voltar para Facilities</a>
-            </div>
+        <h1>Reserva de Posições</h1>
+        <p>Gestão Inteligente de Espaços e Assentos</p>
+        <div><a href="facilities.html" class="back-button">← Voltar para Facilities</a></div>
+    </div>
+
+    <div class="controls-bar">
+        <button class="btn btn-primary" onclick="createSeatCenter()">+ Adicionar Mesa</button>
+        <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Layout</button>
+        <button class="btn btn-danger" onclick="clearAll()">🗑️ Resetar</button>
+    </div>
+
+    <div id="viewport">
+        <div id="map-container">
+            <img src="mapa-escritorio.png" id="office-map" alt="Mapa" onmousedown="return false">
         </div>
     </div>
 
-    <!-- Conteúdo Principal -->
-    <div class="container-map">
-
-        <div class="controls-bar">
-            <button class="btn btn-primary" onclick="createSeatCenter()">+ Adicionar Mesa</button>
-            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar Layout</button>
-            <button class="btn btn-danger" onclick="clearAll()">🗑️ Resetar Tudo</button>
-        </div>
-
-        <div id="viewport">
-            <div id="map-container">
-                <img src="mapa-escritorio.png" id="office-map" alt="Mapa" onmousedown="return false">
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer -->
     <div class="footer">
-        <p><strong>Open Finance Brasil</strong> - Facilities Management</p>
-        <p style="margin-top: 8px; opacity: 0.7;">Sistema de Reserva de Posições © 2025</p>
+        <p>Open Finance Brasil © 2025</p>
     </div>
 
     <script>
@@ -312,30 +264,25 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // Autenticação igual gestao-mudancas
+            // Check Auth
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
                 sessionStorage.getItem('isAuthenticated') === 'true';
 
-            // RESET (Mantido por enquanto)
-            localStorage.removeItem('of_seats_config_v2');
-
+            localStorage.removeItem('of_seats_config_v2'); // Reset Temp
             currentUser = localStorage.getItem('userName');
 
-            // Previne seleção
-            document.body.onselectstart = function () { return false; }
+            document.body.onselectstart = function () { return false; } // Anti-Blue
 
             if (mapImg.complete) init();
             else mapImg.onload = init;
 
             fetch(WORKER_URL + '/users?type=users')
-                .then(r => r.json())
-                .then(d => { if (Array.isArray(d)) jiraUsers = d; })
-                .catch(e => { });
+                .then(r => r.json()).then(d => { if (Array.isArray(d)) jiraUsers = d; }).catch(e => { });
         };
 
         function init() {
-            container.style.width = mapImg.naturalWidth + "px";
-            container.style.height = mapImg.naturalHeight + "px";
+            // Ajusta tamanho apenas se não for responsivo, mas com layout livre
+            // container.style.width = mapImg.naturalWidth + "px"; // Opcional se usar max-width
             loadSeats();
 
             container.addEventListener('dblclick', (e) => {
@@ -347,7 +294,6 @@
                 createSeat(seatCounter++, x, y);
                 if (window.getSelection) { window.getSelection().removeAllRanges(); }
             });
-
             mapImg.addEventListener('mousedown', (e) => e.preventDefault());
         }
 
@@ -370,26 +316,17 @@
                 seat.style.zIndex = 999999;
             });
 
-            // SMART CLICK V16 (MANTIDO)
+            // Smart Click V16
             let clicks = 0;
             let timer = null;
-
             seat.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e.preventDefault(); e.stopPropagation();
                 clicks++;
-
                 if (clicks === 1) {
-                    timer = setTimeout(() => {
-                        clicks = 0;
-                        toggleReservation(seat);
-                    }, 250);
+                    timer = setTimeout(() => { clicks = 0; toggleReservation(seat); }, 250);
                 } else {
-                    clearTimeout(timer);
-                    clicks = 0;
-                    if (confirm(`Excluir Mesa ${id}?`)) {
-                        seat.remove();
-                    }
+                    clearTimeout(timer); clicks = 0;
+                    if (confirm(`Excluir Mesa ${id}?`)) seat.remove();
                     if (window.getSelection) { window.getSelection().removeAllRanges(); }
                 }
             });
@@ -444,14 +381,8 @@
         }
 
         function loadSeats() { seatCounter = 1; }
-
-        function clearAll() {
-            if (confirm("Confirma o reset total?")) location.reload();
-        }
-
-        function createSeatCenter() {
-            createSeat(seatCounter++, 100, 100);
-        }
+        function clearAll() { if (confirm("Resetar?")) location.reload(); }
+        function createSeatCenter() { createSeat(seatCounter++, 100, 100); }
     </script>
 </body>
 

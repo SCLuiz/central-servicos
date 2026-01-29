@@ -106,45 +106,40 @@
             height: 24px;
             background-color: #DD249b;
             /* Rosa Open Finance */
-            border: 2px solid #fff;
+            border: 3px solid #fff;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 11px;
             font-weight: bold;
-            z-index: 10;
-            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            z-index: 99999 !important;
+            /* Força bruta para ficar acima de tudo */
+            transition: transform 0.1s;
         }
 
         .seat:hover {
-            transform: scale(1.1);
-            z-index: 20;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            border: 2px solid #0052cc;
+            transform: scale(1.2);
+            border-color: #0052cc;
         }
 
         .seat.moving {
             cursor: grabbing;
             opacity: 0.9;
             transform: scale(1.15);
-            z-index: 100;
         }
 
         .seat.occupied {
             background-color: #ff5630;
-            border-color: #fff;
         }
 
         .seat.selected {
             background-color: #36b37e;
-            transform: scale(1.3);
-            border: 3px solid #fff;
-            box-shadow: 0 0 0 4px rgba(54, 179, 126, 0.3);
-            z-index: 30;
+            transform: scale(1.4);
+            border-color: #ffff00;
         }
 
         .tooltip {
@@ -156,7 +151,7 @@
             font-size: 12px;
             pointer-events: none;
             display: none;
-            z-index: 9999;
+            z-index: 100000;
             white-space: nowrap;
         }
 
@@ -183,9 +178,7 @@
             <button class="btn" onclick="toggleMode(false)">Sair</button>
         </div>
 
-        <div id="view-controls" style="display: none;">
-            <!-- Painel para USER - Atualmente oculto por simplicidade -->
-        </div>
+        <div id="view-controls" style="display: none;"></div>
     </div>
 
     <div class="instructions" id="instructions-text">
@@ -200,15 +193,27 @@
 
     <div id="tooltip" class="tooltip"></div>
 
+    <!-- BOTÃO DE EMERGÊNCIA RESET -->
+    <button onclick="hardReset()"
+        style="position: fixed; bottom: 10px; right: 10px; padding: 5px; font-size: 11px; z-index: 999999; border: 1px solid #ccc; background: #eee; cursor: pointer;">
+        🔄 Resetar
+    </button>
+
     <script>
+        function hardReset() {
+            if (confirm('Isso vai apagar todas as configurações locais e corrigir problemas. Continuar?')) {
+                localStorage.removeItem('of_seats_config_v2');
+                window.location.reload(true);
+            }
+        }
+
         // === VARIÁVEIS GLOBAIS ===
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
         let isEditMode = false;
         let seatCounter = 1;
         let selectedSeat = null;
-
-        let activeSeat = null; // Drag
+        let activeSeat = null;
         let startX = 0, startY = 0;
         let initialLeft = 0, initialTop = 0;
 
@@ -219,6 +224,7 @@
 
         // === INICIALIZAÇÃO ===
         window.onload = () => {
+            console.log("V6: Sistema iniciado");
             if (mapImg.complete) init();
             else mapImg.onload = init;
 
@@ -249,17 +255,11 @@
                 const response = await fetch(`${WORKER_URL}/users?type=users`);
                 if (response.ok) {
                     const data = await response.json();
-                    if (Array.isArray(data)) {
-                        jiraUsers = data;
-                        console.log(`${jiraUsers.length} usuários carregados.`);
-                    } else {
-                        console.warn('Jira API: Formato inválido recebido.');
-                        jiraUsers = []; // Proteção contra undefined
-                    }
+                    if (Array.isArray(data)) jiraUsers = data;
+                    else jiraUsers = [];
                 }
             } catch (e) {
-                console.warn('Jira API Offline ou erro:', e);
-                jiraUsers = []; // Fallback
+                jiraUsers = [];
             }
         }
 
@@ -293,32 +293,34 @@
                 saveConfiguration();
             });
 
-            // USER: CLIQUE PARA RESERVAR (Sem delay)
+            // USER: CLIQUE PARA RESERVAR (Infalível)
             seat.addEventListener('click', (e) => {
+                // Impede clique em elementos abaixo
+                e.preventDefault();
                 e.stopPropagation();
+
                 if (isEditMode) return;
 
-                try {
-                    selectSeat(seat); // Feedback visual
+                // Feedback tátil
+                selectSeat(seat);
 
-                    if (seat.classList.contains('occupied')) {
-                        // Mesa Ocupada: Liberar?
-                        const dono = seat.dataset.user || 'Desconhecido';
-                        if (confirm(`Mesa reservada por: ${dono}\n\nDeseja liberar esta mesa?`)) {
+                // Lógica de Reserva/Liberação
+                if (seat.classList.contains('occupied')) {
+                    const dono = seat.dataset.user || 'Desconhecido';
+                    // Timeout mínimo para não travar o visual do clique
+                    setTimeout(() => {
+                        if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
                             seat.classList.remove('occupied');
                             seat.dataset.user = '';
                             saveConfiguration();
                         } else {
-                            // Cancelou liberação
                             seat.classList.remove('selected');
                         }
-                    } else {
-                        // Mesa Livre: Reservar
+                    }, 10);
+                } else {
+                    setTimeout(() => {
                         confirmReservation();
-                    }
-
-                } catch (err) {
-                    alert('Erro no script: ' + err.message);
+                    }, 10);
                 }
             });
 
@@ -347,10 +349,8 @@
             if (!selectedSeat) return;
 
             let userName = '';
-            // Auto-complete (Protegido)
             if (Array.isArray(jiraUsers) && jiraUsers.length > 0) {
                 userName = prompt("Qual seu nome? (Ex: Luiz Santos)", "");
-                // Match seguro
                 const found = jiraUsers.find(u => u.displayName.toLowerCase() === (userName || '').toLowerCase());
                 if (found) userName = found.displayName;
             } else {
@@ -365,7 +365,6 @@
                 saveConfiguration();
                 selectedSeat = null;
             } else {
-                // Cancelou
                 selectedSeat.classList.remove('selected');
                 selectedSeat = null;
             }

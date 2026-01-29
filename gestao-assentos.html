@@ -16,6 +16,8 @@
             flex-direction: column;
             align-items: center;
             height: 100vh;
+            user-select: none;
+            /* Evita selecionar texto ao arrastar rápido */
         }
 
         .controls {
@@ -28,6 +30,8 @@
             gap: 15px;
             align-items: center;
             z-index: 100;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
@@ -76,47 +80,77 @@
             color: #006644;
         }
 
-        #map-container {
+        /* Container do Mapa */
+        #viewport {
             position: relative;
-            width: 1200px;
-            height: 800px;
-            background-image: url('mapa-escritorio.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            width: 90vw;
+            height: 80vh;
             border: 2px solid #dfe1e6;
             border-radius: 8px;
             background-color: #fff;
             overflow: hidden;
+            /* Corta o que sair */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #map-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0;
+            /* Tamanho inicial arbitrário, ajustaremos via JS ou deixamos conteiner se virar */
+        }
+
+        #office-map {
+            display: block;
+            pointer-events: none;
+            /* Deixa cliques passarem para o container se precisar, mas aqui o container pega */
+            user-drag: none;
+            -webkit-user-drag: none;
         }
 
         .seat {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #2684ff;
-            /* Azul disponível */
+            width: 24px;
+            height: 24px;
+            background-color: rgba(38, 132, 255, 0.9);
+            /* Azul translúcido */
+            border: 2px solid #fff;
             border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            transition: transform 0.1s, background-color 0.2s;
+            cursor: grab;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 10px;
-            user-select: none;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 10;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
         }
 
         .seat:hover {
-            transform: scale(1.2);
-            z-index: 10;
+            transform: scale(1.1);
+            z-index: 20;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .seat.moving {
+            cursor: grabbing;
+            opacity: 0.9;
+            transform: scale(1.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            /* Sempre no topo ao mover */
         }
 
         .seat.occupied {
             background-color: #ff5630;
             /* Vermelho ocupado */
+            border-color: #fff;
+        }
+
+        .seat.occupied:hover {
             cursor: not-allowed;
         }
 
@@ -124,25 +158,31 @@
             background-color: #36b37e;
             /* Verde selecionado */
             transform: scale(1.3);
-            border: 2px solid white;
-        }
-
-        .seat.dragging {
-            opacity: 0.8;
-            cursor: grabbing;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 4px rgba(54, 179, 126, 0.3);
+            z-index: 30;
         }
 
         /* Tooltip */
         .tooltip {
-            position: absolute;
+            position: fixed;
+            /* Fixed para não bugar com scroll */
             background: #172b4d;
             color: white;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
             font-size: 12px;
             pointer-events: none;
             display: none;
-            z-index: 1000;
+            z-index: 9999;
+            white-space: nowrap;
+        }
+
+        .instructions {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #6b778c;
+            text-align: center;
         }
     </style>
 </head>
@@ -150,27 +190,38 @@
 <body>
 
     <div class="controls">
-        <h2 style="margin: 0; margin-right: 20px;">Reserva de Assentos</h2>
+        <h2 style="margin: 0; margin-right: 20px;">Gestão de Assentos</h2>
 
         <div id="edit-controls">
-            <span class="mode-badge mode-edit">Modo Edição (Admin)</span>
-            <button class="btn btn-primary" onclick="addSeat()">+ Adicionar Assento</button>
+            <span class="mode-badge mode-edit">Modo Edição</span>
+            <button class="btn btn-primary" onclick="addSeatCenter()">+ Adicionar Mesa (Centro)</button>
             <button class="btn btn-danger" onclick="clearAllSeats()">Limpar Tudo</button>
             <button class="btn btn-success" onclick="saveConfiguration()">Salvar Layout</button>
-            <button class="btn" onclick="toggleMode()">Ir para Modo Reserva</button>
+            <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
+            <button class="btn" onclick="toggleMode()">Ir para Teste de Reserva</button>
         </div>
 
         <div id="view-controls" style="display: none;">
-            <span class="mode-badge mode-view">Modo Reserva (Usuário)</span>
-            <span id="selected-info" style="margin: 0 10px; color: #5e6c84;">Nenhum assento selecionado</span>
+            <span class="mode-badge mode-view">Modo Reserva</span>
+            <span id="selected-info" style="margin: 0 10px; color: #5e6c84; font-weight: 500;">Selecione um
+                assento</span>
             <button class="btn btn-primary" onclick="confirmReservation()" disabled id="btn-confirm">Confirmar
                 Reserva</button>
+            <div style="width: 1px; height: 20px; background: #dfe1e6; margin: 0 10px;"></div>
             <button class="btn" onclick="toggleMode()">Voltar para Edição</button>
         </div>
     </div>
 
-    <div id="map-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <!-- Assentos serão injetados aqui via JS -->
+    <div class="instructions" id="instructions-text">
+        ⚡ <b>Dica Admin:</b> Clique DUAS VEZES em qualquer lugar do mapa para criar uma mesa lá instantaneamente.
+        Arraste para ajustar.
+    </div>
+
+    <div id="viewport">
+        <div id="map-container">
+            <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
+            <!-- Assentos injetados aqui -->
+        </div>
     </div>
 
     <div id="tooltip" class="tooltip"></div>
@@ -179,50 +230,68 @@
         let isEditMode = true;
         let seatCounter = 1;
         let selectedSeat = null;
+
+        // Elementos
+        const viewport = document.getElementById('viewport');
         const container = document.getElementById('map-container');
+        const mapImg = document.getElementById('office-map');
         const tooltip = document.getElementById('tooltip');
 
-        // Carregar do LocalStorage se existir
+        // Drag Variables
+        let activeSeat = null;
+        let startX = 0, startY = 0;
+        let initialLeft = 0, initialTop = 0;
+
+        // Inicialização
         window.onload = () => {
-            const savedSeats = localStorage.getItem('of_seats_config');
-            if (savedSeats) {
-                const seats = JSON.parse(savedSeats);
-                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status));
-                seatCounter = seats.length + 1;
-            }
+            // Garante que o mapa carregou para saber tamanhos, se precisar
+            if (mapImg.complete) init();
+            else mapImg.onload = init;
         };
 
-        function toggleMode() {
-            isEditMode = !isEditMode;
-            document.getElementById('edit-controls').style.display = isEditMode ? 'flex' : 'none';
-            document.getElementById('view-controls').style.display = isEditMode ? 'none' : 'flex';
+        function init() {
+            loadSeats();
+            // Ajustar tamanho do container ao da imagem
+            container.style.width = mapImg.naturalWidth + 'px';
+            container.style.height = mapImg.naturalHeight + 'px';
 
-            // Tira seleção ao trocar de modo
-            if (selectedSeat) {
-                selectedSeat.classList.remove('selected');
-                selectedSeat = null;
-            }
-            updateView();
-        }
-
-        function updateView() {
-            const seats = document.querySelectorAll('.seat');
-            seats.forEach(seat => {
-                if (isEditMode) {
-                    seat.style.cursor = 'grab';
-                    seat.draggable = true;
-                    seat.onclick = null; // Remove clique de reserva
-                } else {
-                    seat.style.cursor = 'pointer';
-                    seat.draggable = false;
-                    seat.onclick = () => selectSeat(seat);
-                }
+            // Adicionar evento de duplo clique no container para criar mesa
+            container.addEventListener('dblclick', (e) => {
+                if (!isEditMode) return;
+                // Coordenadas relativas ao container
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left - 12; // -12 para centralizar (metade de 24px)
+                const y = e.clientY - rect.top - 12;
+                createSeatElement(seatCounter++, x, y, 'available');
             });
         }
 
-        function addSeat() {
-            createSeatElement(seatCounter++, 50, 50, 'available');
-        }
+        // --- SISTEMA DE DRAG AND DROP MANUAL (Fluido) ---
+
+        // Listener global para mover o assento ativo
+        document.addEventListener('mousemove', (e) => {
+            if (!activeSeat || !isEditMode) return;
+
+            e.preventDefault();
+
+            // Calcula deslocamento
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            // Nova posição
+            activeSeat.style.left = (initialLeft + dx) + 'px';
+            activeSeat.style.top = (initialTop + dy) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (activeSeat) {
+                activeSeat.classList.remove('moving');
+                activeSeat = null;
+                // Aqui poderia salvar automático se quisesse
+            }
+        });
+
+        // --- MANIPULAÇÃO DE ASSENTOS ---
 
         function createSeatElement(id, x, y, status) {
             const seat = document.createElement('div');
@@ -233,82 +302,126 @@
             seat.innerText = id;
             seat.dataset.id = id;
 
-            // Drag Logic (Edição)
-            seat.draggable = true;
-            seat.ondragstart = drag;
+            // Evento Mouse Down para Iniciar Drag
+            seat.addEventListener('mousedown', (e) => {
+                if (!isEditMode) return;
 
-            // Tooltip logic
-            seat.onmouseover = (e) => showTooltip(e, `Mesa ${id}`);
-            seat.onmouseout = hideTooltip;
+                // Evita conflito com click normal
+                // e.stopPropagation(); 
+
+                activeSeat = seat;
+                activeSeat.classList.add('moving');
+
+                startX = e.clientX;
+                startY = e.clientY;
+                initialLeft = seat.offsetLeft;
+                initialTop = seat.offsetTop;
+            });
+
+            // Evento de Clique para Seleção (Modo Reserva)
+            seat.addEventListener('click', (e) => {
+                if (isEditMode) return; // No modo edição, clique é ignorado (só drag importa)
+                e.stopPropagation();
+                selectSeat(seat);
+            });
+
+            // Tooltips
+            seat.addEventListener('mouseenter', (e) => showTooltip(e, `Mesa ${id} - ${status === 'occupied' ? 'Ocupada' : 'Livre'}`));
+            seat.addEventListener('mouseleave', hideTooltip);
 
             container.appendChild(seat);
-            updateView(); // Aplica regras do modo atual
+            updateViewOne(seat);
         }
 
-        // Drag & Drop
-        function allowDrop(ev) {
-            ev.preventDefault();
+        function addSeatCenter() {
+            // Adiciona no centro visível do viewport
+            const rect = viewport.getBoundingClientRect();
+            // Posição relativa ao container do mapa
+            // Assumindo scroll 0 por simplicidade, ou pegando scroll
+            const scrollLeft = viewport.scrollLeft;
+            const scrollTop = viewport.scrollTop;
+
+            createSeatElement(seatCounter++, scrollLeft + 100, scrollTop + 100, 'available');
         }
 
-        function drag(ev) {
-            if (!isEditMode) {
-                ev.preventDefault();
-                return;
+        // --- LÓGICA DE MODO E RESERVA ---
+
+        function toggleMode() {
+            isEditMode = !isEditMode;
+
+            const editControls = document.getElementById('edit-controls');
+            const viewControls = document.getElementById('view-controls');
+            const instructions = document.getElementById('instructions-text');
+
+            if (isEditMode) {
+                editControls.style.display = 'flex';
+                viewControls.style.display = 'none';
+                instructions.innerHTML = '⚡ <b>Dica Admin:</b> Clique DUAS VEZES em qualquer lugar do mapa para criar uma mesa lá instantaneamente. Arraste para mover.';
+
+                // Reset seleção
+                if (selectedSeat) {
+                    selectedSeat.classList.remove('selected');
+                    selectedSeat = null;
+                }
+            } else {
+                editControls.style.display = 'none';
+                viewControls.style.display = 'flex';
+                instructions.innerHTML = '👉 Clique em uma mesa azul para selecionar e confirme sua reserva.';
             }
-            ev.dataTransfer.setData("text", ev.target.id);
-            ev.target.classList.add('dragging');
+
+            updateAllSeatsCursor();
         }
 
-        function drop(ev) {
-            ev.preventDefault();
-            const data = ev.dataTransfer.getData("text");
-            const seat = document.getElementById(data);
+        function updateAllSeatsCursor() {
+            document.querySelectorAll('.seat').forEach(updateViewOne);
+        }
 
-            if (seat) {
-                const rect = container.getBoundingClientRect();
-                const x = ev.clientX - rect.left - 10; // centralizar
-                const y = ev.clientY - rect.top - 10;
-
-                seat.style.left = x + 'px';
-                seat.style.top = y + 'px';
-                seat.classList.remove('dragging');
+        function updateViewOne(seat) {
+            if (isEditMode) {
+                seat.style.cursor = 'grab';
+                // Remove visualmente estado de ocupado pra facilitar edição? Não, mantem.
+            } else {
+                if (seat.classList.contains('occupied')) {
+                    seat.style.cursor = 'not-allowed';
+                } else {
+                    seat.style.cursor = 'pointer';
+                }
             }
         }
 
-        // Reserva Logic
         function selectSeat(seat) {
-            if (isEditMode) return;
             if (seat.classList.contains('occupied')) {
-                alert('Este assento já está ocupado!');
+                // alert('Ocupada!'); 
                 return;
             }
 
-            // Deselecionar anterior
             if (selectedSeat) selectedSeat.classList.remove('selected');
 
             selectedSeat = seat;
             selectedSeat.classList.add('selected');
 
-            document.getElementById('selected-info').innerText = `Selecionado: Mesa ${seat.dataset.id}`;
+            document.getElementById('selected-info').innerText = `Mesa ${seat.dataset.id} selecionada`;
             document.getElementById('btn-confirm').disabled = false;
         }
 
         function confirmReservation() {
             if (!selectedSeat) return;
-
-            const confirm = window.confirm(`Confirmar reserva para a Mesa ${selectedSeat.dataset.id}?`);
-            if (confirm) {
+            if (confirm(`Reservar Mesa ${selectedSeat.dataset.id}?`)) {
                 selectedSeat.classList.remove('selected');
                 selectedSeat.classList.add('occupied');
+                selectedSeat.classList.remove('available');
                 selectedSeat = null;
-                document.getElementById('selected-info').innerText = 'Reserva confirmada!';
+
+                document.getElementById('selected-info').innerText = 'Reserva realizada com sucesso!';
                 document.getElementById('btn-confirm').disabled = true;
-                // Aqui chamaria a API do Jira
-                saveConfiguration(); // Salva estado ocupado localmente
+
+                // Em produção: Chamada API aqui
+                saveConfiguration();
             }
         }
 
-        // Persistência
+        // --- PERSISTÊNCIA ---
+
         function saveConfiguration() {
             const seats = [];
             document.querySelectorAll('.seat').forEach(s => {
@@ -319,25 +432,42 @@
                     status: s.classList.contains('occupied') ? 'occupied' : 'available'
                 });
             });
-            localStorage.setItem('of_seats_config', JSON.stringify(seats));
-            // alert('Configuração salva no navegador!');
+            localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
+            // Feedback visual rápido
+            const btn = document.querySelector('.btn-success');
+            const originalText = btn.innerText;
+            btn.innerText = 'Salvo! ✓';
+            setTimeout(() => btn.innerText = originalText, 1500);
         }
 
-        function clearAllSeats() {
-            if (confirm("Tem certeza que deseja apagar todos os assentos?")) {
-                container.innerHTML = '';
-                seatCounter = 1;
-                localStorage.removeItem('of_seats_config');
+        function loadSeats() {
+            const savedSeats = localStorage.getItem('of_seats_config_v2');
+            if (savedSeats) {
+                const seats = JSON.parse(savedSeats);
+                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available'));
+                // Ajustar contador para não duplicar IDs
+                const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
+                seatCounter = maxId + 1;
             }
         }
 
-        // UI Helpers
+        function clearAllSeats() {
+            if (confirm("Apagar TUDO?")) {
+                document.querySelectorAll('.seat').forEach(e => e.remove());
+                seatCounter = 1;
+                localStorage.removeItem('of_seats_config_v2');
+            }
+        }
+
+        // --- UI UTILS ---
+
         function showTooltip(e, text) {
             tooltip.style.display = 'block';
             tooltip.innerText = text;
-            tooltip.style.left = (e.pageX + 10) + 'px';
-            tooltip.style.top = (e.pageY + 10) + 'px';
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY + 15) + 'px';
         }
+
         function hideTooltip() {
             tooltip.style.display = 'none';
         }

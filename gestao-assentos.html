@@ -370,10 +370,7 @@
                 }
             });
 
-            // Clique simples apenas para log/debug, sem ação visual
-            seat.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
+            // Clique simples removido para não interferir no dblclick
 
             // Tooltips
             seat.addEventListener('mouseenter', (e) => {

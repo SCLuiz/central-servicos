@@ -17,9 +17,9 @@
             --ds-border-focused: #4C9AFF;
             --ds-blue: #0052CC;
             --ds-blue-subtle: #DEEBFF;
-            --ds-shadow-card: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
             --of-white: #FFFFFF;
             --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
         }
 
         * {
@@ -30,107 +30,126 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg,
-                    rgba(255, 20, 147, 0.55) 0%,
-                    rgba(255, 105, 180, 0.50) 25%,
-                    rgba(255, 182, 193, 0.45) 50%,
-                    rgba(255, 215, 0, 0.50) 75%,
-                    rgba(255, 165, 0, 0.55) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background-color: #f4f5f7;
             color: var(--ds-text);
             line-height: 1.5;
-            padding: 12px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
         .container {
-            max-width: 1400px;
             width: 100%;
-            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding-bottom: 20px;
         }
 
-        /* Header Estilo Facilities */
-        .header {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            position: relative;
-        }
-
+        /* HEADER BANNER CSS (Sem Imagem Fixa) */
         .header-banner {
             width: 100%;
-            height: 250px;
-            background-image: url('facilities.png?v=1');
-            /* Reuso da imagem oficial */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .header-content {
-            padding: 24px;
-            text-align: center;
+            height: 220px;
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 60%, var(--of-yellow) 100%);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--ds-text);
-            margin-bottom: 8px;
+        /* Formas Decorativas */
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            border: 4px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
         }
 
-        .header p {
-            font-size: 15px;
-            color: var(--ds-text-subtle);
-            margin-bottom: 16px;
+        .header-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .banner-content {
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner-icon {
+            font-size: 56px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            background: rgba(255, 255, 255, 0.2);
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .banner-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .banner-subtitle {
+            font-size: 16px;
+            margin-top: 5px;
+            opacity: 0.95;
+            font-weight: 500;
         }
 
         .back-button {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.5);
             position: absolute;
             top: 20px;
             left: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            z-index: 20;
+            transition: background 0.2s;
         }
 
         .back-button:hover {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        /* Controles (Estilo Botão Premium) */
-        .controls-panel {
+        /* BARRA DE CONTROLES (Abaixo do Banner) */
+        .controls-bar {
+            background: white;
+            padding: 15px;
+            border-bottom: 1px solid #dfe1e6;
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
         }
 
         .btn {
@@ -138,13 +157,18 @@
             border: none;
             border-radius: 6px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             color: white;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
@@ -159,13 +183,21 @@
             background: #ff5630;
         }
 
-        /* MAPA */
+        /* VIEWPORT */
+        #viewport-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
         #viewport {
             background: white;
-            border-radius: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             overflow: auto;
             width: 100%;
+            max-width: 1400px;
             height: 70vh;
             position: relative;
         }
@@ -180,7 +212,6 @@
             pointer-events: none;
         }
 
-        /* ASSENTOS */
         .seat {
             position: absolute;
             width: 24px;
@@ -207,7 +238,6 @@
             background-color: #ff5630;
         }
 
-        /* Monitor Oculto */
         #system-monitor {
             display: none;
         }
@@ -217,22 +247,27 @@
 <body>
 
     <div class="container">
-        <!-- HEADER IDENTICO AO FACILITIES -->
-        <div class="header">
+        <!-- HEADER BANNER (CSS PURO) -->
+        <div class="header-banner">
             <a href="facilities.html" class="back-button">← Voltar</a>
-            <div class="header-banner"></div>
-            <div class="header-content">
-                <h1>Reserva de Posições</h1> <!-- Título Personalizado -->
-                <p id="welcome-msg">Agende seu espaço de trabalho no Open Finance</p>
 
-                <div class="controls-panel">
-                    <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
-                    <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
-                    <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
-                </div>
+            <div class="banner-content">
+                <div class="banner-icon">📅</div>
+                <h1 class="banner-title">Reserva de Posições</h1>
+                <p class="banner-subtitle" id="welcome-msg">Gestão Inteligente de Espaços</p>
             </div>
         </div>
 
+        <!-- BARRA DE CONTROLES -->
+        <div class="controls-bar">
+            <button class="btn btn-primary" onclick="createSeatCenter()">+ Mesa</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">💾 Salvar</button>
+            <button class="btn btn-danger" onclick="clearAll()">🗑️ Reset</button>
+        </div>
+    </div>
+
+    <!-- ÁREA DO MAPA -->
+    <div id="viewport-wrapper">
         <div id="viewport">
             <div id="map-container">
                 <img src="mapa-escritorio.png" id="office-map" alt="Mapa">
@@ -240,7 +275,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT (Lógica V11 mantida) -->
     <script>
         const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
         let jiraUsers = [];
@@ -254,12 +288,12 @@
         const mapImg = document.getElementById('office-map');
 
         window.onload = () => {
-            // RESET AUTOMÁTICO
+            // RESET AUTOMÁTICO (Mantido para início limpo)
             localStorage.removeItem('of_seats_config_v2');
 
             currentUser = localStorage.getItem('userName');
             const msgEl = document.getElementById('welcome-msg');
-            if (currentUser) msgEl.innerText = `Olá, ${currentUser}! Reserve seu espaço.`;
+            if (currentUser) msgEl.innerText = `Olá, ${currentUser}!`;
 
             if (mapImg.complete) init();
             else mapImg.onload = init;

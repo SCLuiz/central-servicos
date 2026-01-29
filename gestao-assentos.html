@@ -318,7 +318,7 @@
                 saveConfiguration();
             });
 
-            // USER: CLIQUE PARA RESERVAR (Ação Imediata)
+            // USER: CLIQUE PARA RESERVAR (Ação Imediata - Síncrona)
             seat.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (isEditMode) return;
@@ -328,25 +328,21 @@
                 try {
                     selectSeat(seat); // Efeito visual
 
-                    // Delay minúsculo para garantir rendering
-                    setTimeout(() => {
-                        if (seat.classList.contains('occupied')) {
-                            // Mesa Ocupada: Liberar?
-                            const dono = seat.dataset.user || 'Desconhecido';
-                            // Confirmação simples
-                            if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
-                                seat.classList.remove('occupied');
-                                seat.dataset.user = '';
-                                saveConfiguration();
-                                log('Mesa liberada.');
-                            } else {
-                                seat.classList.remove('selected');
-                            }
+                    // Execução SÍNCRONA (Sem setTimeout) para garantir que o Prompt abra
+                    if (seat.classList.contains('occupied')) {
+                        const dono = seat.dataset.user || 'Desconhecido';
+                        if (confirm(`Reservado por: ${dono}\n\nDeseja liberar esta mesa?`)) {
+                            seat.classList.remove('occupied');
+                            seat.dataset.user = '';
+                            saveConfiguration();
+                            log('Mesa liberada.');
                         } else {
-                            // Mesa Livre: Reservar
-                            confirmReservation();
+                            seat.classList.remove('selected');
                         }
-                    }, 50);
+                    } else {
+                        // Mesa Livre: Reserva
+                        confirmReservation();
+                    }
 
                 } catch (err) {
                     alert('Erro no script: ' + err.message);

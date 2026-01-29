@@ -346,19 +346,33 @@
                 initialTop = seat.offsetTop;
             });
 
-            // Admin: Duplo clique para excluir
+            // Admin: Duplo clique para excluir permanentemente
             seat.addEventListener('dblclick', (e) => {
-                if (!isEditMode) return;
                 e.stopPropagation();
-                seat.remove();
+
+                if (isEditMode) {
+                    // Admin: Remove a bolinha do mapa
+                    seat.remove();
+                } else {
+                    // User: Fluxo de Reserva / Cancelamento
+                    if (seat.classList.contains('occupied')) {
+                        // Se já é minha, posso cancelar? (Simulação)
+                        if (confirm('Esta mesa está ocupada. Deseja liberar?')) {
+                            seat.classList.remove('occupied');
+                            seat.dataset.user = '';
+                            saveConfiguration();
+                        }
+                    } else {
+                        // Reservar
+                        selectSeat(seat); // Seleciona internamente
+                        confirmReservation(); // Dispara fluxo
+                    }
+                }
             });
 
-            // User: Clique para selecionar (Robusto)
+            // Clique simples apenas para log/debug, sem ação visual
             seat.addEventListener('click', (e) => {
-                if (isEditMode) return;
                 e.stopPropagation();
-                console.log('Clique na mesa:', id); // Debug
-                selectSeat(seat);
             });
 
             // Tooltips
@@ -414,12 +428,11 @@
                 instructions.innerHTML = '⚡ <b>Modo ADMIN:</b> Clique 2x no mapa para criar. Clique 2x na mesa para apagar. Arraste para mover.';
             } else {
                 editControls.style.display = 'none';
-                // Fallback: mostra botão de confirmar
-                viewControls.style.display = 'flex';
+                // Interface limpa: sem botões
+                viewControls.style.display = 'none';
                 instructions.style.display = 'block';
-                instructions.innerHTML = '👉 <b>Clique</b> para selecionar ou <b>Clique Duplo</b> para reservar direto.';
-            } instructions.style.display = 'block';
-            instructions.innerHTML = '👉 <b>Clique duas vezes</b> em uma mesa rosa para reservar.';
+                instructions.innerHTML = '👉 <b>Duplo Clique</b> na mesa para reservar ou liberar.';
+            }
         }
 
         updateAllSeatsCursor();

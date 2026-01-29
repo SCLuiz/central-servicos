@@ -335,41 +335,29 @@
             seat.dataset.id = id;
             if (user) seat.dataset.user = user;
 
-            // Evento Mouse Down para Iniciar Drag
+            // Evento Mouse Down para Iniciar Drag (Apenas Admin)
             seat.addEventListener('mousedown', (e) => {
                 if (!isEditMode) return;
-
-                // Evita conflito com click normal
-                // e.stopPropagation(); 
-
                 activeSeat = seat;
                 activeSeat.classList.add('moving');
-
                 startX = e.clientX;
                 startY = e.clientY;
                 initialLeft = seat.offsetLeft;
                 initialTop = seat.offsetTop;
             });
 
-            // Lógica de Duplo Clique Unificada
+            // Admin: Duplo clique para excluir
             seat.addEventListener('dblclick', (e) => {
+                if (!isEditMode) return;
                 e.stopPropagation();
-
-                if (isEditMode) {
-                    // Admin: Exclui
-                    seat.remove();
-                } else {
-                    // User: Reserva Rápida
-                    if (seat.classList.contains('occupied')) return;
-                    selectSeat(seat); // Garante seleção
-                    confirmReservation(); // Abre prompt
-                }
+                seat.remove();
             });
 
-            // Clique simples (Feedback visual e seleção para botão)
+            // User: Clique para selecionar (Robusto)
             seat.addEventListener('click', (e) => {
                 if (isEditMode) return;
                 e.stopPropagation();
+                console.log('Clique na mesa:', id); // Debug
                 selectSeat(seat);
             });
 

@@ -326,7 +326,16 @@
             });
 
             // Tooltips
-            seat.addEventListener('mouseenter', (e) => showTooltip(e, `Mesa ${id} - ${status === 'occupied' ? 'Ocupada' : 'Livre'}`));
+            seat.addEventListener('mouseenter', (e) => {
+                let text = `Mesa ${id}`;
+                if (status === 'occupied') {
+                    const user = seat.dataset.user || 'Usuário Desconhecido';
+                    text += ` - Reservado por: ${user}`;
+                } else {
+                    text += ' - Livre';
+                }
+                showTooltip(e, text);
+            });
             seat.addEventListener('mouseleave', hideTooltip);
 
             container.appendChild(seat);
@@ -406,16 +415,23 @@
 
         function confirmReservation() {
             if (!selectedSeat) return;
-            if (confirm(`Reservar Mesa ${selectedSeat.dataset.id}?`)) {
+
+            // Simula pegar o usuário logado ou pede input
+            // Em produção viria de: const currentUser = jiraUser.displayName;
+            const userName = prompt("Para quem é a reserva? (Simulando usuário Jira)", "Luiz Santos");
+
+            if (userName) {
                 selectedSeat.classList.remove('selected');
                 selectedSeat.classList.add('occupied');
                 selectedSeat.classList.remove('available');
+                selectedSeat.dataset.user = userName; // Salva o nome no elemento
+
+                const seatId = selectedSeat.dataset.id;
                 selectedSeat = null;
 
-                document.getElementById('selected-info').innerText = 'Reserva realizada com sucesso!';
+                document.getElementById('selected-info').innerText = `Reserva confirmada para ${userName}!`;
                 document.getElementById('btn-confirm').disabled = true;
 
-                // Em produção: Chamada API aqui
                 saveConfiguration();
             }
         }
@@ -429,11 +445,12 @@
                     id: s.dataset.id,
                     x: parseInt(s.style.left),
                     y: parseInt(s.style.top),
-                    status: s.classList.contains('occupied') ? 'occupied' : 'available'
+                    status: s.classList.contains('occupied') ? 'occupied' : 'available',
+                    user: s.dataset.user || null // Persiste o usuário
                 });
             });
             localStorage.setItem('of_seats_config_v2', JSON.stringify(seats));
-            // Feedback visual rápido
+
             const btn = document.querySelector('.btn-success');
             const originalText = btn.innerText;
             btn.innerText = 'Salvo! ✓';
@@ -444,8 +461,8 @@
             const savedSeats = localStorage.getItem('of_seats_config_v2');
             if (savedSeats) {
                 const seats = JSON.parse(savedSeats);
-                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available'));
-                // Ajustar contador para não duplicar IDs
+                seats.forEach(s => createSeatElement(s.id, s.x, s.y, s.status || 'available', s.user)); // Passa o user
+
                 const maxId = seats.reduce((max, s) => Math.max(max, parseInt(s.id) || 0), 0);
                 seatCounter = maxId + 1;
             }

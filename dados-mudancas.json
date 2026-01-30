@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-01-30T17:55:44.168723",
+  "ultima_atualizacao": "2026-01-30T18:31:45.051418",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4348",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-27T22:29:05.348-0300",
-      "updated": "2026-01-28T14:30:26.426-0300",
+      "updated": "2026-01-30T15:10:02.217-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

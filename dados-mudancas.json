@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-01-31T17:56:37.383902",
+  "ultima_atualizacao": "2026-01-31T18:24:42.790305",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4356",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Luiz Santos",
+      "created": "2026-01-31T15:06:59.540-0300",
+      "updated": "2026-01-31T15:06:59.804-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4348",
       "summary": "Solicitação de Mudanças",
@@ -1465,21 +1478,6 @@
       "reporter": "Marcos Antonio Vilela",
       "created": "2024-02-09T10:57:21.689-0300",
       "updated": "2025-12-15T20:18:12.162-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-582",
-      "summary": "Atualização conselheiro suplente 1.3 - Produção",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2024-02-05T15:00:22.648-0300",
-      "updated": "2025-12-15T20:18:14.809-0300",
       "labels": [
         "tipo:normal"
       ],

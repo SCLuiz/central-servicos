@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-02-03T13:21:04.268563",
+  "ultima_atualizacao": "2026-02-03T14:11:55.824970",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4363",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Daniel Augusto Ramos Gonzales",
+      "created": "2026-02-03T10:46:34.196-0300",
+      "updated": "2026-02-03T10:47:23.630-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4362",
       "summary": "Solicitação de Mudanças",
@@ -1463,21 +1476,6 @@
       "reporter": "Marcos Antonio Vilela",
       "created": "2024-02-09T10:59:20.079-0300",
       "updated": "2025-12-15T20:18:10.417-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-589",
-      "summary": "Altera mensagens de error no log para severidade ERROR - homologação",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2024-02-09T10:57:21.689-0300",
-      "updated": "2025-12-15T20:18:12.162-0300",
       "labels": [
         "tipo:normal"
       ],

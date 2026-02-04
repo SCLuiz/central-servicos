@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-02-04T18:02:57.132298",
+  "ultima_atualizacao": "2026-02-04T19:02:19.723165",
   "total": 100,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4362",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Pedro Arlego",
       "reporter": "Pedro Arlego",
       "created": "2026-02-02T15:38:52.132-0300",
-      "updated": "2026-02-04T14:07:03.059-0300",
+      "updated": "2026-02-04T15:14:01.948-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

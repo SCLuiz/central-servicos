@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-02-04T11:10:34.900073",
+  "ultima_atualizacao": "2026-02-04T11:46:14.588843",
   "total": 100,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2026-02-03T10:46:34.196-0300",
-      "updated": "2026-02-04T07:36:11.254-0300",
+      "updated": "2026-02-04T08:36:22.048-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -36,7 +36,7 @@
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-01-27T22:29:05.348-0300",
-      "updated": "2026-01-30T15:10:02.217-0300",
+      "updated": "2026-02-04T08:38:22.111-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

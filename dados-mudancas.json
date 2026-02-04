@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-02-04T09:57:50.782192",
+  "ultima_atualizacao": "2026-02-04T10:36:29.732053",
   "total": 100,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2026-02-03T10:46:34.196-0300",
-      "updated": "2026-02-03T10:47:23.630-0300",
+      "updated": "2026-02-04T07:36:11.254-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

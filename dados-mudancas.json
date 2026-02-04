@@ -1,16 +1,29 @@
 {
-  "ultima_atualizacao": "2026-02-04T12:02:16.637184",
+  "ultima_atualizacao": "2026-02-04T13:20:19.717086",
   "total": 100,
   "mudancas": [
     {
+      "key": "OFBI-4368",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Luiz Santos",
+      "created": "2026-02-04T09:44:46.906-0300",
+      "updated": "2026-02-04T09:44:47.107-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
       "key": "OFBI-4363",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Cancelado",
       "priority": "Low",
       "assignee": "Daniel Augusto Ramos Gonzales",
       "reporter": "Daniel Augusto Ramos Gonzales",
       "created": "2026-02-03T10:46:34.196-0300",
-      "updated": "2026-02-04T08:36:22.048-0300",
+      "updated": "2026-02-04T09:15:03.351-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -1461,21 +1474,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-02-21T17:50:41.981-0300",
       "updated": "2025-12-15T20:18:08.993-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-590",
-      "summary": "Altera mensagens de error no log para severidade ERROR - Produção",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2024-02-09T10:59:20.079-0300",
-      "updated": "2025-12-15T20:18:10.417-0300",
       "labels": [
         "tipo:normal"
       ],

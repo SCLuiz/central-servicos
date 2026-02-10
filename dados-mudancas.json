@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-02-10T11:58:28.655870",
+  "ultima_atualizacao": "2026-02-10T13:14:21.942901",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4379",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2026-02-10T09:07:55.498-0300",
+      "updated": "2026-02-10T09:08:34.484-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4363",
       "summary": "Solicitação de Mudanças",
@@ -1461,21 +1474,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-02-21T17:50:41.981-0300",
       "updated": "2025-12-15T20:18:08.993-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-590",
-      "summary": "Altera mensagens de error no log para severidade ERROR - Produção",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Marcos Antonio Vilela",
-      "created": "2024-02-09T10:59:20.079-0300",
-      "updated": "2025-12-15T20:18:10.417-0300",
       "labels": [
         "tipo:normal"
       ],

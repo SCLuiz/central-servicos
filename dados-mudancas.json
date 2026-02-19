@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-02-19T20:18:26.396278",
+  "ultima_atualizacao": "2026-02-19T20:52:02.558014",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4386",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
+      "created": "2026-02-19T17:20:36.944-0300",
+      "updated": "2026-02-19T17:20:53.054-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4383",
       "summary": "Solicitação de Mudanças",
@@ -1457,21 +1470,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-03-01T13:48:12.999-0300",
       "updated": "2025-12-15T20:18:06.613-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-638",
-      "summary": "Teste ",
-      "status": "Cancelado",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Sherida Veronesi Piccello",
-      "created": "2024-02-29T09:20:45.464-0300",
-      "updated": "2025-12-15T20:18:07.850-0300",
       "labels": [
         "tipo:normal"
       ],

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-02-25T16:44:06.957814",
+  "ultima_atualizacao": "2026-02-25T17:43:02.851459",
   "total": 100,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-02-19T17:20:36.944-0300",
-      "updated": "2026-02-19T17:20:53.054-0300",
+      "updated": "2026-02-25T14:13:00.213-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -23,7 +23,7 @@
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-02-19T13:36:32.412-0300",
-      "updated": "2026-02-19T13:36:56.160-0300",
+      "updated": "2026-02-25T14:09:33.354-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

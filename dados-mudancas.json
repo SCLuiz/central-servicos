@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-03-04T11:56:29.849215",
+  "ultima_atualizacao": "2026-03-04T12:42:08.268015",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4386",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-02-19T17:20:36.944-0300",
-      "updated": "2026-03-04T07:09:00.051-0300",
+      "updated": "2026-03-04T09:18:34.375-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4383",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-02-19T13:36:32.412-0300",
-      "updated": "2026-03-04T07:09:54.704-0300",
+      "updated": "2026-03-04T09:18:30.973-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

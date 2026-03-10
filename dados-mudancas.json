@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-03-10T14:07:50.080786",
+  "ultima_atualizacao": "2026-03-10T15:05:45.870672",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4411",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Cerqueira dos Santos",
+      "reporter": "Higor Cerqueira dos Santos",
+      "created": "2026-03-10T11:59:36.677-0300",
+      "updated": "2026-03-10T11:59:59.712-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4410",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Cerqueira dos Santos",
+      "reporter": "Higor Cerqueira dos Santos",
+      "created": "2026-03-10T11:40:12.311-0300",
+      "updated": "2026-03-10T11:41:23.614-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4409",
       "summary": "Solicitação de Mudanças",
@@ -1436,36 +1462,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-04-17T10:48:08.982-0300",
       "updated": "2025-12-15T20:17:59.938-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-789",
-      "summary": "Portal OpenFinance",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Usuário inativo",
-      "created": "2024-04-08T11:44:40.730-0300",
-      "updated": "2025-12-15T20:18:01.863-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-767",
-      "summary": "Atualização de pacotes de segurança - MISP",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Cassia Vieira de Souza",
-      "created": "2024-04-03T11:54:02.382-0300",
-      "updated": "2025-12-15T20:18:04.176-0300",
       "labels": [
         "tipo:normal"
       ],

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-03-10T12:00:20.769951",
+  "ultima_atualizacao": "2026-03-10T13:13:04.462796",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4409",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Cerqueira dos Santos",
+      "reporter": "Higor Cerqueira dos Santos",
+      "created": "2026-03-10T10:01:12.403-0300",
+      "updated": "2026-03-10T10:01:12.690-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4405",
       "summary": "Solicitação de Mudanças",
@@ -1453,21 +1466,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-04-03T11:54:02.382-0300",
       "updated": "2025-12-15T20:18:04.176-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-717",
-      "summary": "Atualização de pacotes de segurança - MISP",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Cassia Vieira de Souza",
-      "created": "2024-03-19T17:55:26.541-0300",
-      "updated": "2025-12-15T20:18:05.354-0300",
       "labels": [
         "tipo:normal"
       ],

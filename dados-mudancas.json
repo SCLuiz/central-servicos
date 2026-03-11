@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-03-11T10:31:49.808347",
+  "ultima_atualizacao": "2026-03-11T11:08:06.866392",
   "total": 100,
   "mudancas": [
+    {
+      "key": "OFBI-4414",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Daniel Gonzales",
+      "created": "2026-03-11T08:05:44.997-0300",
+      "updated": "2026-03-11T08:06:12.822-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4411",
       "summary": "Solicitação de Mudanças",
@@ -1447,21 +1460,6 @@
       "reporter": "Cassia Vieira de Souza",
       "created": "2024-05-06T11:15:20.456-0300",
       "updated": "2025-12-15T20:17:58.595-0300",
-      "labels": [
-        "tipo:normal"
-      ],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-826",
-      "summary": "Atualização de pacotes de segurança - MISP",
-      "status": "Concluído com Sucesso",
-      "priority": "Medium",
-      "assignee": "Sherida Veronesi Piccello",
-      "reporter": "Cassia Vieira de Souza",
-      "created": "2024-04-17T10:48:08.982-0300",
-      "updated": "2025-12-15T20:17:59.938-0300",
       "labels": [
         "tipo:normal"
       ],

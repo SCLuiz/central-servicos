@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-12T02:08:51.636219",
+  "ultima_atualizacao": "2026-03-12T04:20:41.341214",
   "total": 100,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:05:44.997-0300",
-      "updated": "2026-03-11T10:06:14.821-0300",
+      "updated": "2026-03-12T01:06:21.732-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

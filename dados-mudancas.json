@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-03-12T21:17:58.895844",
+  "ultima_atualizacao": "2026-03-12T21:49:57.329519",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4415",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:15:18.137-0300",
-      "updated": "2026-03-12T08:57:53.179-0300",
+      "updated": "2026-03-12T18:43:11.093-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4414",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:05:44.997-0300",
-      "updated": "2026-03-12T08:59:13.102-0300",
+      "updated": "2026-03-12T18:43:39.766-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4411",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Cerqueira dos Santos",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T11:59:36.677-0300",
-      "updated": "2026-03-12T09:01:05.632-0300",
+      "updated": "2026-03-12T18:44:03.900-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4410",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Cerqueira dos Santos",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T11:40:12.311-0300",
-      "updated": "2026-03-12T09:00:52.305-0300",
+      "updated": "2026-03-12T18:44:35.084-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -70,12 +70,12 @@
     {
       "key": "OFBI-4405",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Thomas Rabelo",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Thomas Rabelo",
       "created": "2026-03-06T10:15:03.739-0300",
-      "updated": "2026-03-12T09:02:13.634-0300",
+      "updated": "2026-03-12T18:45:01.716-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

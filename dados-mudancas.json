@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-13T19:04:10.470078",
+  "ultima_atualizacao": "2026-03-13T19:39:33.787661",
   "total": 100,
   "mudancas": [
     {
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4409",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T10:01:12.403-0300",
-      "updated": "2026-03-12T09:01:40.050-0300",
+      "updated": "2026-03-13T16:09:11.973-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

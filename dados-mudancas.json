@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-03-12T23:59:52.590807",
+  "ultima_atualizacao": "2026-03-13T02:28:31.468844",
   "total": 100,
   "mudancas": [
     {
       "key": "OFBI-4415",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:15:18.137-0300",
-      "updated": "2026-03-12T18:43:11.093-0300",
+      "updated": "2026-03-12T22:04:13.504-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

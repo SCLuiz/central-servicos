@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-03-18T20:00:44.161988",
+  "ultima_atualizacao": "2026-03-18T20:45:42.375105",
   "total": 20,
   "mudancas": [
     {
       "key": "OFBI-4426",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Sem responsável",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Guilherme Machado",
       "created": "2026-03-18T16:04:06.505-0300",
-      "updated": "2026-03-18T16:14:24.160-0300",
+      "updated": "2026-03-18T17:30:45.881-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

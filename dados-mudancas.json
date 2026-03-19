@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-19T12:27:27.628485",
+  "ultima_atualizacao": "2026-03-19T13:46:28.504308",
   "total": 20,
   "mudancas": [
     {
@@ -88,10 +88,10 @@
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T10:01:12.403-0300",
-      "updated": "2026-03-13T16:09:11.973-0300",
+      "updated": "2026-03-19T10:18:04.515-0300",
       "labels": [],
       "causouIncidente": null,
-      "categoria": "Emergencial"
+      "categoria": ""
     },
     {
       "key": "OFBI-4405",

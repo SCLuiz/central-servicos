@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-03-20T14:08:22.520974",
-  "total": 20,
+  "ultima_atualizacao": "2026-03-20T14:59:04.011654",
+  "total": 21,
   "mudancas": [
+    {
+      "key": "OFBI-4427",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Constantino Candido Maranhão Mariz Neto",
+      "created": "2026-03-20T11:18:12.947-0300",
+      "updated": "2026-03-20T11:18:28.038-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-4426",
       "summary": "Solicitação de Mudanças",

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-23T18:08:27.663702",
+  "ultima_atualizacao": "2026-03-23T19:10:12.984340",
   "total": 21,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Constantino Candido Maranhão Mariz Neto",
       "created": "2026-03-20T11:18:12.947-0300",
-      "updated": "2026-03-20T11:18:28.038-0300",
+      "updated": "2026-03-23T15:36:26.400-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -20,10 +20,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-03-18T16:04:06.505-0300",
-      "updated": "2026-03-18T17:30:45.881-0300",
+      "updated": "2026-03-23T15:36:21.072-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

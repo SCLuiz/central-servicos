@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-25T10:00:53.170772",
+  "ultima_atualizacao": "2026-03-25T10:55:41.269177",
   "total": 23,
   "mudancas": [
     {
@@ -96,12 +96,12 @@
     {
       "key": "OFBI-4411",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T11:59:36.677-0300",
-      "updated": "2026-03-13T12:00:15.572-0300",
+      "updated": "2026-03-25T07:09:50.693-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -109,12 +109,12 @@
     {
       "key": "OFBI-4410",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T11:40:12.311-0300",
-      "updated": "2026-03-13T12:01:12.604-0300",
+      "updated": "2026-03-25T07:09:28.438-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -122,12 +122,12 @@
     {
       "key": "OFBI-4409",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-03-10T10:01:12.403-0300",
-      "updated": "2026-03-19T10:18:04.515-0300",
+      "updated": "2026-03-25T07:09:00.712-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": ""
@@ -135,12 +135,12 @@
     {
       "key": "OFBI-4405",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Thomas Rabelo",
       "reporter": "Thomas Rabelo",
       "created": "2026-03-06T10:15:03.739-0300",
-      "updated": "2026-03-13T12:03:10.290-0300",
+      "updated": "2026-03-25T07:08:30.741-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

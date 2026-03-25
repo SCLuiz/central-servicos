@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-25T16:47:17.775291",
+  "ultima_atualizacao": "2026-03-25T17:43:59.688251",
   "total": 24,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4432",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-24T14:01:13.233-0300",
-      "updated": "2026-03-25T09:25:10.669-0300",
+      "updated": "2026-03-25T14:22:15.864-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4431",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-24T13:26:16.611-0300",
-      "updated": "2026-03-25T09:24:52.676-0300",
+      "updated": "2026-03-25T14:19:56.625-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

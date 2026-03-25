@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-25T13:45:44.127089",
+  "ultima_atualizacao": "2026-03-25T14:44:35.128212",
   "total": 24,
   "mudancas": [
     {
@@ -75,7 +75,7 @@
       "assignee": "Hyanka Coelho",
       "reporter": "Hyanka Coelho",
       "created": "2026-03-17T08:29:59.872-0300",
-      "updated": "2026-03-25T09:23:36.809-0300",
+      "updated": "2026-03-25T11:02:33.650-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

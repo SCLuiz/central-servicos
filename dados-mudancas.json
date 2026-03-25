@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-03-25T19:28:31.958405",
+  "ultima_atualizacao": "2026-03-25T20:00:47.710566",
   "total": 24,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-03-25T09:47:16.314-0300",
-      "updated": "2026-03-25T10:29:39.959-0300",
+      "updated": "2026-03-25T16:29:38.200-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

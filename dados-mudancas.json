@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-04-01T11:36:10.635532",
+  "ultima_atualizacao": "2026-04-01T12:38:06.822962",
   "total": 24,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-03-25T09:47:16.314-0300",
-      "updated": "2026-03-25T16:29:38.200-0300",
+      "updated": "2026-04-01T09:19:46.169-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4432",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-24T14:01:13.233-0300",
-      "updated": "2026-03-25T14:22:15.864-0300",
+      "updated": "2026-04-01T09:23:46.905-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4431",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Daniel Gonzales",
       "reporter": "Daniel Gonzales",
       "created": "2026-03-24T13:26:16.611-0300",
-      "updated": "2026-03-25T18:22:26.802-0300",
+      "updated": "2026-04-01T09:23:37.202-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

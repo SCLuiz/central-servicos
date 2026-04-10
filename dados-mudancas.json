@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-04-10T21:23:16.440644",
-  "total": 24,
+  "ultima_atualizacao": "2026-04-10T21:58:02.143260",
+  "total": 25,
   "mudancas": [
+    {
+      "key": "OFBI-4465",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Marcel Freitas",
+      "created": "2026-04-10T18:56:16.423-0300",
+      "updated": "2026-04-10T18:57:25.864-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4434",
       "summary": "Solicitação de Mudanças",

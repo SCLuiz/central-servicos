@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-04-14T16:47:43.113805",
-  "total": 24,
+  "ultima_atualizacao": "2026-04-14T17:52:21.084045",
+  "total": 23,
   "mudancas": [
     {
       "key": "OFBI-4465",
@@ -287,19 +287,6 @@
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4316",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Thiago da Silva Pereira",
-      "reporter": "Thiago da Silva Pereira",
-      "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-14T14:30:58.937-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4315",

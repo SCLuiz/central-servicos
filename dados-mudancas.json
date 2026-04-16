@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-04-16T17:24:58.539184",
-  "total": 23,
+  "ultima_atualizacao": "2026-04-16T18:40:25.469270",
+  "total": 25,
   "mudancas": [
+    {
+      "key": "OFBI-4474",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-04-16T15:00:42.235-0300",
+      "updated": "2026-04-16T15:00:47.505-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4473",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-04-16T14:58:08.158-0300",
+      "updated": "2026-04-16T14:58:13.834-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4465",
       "summary": "Solicitação de Mudanças",

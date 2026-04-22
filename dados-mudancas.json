@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-04-22T10:53:58.954505",
+  "ultima_atualizacao": "2026-04-22T11:49:15.031804",
   "total": 22,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T15:00:42.235-0300",
-      "updated": "2026-04-16T15:00:47.505-0300",
+      "updated": "2026-04-22T08:37:05.116-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -20,10 +20,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T14:58:08.158-0300",
-      "updated": "2026-04-16T14:58:13.834-0300",
+      "updated": "2026-04-22T08:37:22.416-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4465",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Marcel Freitas",
       "reporter": "Marcel Freitas",
       "created": "2026-04-10T18:56:16.423-0300",
-      "updated": "2026-04-15T07:04:39.608-0300",
+      "updated": "2026-04-22T08:38:00.198-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4434",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-03-25T09:47:16.314-0300",
-      "updated": "2026-04-08T08:13:58.322-0300",
+      "updated": "2026-04-22T08:39:37.303-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

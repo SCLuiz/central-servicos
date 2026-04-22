@@ -7,8 +7,19 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "22/04/2026 14:20",
+    "date": "22/04/2026 16:31",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4473"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4480",
+    "title": "OFBI-4480 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "22/04/2026 15:47",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4480"
   },
   {
     "source": "Jira",

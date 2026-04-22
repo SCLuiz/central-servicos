@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-04-22T16:43:47.188542",
+  "ultima_atualizacao": "2026-04-22T17:41:39.336140",
   "total": 22,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T15:00:42.235-0300",
-      "updated": "2026-04-22T12:03:11.952-0300",
+      "updated": "2026-04-22T14:20:09.683-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T14:58:08.158-0300",
-      "updated": "2026-04-22T12:03:01.074-0300",
+      "updated": "2026-04-22T14:20:34.961-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

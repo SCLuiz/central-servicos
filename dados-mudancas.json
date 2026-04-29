@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-04-29T15:59:58.070372",
+  "ultima_atualizacao": "2026-04-29T17:41:37.455285",
   "total": 22,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-04-22T15:47:46.923-0300",
+      "updated": "2026-04-29T13:53:36.446-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T15:00:42.235-0300",
-      "updated": "2026-04-22T22:28:59.648-0300",
+      "updated": "2026-04-29T14:14:13.539-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

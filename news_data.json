@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4488",
+    "title": "OFBI-4488 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "30/04/2026 11:37",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4488"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4480",
     "title": "OFBI-4480 - Solicitação de Mudanças",
     "type_name": "Mudança",

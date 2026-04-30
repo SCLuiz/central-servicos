@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-04-30T00:05:43.400641",
+  "ultima_atualizacao": "2026-04-30T03:58:50.311320",
   "total": 22,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-04-29T13:53:36.446-0300",
+      "updated": "2026-04-29T23:39:43.977-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4474",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T15:00:42.235-0300",
-      "updated": "2026-04-29T14:14:13.539-0300",
+      "updated": "2026-04-29T23:10:36.201-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4473",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-04-16T14:58:08.158-0300",
-      "updated": "2026-04-29T12:20:00.113-0300",
+      "updated": "2026-04-29T23:10:21.303-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

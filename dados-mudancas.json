@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-04-30T13:48:50.586648",
-  "total": 22,
+  "ultima_atualizacao": "2026-04-30T15:29:46.573339",
+  "total": 23,
   "mudancas": [
+    {
+      "key": "OFBI-4488",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Felipe Belisário",
+      "reporter": "Felipe Belisário",
+      "created": "2026-04-30T11:36:41.614-0300",
+      "updated": "2026-04-30T11:37:18.495-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4480",
       "summary": "Solicitação de Mudanças",

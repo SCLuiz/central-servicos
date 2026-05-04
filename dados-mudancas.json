@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-05-04T18:25:18.729760",
-  "total": 23,
+  "ultima_atualizacao": "2026-05-04T19:59:37.521679",
+  "total": 24,
   "mudancas": [
+    {
+      "key": "OFBI-4493",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Cerqueira dos Santos",
+      "reporter": "Higor Cerqueira dos Santos",
+      "created": "2026-05-04T16:02:56.837-0300",
+      "updated": "2026-05-04T16:03:21.707-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4488",
       "summary": "Solicitação de Mudanças",
@@ -18,12 +31,12 @@
     {
       "key": "OFBI-4480",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-05-04T11:16:40.427-0300",
+      "updated": "2026-05-04T16:40:56.752-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

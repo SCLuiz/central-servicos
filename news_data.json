@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4480",
+    "title": "OFBI-4480 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "04/05/2026 16:40",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4480"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4493",
     "title": "OFBI-4493 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -9,17 +20,6 @@
     "status_dot": "dot-info",
     "date": "04/05/2026 16:03",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4493"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4480",
-    "title": "OFBI-4480 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "04/05/2026 11:16",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4480"
   },
   {
     "source": "Jira",

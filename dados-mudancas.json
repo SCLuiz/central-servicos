@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-04T13:13:37.153229",
+  "ultima_atualizacao": "2026-05-04T15:20:35.024039",
   "total": 23,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-04-29T23:39:43.977-0300",
+      "updated": "2026-05-04T11:16:40.427-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

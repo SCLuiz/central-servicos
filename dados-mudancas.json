@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-05-05T17:53:47.654269",
-  "total": 23,
+  "ultima_atualizacao": "2026-05-05T18:59:11.004304",
+  "total": 22,
   "mudancas": [
     {
       "key": "OFBI-4493",
@@ -36,7 +36,7 @@
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-05-04T16:40:56.752-0300",
+      "updated": "2026-05-05T15:05:23.972-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -271,19 +271,6 @@
       "reporter": "Thomas Rabelo",
       "created": "2026-02-10T09:07:55.498-0300",
       "updated": "2026-02-11T07:03:01.993-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4362",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Pedro Arlego",
-      "reporter": "Pedro Arlego",
-      "created": "2026-02-02T15:38:52.132-0300",
-      "updated": "2026-02-04T15:14:01.948-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

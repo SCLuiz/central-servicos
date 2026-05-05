@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-05-05T11:38:11.462939",
-  "total": 24,
+  "ultima_atualizacao": "2026-05-05T12:50:59.660687",
+  "total": 23,
   "mudancas": [
     {
       "key": "OFBI-4493",
@@ -271,19 +271,6 @@
       "reporter": "Thomas Rabelo",
       "created": "2026-02-10T09:07:55.498-0300",
       "updated": "2026-02-11T07:03:01.993-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4363",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "priority": "Low",
-      "assignee": "Daniel Gonzales",
-      "reporter": "Daniel Gonzales",
-      "created": "2026-02-03T10:46:34.196-0300",
-      "updated": "2026-02-04T09:15:03.351-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

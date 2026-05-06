@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-06T12:16:33.508421",
+  "ultima_atualizacao": "2026-05-06T14:48:51.156612",
   "total": 22,
   "mudancas": [
     {
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4480",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-05-05T15:05:23.972-0300",
+      "updated": "2026-05-06T10:14:01.234-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

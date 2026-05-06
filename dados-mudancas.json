@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-05-06T16:20:16.929254",
+  "ultima_atualizacao": "2026-05-06T17:54:50.297343",
   "total": 22,
   "mudancas": [
     {
       "key": "OFBI-4493",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Cancelado",
       "priority": "Low",
       "assignee": "Higor Cerqueira dos Santos",
       "reporter": "Higor Cerqueira dos Santos",
       "created": "2026-05-04T16:02:56.837-0300",
-      "updated": "2026-05-04T16:03:21.707-0300",
+      "updated": "2026-05-06T14:01:36.243-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Felipe Belisário",
       "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
-      "updated": "2026-04-30T11:37:18.495-0300",
+      "updated": "2026-05-06T14:19:21.550-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

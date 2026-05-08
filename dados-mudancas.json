@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-08T20:16:43.790591",
+  "ultima_atualizacao": "2026-05-08T21:16:54.062762",
   "total": 22,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4488",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Felipe Belisário",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
-      "updated": "2026-05-08T13:29:09.172-0300",
+      "updated": "2026-05-08T18:07:40.934-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-08T15:11:32.555833",
+  "ultima_atualizacao": "2026-05-08T16:44:06.067329",
   "total": 22,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Felipe Belisário",
       "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
-      "updated": "2026-05-07T20:28:41.528-0300",
+      "updated": "2026-05-08T13:29:09.172-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

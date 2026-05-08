@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-08T22:12:11.455577",
+  "ultima_atualizacao": "2026-05-08T23:09:27.472995",
   "total": 22,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
-      "updated": "2026-05-08T18:07:40.934-0300",
+      "updated": "2026-05-08T19:45:10.201-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

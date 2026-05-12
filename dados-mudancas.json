@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-05-12T14:46:50.327771",
-  "total": 22,
+  "ultima_atualizacao": "2026-05-12T16:57:27.029550",
+  "total": 23,
   "mudancas": [
+    {
+      "key": "OFBI-4504",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-05-12T11:47:11.221-0300",
+      "updated": "2026-05-12T11:50:34.409-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4503",
       "summary": "Solicitação de Mudanças",

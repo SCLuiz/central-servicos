@@ -7,8 +7,19 @@
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "12/05/2026 11:50",
+    "date": "13/05/2026 14:29",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4504"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4506",
+    "title": "OFBI-4506 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "13/05/2026 14:29",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4506"
   },
   {
     "source": "Jira",
@@ -18,7 +29,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "12/05/2026 11:31",
+    "date": "13/05/2026 14:14",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4503"
   }
 ]

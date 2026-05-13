@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-13T17:31:25.228329",
+  "ultima_atualizacao": "2026-05-13T19:18:58.721634",
   "total": 23,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Marcos Santana",
       "reporter": "Marcos Santana",
       "created": "2026-05-13T10:30:27.328-0300",
-      "updated": "2026-05-13T14:29:20.080-0300",
+      "updated": "2026-05-13T15:50:43.211-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -23,7 +23,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-05-12T11:47:11.221-0300",
-      "updated": "2026-05-13T14:29:47.154-0300",
+      "updated": "2026-05-13T15:45:38.909-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-14T13:14:30.742482",
+  "ultima_atualizacao": "2026-05-14T15:33:43.519217",
   "total": 23,
   "mudancas": [
     {
@@ -36,7 +36,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-05-12T11:31:21.853-0300",
-      "updated": "2026-05-14T10:07:31.014-0300",
+      "updated": "2026-05-14T10:26:07.610-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

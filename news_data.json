@@ -1,13 +1,24 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4503",
+    "title": "OFBI-4503 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "14/05/2026 10:26",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4503"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4506",
     "title": "OFBI-4506 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "13/05/2026 15:50",
+    "date": "14/05/2026 10:10",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4506"
   },
   {
@@ -16,20 +27,9 @@
     "title": "OFBI-4504 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "13/05/2026 15:45",
+    "date": "14/05/2026 10:08",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4504"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4503",
-    "title": "OFBI-4503 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "13/05/2026 14:14",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4503"
   }
 ]

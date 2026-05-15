@@ -47,28 +47,37 @@ jobs:
           auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
           headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-          jql = 'project = OFBI AND issuetype = "[System] Incidente" AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
+          jql = 'project = OFBI AND issuetype = "[System] Incidente" ORDER BY created DESC'
 
-          payload = {
-              'jql': jql,
-              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate'],
-              'maxResults': 100
-          }
+          incidentes = []
+          start_at = 0
+          max_results = 100
 
           print('Buscando incidentes do Jira...')
-          response = requests.post(
-              f'{JIRA_URL}/rest/api/3/search/jql',
-              auth=auth,
-              headers=headers,
-              json=payload,
-              timeout=30
-          )
+          while True:
+              payload = {
+                  'jql': jql,
+                  'fields': ['summary', 'description', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate'],
+                  'maxResults': max_results,
+                  'startAt': start_at
+              }
 
-          if response.status_code == 200:
+              response = requests.post(
+                  f'{JIRA_URL}/rest/api/3/search/jql',
+                  auth=auth,
+                  headers=headers,
+                  json=payload,
+                  timeout=30
+              )
+
+              if response.status_code != 200:
+                  print(f'✗ Erro: {response.status_code}')
+                  print(response.text)
+                  exit(1)
+
               data = response.json()
               issues = data.get('issues', [])
 
-              incidentes = []
               for issue in issues:
                   key = issue.get('key')
                   fields = issue.get('fields', {})
@@ -78,9 +87,23 @@ jobs:
                   priority = fields.get('priority') or {}
                   status = fields.get('status') or {}
 
+                  # Extrair texto da descrição (ADF) se o summary for genérico
+                  desc_text = ''
+                  desc = fields.get('description')
+                  if desc and isinstance(desc, dict):
+                      for block in desc.get('content', []):
+                          for inline in block.get('content', []):
+                              if inline.get('type') == 'text':
+                                  desc_text += inline.get('text', '')
+                          if desc_text:
+                              break
+
+                  summary = fields.get('summary', '')
+                  titulo = desc_text.strip()[:120] if desc_text.strip() else summary
+
                   incidentes.append({
                       'key': key,
-                      'summary': fields.get('summary', ''),
+                      'summary': titulo,
                       'status': status.get('name', ''),
                       'priority': priority.get('name', ''),
                       'assignee': assignee.get('displayName', 'Sem responsável'),
@@ -90,6 +113,10 @@ jobs:
                       'resolutiondate': fields.get('resolutiondate', None),
                       'labels': fields.get('labels', []),
                   })
+
+              if data.get('isLast', True) or len(issues) < max_results:
+                  break
+              start_at += max_results
 
               output = {
                   'ultima_atualizacao': datetime.now().isoformat(),
@@ -112,4 +139,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add dados-incidentes.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar dados do dashboard de incidentes [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar dados do dashboard de incidentes [skip ci]" && git pull --rebase && git push)

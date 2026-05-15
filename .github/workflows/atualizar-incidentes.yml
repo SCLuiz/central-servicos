@@ -47,7 +47,7 @@ jobs:
           auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
           headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-          jql = 'project = OFBI AND issuetype = "[System] Incidente" ORDER BY created DESC'
+          jql = 'project = OFBI AND issuetype in ("[System] Incidente", "Incidente") ORDER BY created DESC'
 
           incidentes = []
           start_at = 0
@@ -57,7 +57,8 @@ jobs:
           while True:
               payload = {
                   'jql': jql,
-                  'fields': ['summary', 'description', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate'],
+                  'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate',
+                             'customfield_10238', 'customfield_10248', 'customfield_10096'],
                   'maxResults': max_results,
                   'startAt': start_at
               }
@@ -87,23 +88,44 @@ jobs:
                   priority = fields.get('priority') or {}
                   status = fields.get('status') or {}
 
-                  # Extrair texto da descrição (ADF) se o summary for genérico
-                  desc_text = ''
-                  desc = fields.get('description')
-                  if desc and isinstance(desc, dict):
-                      for block in desc.get('content', []):
-                          for inline in block.get('content', []):
-                              if inline.get('type') == 'text':
-                                  desc_text += inline.get('text', '')
-                          if desc_text:
-                              break
+                  # Sistema Afetado (customfield_10238)
+                  sistema = fields.get('customfield_10238') or {}
+                  sistema_afetado = sistema.get('value', '') if isinstance(sistema, dict) else ''
 
-                  summary = fields.get('summary', '')
-                  titulo = desc_text.strip()[:120] if desc_text.strip() else summary
+                  # Impacto (customfield_10248)
+                  impacto_obj = fields.get('customfield_10248') or {}
+                  impacto = impacto_obj.get('value', '') if isinstance(impacto_obj, dict) else ''
+
+                  # SLA Tempo de resolução (customfield_10096)
+                  sla_breached = False
+                  sla_breach_time = None
+                  sla_elapsed = None
+                  sla_remaining = None
+                  sla = fields.get('customfield_10096') or {}
+                  ongoing = sla.get('ongoingCycle') or {}
+                  if ongoing:
+                      sla_breached = ongoing.get('breached', False)
+                      bt = ongoing.get('breachTime') or {}
+                      sla_breach_time = bt.get('jira')
+                      et = ongoing.get('elapsedTime') or {}
+                      sla_elapsed = et.get('friendly')
+                      rt = ongoing.get('remainingTime') or {}
+                      sla_remaining = rt.get('friendly')
+                  else:
+                      completed = sla.get('completedCycles') or []
+                      if completed:
+                          last = completed[-1]
+                          sla_breached = last.get('breached', False)
+                          bt = last.get('breachTime') or {}
+                          sla_breach_time = bt.get('jira')
+                          et = last.get('elapsedTime') or {}
+                          sla_elapsed = et.get('friendly')
 
                   incidentes.append({
                       'key': key,
-                      'summary': titulo,
+                      'summary': fields.get('summary', ''),
+                      'sistema_afetado': sistema_afetado,
+                      'impacto': impacto,
                       'status': status.get('name', ''),
                       'priority': priority.get('name', ''),
                       'assignee': assignee.get('displayName', 'Sem responsável'),
@@ -112,26 +134,27 @@ jobs:
                       'updated': fields.get('updated', ''),
                       'resolutiondate': fields.get('resolutiondate', None),
                       'labels': fields.get('labels', []),
+                      'sla_breached': sla_breached,
+                      'sla_breach_time': sla_breach_time,
+                      'sla_elapsed': sla_elapsed,
+                      'sla_remaining': sla_remaining,
                   })
 
               if data.get('isLast', True) or len(issues) < max_results:
                   break
               start_at += max_results
 
-              output = {
-                  'ultima_atualizacao': datetime.now().isoformat(),
-                  'total': len(incidentes),
-                  'incidentes': incidentes
-              }
+          # ESCREVER O ARQUIVO FORA DO LOOP PARA GARANTIR QUE PEGA TUDO
+          output = {
+              'ultima_atualizacao': datetime.now().isoformat(),
+              'total': len(incidentes),
+              'incidentes': incidentes
+          }
 
-              with open('dados-incidentes.json', 'w', encoding='utf-8') as f:
-                  json.dump(output, f, ensure_ascii=False, indent=2)
+          with open('dados-incidentes.json', 'w', encoding='utf-8') as f:
+              json.dump(output, f, ensure_ascii=False, indent=2)
 
-              print(f'✓ {len(incidentes)} incidentes exportados para dados-incidentes.json')
-          else:
-              print(f'✗ Erro: {response.status_code}')
-              print(response.text)
-              exit(1)
+          print(f'✓ {len(incidentes)} incidentes exportados para dados-incidentes.json')
           EOF
 
       - name: Commit e Push

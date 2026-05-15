@@ -200,6 +200,10 @@
         .priority-medium { background: #FFF3E0; color: #E65100; }
         .priority-low { background: #E8F5E9; color: #2E7D32; }
 
+        .sla-breached { display: inline-flex; align-items: center; gap: 4px; background: #FFEBEE; color: #C62828; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .sla-ok { display: inline-flex; align-items: center; gap: 4px; background: #E8F5E9; color: #2E7D32; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .sla-alert-bar { background: #FFEBEE; border-left: 4px solid #C62828; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: #C62828; }
+
         .filters-bar {
             background: var(--of-white);
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -370,6 +374,15 @@
                     <div class="metric-label">Alta Prioridade</div>
                     <div class="metric-value" id="metricHigh" style="color: #C62828;">0</div>
                 </div>
+                <div class="metric-card" style="border-left-color: #C62828;">
+                    <div class="metric-label">SLA Estourado</div>
+                    <div class="metric-value" id="metricSlaBreached" style="color: #C62828;">0</div>
+                    <div class="metric-meta danger">Incidentes com SLA vencido</div>
+                </div>
+            </div>
+
+            <div id="slaAlertBar" class="sla-alert-bar" style="display:none;">
+                ⚠️ <span id="slaAlertText"></span>
             </div>
 
             <!-- Timeline Chart -->
@@ -403,6 +416,15 @@
                         <div class="metric-label">Reabertos / Em Espera</div>
                         <div class="metric-value" id="indPendentes">0</div>
                         <div class="metric-meta">Itens Pendentes ativos</div>
+                    </div>
+                    <div class="metric-card" style="border-left-color: #C62828;">
+                        <div class="metric-label">% SLA Estourado</div>
+                        <div class="metric-value" id="indSlaPct">0%</div>
+                        <div class="metric-meta">Meta: 0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Sistema Mais Afetado</div>
+                        <div class="metric-value" id="indSistema" style="font-size:16px; padding-top:8px;">—</div>
                     </div>
                 </div>
             </div>
@@ -458,9 +480,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Descrição</th>
+                            <th>Sistema Afetado</th>
                             <th>Status</th>
                             <th>Prioridade</th>
+                            <th>SLA</th>
                             <th>Responsável</th>
                             <th>Criado em</th>
                             <th>Resolvido em</th>
@@ -514,8 +537,10 @@
                 high: 0,
                 medium: 0,
                 low: 0,
+                slaBreached: 0,
                 statusCount: {},
                 responsaveisCount: {},
+                sistemasCount: {},
                 tempoResolucaoTotal: 0,
                 tempoResolucaoCount: 0
             };
@@ -530,10 +555,16 @@
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
                 stats.responsaveisCount[i.assignee] = (stats.responsaveisCount[i.assignee] || 0) + 1;
 
+                if (i.sistema_afetado) {
+                    stats.sistemasCount[i.sistema_afetado] = (stats.sistemasCount[i.sistema_afetado] || 0) + 1;
+                }
+
                 const p = (i.priority || '').toLowerCase();
                 if (p === 'high') stats.high++;
                 else if (p === 'medium') stats.medium++;
                 else if (p === 'low') stats.low++;
+
+                if (i.sla_breached) stats.slaBreached++;
 
                 if (i.resolutiondate && i.created) {
                     const dias = (new Date(i.resolutiondate) - new Date(i.created)) / (1000 * 60 * 60 * 24);
@@ -557,6 +588,17 @@
             document.getElementById('metricConcluido').textContent = stats.concluido;
             document.getElementById('metricCancelado').textContent = stats.cancelado;
             document.getElementById('metricHigh').textContent = stats.high;
+            document.getElementById('metricSlaBreached').textContent = stats.slaBreached;
+
+            // Alerta SLA
+            const alertBar = document.getElementById('slaAlertBar');
+            if (stats.slaBreached > 0) {
+                alertBar.style.display = 'flex';
+                document.getElementById('slaAlertText').textContent =
+                    `${stats.slaBreached} incidente${stats.slaBreached > 1 ? 's' : ''} com SLA estourado — ação imediata necessária`;
+            } else {
+                alertBar.style.display = 'none';
+            }
 
             // Indicadores
             const taxaResolucao = ((stats.concluido / total) * 100).toFixed(1);
@@ -573,6 +615,13 @@
             document.getElementById('indTempoResolucao').textContent = tempoMedio + ' dias';
 
             document.getElementById('indPendentes').textContent = stats.pendente;
+
+            const slaPct = ((stats.slaBreached / (stats.total || 1)) * 100).toFixed(1);
+            document.getElementById('indSlaPct').textContent = slaPct + '%';
+            document.getElementById('indSlaPct').style.color = stats.slaBreached > 0 ? '#C62828' : '#4CAF50';
+
+            const topSistema = Object.entries(stats.sistemasCount).sort((a, b) => b[1] - a[1])[0];
+            document.getElementById('indSistema').textContent = topSistema ? `${topSistema[0]} (${topSistema[1]})` : '—';
 
             // Prioridade
             document.getElementById('metricPrioHigh').textContent = stats.high;
@@ -684,15 +733,23 @@
                 if (p === 'high') prioClass += 'priority-high';
                 else if (p === 'medium') prioClass += 'priority-medium';
                 else prioClass += 'priority-low';
-
                 const prioLabel = p === 'high' ? 'Alta' : p === 'medium' ? 'Média' : 'Baixa';
 
+                const slaHtml = i.sla_breached
+                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || 'Estourado'}</span>`
+                    : i.sla_elapsed
+                        ? `<span class="sla-ok">✅ ${i.sla_elapsed}</span>`
+                        : '—';
+
+                const sistema = i.sistema_afetado || i.summary || '—';
+
                 tbody.innerHTML += `
-                    <tr>
+                    <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
-                        <td>${i.summary}</td>
+                        <td style="font-weight:500;">${sistema}</td>
                         <td><span class="${statusClass}">${i.status}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
+                        <td>${slaHtml}</td>
                         <td>${i.assignee}</td>
                         <td>${created}</td>
                         <td>${resolved}</td>

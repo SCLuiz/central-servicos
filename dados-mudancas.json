@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-05-19T11:48:23.495482",
+  "ultima_atualizacao": "2026-05-19T14:18:26.671643",
   "total": 23,
   "mudancas": [
     {
       "key": "OFBI-4506",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Marcos Santana",
       "reporter": "Marcos Santana",
       "created": "2026-05-13T10:30:27.328-0300",
-      "updated": "2026-05-14T10:10:44.207-0300",
+      "updated": "2026-05-19T09:41:46.268-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

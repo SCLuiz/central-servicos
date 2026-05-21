@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-21T21:16:40.555863",
+  "ultima_atualizacao": "2026-05-21T22:43:03.684327",
   "total": 25,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:45:39.657-0300",
-      "updated": "2026-05-21T15:45:44.291-0300",
+      "updated": "2026-05-21T19:39:08.456-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -23,7 +23,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:43:24.830-0300",
-      "updated": "2026-05-21T15:43:29.722-0300",
+      "updated": "2026-05-21T19:38:59.365-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

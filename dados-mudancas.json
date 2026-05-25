@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-25T19:10:48.559018",
+  "ultima_atualizacao": "2026-05-25T20:42:30.495025",
   "total": 26,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:45:39.657-0300",
-      "updated": "2026-05-25T11:30:23.636-0300",
+      "updated": "2026-05-25T17:04:59.830-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

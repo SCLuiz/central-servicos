@@ -1,877 +1,370 @@
 {
-  "ultima_atualizacao": "2026-05-26T17:28:51",
-  "fonte": "Jira — OFBI [System] Mudanca",
+  "ultima_atualizacao": "2026-05-26T20:36:53.065292",
+  "total": 28,
   "mudancas": [
     {
       "key": "OFBI-4526",
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
       "updated": "2026-05-26T15:18:28.577-0300",
-      "assignee": "Adolfo Kawiatkowski Neto",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4524",
       "summary": "Solicitação de Mudanças",
-      "status": "Em Planejamento",
-      "created": "2026-05-26T10:10:01.695-0300",
-      "updated": "2026-05-26T10:10:01.942-0300",
+      "status": "Planejamento",
+      "priority": "Low",
       "assignee": "Guilherme Machado",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "reporter": "Guilherme Machado",
+      "created": "2026-05-26T10:10:01.695-0300",
+      "updated": "2026-05-26T16:39:46.826-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4522",
       "summary": "Solicitação de Mudanças",
-      "status": "Em Planejamento",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-05-25T15:05:07.492-0300",
       "updated": "2026-05-25T15:05:07.702-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4521",
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:45:39.657-0300",
       "updated": "2026-05-25T17:04:59.830-0300",
-      "assignee": "Luiz Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4520",
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:43:24.830-0300",
       "updated": "2026-05-25T11:26:03.248-0300",
-      "assignee": "Luiz Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4506",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Marcos Santana",
       "created": "2026-05-13T10:30:27.328-0300",
       "updated": "2026-05-19T09:41:46.268-0300",
-      "assignee": "Marcos Santana",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4504",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-05-12T11:47:11.221-0300",
       "updated": "2026-05-15T16:44:06.332-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4503",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-05-12T11:31:21.853-0300",
       "updated": "2026-05-15T16:36:55.714-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4493",
       "summary": "Solicitação de Mudanças",
       "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-05-04T16:02:56.837-0300",
       "updated": "2026-05-06T14:01:36.243-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4488",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Felipe Belisário",
+      "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
       "updated": "2026-05-11T16:47:28.700-0300",
-      "assignee": "Felipe Belisário",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4480",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-04-22T15:46:26.565-0300",
       "updated": "2026-05-06T10:14:01.234-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4474",
       "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
+      "status": "Concluído com Falha",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
       "created": "2026-04-16T15:00:42.235-0300",
       "updated": "2026-05-05T08:04:11.457-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4473",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
       "created": "2026-04-16T14:58:08.158-0300",
       "updated": "2026-04-29T23:10:21.303-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4465",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Marcel Freitas",
+      "reporter": "Marcel Freitas",
       "created": "2026-04-10T18:56:16.423-0300",
       "updated": "2026-04-22T08:38:00.198-0300",
-      "assignee": "Marcel Freitas",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4434",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
       "created": "2026-03-25T09:47:16.314-0300",
       "updated": "2026-04-22T08:39:37.303-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4432",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Gonzales",
+      "reporter": "Daniel Gonzales",
       "created": "2026-03-24T14:01:13.233-0300",
       "updated": "2026-04-01T09:23:46.905-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4431",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Gonzales",
+      "reporter": "Daniel Gonzales",
       "created": "2026-03-24T13:26:16.611-0300",
       "updated": "2026-04-01T09:23:37.202-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4427",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Constantino Neto",
+      "reporter": "Constantino Neto",
       "created": "2026-03-20T11:18:12.947-0300",
       "updated": "2026-03-25T09:24:35.813-0300",
-      "assignee": "Constantino Neto",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4426",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
       "created": "2026-03-18T16:04:06.505-0300",
       "updated": "2026-03-25T09:14:37.850-0300",
-      "assignee": "Guilherme Machado",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4424",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Hyanka Coelho",
+      "reporter": "Hyanka Coelho",
       "created": "2026-03-17T08:29:59.872-0300",
       "updated": "2026-03-25T11:02:33.650-0300",
-      "assignee": "Hyanka Coelho",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4415",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Gonzales",
+      "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:15:18.137-0300",
       "updated": "2026-03-12T22:04:13.504-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4414",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Daniel Gonzales",
+      "reporter": "Daniel Gonzales",
       "created": "2026-03-11T08:05:44.997-0300",
       "updated": "2026-03-24T13:26:25.033-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     },
     {
       "key": "OFBI-4411",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-03-10T11:59:36.677-0300",
       "updated": "2026-03-25T07:09:50.693-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4410",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-03-10T11:40:12.311-0300",
       "updated": "2026-03-25T07:09:28.438-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
     },
     {
       "key": "OFBI-4409",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
       "created": "2026-03-10T10:01:12.403-0300",
       "updated": "2026-03-25T07:09:00.712-0300",
-      "assignee": "Higor Santos",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": ""
     },
     {
       "key": "OFBI-4405",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
       "created": "2026-03-06T10:15:03.739-0300",
       "updated": "2026-03-25T07:08:30.741-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4386",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
       "created": "2026-02-19T17:20:36.944-0300",
       "updated": "2026-03-04T09:18:34.375-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4383",
       "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Thomas Rabelo",
+      "reporter": "Thomas Rabelo",
       "created": "2026-02-19T13:36:32.412-0300",
       "updated": "2026-03-04T09:18:30.973-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4379",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "created": "2026-02-10T09:07:55.498-0300",
-      "updated": "2026-02-11T07:03:01.993-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4363",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "created": "2026-02-03T10:46:34.196-0300",
-      "updated": "2026-02-04T09:15:03.351-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4362",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-02-02T15:38:52.132-0300",
-      "updated": "2026-02-04T15:14:01.948-0300",
-      "assignee": "Pedro Santana",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4348",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-27T22:29:05.348-0300",
-      "updated": "2026-02-12T12:19:16.225-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4341",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-20T11:39:25.243-0300",
-      "updated": "2026-01-21T14:43:05.763-0300",
-      "assignee": "Pedro Santana",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4340",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-20T11:36:13.852-0300",
-      "updated": "2026-01-28T09:28:47.317-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4318",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-13T11:37:31.927-0300",
-      "updated": "2026-01-20T11:30:38.310-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4316",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-09T17:15:35.586-0300",
-      "updated": "2026-01-14T14:30:58.937-0300",
-      "assignee": "Thiago Pereira",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4315",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-08T15:36:00.470-0300",
-      "updated": "2026-01-20T11:30:27.672-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4312",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2026-01-07T09:34:48.823-0300",
-      "updated": "2026-01-14T09:20:54.656-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4309",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-17T11:22:47.825-0300",
-      "updated": "2025-12-17T13:50:12.625-0300",
-      "assignee": "Pedro Santana",
-      "labels": [
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4308",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-16T11:34:51.728-0300",
-      "updated": "2025-12-16T14:09:03.044-0300",
-      "assignee": "Thiago Pereira",
-      "labels": [
-        "tipo:emergencial",
-        "tipo:emergencial"
-      ],
-      "categoria": "emergencial",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4299",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-09T11:27:27.725-0300",
-      "updated": "2025-12-15T20:15:32.131-0300",
-      "assignee": "Thiago Pereira",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4298",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-09T10:22:37.825-0300",
-      "updated": "2025-12-15T20:15:35.469-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4296",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-09T08:48:02.712-0300",
-      "updated": "2025-12-15T20:15:37.572-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4295",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-08T23:32:16.747-0300",
-      "updated": "2025-12-15T20:15:39.641-0300",
-      "assignee": "Pedro Haupenthal",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4288",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "created": "2025-12-02T13:24:15.495-0300",
-      "updated": "2025-12-15T20:15:41.008-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4286",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-12-01T15:45:32.848-0300",
-      "updated": "2025-12-15T20:15:44.454-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4276",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-11-13T23:03:19.603-0300",
-      "updated": "2025-12-15T20:15:46.929-0300",
-      "assignee": "Luiz Santos",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4275",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-11-13T19:11:59.436-0300",
-      "updated": "2025-12-15T20:15:48.520-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4274",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-11-13T18:24:55.624-0300",
-      "updated": "2025-12-15T20:15:50.524-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4273",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-11-13T18:03:54.083-0300",
-      "updated": "2025-12-15T20:15:54.804-0300",
-      "assignee": "Thomas Rabelo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4272",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-11-10T16:47:48.231-0300",
-      "updated": "2025-12-15T20:15:58.505-0300",
-      "assignee": "Kelvin Sanches Felix",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4271",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "created": "2025-11-10T16:41:07.592-0300",
-      "updated": "2025-12-15T20:16:01.081-0300",
-      "assignee": "Luiz Santos",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4257",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-30T15:57:21.443-0300",
-      "updated": "2025-12-15T20:16:02.703-0300",
-      "assignee": "Kelvin Sanches Felix",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4252",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-28T13:51:31.171-0300",
-      "updated": "2025-12-15T20:16:04.734-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4238",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-20T19:27:37.311-0300",
-      "updated": "2025-12-15T20:16:06.720-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4236",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-17T16:31:06.140-0300",
-      "updated": "2025-12-15T20:16:08.022-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4235",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-16T13:34:54.657-0300",
-      "updated": "2025-12-15T20:16:09.418-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4228",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-06T18:14:27.823-0300",
-      "updated": "2025-12-15T20:16:10.599-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4227",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-10-06T18:09:44.471-0300",
-      "updated": "2025-12-15T20:16:11.946-0300",
-      "assignee": "Fabricio Lobo",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4174",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-08-29T07:52:15.998-0300",
-      "updated": "2025-12-15T20:16:13.746-0300",
-      "assignee": "Marcel Martins de Freitas",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4148",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-08-06T21:01:03.751-0300",
-      "updated": "2025-12-15T20:16:16.019-0300",
-      "assignee": "Cassia Vieira de Souza",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4139",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-07-26T15:42:33.239-0300",
-      "updated": "2025-12-15T20:16:17.344-0300",
-      "assignee": "Marcel Martins de Freitas",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4126",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-07-22T11:15:55.969-0300",
-      "updated": "2025-12-15T20:16:18.878-0300",
-      "assignee": "Daniel Gonzales",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4108",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-06-30T23:54:18.897-0300",
-      "updated": "2025-12-15T20:16:20.553-0300",
-      "assignee": "Cassia Vieira de Souza",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
-    },
-    {
-      "key": "OFBI-4072",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído",
-      "created": "2025-06-03T15:46:58.554-0300",
-      "updated": "2025-12-15T20:16:21.786-0300",
-      "assignee": "Cassia Vieira de Souza",
-      "labels": [
-        "tipo:normal",
-        "tipo:normal"
-      ],
-      "categoria": "normal",
-      "causouIncidente": false
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
     }
   ]
 }

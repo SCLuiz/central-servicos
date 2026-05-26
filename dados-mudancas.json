@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-05-26T17:53:45.873181",
-  "total": 27,
+  "ultima_atualizacao": "2026-05-26T18:53:37.306527",
+  "total": 28,
   "mudancas": [
+    {
+      "key": "OFBI-4526",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-05-26T15:18:16.454-0300",
+      "updated": "2026-05-26T15:18:28.577-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4524",
       "summary": "Solicitação de Mudanças",

@@ -429,7 +429,7 @@
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Tempo Médio de Resolução</div>
-                        <div class="metric-value" id="indTempoResolucao">0 dias</div>
+                        <div class="metric-value" id="indTempoResolucao">—</div>
                         <div class="metric-meta">Baseado em incidentes resolvidos</div>
                     </div>
                     <div class="metric-card">
@@ -586,9 +586,9 @@
                 if (i.sla_breached) stats.slaBreached++;
 
                 if (i.resolutiondate && i.created) {
-                    const dias = (new Date(i.resolutiondate) - new Date(i.created)) / (1000 * 60 * 60 * 24);
-                    if (dias >= 0) {
-                        stats.tempoResolucaoTotal += dias;
+                    const horas = (new Date(i.resolutiondate) - new Date(i.created)) / (1000 * 60 * 60);
+                    if (horas >= 0) {
+                        stats.tempoResolucaoTotal += horas;
                         stats.tempoResolucaoCount++;
                     }
                 }
@@ -628,10 +628,22 @@
             document.getElementById('indAlta').textContent = isNaN(percAlta) ? '0%' : percAlta + '%';
             document.getElementById('indAlta').style.color = percAlta < 10 ? '#4CAF50' : '#F44336';
 
-            const tempoMedio = stats.tempoResolucaoCount > 0
-                ? (stats.tempoResolucaoTotal / stats.tempoResolucaoCount).toFixed(1)
-                : '0';
-            document.getElementById('indTempoResolucao').textContent = tempoMedio + ' dias';
+            const tmHoras = stats.tempoResolucaoCount > 0
+                ? stats.tempoResolucaoTotal / stats.tempoResolucaoCount
+                : 0;
+            let tmTexto;
+            if (tmHoras === 0) {
+                tmTexto = '—';
+            } else if (tmHoras < 1) {
+                tmTexto = Math.round(tmHoras * 60) + 'min';
+            } else if (tmHoras < 24) {
+                const h = Math.floor(tmHoras), m = Math.round((tmHoras - h) * 60);
+                tmTexto = m > 0 ? `${h}h${String(m).padStart(2,'0')}min` : `${h}h`;
+            } else {
+                const d = Math.floor(tmHoras / 24), h = Math.round(tmHoras % 24);
+                tmTexto = h > 0 ? `${d}d ${h}h` : `${d}d`;
+            }
+            document.getElementById('indTempoResolucao').textContent = tmTexto;
 
             document.getElementById('indPendentes').textContent = stats.pendente;
 

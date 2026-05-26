@@ -371,7 +371,7 @@
                     <div class="metric-value" id="metricCancelado">0</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">Alta Prioridade</div>
+                    <div class="metric-label">P1 Críticos</div>
                     <div class="metric-value" id="metricHigh" style="color: #C62828;">0</div>
                 </div>
                 <div class="metric-card" style="border-left-color: #C62828;">
@@ -420,12 +420,12 @@
                     <div class="metric-card">
                         <div class="metric-label">Taxa de Resolução</div>
                         <div class="metric-value" id="indResolucao">0%</div>
-                        <div class="metric-meta">Meta: > 90%</div>
+                        <div class="metric-meta">Meta: > 80% (IND-INC-002)</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Alta Prioridade</div>
-                        <div class="metric-value" id="indAlta">0%</div>
-                        <div class="metric-meta">Meta: < 10%</div>
+                        <div class="metric-label">P1 Críticos</div>
+                        <div class="metric-value" id="indAlta">0</div>
+                        <div class="metric-meta">Meta: ≤ 5</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Tempo Médio de Resolução</div>
@@ -450,18 +450,23 @@
             <div class="indicators-section">
                 <h2 class="section-title">Indicador por Prioridade</h2>
                 <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Alta</div>
+                    <div class="metric-card" style="border-left-color: #7B1FA2;">
+                        <div class="metric-label">P1 — Crítica (&lt;1h)</div>
+                        <div class="metric-value" id="metricPrioCritical" style="color: #7B1FA2;">0</div>
+                        <div class="metric-meta" id="percentCritical">0%</div>
+                    </div>
+                    <div class="metric-card" style="border-left-color: #C62828;">
+                        <div class="metric-label">P2 — Alta (&lt;2h)</div>
                         <div class="metric-value" id="metricPrioHigh" style="color: #C62828;">0</div>
                         <div class="metric-meta" id="percentHigh">0%</div>
                     </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Média</div>
+                    <div class="metric-card" style="border-left-color: #E65100;">
+                        <div class="metric-label">P3 — Média (&lt;10h)</div>
                         <div class="metric-value" id="metricPrioMedium" style="color: #E65100;">0</div>
                         <div class="metric-meta" id="percentMedium">0%</div>
                     </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Baixa</div>
+                    <div class="metric-card" style="border-left-color: #2E7D32;">
+                        <div class="metric-label">P4 — Baixa (&lt;20h)</div>
                         <div class="metric-value" id="metricPrioLow" style="color: #2E7D32;">0</div>
                         <div class="metric-meta" id="percentLow">0%</div>
                     </div>
@@ -550,7 +555,9 @@
                 aberto: 0,
                 pendente: 0,
                 concluido: 0,
+                concluido_no_prazo: 0,
                 cancelado: 0,
+                critical: 0,
                 high: 0,
                 medium: 0,
                 low: 0,
@@ -566,7 +573,10 @@
                 const s = i.status || '';
                 if (s.includes('Aberto')) stats.aberto++;
                 else if (s.includes('Pendente')) stats.pendente++;
-                else if (s.includes('Concluído')) stats.concluido++;
+                else if (s.includes('Concluído')) {
+                    stats.concluido++;
+                    if (!i.sla_breached) stats.concluido_no_prazo++;
+                }
                 else if (s.includes('Cancelado')) stats.cancelado++;
 
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
@@ -576,7 +586,8 @@
                 stats.sistemasCount[sistemaKey] = (stats.sistemasCount[sistemaKey] || 0) + 1;
 
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'high') stats.high++;
+                if (p === 'critical') stats.critical++;
+                else if (p === 'high') stats.high++;
                 else if (p === 'medium') stats.medium++;
                 else if (p === 'low') stats.low++;
 
@@ -603,7 +614,7 @@
             document.getElementById('metricPendente').textContent = stats.pendente;
             document.getElementById('metricConcluido').textContent = stats.concluido;
             document.getElementById('metricCancelado').textContent = stats.cancelado;
-            document.getElementById('metricHigh').textContent = stats.high;
+            document.getElementById('metricHigh').textContent = stats.critical;
             document.getElementById('metricSlaBreached').textContent = stats.slaBreached;
 
             // Alerta SLA
@@ -616,14 +627,18 @@
                 alertBar.style.display = 'none';
             }
 
-            // Indicadores
-            const taxaResolucao = ((stats.concluido / total) * 100).toFixed(1);
+            // IND-INC-002: % resolvidos dentro do prazo (verde >80%, amarelo 70-80%, vermelho <70%)
+            const taxaResolucao = stats.concluido > 0
+                ? ((stats.concluido_no_prazo / stats.concluido) * 100).toFixed(1)
+                : '0';
             document.getElementById('indResolucao').textContent = isNaN(taxaResolucao) ? '0%' : taxaResolucao + '%';
-            document.getElementById('indResolucao').style.color = taxaResolucao >= 90 ? '#4CAF50' : '#F44336';
+            document.getElementById('indResolucao').style.color =
+                taxaResolucao >= 80 ? '#4CAF50' : taxaResolucao >= 70 ? '#E65100' : '#F44336';
 
-            const percAlta = ((stats.high / total) * 100).toFixed(1);
-            document.getElementById('indAlta').textContent = isNaN(percAlta) ? '0%' : percAlta + '%';
-            document.getElementById('indAlta').style.color = percAlta < 10 ? '#4CAF50' : '#F44336';
+            // IND-INC-009: contagem P1 críticos (verde ≤5, amarelo 6-10, vermelho >10)
+            document.getElementById('indAlta').textContent = stats.critical;
+            document.getElementById('indAlta').style.color =
+                stats.critical <= 5 ? '#4CAF50' : stats.critical <= 10 ? '#E65100' : '#F44336';
 
             const tmHoras = stats.tempoResolucaoCount > 0
                 ? stats.tempoResolucaoTotal / stats.tempoResolucaoCount
@@ -649,7 +664,9 @@
             document.getElementById('indSlaPct').style.color = stats.slaBreached > 0 ? '#C62828' : '#4CAF50';
 
 
-            // Prioridade
+            // Prioridade (IND-INC-005: P1 <1h | P2 <2h | P3 <10h | P4 <20h)
+            document.getElementById('metricPrioCritical').textContent = stats.critical;
+            document.getElementById('percentCritical').textContent = ((stats.critical / total) * 100).toFixed(1) + '%';
             document.getElementById('metricPrioHigh').textContent = stats.high;
             document.getElementById('percentHigh').textContent = ((stats.high / total) * 100).toFixed(1) + '%';
             document.getElementById('metricPrioMedium').textContent = stats.medium;
@@ -701,7 +718,8 @@
             });
         }
         // MTTR thresholds (hours) — Mapa de Indicadores IND-INC-005
-        const SLA_HOURS = { high: 1.0, medium: 2.0, low: 20.0 };
+        // P1 Crítica <1h | P2 Alta <2h | P3 Média <10h | P4 Baixa <20h
+        const SLA_HOURS = { critical: 1.0, high: 2.0, medium: 10.0, low: 20.0 };
 
         function buildTimelineData(incidentes, gran) {
             const data = {}, keys = new Set();

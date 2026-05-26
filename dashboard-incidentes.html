@@ -443,7 +443,7 @@
                         <div class="metric-meta">Meta: 0%</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Sistema Mais Afetado</div>
+                        <div class="metric-label">Resp. c/ + Chamados</div>
                         <div class="metric-value" id="indSistema" style="font-size:16px; padding-top:8px;">—</div>
                     </div>
                 </div>
@@ -575,9 +575,8 @@
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
                 stats.responsaveisCount[i.assignee] = (stats.responsaveisCount[i.assignee] || 0) + 1;
 
-                if (i.sistema_afetado) {
-                    stats.sistemasCount[i.sistema_afetado] = (stats.sistemasCount[i.sistema_afetado] || 0) + 1;
-                }
+                const sistemaKey = i.sistema_afetado || i.assignee || 'Desconhecido';
+                stats.sistemasCount[sistemaKey] = (stats.sistemasCount[sistemaKey] || 0) + 1;
 
                 const p = (i.priority || '').toLowerCase();
                 if (p === 'high') stats.high++;
@@ -750,17 +749,17 @@
                 data: {
                     labels: sorted,
                     datasets: [
-                        { label: 'Abertos',    type:'bar',  data: created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
-                        { label: 'Concluídos', type:'bar',  data: resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:4, yAxisID:'y' },
-                        { label: 'Cancelados', type:'bar',  data: cancelled, backgroundColor:'rgba(244,67,54,0.65)',  borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:5, yAxisID:'y' },
+                        { label: 'Abertos',    type:'bar',  data: created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:1, yAxisID:'y' },
+                        { label: 'Concluídos', type:'bar',  data: resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:2, yAxisID:'y' },
+                        { label: 'Cancelados', type:'bar',  data: cancelled, backgroundColor:'rgba(244,67,54,0.65)',  borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
                         { label: 'SLA Estourado %', type:'line', data: slaPct,
                           borderColor:'#FF6F00', backgroundColor:'rgba(255,111,0,0.08)', borderWidth:2.5,
                           pointRadius:4, pointHoverRadius:6, pointBackgroundColor:'#FF6F00',
-                          fill:false, tension:0.3, order:1, yAxisID:'ySla' },
+                          fill:false, tension:0.3, order:4, yAxisID:'ySla' },
                         { label: 'Tendência (média 3 per.)', type:'line', data: trend,
-                          borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2,
-                          borderDash:[6,4], pointRadius:0, fill:false, tension:0.4,
-                          order:2, yAxisID:'y', spanGaps:true }
+                          borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2.5,
+                          borderDash:[6,4], pointRadius:3, pointBackgroundColor:'#9C27B0', fill:false, tension:0.4,
+                          order:5, yAxisID:'y', spanGaps:true }
                     ]
                 },
                 options: {

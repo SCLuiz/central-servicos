@@ -407,7 +407,7 @@
                         <span>🟦 Abertos</span>
                         <span>🟩 Concluídos</span>
                         <span>🟥 Cancelados</span>
-                        <span style="color:#FF6F00;">⬥ SLA% estourado</span>
+                        <span style="color:#FF6F00;">⬥ SLA% estourado (sobre resolvidos)</span>
                         <span style="color:#9C27B0;">— Tendência (média 3 períodos)</span>
                     </div>
                 </div>
@@ -694,25 +694,37 @@
                 return sl.length ? sl.reduce((a,b) => a+b, 0) / sl.length : null;
             });
         }
+        // MTTR thresholds (hours) — Mapa de Indicadores IND-INC-005
+        const SLA_HOURS = { high: 1.0, medium: 2.0, low: 20.0 };
+
         function buildTimelineData(incidentes, gran) {
             const data = {}, keys = new Set();
             const keyFn = gran === 'week' ? getWeekKey : getMonthKey;
             incidentes.forEach(i => {
                 const ck = keyFn(i.created);
                 keys.add(ck);
-                if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
                 data[ck].created++;
-                if (i.sla_breached) data[ck].slaBreached++;
-                const refDate = i.resolutiondate || i.updated;
-                const uk = keyFn(refDate);
+
                 const st = i.status || '';
-                if (st.includes('Conclu')) {
+                const isResolved = st.includes('Conclu');
+                const isCancelled = st.includes('Cancelado');
+                const refDate = i.resolutiondate || (isResolved ? i.updated : null);
+
+                if (isResolved && refDate) {
+                    const uk = keyFn(refDate);
                     keys.add(uk);
-                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
                     data[uk].resolved++;
-                } else if (st.includes('Cancelado')) {
+                    // SLA breach: compare actual resolution time vs threshold
+                    data[uk].slaTotal++;
+                    const elapsedH = (new Date(refDate) - new Date(i.created)) / 3600000;
+                    const limit = SLA_HOURS[(i.priority || 'low').toLowerCase()] || 20;
+                    if (elapsedH > limit) data[uk].slaBreached++;
+                } else if (isCancelled) {
+                    const uk = keyFn(i.updated);
                     keys.add(uk);
-                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
                     data[uk].cancelled++;
                 }
             });
@@ -727,9 +739,10 @@
             const created   = sorted.map(k => data[k]?.created   || 0);
             const resolved  = sorted.map(k => data[k]?.resolved  || 0);
             const cancelled = sorted.map(k => data[k]?.cancelled || 0);
+            // SLA% = breach / resolved (only closed issues, avoids flat 100% from open ones)
             const slaPct    = sorted.map(k => {
                 const d = data[k];
-                return d && d.created > 0 ? +((d.slaBreached / d.created) * 100).toFixed(1) : 0;
+                return d && d.slaTotal > 0 ? +((d.slaBreached / d.slaTotal) * 100).toFixed(1) : null;
             });
             const trend = movingAvg(created, 3);
             chartTimeline = new Chart(ctx, {
@@ -770,9 +783,10 @@
                         y: { beginAtZero:true, position:'left',
                              title:{ display:true, text:'Qtd. Incidentes', font:{ size:11 } },
                              ticks:{ precision:0 }, grid:{ color:'rgba(0,0,0,0.06)' } },
-                        ySla: { beginAtZero:true, position:'right', max:100,
+                        ySla: { beginAtZero:true, position:'right',
+                                suggestedMax: 100,
                                 title:{ display:true, text:'SLA Estourado %', font:{ size:11 }, color:'#FF6F00' },
-                                ticks:{ color:'#FF6F00', callback: v => v+'%' },
+                                ticks:{ color:'#FF6F00', callback: v => v+'%', precision:0 },
                                 grid:{ drawOnChartArea:false } }
                     }
                 }

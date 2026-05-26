@@ -442,10 +442,7 @@
                         <div class="metric-value" id="indSlaPct">0%</div>
                         <div class="metric-meta">Meta: 0%</div>
                     </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Resp. c/ + Chamados</div>
-                        <div class="metric-value" id="indSistema" style="font-size:16px; padding-top:8px;">—</div>
-                    </div>
+
                 </div>
             </div>
 
@@ -651,8 +648,6 @@
             document.getElementById('indSlaPct').textContent = slaPct + '%';
             document.getElementById('indSlaPct').style.color = stats.slaBreached > 0 ? '#C62828' : '#4CAF50';
 
-            const topSistema = Object.entries(stats.sistemasCount).sort((a, b) => b[1] - a[1])[0];
-            document.getElementById('indSistema').textContent = topSistema ? `${topSistema[0]} (${topSistema[1]})` : '—';
 
             // Prioridade
             document.getElementById('metricPrioHigh').textContent = stats.high;

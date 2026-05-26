@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-26T19:39:40.828473",
+  "ultima_atualizacao": "2026-05-26T19:43:06.929546",
   "total": 28,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-05-26T10:10:01.695-0300",
-      "updated": "2026-05-26T10:10:01.942-0300",
+      "updated": "2026-05-26T16:39:46.826-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

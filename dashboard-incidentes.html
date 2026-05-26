@@ -388,8 +388,28 @@
             <!-- Timeline Chart -->
             <div class="charts-grid" style="grid-template-columns: 1fr;">
                 <div class="chart-card">
-                    <h3 class="chart-title">Timeline de Incidentes</h3>
-                    <canvas id="chartTimeline" style="max-height: 300px;"></canvas>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+                        <h3 class="chart-title" style="margin:0;">Timeline de Incidentes</h3>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span style="font-size:12px; color:#888; margin-right:4px;">Granularidade:</span>
+                            <button id="btnSemana" onclick="setTimelineGranularity('week')"
+                                style="padding:4px 12px; border-radius:20px; border:1px solid #D81B60; background:#fff; color:#D81B60; cursor:pointer; font-size:12px; font-weight:600;">
+                                Semana
+                            </button>
+                            <button id="btnMes" onclick="setTimelineGranularity('month')"
+                                style="padding:4px 12px; border-radius:20px; border:1px solid #D81B60; background:#D81B60; color:#fff; cursor:pointer; font-size:12px; font-weight:600;">
+                                Mês
+                            </button>
+                        </div>
+                    </div>
+                    <canvas id="chartTimeline" style="max-height:360px;"></canvas>
+                    <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:#666;">
+                        <span>🟦 Abertos</span>
+                        <span>🟩 Concluídos</span>
+                        <span>🟥 Cancelados</span>
+                        <span style="color:#FF6F00;">⬥ SLA% estourado</span>
+                        <span style="color:#9C27B0;">— Tendência (média 3 períodos)</span>
+                    </div>
                 </div>
             </div>
 
@@ -636,6 +656,128 @@
         }
 
         let chartStatus, chartResponsaveis, chartTimeline;
+        let timelineGranularity = 'month';
+        let lastTimelineIncidentes = [];
+
+        function getWeekKey(dateStr) {
+            const d = new Date(dateStr);
+            const day = d.getDay() || 7;
+            d.setDate(d.getDate() + 4 - day);
+            const yearStart = new Date(d.getFullYear(), 0, 1);
+            const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+            return `S${week.toString().padStart(2,'0')}/${d.getFullYear()}`;
+        }
+        function getMonthKey(dateStr) {
+            const d = new Date(dateStr);
+            return `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
+        }
+        function sortKey(k, gran) {
+            if (gran === 'week') {
+                const [w, y] = k.split('/');
+                return parseInt(y) * 100 + parseInt(w.replace('S',''));
+            }
+            const [m, y] = k.split('/');
+            return parseInt(y) * 100 + parseInt(m);
+        }
+        function setTimelineGranularity(gran) {
+            timelineGranularity = gran;
+            document.getElementById('btnSemana').style.background = gran === 'week'  ? '#D81B60' : '#fff';
+            document.getElementById('btnSemana').style.color      = gran === 'week'  ? '#fff'    : '#D81B60';
+            document.getElementById('btnMes').style.background    = gran === 'month' ? '#D81B60' : '#fff';
+            document.getElementById('btnMes').style.color         = gran === 'month' ? '#fff'    : '#D81B60';
+            renderTimeline(lastTimelineIncidentes);
+        }
+        function movingAvg(arr, w) {
+            return arr.map((_, i) => {
+                if (i < w - 1) return null;
+                const sl = arr.slice(i - w + 1, i + 1).filter(v => v !== null && !isNaN(v));
+                return sl.length ? sl.reduce((a,b) => a+b, 0) / sl.length : null;
+            });
+        }
+        function buildTimelineData(incidentes, gran) {
+            const data = {}, keys = new Set();
+            const keyFn = gran === 'week' ? getWeekKey : getMonthKey;
+            incidentes.forEach(i => {
+                const ck = keyFn(i.created);
+                keys.add(ck);
+                if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                data[ck].created++;
+                if (i.sla_breached) data[ck].slaBreached++;
+                const refDate = i.resolutiondate || i.updated;
+                const uk = keyFn(refDate);
+                const st = i.status || '';
+                if (st.includes('Conclu')) {
+                    keys.add(uk);
+                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                    data[uk].resolved++;
+                } else if (st.includes('Cancelado')) {
+                    keys.add(uk);
+                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0 };
+                    data[uk].cancelled++;
+                }
+            });
+            const sorted = Array.from(keys).sort((a,b) => sortKey(a,gran) - sortKey(b,gran));
+            return { data, sorted };
+        }
+        function renderTimeline(incidentes) {
+            lastTimelineIncidentes = incidentes;
+            const ctx = document.getElementById('chartTimeline').getContext('2d');
+            if (chartTimeline) chartTimeline.destroy();
+            const { data, sorted } = buildTimelineData(incidentes, timelineGranularity);
+            const created   = sorted.map(k => data[k]?.created   || 0);
+            const resolved  = sorted.map(k => data[k]?.resolved  || 0);
+            const cancelled = sorted.map(k => data[k]?.cancelled || 0);
+            const slaPct    = sorted.map(k => {
+                const d = data[k];
+                return d && d.created > 0 ? +((d.slaBreached / d.created) * 100).toFixed(1) : 0;
+            });
+            const trend = movingAvg(created, 3);
+            chartTimeline = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sorted,
+                    datasets: [
+                        { label: 'Abertos',    type:'bar',  data: created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
+                        { label: 'Concluídos', type:'bar',  data: resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:4, yAxisID:'y' },
+                        { label: 'Cancelados', type:'bar',  data: cancelled, backgroundColor:'rgba(244,67,54,0.65)',  borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:5, yAxisID:'y' },
+                        { label: 'SLA Estourado %', type:'line', data: slaPct,
+                          borderColor:'#FF6F00', backgroundColor:'rgba(255,111,0,0.08)', borderWidth:2.5,
+                          pointRadius:4, pointHoverRadius:6, pointBackgroundColor:'#FF6F00',
+                          fill:false, tension:0.3, order:1, yAxisID:'ySla' },
+                        { label: 'Tendência (média 3 per.)', type:'line', data: trend,
+                          borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2,
+                          borderDash:[6,4], pointRadius:0, fill:false, tension:0.4,
+                          order:2, yAxisID:'y', spanGaps:true }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: { intersect:false, mode:'index' },
+                    plugins: {
+                        legend: { display:false },
+                        tooltip: {
+                            callbacks: {
+                                label(c) {
+                                    if (c.dataset.label === 'SLA Estourado %') return ` SLA Estourado: ${c.parsed.y}%`;
+                                    if (c.dataset.label.startsWith('Tendência')) return ` Tendência: ${c.parsed.y?.toFixed(1) ?? '—'}`;
+                                    return ` ${c.dataset.label}: ${c.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid:{ color:'rgba(0,0,0,0.05)' }, ticks:{ maxRotation:45, font:{ size:11 } } },
+                        y: { beginAtZero:true, position:'left',
+                             title:{ display:true, text:'Qtd. Incidentes', font:{ size:11 } },
+                             ticks:{ precision:0 }, grid:{ color:'rgba(0,0,0,0.06)' } },
+                        ySla: { beginAtZero:true, position:'right', max:100,
+                                title:{ display:true, text:'SLA Estourado %', font:{ size:11 }, color:'#FF6F00' },
+                                ticks:{ color:'#FF6F00', callback: v => v+'%' },
+                                grid:{ drawOnChartArea:false } }
+                    }
+                }
+            });
+        }
 
         function renderCharts(stats, incidentes) {
             const ctxStatus = document.getElementById('chartStatus').getContext('2d');
@@ -661,56 +803,7 @@
                 options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
             });
 
-            const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
-            if (chartTimeline) chartTimeline.destroy();
-
-            const monthlyData = {};
-            const allMonths = new Set();
-
-            incidentes.forEach(i => {
-                const cd = new Date(i.created);
-                const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                allMonths.add(ck);
-                if (!monthlyData[ck]) monthlyData[ck] = { created: 0, resolved: 0, cancelled: 0 };
-                monthlyData[ck].created++;
-
-                const ud = new Date(i.updated);
-                const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-
-                if (i.status && i.status.includes('Concluído')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].resolved++;
-                } else if (i.status && i.status.includes('Cancelado')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].cancelled++;
-                }
-            });
-
-            const sortedMonths = Array.from(allMonths).sort((a, b) => {
-                const [ma, ya] = a.split('/');
-                const [mb, yb] = b.split('/');
-                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
-            });
-
-            chartTimeline = new Chart(ctxTimeline, {
-                type: 'line',
-                data: {
-                    labels: sortedMonths,
-                    datasets: [
-                        { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), borderColor: '#2196F3', backgroundColor: 'rgba(33,150,243,0.1)', fill: false, tension: 0.4 },
-                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), borderColor: '#4CAF50', backgroundColor: 'rgba(76,175,80,0.1)', fill: false, tension: 0.4 },
-                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), borderColor: '#F44336', backgroundColor: 'rgba(244,67,54,0.1)', fill: false, tension: 0.4 }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: { legend: { display: true, position: 'top' } },
-                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
-                }
-            });
+            renderTimeline(incidentes);
         }
 
         function renderTable(incidentes) {
@@ -830,6 +923,9 @@
             event.target.classList.add('active');
             document.getElementById('dateFrom').value = '';
             document.getElementById('dateTo').value = '';
+            // auto granularity: short periods → week, long → month
+            const autoGran = (days === 20 || days === 60) ? 'week' : 'month';
+            if (autoGran !== timelineGranularity) setTimelineGranularity(autoGran);
             filterAndRender();
         }
 

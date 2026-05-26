@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-26T14:47:26",
+  "ultima_atualizacao": "2026-05-26T17:28:51",
   "fonte": "Jira — OFBI [System] Incidente",
   "incidentes": [
     {
@@ -13,7 +13,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "312h06min",
+      "sla_elapsed": "314h48min",
       "labels": []
     },
     {
@@ -27,7 +27,7 @@
       "assignee": "Daniel Gonzales",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "364h26min",
+      "sla_elapsed": "367h08min",
       "labels": []
     },
     {
@@ -181,7 +181,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "3028h19min",
+      "sla_elapsed": "3031h01min",
       "labels": []
     },
     {
@@ -195,7 +195,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "4325h03min",
+      "sla_elapsed": "4327h45min",
       "labels": []
     },
     {
@@ -209,7 +209,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "9700h02min",
+      "sla_elapsed": "9702h43min",
       "labels": []
     },
     {
@@ -223,7 +223,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "10246h16min",
+      "sla_elapsed": "10248h58min",
       "labels": []
     },
     {
@@ -251,7 +251,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "10365h53min",
+      "sla_elapsed": "10368h35min",
       "labels": []
     },
     {
@@ -265,7 +265,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "10366h09min",
+      "sla_elapsed": "10368h51min",
       "labels": []
     },
     {
@@ -279,7 +279,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "10391h06min",
+      "sla_elapsed": "10393h48min",
       "labels": []
     },
     {
@@ -293,7 +293,7 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "10439h51min",
+      "sla_elapsed": "10442h32min",
       "labels": []
     },
     {
@@ -321,7 +321,7 @@
       "assignee": "Marcelo Luppi",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "11211h07min",
+      "sla_elapsed": "11213h49min",
       "labels": []
     },
     {
@@ -335,7 +335,7 @@
       "assignee": "Marcelo Luppi",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "11211h11min",
+      "sla_elapsed": "11213h53min",
       "labels": []
     },
     {
@@ -349,7 +349,7 @@
       "assignee": "Marcelo Luppi",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "11213h",
+      "sla_elapsed": "11215h42min",
       "labels": []
     },
     {
@@ -363,7 +363,7 @@
       "assignee": "Marcelo Luppi",
       "sistema_afetado": "",
       "sla_breached": true,
-      "sla_elapsed": "11213h05min",
+      "sla_elapsed": "11215h46min",
       "labels": []
     },
     {
@@ -460,7 +460,7 @@
       "resolutiondate": "2023-10-02T17:02:41.206-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "7h54min",
       "labels": []
     },
@@ -474,7 +474,7 @@
       "resolutiondate": "2023-09-27T16:55:44.551-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "5h24min",
       "labels": []
     },
@@ -502,21 +502,21 @@
       "resolutiondate": "2023-08-08T08:30:00.000-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "6h50min",
       "labels": []
     },
     {
       "key": "OFBI-310",
       "summary": "Por um periodo de cerca de 3h as keystores do diretório ao nível do software statement ficaram vazias",
-      "status": "Fechada",
+      "status": "Concluído",
       "priority": "medium",
       "created": "2023-07-28T14:23:37.218-0300",
       "updated": "2025-01-24T15:48:03.622-0300",
       "resolutiondate": "2023-07-28T16:45:00.000-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "2h21min",
       "labels": []
     },
@@ -530,7 +530,7 @@
       "resolutiondate": "2023-07-24T17:33:00.000-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "8h23min",
       "labels": []
     },
@@ -1006,7 +1006,7 @@
       "resolutiondate": "2023-02-19T04:55:00.000-0300",
       "assignee": "Joao Gabriel de Paula Silva",
       "sistema_afetado": "",
-      "sla_breached": true,
+      "sla_breached": false,
       "sla_elapsed": "8h50min",
       "labels": []
     },

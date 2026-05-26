@@ -196,6 +196,7 @@
         .status-cancelado { background: #F3E5F5; color: #6A1B9A; }
 
         .priority-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .priority-critical { background: #F3E5F5; color: #7B1FA2; }
         .priority-high { background: #FFEBEE; color: #C62828; }
         .priority-medium { background: #FFF3E0; color: #E65100; }
         .priority-low { background: #E8F5E9; color: #2E7D32; }
@@ -505,7 +506,8 @@
                             <th>Sistema Afetado</th>
                             <th>Status</th>
                             <th>Prioridade</th>
-                            <th>SLA</th>
+                            <th>Tempo</th>
+                            <th>Prazo SLA</th>
                             <th>Responsável</th>
                             <th>Criado em</th>
                             <th>Resolvido em</th>
@@ -844,14 +846,25 @@
             renderTimeline(incidentes);
         }
 
+        function fmtDate(s) {
+            if (!s) return '—';
+            const d = new Date(s);
+            return d.toLocaleDateString('pt-BR') + ' ' +
+                   d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function slaLabel(i) {
+            if (!i.resolutiondate) return { html: '<span style="color:#888;font-size:11px;">Em aberto</span>', text: 'Em aberto' };
+            if (i.sla_breached) return { html: '<span class="sla-breached">Estourado</span>', text: 'Estourado' };
+            return { html: '<span class="sla-ok">Dentro do Prazo</span>', text: 'Dentro do Prazo' };
+        }
+
         function renderTable(incidentes) {
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
             const titulo = document.getElementById('tabelaTitulo');
             if (titulo) titulo.textContent = `Incidentes (${incidentes.length})`;
             incidentes.forEach(i => {
-                const created = new Date(i.created).toLocaleDateString('pt-BR');
-                const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : '—';
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';
@@ -863,29 +876,32 @@
 
                 const p = (i.priority || '').toLowerCase();
                 let prioClass = 'priority-badge ';
-                if (p === 'high') prioClass += 'priority-high';
+                if (p === 'critical') prioClass += 'priority-critical';
+                else if (p === 'high') prioClass += 'priority-high';
                 else if (p === 'medium') prioClass += 'priority-medium';
                 else prioClass += 'priority-low';
-                const prioLabel = p === 'high' ? 'Alta' : p === 'medium' ? 'Média' : 'Baixa';
+                const prioLabel = p === 'critical' ? 'Crítica' : p === 'high' ? 'Alta' : p === 'medium' ? 'Média' : 'Baixa';
 
-                const slaHtml = i.sla_breached
-                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || 'Estourado'}</span>`
+                const tempoHtml = i.sla_breached
+                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || '—'}</span>`
                     : i.sla_elapsed
                         ? `<span class="sla-ok">✅ ${i.sla_elapsed}</span>`
                         : '—';
 
+                const prazo = slaLabel(i);
                 const sistema = i.sistema_afetado || i.summary || '—';
 
                 tbody.innerHTML += `
-                    <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
+                    <tr style="${i.sla_breached && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
                         <td style="font-weight:500;">${sistema}</td>
                         <td><span class="${statusClass}">${i.status}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
-                        <td>${slaHtml}</td>
+                        <td>${tempoHtml}</td>
+                        <td>${prazo.html}</td>
                         <td>${i.assignee}</td>
-                        <td>${created}</td>
-                        <td>${resolved}</td>
+                        <td style="white-space:nowrap;">${fmtDate(i.created)}</td>
+                        <td style="white-space:nowrap;">${fmtDate(i.resolutiondate)}</td>
                     </tr>
                 `;
             });
@@ -897,10 +913,14 @@
                 'ID': i.key,
                 'Descrição': i.summary,
                 'Status': i.status,
-                'Prioridade': i.priority,
+                'Prioridade': (i.priority || '').toLowerCase() === 'critical' ? 'P1 Crítica'
+                            : (i.priority || '').toLowerCase() === 'high' ? 'P2 Alta'
+                            : (i.priority || '').toLowerCase() === 'medium' ? 'P3 Média' : 'P4 Baixa',
+                'Tempo Resolução': i.sla_elapsed || '—',
+                'Prazo SLA': slaLabel(i).text,
                 'Responsável': i.assignee,
-                'Data Criação': new Date(i.created).toLocaleDateString('pt-BR'),
-                'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : 'N/A'
+                'Criado em': fmtDate(i.created),
+                'Resolvido em': fmtDate(i.resolutiondate)
             }));
             const ws = XLSX.utils.json_to_sheet(rows);
             const wb = XLSX.utils.book_new();
@@ -930,14 +950,15 @@
             doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Status', 'Prioridade', 'Responsável', 'Criação', 'Descrição']],
-                body: currentFilteredData.map(i => [
-                    i.key, i.status, i.priority, i.assignee || 'N/A',
-                    new Date(i.created).toLocaleDateString('pt-BR'), i.summary
-                ]),
+                head: [['ID', 'Status', 'Prioridade', 'Prazo SLA', 'Responsável', 'Criado em', 'Resolvido em', 'Descrição']],
+                body: currentFilteredData.map(i => {
+                    const p = (i.priority || '').toLowerCase();
+                    const prioStr = p === 'critical' ? 'P1 Crítica' : p === 'high' ? 'P2 Alta' : p === 'medium' ? 'P3 Média' : 'P4 Baixa';
+                    return [i.key, i.status, prioStr, slaLabel(i).text, i.assignee || 'N/A', fmtDate(i.created), fmtDate(i.resolutiondate), i.summary];
+                }),
                 startY: 55,
-                styles: { fontSize: 8 },
-                columnStyles: { 0: { cellWidth: 22 }, 1: { cellWidth: 28 }, 2: { cellWidth: 18 }, 3: { cellWidth: 35 }, 4: { cellWidth: 18 }, 5: { cellWidth: 'auto' } },
+                styles: { fontSize: 7 },
+                columnStyles: { 0: { cellWidth: 20 }, 1: { cellWidth: 22 }, 2: { cellWidth: 18 }, 3: { cellWidth: 22 }, 4: { cellWidth: 28 }, 5: { cellWidth: 24 }, 6: { cellWidth: 24 }, 7: { cellWidth: 'auto' } },
                 headStyles: { fillColor: [198, 40, 40] }
             });
             doc.save(`Relatorio_Incidentes_${new Date().toISOString().slice(0,10)}.pdf`);

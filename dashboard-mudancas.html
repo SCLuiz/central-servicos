@@ -690,7 +690,7 @@
                         <!-- Tabela com Header Flex -->
                         <div
                             style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <h2 class="section-title" style="margin-bottom: 0;">Últimas 20 Mudanças</h2>
+                            <h2 class="section-title" style="margin-bottom: 0;" id="tabelaTitulo">Todas as Mudanças</h2>
                             <div style="display: flex; gap: 8px;">
                                 <button class="filter-btn" onclick="exportToExcel()"
                                     style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
@@ -1068,8 +1068,9 @@
                     function renderTable(mudancas) {
                         const tbody = document.getElementById('mudancasTableBody');
                         tbody.innerHTML = '';
-
-                        mudancas.slice(0, 20).forEach(m => {
+                        const titulo = document.getElementById('tabelaTitulo');
+                        if (titulo) titulo.textContent = `Mudanças (${mudancas.length})`;
+                        mudancas.forEach(m => {
                             const created = new Date(m.created).toLocaleDateString('pt-BR');
                             const url = `${JIRA_URL}/browse/${m.key}`;
 

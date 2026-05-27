@@ -854,9 +854,9 @@
         }
 
         function slaLabel(i) {
-            if (!i.resolutiondate) return { html: '<span style="color:#888;font-size:11px;">Em aberto</span>', text: 'Em aberto' };
             if (i.sla_breached) return { html: '<span class="sla-breached">Estourado</span>', text: 'Estourado' };
-            return { html: '<span class="sla-ok">Dentro do Prazo</span>', text: 'Dentro do Prazo' };
+            if (i.resolutiondate) return { html: '<span class="sla-ok">Dentro do Prazo</span>', text: 'Dentro do Prazo' };
+            return { html: '<span class="sla-ok">No Prazo</span>', text: 'No Prazo' };
         }
 
         function renderTable(incidentes) {

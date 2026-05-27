@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-27T14:08:36.409718",
+  "ultima_atualizacao": "2026-05-27T16:53:34.419150",
   "total": 28,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
-      "updated": "2026-05-26T15:18:28.577-0300",
+      "updated": "2026-05-27T12:45:33.243-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4521",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:45:39.657-0300",
-      "updated": "2026-05-25T17:04:59.830-0300",
+      "updated": "2026-05-27T12:44:54.386-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4520",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:43:24.830-0300",
-      "updated": "2026-05-25T11:26:03.248-0300",
+      "updated": "2026-05-27T12:44:24.148-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

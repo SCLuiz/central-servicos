@@ -349,20 +349,19 @@
             font-weight: 600;
         }
 
-        .status-concluido {
-            background: #E8F5E9;
-            color: #2E7D32;
-        }
+        .status-concluido  { background: #E8F5E9; color: #2E7D32; }
+        .status-aguardando { background: #FFF3E0; color: #E65100; }
+        .status-cancelado  { background: #FFEBEE; color: #C62828; }
+        .status-planejamento { background: #E3F2FD; color: #1565C0; }
+        .status-rejeitado  { background: #F3E5F5; color: #7B1FA2; }
 
-        .status-aguardando {
-            background: #FFF3E0;
-            color: #E65100;
-        }
+        .cat-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .cat-normal      { background: #E3F2FD; color: #1565C0; }
+        .cat-emergencial { background: #FFEBEE; color: #C62828; }
+        .cat-planejada   { background: #E8F5E9; color: #2E7D32; }
 
-        .status-cancelado {
-            background: #FFEBEE;
-            color: #C62828;
-        }
+        .inc-sim { background: #FFEBEE; color: #C62828; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .inc-nao { background: #F5F5F5; color: #757575; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
 
         /* Responsivo */
         @media (max-width: 768px) {
@@ -607,11 +606,27 @@
                 </div>
             </div>
 
-            <!-- Timeline Chart (NEW) -->
+            <!-- Timeline Chart -->
             <div class="charts-grid" style="grid-template-columns: 1fr;">
                 <div class="chart-card">
-                    <h3 class="chart-title">Timeline de Mudanças</h3>
-                    <canvas id="chartTimeline" style="max-height: 300px;"></canvas>
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                        <h3 class="chart-title" style="margin-bottom:0;">Timeline de Mudanças</h3>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-size:12px; color:#888;">Granularidade:</span>
+                            <button id="btnSemana" onclick="setTimelineGranularity('week')"
+                                style="padding:4px 12px; border-radius:20px; border:1px solid #DD249b; background:#fff; color:#DD249b; cursor:pointer; font-size:12px; font-weight:600;">Semana</button>
+                            <button id="btnMes" onclick="setTimelineGranularity('month')"
+                                style="padding:4px 12px; border-radius:20px; border:1px solid #DD249b; background:#DD249b; color:#fff; cursor:pointer; font-size:12px; font-weight:600;">Mês</button>
+                        </div>
+                    </div>
+                    <canvas id="chartTimeline" style="max-height:320px;"></canvas>
+                    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:#555;">
+                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(33,150,243,0.75);border-radius:2px;margin-right:4px;"></span>Abertas</span>
+                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(76,175,80,0.75);border-radius:2px;margin-right:4px;"></span>Concluídas</span>
+                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(244,67,54,0.65);border-radius:2px;margin-right:4px;"></span>Canceladas</span>
+                        <span><span style="display:inline-block;width:28px;height:3px;background:#FF6F00;vertical-align:middle;margin-right:4px;"></span>% Emergencial</span>
+                        <span><span style="display:inline-block;width:28px;height:2px;background:#9C27B0;border-top:2px dashed #9C27B0;vertical-align:middle;margin-right:4px;"></span>Tendência</span>
+                    </div>
                 </div>
             </div>
 
@@ -709,8 +724,11 @@
                                         <th>ID</th>
                                         <th>Nome</th>
                                         <th>Status</th>
+                                        <th>Categoria</th>
+                                        <th>Causou Incidente</th>
                                         <th>Responsável</th>
                                         <th>Criado em</th>
+                                        <th>Encerrado em</th>
                                     </tr>
                                 </thead>
                                 <tbody id="mudancasTableBody">
@@ -977,117 +995,169 @@
                             }
                         });
 
-                        // Timeline (Monthly: Created vs Resolved vs Cancelled)
-                        const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
-                        if (chartTimeline && typeof chartTimeline.destroy === "function") chartTimeline.destroy();
+                        renderTimeline(mudancas, currentGranularity);
+                    }
+                    function fmtDate(s) {
+                        if (!s) return '—';
+                        const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+                        if (!m) return s;
+                        return `${m[3]}/${m[2]}/${m[1]} ${m[4]}:${m[5]}`;
+                    }
 
-                        const monthlyData = {};
-                        const allMonths = new Set();
+                    function getWeekKey(s) {
+                        if (!s) return '—';
+                        const d = new Date(s);
+                        const jan1 = new Date(d.getFullYear(), 0, 1);
+                        const w = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+                        return `S${String(w).padStart(2,'0')}/${d.getFullYear()}`;
+                    }
+                    function getMonthKey(s) {
+                        if (!s) return '—';
+                        const d = new Date(s);
+                        return `${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+                    }
+                    function sortKey(k, gran) {
+                        if (gran === 'week') {
+                            const [sw, y] = k.split('/');
+                            return parseInt(y)*100 + parseInt(sw.replace('S',''));
+                        }
+                        const [mo, y] = k.split('/');
+                        return parseInt(y)*100 + parseInt(mo);
+                    }
+                    function movingAvg(arr, n) {
+                        return arr.map((_, i) => {
+                            if (i < n-1) return null;
+                            const slice = arr.slice(i-n+1, i+1);
+                            if (slice.some(v => v === null)) return null;
+                            return slice.reduce((a,b)=>a+b,0)/n;
+                        });
+                    }
 
+                    let currentGranularity = 'month';
+
+                    function buildTimelineData(mudancas, gran) {
+                        const data = {}, keys = new Set();
+                        const keyFn = gran === 'week' ? getWeekKey : getMonthKey;
                         mudancas.forEach(m => {
-                            // Creation Date
-                            const createdDate = new Date(m.created);
-                            const createdKey = `${(createdDate.getMonth() + 1).toString().padStart(2, '0')}/${createdDate.getFullYear()}`;
-                            allMonths.add(createdKey);
-
-                            // Resolution/Cancellation Date (using updated as proxy)
-                            let statusKey = null;
-                            const updatedDate = new Date(m.updated);
-                            const updatedKey = `${(updatedDate.getMonth() + 1).toString().padStart(2, '0')}/${updatedDate.getFullYear()}`;
-
-                            if (!monthlyData[createdKey]) monthlyData[createdKey] = { created: 0, resolved: 0, cancelled: 0 };
-                            monthlyData[createdKey].created++;
-
-                            if (m.status.includes('Concluído') || m.status.includes('Resolvido')) {
-                                allMonths.add(updatedKey);
-                                if (!monthlyData[updatedKey]) monthlyData[updatedKey] = { created: 0, resolved: 0, cancelled: 0 };
-                                monthlyData[updatedKey].resolved++;
-                            } else if (m.status.includes('Cancelado')) {
-                                allMonths.add(updatedKey);
-                                if (!monthlyData[updatedKey]) monthlyData[updatedKey] = { created: 0, resolved: 0, cancelled: 0 };
-                                monthlyData[updatedKey].cancelled++;
+                            const ck = keyFn(m.created);
+                            keys.add(ck);
+                            if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, emergencial:0 };
+                            data[ck].created++;
+                            if ((m.categoria||'').toLowerCase()==='emergencial') data[ck].emergencial++;
+                            const st = m.status || '';
+                            if (st.includes('Concluí')) {
+                                const uk = keyFn(m.updated);
+                                keys.add(uk);
+                                if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, emergencial:0 };
+                                data[uk].resolved++;
+                            } else if (st.includes('Cancelado')) {
+                                const uk = keyFn(m.updated);
+                                keys.add(uk);
+                                if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, emergencial:0 };
+                                data[uk].cancelled++;
                             }
                         });
+                        const sorted = Array.from(keys).sort((a,b)=>sortKey(a,gran)-sortKey(b,gran));
+                        return { data, sorted };
+                    }
 
-                        // Sort months
-                        const sortedMonths = Array.from(allMonths).sort((a, b) => {
-                            const [ma, ya] = a.split('/');
-                            const [mb, yb] = b.split('/');
-                            return new Date(ya, ma - 1, 1) - new Date(yb, mb - 1, 1);
+                    function renderTimeline(mudancas, gran) {
+                        const ctx = document.getElementById('chartTimeline').getContext('2d');
+                        if (chartTimeline && typeof chartTimeline.destroy === 'function') chartTimeline.destroy();
+                        const { data, sorted } = buildTimelineData(mudancas, gran);
+                        const created   = sorted.map(k => data[k]?.created   || 0);
+                        const resolved  = sorted.map(k => data[k]?.resolved  || 0);
+                        const cancelled = sorted.map(k => data[k]?.cancelled || 0);
+                        const emergPct  = sorted.map(k => {
+                            const c = data[k]?.created || 0;
+                            const e = data[k]?.emergencial || 0;
+                            return c > 0 ? parseFloat((e/c*100).toFixed(1)) : null;
                         });
+                        const trend = movingAvg(created, 3);
 
-                        chartTimeline = new Chart(ctxTimeline, {
-                            type: 'line',
+                        chartTimeline = new Chart(ctx, {
                             data: {
-                                labels: sortedMonths,
+                                labels: sorted,
                                 datasets: [
-                                    {
-                                        label: 'Criação',
-                                        data: sortedMonths.map(m => monthlyData[m]?.created || 0),
-                                        borderColor: '#2196F3', // Blue
-                                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
-                                        fill: false,
-                                        tension: 0.4
-                                    },
-                                    {
-                                        label: 'Concluído',
-                                        data: sortedMonths.map(m => monthlyData[m]?.resolved || 0),
-                                        borderColor: '#4CAF50', // Green
-                                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                                        fill: false,
-                                        tension: 0.4
-                                    },
-                                    {
-                                        label: 'Cancelado',
-                                        data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0),
-                                        borderColor: '#F44336', // Red
-                                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
-                                        fill: false,
-                                        tension: 0.4
-                                    }
+                                    { label:'Abertas',    type:'bar',  data:created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:1, yAxisID:'y' },
+                                    { label:'Concluídas', type:'bar',  data:resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:2, yAxisID:'y' },
+                                    { label:'Canceladas', type:'bar',  data:cancelled, backgroundColor:'rgba(244,67,54,0.65)', borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
+                                    { label:'% Emergencial', type:'line', data:emergPct,
+                                      borderColor:'#FF6F00', backgroundColor:'rgba(255,111,0,0.08)', borderWidth:2.5,
+                                      pointRadius:4, pointHoverRadius:6, pointBackgroundColor:'#FF6F00',
+                                      fill:false, tension:0.3, order:4, yAxisID:'yEmerg' },
+                                    { label:'Tendência (média 3 per.)', type:'line', data:trend,
+                                      borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2.5,
+                                      borderDash:[6,4], pointRadius:3, pointBackgroundColor:'#9C27B0',
+                                      fill:false, tension:0.4, order:5, yAxisID:'y', spanGaps:true }
                                 ]
                             },
                             options: {
-                                responsive: true,
-                                interaction: {
-                                    intersect: false,
-                                    mode: 'index',
+                                responsive:true,
+                                interaction:{ intersect:false, mode:'index' },
+                                plugins:{
+                                    legend:{ display:false },
+                                    tooltip:{ callbacks:{ label: ctx => {
+                                        const l = ctx.dataset.label||'';
+                                        const v = ctx.parsed.y;
+                                        if (v===null||v===undefined) return null;
+                                        return l.includes('%') ? `${l}: ${v}%` : `${l}: ${v}`;
+                                    }}}
                                 },
-                                plugins: {
-                                    legend: { display: true, position: 'top' }
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        ticks: { precision: 0 }
-                                    }
+                                scales:{
+                                    y:{ beginAtZero:true, position:'left', ticks:{ precision:0 }, grid:{ color:'rgba(0,0,0,0.05)' } },
+                                    yEmerg:{ beginAtZero:true, max:100, position:'right', ticks:{ callback: v=>`${v}%` }, grid:{ drawOnChartArea:false } }
                                 }
                             }
                         });
                     }
+
+                    function setTimelineGranularity(gran) {
+                        currentGranularity = gran;
+                        const btnS = document.getElementById('btnSemana');
+                        const btnM = document.getElementById('btnMes');
+                        if (btnS && btnM) {
+                            const on  = 'padding:4px 12px;border-radius:20px;border:1px solid #DD249b;background:#DD249b;color:#fff;cursor:pointer;font-size:12px;font-weight:600;';
+                            const off = 'padding:4px 12px;border-radius:20px;border:1px solid #DD249b;background:#fff;color:#DD249b;cursor:pointer;font-size:12px;font-weight:600;';
+                            btnS.style.cssText = gran==='week' ? on : off;
+                            btnM.style.cssText = gran==='month' ? on : off;
+                        }
+                        renderTimeline(currentFilteredData, gran);
+                    }
+
                     function renderTable(mudancas) {
                         const tbody = document.getElementById('mudancasTableBody');
                         tbody.innerHTML = '';
                         const titulo = document.getElementById('tabelaTitulo');
                         if (titulo) titulo.textContent = `Mudanças (${mudancas.length})`;
                         mudancas.forEach(m => {
-                            const created = new Date(m.created).toLocaleDateString('pt-BR');
                             const url = `${JIRA_URL}/browse/${m.key}`;
-
+                            const st = m.status || '';
                             let statusClass = 'status-badge ';
-                            if (m.status.includes('Concluído')) statusClass += 'status-concluido';
-                            else if (m.status.includes('Aguardando')) statusClass += 'status-aguardando';
-                            else if (m.status.includes('Cancelado')) statusClass += 'status-cancelado';
+                            if (st.includes('Concluí')) statusClass += 'status-concluido';
+                            else if (st.includes('Aguardando')) statusClass += 'status-aguardando';
+                            else if (st.includes('Cancelado')) statusClass += 'status-cancelado';
+                            else if (st.includes('Planejamento')) statusClass += 'status-planejamento';
+                            else if (st.includes('Rejeitado')) statusClass += 'status-rejeitado';
+
+                            const cat = (m.categoria||'normal').toLowerCase();
+                            const catClass = cat==='emergencial' ? 'cat-emergencial' : cat==='planejada' ? 'cat-planejada' : 'cat-normal';
+                            const catLabel = cat.charAt(0).toUpperCase()+cat.slice(1);
+
+                            const encerrado = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : '—';
 
                             tbody.innerHTML += `
-                    <tr>
-                        <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
-                        <td>${m.summary}</td>
-                        <td><span class="${statusClass}">${m.status}</span></td>
-                        <td>${m.assignee}</td>
-                        <td>${created}</td>
-                    </tr>
-                `;
+                                <tr>
+                                    <td><a href="${url}" target="_blank" style="color:#D81B60;font-weight:600;">${m.key}</a></td>
+                                    <td style="font-weight:500;">${m.summary}</td>
+                                    <td><span class="${statusClass}">${m.status}</span></td>
+                                    <td><span class="cat-badge ${catClass}">${catLabel}</span></td>
+                                    <td><span class="${m.causouIncidente ? 'inc-sim' : 'inc-nao'}">${m.causouIncidente ? 'Sim' : 'Não'}</span></td>
+                                    <td>${m.assignee}</td>
+                                    <td style="white-space:nowrap;">${fmtDate(m.created)}</td>
+                                    <td style="white-space:nowrap;">${encerrado}</td>
+                                </tr>
+                            `;
                         });
                     }
 
@@ -1097,14 +1167,20 @@
                             return;
                         }
 
-                        const rows = currentFilteredData.map(m => ({
-                            "ID": m.key,
-                            "Resumo": m.summary,
-                            "Status": m.status,
-                            "Responsável": m.assignee,
-                            "Data Criação": new Date(m.created).toLocaleDateString('pt-BR'),
-                            "Categoria": m.categoria || 'N/A'
-                        }));
+                        const rows = currentFilteredData.map(m => {
+                            const st = m.status || '';
+                            const encerrado = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : 'N/A';
+                            return {
+                                "ID": m.key,
+                                "Resumo": m.summary,
+                                "Status": m.status,
+                                "Categoria": (m.categoria||'normal').charAt(0).toUpperCase()+(m.categoria||'normal').slice(1),
+                                "Causou Incidente": m.causouIncidente ? 'Sim' : 'Não',
+                                "Responsável": m.assignee,
+                                "Criado em": fmtDate(m.created),
+                                "Encerrado em": encerrado
+                            };
+                        });
 
                         const worksheet = XLSX.utils.json_to_sheet(rows);
                         const workbook = XLSX.utils.book_new();
@@ -1154,34 +1230,18 @@
                         doc.text(`Canceladas: ${cancelado}`, 110, 52);
                         doc.text(`Em Aberto: ${aberto}`, 150, 52);
 
-                        // Tabela
-                        const tableColumn = ["ID", "Status", "Responsável", "Criação", "Resumo"];
-                        const tableRows = [];
-
-                        currentFilteredData.forEach(m => {
-                            const changeData = [
-                                m.key,
-                                m.status,
-                                m.assignee || 'N/A',
-                                new Date(m.created).toLocaleDateString('pt-BR'),
-                                m.summary
-                            ];
-                            tableRows.push(changeData);
-                        });
-
                         doc.autoTable({
-                            head: [tableColumn],
-                            body: tableRows,
+                            head: [['ID', 'Status', 'Categoria', 'Causou Inc.', 'Responsável', 'Criado em', 'Encerrado em', 'Resumo']],
+                            body: currentFilteredData.map(m => {
+                                const st = m.status || '';
+                                const enc = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : '—';
+                                const cat = (m.categoria||'normal');
+                                return [m.key, m.status, cat.charAt(0).toUpperCase()+cat.slice(1), m.causouIncidente ? 'Sim' : 'Não', m.assignee||'N/A', fmtDate(m.created), enc, m.summary];
+                            }),
                             startY: 60,
-                            styles: { fontSize: 8 },
-                            columnStyles: {
-                                0: { cellWidth: 25 },
-                                1: { cellWidth: 30 },
-                                2: { cellWidth: 40 },
-                                3: { cellWidth: 20 },
-                                4: { cellWidth: 'auto' }
-                            },
-                            headStyles: { fillColor: [46, 125, 50] } // Green header
+                            styles: { fontSize: 7 },
+                            columnStyles: { 0:{cellWidth:20}, 1:{cellWidth:22}, 2:{cellWidth:20}, 3:{cellWidth:16}, 4:{cellWidth:28}, 5:{cellWidth:24}, 6:{cellWidth:24}, 7:{cellWidth:'auto'} },
+                            headStyles: { fillColor: [216, 27, 96] }
                         });
 
                         doc.save(`Relatorio_Mudancas_${new Date().toISOString().slice(0, 10)}.pdf`);
@@ -1212,17 +1272,15 @@
                         currentFilter = days;
                         customDateRange = null;
 
-                        // Atualizar UI dos botões
-                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => {
-                            btn.classList.remove('active');
-                        });
+                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                         event.target.classList.add('active');
-
-                        // Limpar datas customizadas
                         document.getElementById('dateFrom').value = '';
                         document.getElementById('dateTo').value = '';
 
-                        // Filtrar dados
+                        // Auto-granularity: períodos curtos → semana, longos → mês
+                        const gran = (days === 20 || days === 60) ? 'week' : 'month';
+                        if (gran !== currentGranularity) setTimelineGranularity(gran);
+
                         filterAndRender();
                     }
 

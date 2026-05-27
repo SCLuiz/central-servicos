@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-27T19:09:37.412453",
+  "ultima_atualizacao": "2026-05-27T19:24:47.903604",
   "total": 28,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4524",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-05-26T10:10:01.695-0300",
-      "updated": "2026-05-27T15:44:20.889-0300",
+      "updated": "2026-05-27T16:13:54.741-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4522",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Santos",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Higor Santos",
       "created": "2026-05-25T15:05:07.492-0300",
-      "updated": "2026-05-27T15:52:36.123-0300",
+      "updated": "2026-05-27T16:15:56.471-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

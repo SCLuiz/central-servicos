@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-28T09:04:34.393902",
+  "ultima_atualizacao": "2026-05-28T12:39:58.620812",
   "total": 28,
   "mudancas": [
     {
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4522",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-05-25T15:05:07.492-0300",
-      "updated": "2026-05-27T16:15:56.471-0300",
+      "updated": "2026-05-28T07:15:44.220-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

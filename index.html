@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <script src="auth-guard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central de Serviços - Open Finance Brasil</title>
     <link rel="icon" type="image/png" href="logo.png">
@@ -11,9 +9,6 @@
     <!-- Version: 2025-10-22 11:30 - Removed Abrir Chamado from home -->
     <style>
         :root {
-            --of-magenta: #DD249b;
-            --of-yellow: #f7c20f;
-            --of-white: #FFFFFF;
             --ds-surface: #FFFFFF;
             --ds-surface-overlay: #F4F5F7;
             --ds-text: #172B4D;
@@ -44,15 +39,16 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: linear-gradient(135deg,
-                    rgba(255, 20, 147, 0.55) 0%,
-                    rgba(255, 105, 180, 0.50) 25%,
-                    rgba(255, 182, 193, 0.45) 50%,
-                    rgba(255, 215, 0, 0.50) 75%,
-                    rgba(255, 165, 0, 0.55) 100%);
+                rgba(255, 20, 147, 0.55) 0%,
+                rgba(255, 105, 180, 0.50) 25%,
+                rgba(255, 182, 193, 0.45) 50%,
+                rgba(255, 215, 0, 0.50) 75%,
+                rgba(255, 165, 0, 0.55) 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--ds-text);
             line-height: 1.5;
+            padding: 12px;
             min-height: 100vh;
         }
 
@@ -62,58 +58,40 @@
         }
 
         /* Header */
-        /* Header Estilo Premium (Open Finance) */
         .header {
-            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 70%, var(--of-yellow) 70%, var(--of-yellow) 100%);
-            padding: 40px 20px;
-            position: relative;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
             margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: 10%;
-            width: 300px;
-            height: 300px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: 5%;
-            width: 200px;
-            height: 200px;
-            border: 3px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
+        .header-banner {
+            width: 100%;
+            height: 180px;
+            background-image: url('capa.png?v=1');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
         }
 
         .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            padding: 24px;
             text-align: center;
         }
 
         .header h1 {
-            color: var(--of-white);
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ds-text);
+            margin-bottom: 6px;
         }
 
         .header p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--ds-text-subtle);
         }
 
         /* Section Title */
@@ -303,11 +281,9 @@
             0% {
                 background-position: 0% 50%;
             }
-
             50% {
                 background-position: 100% 50%;
             }
-
             100% {
                 background-position: 0% 50%;
             }
@@ -318,7 +294,6 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -329,316 +304,44 @@
             animation: fadeIn 0.4s ease-out backwards;
         }
 
-        .service-card:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-
-        .service-card:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .service-card:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-
-        .service-card:nth-child(4) {
-            animation-delay: 0.2s;
-        }
-
-        .service-card:nth-child(5) {
-            animation-delay: 0.25s;
-        }
-
-        .service-card:nth-child(6) {
-            animation-delay: 0.3s;
-        }
-
-        .service-card:nth-child(7) {
-            animation-delay: 0.35s;
-        }
-
-        .service-card:nth-child(8) {
-            animation-delay: 0.4s;
-        }
-
-        .service-card:nth-child(9) {
-            animation-delay: 0.45s;
-        }
-
-        /* News Feed Section */
-        .news-section {
-            padding: 40px 0;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .news-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            padding: 0 10px;
-        }
-
-        .news-header h2 {
-            font-size: 24px;
-            color: var(--ds-text);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-
-
-        .news-scroll-wrapper {
-            position: relative;
-        }
-
-        .news-scroll-wrapper::before,
-        .news-scroll-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 100px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .news-scroll-wrapper::before {
-            left: 0;
-            background: linear-gradient(to right, var(--ds-background), transparent);
-        }
-
-        .news-scroll-wrapper::after {
-            right: 0;
-            background: linear-gradient(to left, var(--ds-background), transparent);
-        }
-
-        .news-scroll-container {
-            display: flex;
-            gap: 20px;
-            animation: scroll-left 40s linear infinite;
-            width: max-content;
-        }
-
-        .news-scroll-container:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scroll-left {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .news-card {
-            background: var(--ds-surface);
-            border: 1px solid var(--ds-border);
-            border-radius: 12px;
-            padding: 16px;
-            width: 300px;
-            box-shadow: var(--ds-shadow-card);
-            transition: transform 0.2s, box-shadow 0.2s;
-            flex-shrink: 0;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-        }
-
-        .news-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(9, 30, 66, 0.15);
-        }
-
-        .news-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .tag-mudanca {
-            background: #EAE6FF;
-            color: #5243AA;
-        }
-
-        .tag-incidente {
-            background: #FFEBE6;
-            color: #DE350B;
-        }
-
-        .tag-comunicado {
-            background: #E3FCEF;
-            color: #006644;
-        }
-
-        .tag-servico {
-            background: #DEEBFF;
-            color: #0052CC;
-        }
-
-        .news-title {
-            color: var(--ds-text);
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .news-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--ds-text-subtle);
-            font-size: 12px;
-        }
-
-        .news-status {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .dot-success {
-            background: #36B37E;
-        }
-
-        .dot-warning {
-            background: #FFAB00;
-        }
-
-        /* Spaces Feed Styles */
-        .spaces-section {
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        .spaces-header h2 {
-            font-size: 20px;
-            color: var(--ds-text);
-            font-weight: 600;
-            padding-left: 10px;
-            margin-bottom: 16px;
-        }
-
-        .space-card {
-            background: var(--ds-surface);
-            border: 1px solid var(--ds-border);
-            border-left: 4px solid #6554C0;
-            /* Roxo Confluence */
-            border-radius: 8px;
-            padding: 16px;
-            width: 280px;
-            /* Mais largo para caber texto */
-            height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-decoration: none;
-            flex-shrink: 0;
-            box-shadow: var(--ds-shadow-card);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-
-        .space-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(101, 84, 192, 0.2);
-        }
-
-        .space-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .space-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            object-fit: contain;
-        }
-
-        .space-name {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--ds-text);
-            line-height: 1.3;
-        }
-
-        .space-desc {
-            font-size: 12px;
-            color: var(--ds-text-subtle);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-
-        .space-footer {
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px solid var(--ds-border-light);
-            font-size: 11px;
-            color: #6554C0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .dot-info {
-            background: #00B8D9;
-        }
+        .service-card:nth-child(1) { animation-delay: 0.05s; }
+        .service-card:nth-child(2) { animation-delay: 0.1s; }
+        .service-card:nth-child(3) { animation-delay: 0.15s; }
+        .service-card:nth-child(4) { animation-delay: 0.2s; }
+        .service-card:nth-child(5) { animation-delay: 0.25s; }
+        .service-card:nth-child(6) { animation-delay: 0.3s; }
+        .service-card:nth-child(7) { animation-delay: 0.35s; }
+        .service-card:nth-child(8) { animation-delay: 0.4s; }
+        .service-card:nth-child(9) { animation-delay: 0.45s; }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="header-content">
-            <h1>Central de Serviços</h1>
-            <p>Open Finance Brasil</p>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <!-- Banner -->
+            <div class="header-banner"></div>
 
-            <!-- User Info -->
-            <div
-                style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.3);">
-                <span id="userName" style="font-size: 14px; font-weight: 500; color: white;"></span>
-                <button onclick="fazerLogout()"
-                    style="padding: 6px 12px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s; color: white; font-weight: 600;">
-                    🚪 Sair
-                </button>
+            <!-- Content -->
+            <div class="header-content">
+                <h1>Central de Serviços</h1>
+                <p>Open Finance Brasil</p>
+
+                <!-- User Info -->
+                <div style="margin-top: 16px; padding: 10px 16px; background: rgba(255, 255, 255, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px;">
+                    <span id="userName" style="font-size: 14px; font-weight: 500;"></span>
+                    <button onclick="fazerLogout()" style="padding: 6px 12px; background: transparent; border: 1px solid rgba(0,0,0,0.2); border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s;">
+                        🚪 Sair
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="container">
 
         <!-- Cards de Serviços -->
         <div class="cards-grid">
             <!-- Administrativo -->
             <a href="administrativo.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('administrativo.png?v=8'); background-size: 170% 100% !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('administrativo.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Solicitações administrativas, compras, contratos e gestão documental
                 </div>
@@ -649,9 +352,7 @@
 
             <!-- Conselho -->
             <a href="conselho.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('conselho.png?v=1'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('conselho.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Governança, transparência e decisões estratégicas
                 </div>
@@ -662,9 +363,7 @@
 
             <!-- Facilities -->
             <a href="facilities.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('facilities.png?v=1'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('facilities.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Manutenção, limpeza, mobiliário, agendamentos e segurança patrimonial
                 </div>
@@ -675,9 +374,7 @@
 
             <!-- Financeiro -->
             <a href="financeiro.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('financeiro.png?v=1'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('financeiro.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Contas a pagar, contas a receber, relatórios e gestão fiscal
                 </div>
@@ -688,9 +385,7 @@
 
             <!-- Gente e Gestão -->
             <a href="gente-gestao.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('gente-gestao.png?v=8'); background-size: 170% 100% !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('gente-gestao.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Gestão de pessoas, benefícios, clima organizacional e comunicação interna
                 </div>
@@ -701,9 +396,7 @@
 
             <!-- Jurídico -->
             <a href="juridico.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('juridico.png?v=1'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('juridico.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Contratos, compliance, procurações e demandas judiciais
                 </div>
@@ -714,9 +407,7 @@
 
             <!-- Marketing -->
             <a href="marketing.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('marketing.png?v=1'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('marketing.png?v=1'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Campanhas, audiovisual, design e marketing digital
                 </div>
@@ -727,9 +418,7 @@
 
             <!-- SecOps -->
             <a href="secops.html" class="service-card">
-                <div class="card-banner"
-                    style="background-image: url('secops.png?v=2'); background-size: cover !important; background-position: center left !important;">
-                </div>
+                <div class="card-banner" style="background-image: url('secops.png?v=2'); background-size: cover !important; background-position: center left !important;"></div>
                 <div class="card-description">
                     Segurança, Operações de TI, Monitoramento, Atendimento ao Usuário e resposta a incidentes
                 </div>
@@ -739,50 +428,10 @@
             </a>
         </div>
 
-        <!-- News Feed (Marquee) -->
-        <div class="news-section">
-            <div class="news-header">
-                <h2>Últimas Atualizações</h2>
-            </div>
-            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
-                <div class="news-scroll-container">
-                    <!-- O conteúdo será carregado via JavaScript (loadNewsFeed) -->
-                    <div style="padding: 20px; color: var(--ds-text-subtle);">Carregando atualizações...</div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="spaces-section">
-            <div class="spaces-header">
-                <h2>Confluence</h2>
-            </div>
-            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
-                <div class="news-scroll-container spaces-container">
-                    <!-- O conteúdo será carregado via JavaScript (loadSpacesFeed) -->
-                    <div style="padding: 20px; color: var(--ds-text-subtle);">Carregando espaços...</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="spaces-section" style="margin-top: 20px;">
-            <div class="spaces-header">
-                <h2 style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 24px;">👥</span> Gente e Gestão
-                </h2>
-            </div>
-            <div class="news-scroll-wrapper" style="overflow: hidden; width: 100%;">
-                <div class="news-scroll-container hr-container">
-                    <div style="padding: 20px; color: var(--ds-text-subtle);">Carregando novidades do RH...</div>
-                </div>
-            </div>
-        </div>
-
         <!-- Footer -->
         <div class="footer">
             <p>Selecione o departamento acima para abrir seu chamado</p>
-            <p style="margin-top: 8px; color: var(--ds-text-subtlest);">Open Finance Brasil © 2025 <!-- v2.1 --></p>
+            <p style="margin-top: 8px; color: var(--ds-text-subtlest);">Open Finance Brasil © 2025</p>
         </div>
     </div>
 
@@ -790,7 +439,7 @@
         // Verificar autenticação ao carregar
         function verificarAutenticacao() {
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
-                sessionStorage.getItem('isAuthenticated') === 'true';
+                                   sessionStorage.getItem('isAuthenticated') === 'true';
 
             if (!isAuthenticated) {
                 // Não está autenticado, redirecionar para login
@@ -839,179 +488,7 @@
         // Executar verificação ao carregar
         window.addEventListener('DOMContentLoaded', () => {
             verificarAutenticacao();
-            loadNewsFeed();
-            loadSpacesFeed();
-            loadHRFeed();
         });
-
-        // Carregar Feed RH (Gente e Gestão)
-        async function loadHRFeed() {
-            const container = document.querySelector('.hr-container');
-            if (!container) return;
-
-            try {
-                const response = await fetch('hr_data.json?v=' + new Date().getTime());
-                if (!response.ok) throw new Error('Falha ao carregar RH');
-
-                const data = await response.json();
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhuma novidade.</div>';
-                    return;
-                }
-
-                container.innerHTML = '';
-
-                const createHRCard = (item) => {
-                    const card = document.createElement('div');
-                    card.className = 'space-card hr-card'; // Reutiliza estilo base mas adiciona especificidade
-                    // Override styles inline for manual quick fix or add to CSS block
-                    card.style.background = 'white';
-                    card.style.borderLeft = '4px solid #E35205'; // Laranja Teams/RH
-                    card.style.width = '300px';
-                    card.style.height = 'auto';
-                    card.style.minHeight = '140px';
-
-                    card.innerHTML = `
-                        <div class="space-header">
-                            <span style="background: #FFF0E6; color: #E35205; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">${item.type}</span>
-                            <div class="space-name" style="margin-left: auto; font-size: 11px; color: #666;">${item.date}</div>
-                        </div>
-                        <div class="space-name" style="margin-bottom: 6px; font-size: 15px;">${item.title}</div>
-                        <div class="space-desc" style="-webkit-line-clamp: 4;">${item.description}</div>
-                        <div class="space-footer" style="color: #444; border-top-color: #eee; display: flex; align-items: center; gap: 6px;">
-                            <span>✍️ ${item.author}</span>
-                        </div>
-                    `;
-                    return card;
-                };
-
-                // Duplicar para scroll se necessário
-                const repeatCount = data.length < 5 ? 4 : 2;
-                for (let i = 0; i < repeatCount; i++) {
-                    data.forEach(item => container.appendChild(createHRCard(item)));
-                }
-
-            } catch (error) {
-                console.warn('HR Feed Error:', error);
-                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Erro ao carregar RH.</div>';
-            }
-        }
-
-        // Carregar Feed de Espaços
-        async function loadSpacesFeed() {
-            const container = document.querySelector('.spaces-container');
-            if (!container) return;
-
-            try {
-                const response = await fetch('spaces_data.json?v=' + new Date().getTime());
-                if (!response.ok) throw new Error('Falha ao carregar espaços');
-
-                const data = await response.json();
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhum espaço disponível.</div>';
-                    return;
-                }
-
-                container.innerHTML = '';
-
-                const createSpaceCard = (item) => {
-                    const card = document.createElement('a');
-                    card.href = item.url || '#';
-                    card.className = 'space-card';
-                    card.target = '_blank';
-
-                    // Ícone ou Placeholder
-                    const iconHtml = item.icon
-                        ? `<img src="${item.icon}" class="space-icon" alt="">`
-                        : `<span style="font-size: 20px;">📘</span>`;
-
-                    card.innerHTML = `
-                        <div class="space-header">
-                            ${iconHtml}
-                            <div class="space-name">${item.name}</div>
-                        </div>
-                        <div class="space-desc">${item.description || 'Acesse para ver mais detalhes.'}</div>
-                        <div class="space-footer">
-                            📌 ${item.latest_title}
-                        </div>
-                    `;
-                    return card;
-                };
-
-                const repeatCount = data.length < 6 ? 4 : 2;
-                for (let i = 0; i < repeatCount; i++) {
-                    data.forEach(item => container.appendChild(createSpaceCard(item)));
-                }
-
-            } catch (error) {
-                console.warn('Spaces Feed Error:', error);
-                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Erro ao carregar espaços.</div>';
-            }
-        }
-
-        // Carregar Feed de Notícias
-        async function loadNewsFeed() {
-            const container = document.querySelector('.news-scroll-container');
-            if (!container) return;
-
-            try {
-                // Adicionar timestamp para evitar cache
-                const response = await fetch('news_data.json?v=' + new Date().getTime());
-                if (!response.ok) throw new Error('Falha ao carregar notícias');
-
-                const data = await response.json();
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Nenhuma atualização recente.</div>';
-                    return;
-                }
-
-                // Limpar conteúdo de loading
-                container.innerHTML = '';
-
-                // Função helper para criar card
-                const createCard = (item) => {
-                    const card = document.createElement('a');
-                    card.href = item.url || '#';
-                    card.className = 'news-card';
-                    card.target = '_blank'; // Abrir em nova aba
-
-                    card.innerHTML = `
-                        <span class="news-tag ${item.tag_class}">${item.type_name}</span>
-                        <div class="news-title">${item.title}</div>
-                        <div class="news-meta">
-                            <div class="news-status"><span class="status-dot ${item.status_dot}"></span> ${item.status_name}</div>
-                            <span>${item.date}</span>
-                        </div>
-                    `;
-                    return card;
-                };
-
-                // Lógica de Exibição:
-                // 1. NÃO duplicar cards (Pedido do usuário).
-                // 2. Se houver poucos cards (<= 4), mostrar estático e centralizado.
-                // 3. Se houver muitos cards, manter animação (com gap no loop, pois não há duplicação).
-
-                data.forEach(item => container.appendChild(createCard(item)));
-
-                if (data.length <= 4) {
-                    // Poucos itens: Desativar animação e centralizar
-                    container.style.animation = 'none';
-                    container.style.justifyContent = 'center';
-
-                    // Em mobile, permitir scroll manual se 4 cards não couberem
-                    if (window.innerWidth < 768 && data.length > 1) {
-                        container.style.justifyContent = 'flex-start';
-                        container.parentElement.style.overflowX = 'auto';
-                    }
-                }
-                // Se > 4, mantém o CSS original (animation: scroll-left)
-
-            } catch (error) {
-                console.warn('News Feed Error:', error);
-                container.innerHTML = '<div style="padding: 20px; color: var(--ds-text-subtle);">Não foi possível carregar as atualizações.</div>';
-            }
-        }
     </script>
 </body>
-
 </html>

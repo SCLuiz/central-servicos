@@ -14,21 +14,27 @@ if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
 app = Flask(__name__)
-CORS(app)  # Habilita CORS para todas as rotas
+CORS(app)
 
-# Configurações
 JIRA_URL = "https://openfinancebrasil.atlassian.net"
 
-@app.route('/api/tickets', methods=['GET'])
+
+@app.route('/api/tickets', methods=['POST'])
 def get_tickets():
     """
-    GET /api/tickets?email=xxx&token=xxx&project=105
-    Retorna lista de tickets do Jira Service Desk
+    POST /api/tickets
+    Body JSON: {"email": "xxx", "token": "xxx", "project": "105"}
+    Retorna lista de tickets do Jira Service Desk.
+    Token trafega no body, nunca na URL.
     """
     try:
-        email = request.args.get('email')
-        token = request.args.get('token')
-        project = request.args.get('project', '105')
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Body JSON obrigatório'}), 400
+
+        email = data.get('email')
+        token = data.get('token')
+        project = data.get('project', '105')
 
         if not email or not token:
             return jsonify({'error': 'Email e token são obrigatórios'}), 400
@@ -65,11 +71,14 @@ def get_tickets():
 def validate_credentials():
     """
     POST /api/validate
-    Body: {"email": "xxx", "token": "xxx"}
-    Valida credenciais do Jira
+    Body JSON: {"email": "xxx", "token": "xxx"}
+    Valida credenciais do Jira. Token trafega no body, nunca na URL.
     """
     try:
         data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Body JSON obrigatório'}), 400
+
         email = data.get('email')
         token = data.get('token')
 
@@ -79,7 +88,6 @@ def validate_credentials():
         auth = HTTPBasicAuth(email, token)
         headers = {'Accept': 'application/json'}
 
-        # Tenta buscar informações do usuário atual
         url = f'{JIRA_URL}/rest/api/3/myself'
         response = requests.get(url, auth=auth, headers=headers)
 
@@ -117,14 +125,11 @@ if __name__ == '__main__':
     print("📡 Servidor rodando em: http://localhost:5000")
     print()
     print("📋 ENDPOINTS:")
-    print("   GET  /api/health   - Health check")
-    print("   GET  /api/tickets  - Listar tickets")
-    print()
-    print("💡 USO:")
-    print("   http://localhost:5000/api/tickets?email=xxx&token=xxx&project=105")
+    print("   GET  /api/health    - Health check")
+    print("   POST /api/tickets   - Listar tickets (token no body, não na URL)")
+    print("   POST /api/validate  - Validar credenciais")
     print()
     print("⚠️  PARA PARAR: Ctrl+C")
     print("=" * 80)
-    print()
 
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

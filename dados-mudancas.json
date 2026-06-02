@@ -1,16 +1,81 @@
 {
-  "ultima_atualizacao": "2026-05-15T21:37:31.633856",
-  "total": 23,
+  "ultima_atualizacao": "2026-06-02T17:58:22.186033",
+  "total": 26,
   "mudancas": [
+    {
+      "key": "OFBI-4526",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-05-26T15:18:16.454-0300",
+      "updated": "2026-05-29T10:53:43.725-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4524",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-05-26T10:10:01.695-0300",
+      "updated": "2026-05-27T23:47:51.453-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4522",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-05-25T15:05:07.492-0300",
+      "updated": "2026-05-28T07:15:44.220-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Normal"
+    },
+    {
+      "key": "OFBI-4521",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-05-21T15:45:39.657-0300",
+      "updated": "2026-05-27T12:44:54.386-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
+    {
+      "key": "OFBI-4520",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-05-21T15:43:24.830-0300",
+      "updated": "2026-05-27T12:44:24.148-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4506",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Marcos Santana",
       "reporter": "Marcos Santana",
       "created": "2026-05-13T10:30:27.328-0300",
-      "updated": "2026-05-14T10:10:44.207-0300",
+      "updated": "2026-05-19T09:41:46.268-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -274,32 +339,6 @@
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
-    },
-    {
-      "key": "OFBI-4386",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Thomas Rabelo",
-      "reporter": "Thomas Rabelo",
-      "created": "2026-02-19T17:20:36.944-0300",
-      "updated": "2026-03-04T09:18:34.375-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Emergencial"
-    },
-    {
-      "key": "OFBI-4383",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Thomas Rabelo",
-      "reporter": "Thomas Rabelo",
-      "created": "2026-02-19T13:36:32.412-0300",
-      "updated": "2026-03-04T09:18:30.973-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
     }
   ]
 }

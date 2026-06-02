@@ -1,13 +1,8 @@
 // Configuração OAuth 2.0 - Atlassian Jira
 // Autenticação usando usuários do Jira como SSO
-//
-// SCOPES: mantidos apenas os necessários para o portal funcionar.
-// Removidos: read:workflow*, read:work-item-info:jira, read:object:jira,
-//            read:issue-worklog*, manage:servicedesk-customer (não usado no portal),
-//            offline_access (refresh token armazenado apenas em sessionStorage)
 
 const OAUTH_CONFIG = {
-    // Client ID da aplicação OAuth (registrada no Atlassian Developer Console)
+    // Client ID da aplicação OAuth (já registrada)
     clientId: '047HKKcG5shYb3WOZ65f6n8KUrRUvOSC',
 
     // URL de autorização do Atlassian
@@ -16,18 +11,12 @@ const OAUTH_CONFIG = {
     // URL de callback (GitHub Pages)
     redirectUri: 'https://scluiz.github.io/central-servicos/oauth-callback.html',
 
-    // Scopes mínimos necessários para o portal:
-    // - read:me / read:account — identidade do usuário
-    // - read:jira-user — verificar se é usuário Jira válido
-    // - read:jira-work — ler issues/tickets
-    // - read:servicedesk-request — ler chamados do portal
-    // - write:servicedesk-request — abrir chamados
-    // - read:servicemanagement-insight-objects — Assets/CMDB
-    scope: 'read:me read:account read:jira-user read:jira-work read:servicedesk-request write:servicedesk-request read:servicemanagement-insight-objects',
+    // Scopes necessários para acessar Jira (granulares)
+    scope: 'read:me read:account read:jira-user read:jira-work read:user:jira read:issue-worklog:jira read:issue-worklog.property:jira read:workflow:jira read:workflow-scheme:jira read:workflow.property:jira read:work-item-info:jira read:object:jira read:servicedesk-request manage:servicedesk-customer write:servicedesk-request read:servicemanagement-insight-objects offline_access',
 
     // Audience (Jira API)
     audience: 'api.atlassian.com',
 
-    // Prompt para garantir consentimento explícito
+    // Prompt para garantir consentimento
     prompt: 'consent'
 };

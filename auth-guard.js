@@ -29,19 +29,30 @@
     // 3. Precisa validar contra a Atlassian → esconde página até confirmar
     document.documentElement.style.visibility = 'hidden';
 
+    // Timeout de segurança: se a API não responder em 10s, bloqueia (fail-closed)
+    var validationTimeout = setTimeout(function () {
+        console.warn('[auth-guard] Timeout na validação do token — bloqueando acesso (fail-closed)');
+        clearAuth();
+    }, 10000);
+
     fetch('https://api.atlassian.com/me', {
         headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/json' }
     })
     .then(function (response) {
+        clearTimeout(validationTimeout);
         if (response.ok) {
             localStorage.setItem('auth_validated_at', Date.now().toString());
             document.documentElement.style.visibility = '';
         } else {
+            // Token inválido ou revogado → bloqueia (fail-closed)
             clearAuth();
         }
     })
-    .catch(function () {
-        // Falha de rede: mantém acesso para não bloquear usuários válidos
-        document.documentElement.style.visibility = '';
+    .catch(function (err) {
+        clearTimeout(validationTimeout);
+        // Falha de rede → fail-closed: bloqueia acesso por segurança
+        // Isso evita que tokens revogados mantenham acesso em caso de indisponibilidade da API
+        console.warn('[auth-guard] Falha de rede na validação do token — bloqueando acesso (fail-closed):', err);
+        clearAuth();
     });
 })();

@@ -46,18 +46,18 @@
 
     <script src="oauth-config.js"></script>
     <script>
-        // URL do Cloudflare Worker
+        // URL do Cloudflare Worker (CLIENT_SECRET protegido no Worker, nunca no frontend)
         const WORKER_URL = 'https://oauth-token-exchange.luiz-santos.workers.dev';
     </script>
     <script>
-        // OAuth callback usando Cloudflare Worker para segurança
-        // O CLIENT_SECRET fica protegido no Worker, não no frontend
-
         async function handleOAuthCallback() {
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
             const state = params.get('state');
             const error = params.get('error');
+
+            // Limpar code/state da URL imediatamente para evitar reuso
+            window.history.replaceState({}, document.title, window.location.pathname);
 
             if (error) {
                 showError('Erro na autenticação: ' + error);
@@ -69,47 +69,56 @@
                 return;
             }
 
-            try {
-                // Trocar código por token
-                const tokenData = await exchangeCodeForToken(code);
+            // Validar state CSRF
+            const savedState = sessionStorage.getItem('oauth_state');
+            sessionStorage.removeItem('oauth_state');
+            if (!savedState || savedState !== state) {
+                showError('Falha de segurança: state inválido (possível CSRF)');
+                return;
+            }
 
-                // Obter informações do usuário
+            try {
+                const tokenData = await exchangeCodeForToken(code);
                 const cloudId = await getCloudId(tokenData.access_token);
                 const userInfo = await getUserInfo(tokenData.access_token, cloudId);
 
-                // Salvar tokens e informações
-                const storage = localStorage; // Sempre persistir OAuth
-                storage.setItem('oauth_access_token', tokenData.access_token);
-                storage.setItem('oauth_refresh_token', tokenData.refresh_token);
-                storage.setItem('oauth_expires_at', Date.now() + (tokenData.expires_in * 1000));
-                storage.setItem('oauth_cloud_id', cloudId);
-                storage.setItem('isAuthenticated', 'true');
-                storage.setItem('userName', userInfo.displayName || userInfo.email);
-                storage.setItem('userEmail', userInfo.email);
-                storage.setItem('userAvatar', userInfo.avatarUrls ? userInfo.avatarUrls['48x48'] : '');
-                storage.setItem('authMethod', 'oauth');
+                // access_token → sessionStorage (limpo ao fechar o browser, não acessível entre abas)
+                // Dados não-sensíveis de sessão → localStorage (persistência para UX)
+                sessionStorage.setItem('oauth_access_token', tokenData.access_token);
+                sessionStorage.setItem('oauth_expires_at', Date.now() + (tokenData.expires_in * 1000));
+                sessionStorage.setItem('oauth_cloud_id', cloudId);
 
-                // Sucesso!
+                // refresh_token armazenado apenas se existir — sessão expira com o browser
+                // Em ambiente de maior segurança, omitir o refresh_token completamente
+                if (tokenData.refresh_token) {
+                    sessionStorage.setItem('oauth_refresh_token', tokenData.refresh_token);
+                }
+
+                // Dados de identidade (não-sensíveis) ficam no localStorage para UX
+                localStorage.setItem('isAuthenticated', 'true');
+                localStorage.setItem('auth_validated_at', Date.now().toString());
+                localStorage.setItem('userName', userInfo.displayName || userInfo.emailAddress || '');
+                localStorage.setItem('userEmail', userInfo.emailAddress || '');
+                localStorage.setItem('userAvatar', userInfo.avatarUrls ? userInfo.avatarUrls['48x48'] : '');
+                localStorage.setItem('authMethod', 'oauth');
+
                 document.getElementById('status').textContent = '✅ Autenticado!';
-                document.getElementById('message').textContent = 'Bem-vindo(a), ' + userInfo.displayName + '! Redirecionando...';
+                document.getElementById('message').textContent = 'Bem-vindo(a), ' + (userInfo.displayName || userInfo.emailAddress) + '! Redirecionando...';
 
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
 
-            } catch (error) {
-                console.error('Erro OAuth:', error);
-                showError('Erro ao processar autenticação: ' + error.message);
+            } catch (err) {
+                console.error('Erro OAuth:', err);
+                showError('Erro ao processar autenticação: ' + err.message);
             }
         }
 
         async function exchangeCodeForToken(code) {
-            // Chamar Cloudflare Worker para fazer token exchange de forma segura
             const response = await fetch(WORKER_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     code: code,
                     redirect_uri: OAUTH_CONFIG.redirectUri
@@ -117,7 +126,7 @@
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || 'Falha ao obter token: ' + response.status);
             }
 
@@ -132,14 +141,10 @@
                 }
             });
 
-            if (!response.ok) {
-                throw new Error('Falha ao obter Cloud ID');
-            }
+            if (!response.ok) throw new Error('Falha ao obter Cloud ID');
 
             const resources = await response.json();
-            if (resources.length === 0) {
-                throw new Error('Nenhum recurso Atlassian encontrado');
-            }
+            if (resources.length === 0) throw new Error('Nenhum recurso Atlassian encontrado');
 
             return resources[0].id;
         }
@@ -152,14 +157,9 @@
                 }
             });
 
-            if (!response.ok) {
-                throw new Error('Falha ao obter informações do usuário');
-            }
+            if (!response.ok) throw new Error('Falha ao obter informações do usuário');
 
-            const userInfo = await response.json();
-            console.log('🔍 DEBUG - User Info completo:', userInfo);
-            console.log('🔍 DEBUG - Avatar URLs:', userInfo.avatarUrls);
-            return userInfo;
+            return await response.json();
         }
 
         function showError(message) {
@@ -174,7 +174,6 @@
             }, 5000);
         }
 
-        // Executar quando a página carregar
         handleOAuthCallback();
     </script>
 </body>

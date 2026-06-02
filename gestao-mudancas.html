@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+    <script src="auth-guard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Mudanças - Central de Serviços</title>
     <link rel="icon" type="image/png" href="logo.png">
@@ -35,11 +37,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg,
-                rgba(255, 20, 147, 0.55) 0%,
-                rgba(255, 105, 180, 0.50) 25%,
-                rgba(255, 182, 193, 0.45) 50%,
-                rgba(255, 215, 0, 0.50) 75%,
-                rgba(255, 165, 0, 0.55) 100%);
+                    rgba(255, 20, 147, 0.55) 0%,
+                    rgba(255, 105, 180, 0.50) 25%,
+                    rgba(255, 182, 193, 0.45) 50%,
+                    rgba(255, 215, 0, 0.50) 75%,
+                    rgba(255, 165, 0, 0.55) 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             color: var(--of-dark);
@@ -48,12 +50,20 @@
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -151,7 +161,7 @@
         }
 
         /* Cards Grid */
-        
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -162,7 +172,7 @@
         }
 
         /* Service Card */
-        
+
         .service-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -190,7 +200,7 @@
             margin-bottom: 10px;
         }
 
-        
+
         .card-icon {
             width: 50px;
             height: 50px;
@@ -215,27 +225,39 @@
             line-height: 1.6;
         }
 
-        
+
         .card-button {
-            background: linear-gradient(90deg, var(--of-magenta), var(--of-yellow));
-            color: var(--of-white);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            background: transparent;
+            color: var(--ds-text);
+            border: 2px solid var(--ds-border);
+            padding: 10px 24px;
+            border-radius: 25px;
+            /* Pill shape like back-button */
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             margin-top: auto;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(221, 36, 155, 0.3);
+            box-shadow: none;
+            /* Remove shadow */
         }
 
-        
+        .card-button:hover {
+            border-color: var(--of-magenta);
+            color: var(--of-magenta);
+            background: rgba(221, 36, 155, 0.05);
+            /* Subtle magenta tint on hover */
+            transform: translateY(-2px);
+        }
 
-        
+
+
+
 
         /* Footer */
         .footer {
@@ -247,50 +269,50 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin: 0 auto 40px;
-            max-width: 1000px;
-            justify-content: center;
-        }
+
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
+                margin: 0 auto 40px;
+                max-width: 1000px;
+                justify-content: center;
+            }
 
             .header h1 {
                 font-size: 24px;
             }
 
-        .back-button {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 25px;
-            color: var(--of-white);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
+            .back-button {
+                background: rgba(255, 255, 255, 0.3);
+                backdrop-filter: blur(10px);
+                padding: 10px 20px;
+                border-radius: 25px;
+                color: var(--of-white);
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                border: 2px solid rgba(255, 255, 255, 0.4);
+                transition: all 0.3s ease;
+            }
+
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.5);
+                border-color: rgba(255, 255, 255, 0.8);
+                transform: translateX(-3px);
+            }
+
+            .back-button::before {
+                content: '←';
+                font-size: 18px;
+                font-weight: bold;
+            }
         }
 
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateX(-3px);
-        }
 
-        .back-button::before {
-            content: '←';
-            font-size: 18px;
-            font-weight: bold;
-        }
-        }
-    
-    
         /* Footer */
         .footer {
             text-align: center;
@@ -310,7 +332,7 @@
             color: var(--of-gray);
             font-size: 13px;
         }
-    
+
 
         @media (max-width: 1200px) {
             .cards-grid {
@@ -330,168 +352,102 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
-        <div class="header">
-            <div class="header-content">
-                <h1>Gestão de Mudanças</h1>
-                <p>Controle e coordenação de mudanças em sistemas e infraestrutura de TI</p>
-                <div class="header-info">
-                    <a href="secops.html" class="back-button">Voltar para SecOps</a>
-                </div>
+    <div class="header">
+        <div class="header-content">
+            <h1>Gestão de Mudanças</h1>
+            <p>Controle e coordenação de mudanças em sistemas e infraestrutura de TI</p>
+            <div class="header-info">
+                <a href="secops.html" class="back-button">Voltar para SecOps</a>
             </div>
         </div>
+    </div>
 
-        <!-- Cards de Serviços -->
-        <div class="cards-grid">
-            <!-- Solicitação de Mudança -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">📝</div>
-                    <div class="card-title">Solicitação de Mudança</div>
-                </div>
-                <div class="card-description">
-                    Abertura de requisições de mudança (RFC) em sistemas, aplicações e infraestrutura. Planejamento e documentação de mudanças.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">📝</span>
-                    <span>Abrir RFC</span>
-                </a>
+    <!-- Cards de Serviços -->
+    <div class="cards-grid">
+        <!-- Solicitação de Mudança -->
+        <div class="service-card">
+            <div class="card-header">
+                <div class="card-icon">📝</div>
+                <div class="card-title">Solicitação de Mudança</div>
             </div>
-
-            <!-- Avaliação de Impacto -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">📊</div>
-                    <div class="card-title">Avaliação de Impacto</div>
-                </div>
-                <div class="card-description">
-                    Análise de impacto e riscos de mudanças propostas. Avaliação técnica e de negócio para tomada de decisão.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">📊</span>
-                    <span>Solicitar Avaliação</span>
-                </a>
+            <div class="card-description">
+                Abertura de requisições de mudança em sistemas, aplicações e infraestrutura.
             </div>
-
-            <!-- Aprovação de Mudanças -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">✅</div>
-                    <div class="card-title">Aprovação de Mudanças</div>
-                </div>
-                <div class="card-description">
-                    Processo de aprovação pelo CAB (Change Advisory Board). Revisão e autorização de mudanças programadas.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">✅</span>
-                    <span>Consultar Status</span>
-                </a>
-            </div>
-
-            <!-- Agendamento de Mudanças -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">📅</div>
-                    <div class="card-title">Agendamento de Mudanças</div>
-                </div>
-                <div class="card-description">
-                    Coordenação e agendamento de janelas de mudança. Gestão de calendário de mudanças e blackout periods.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">📅</span>
-                    <span>Agendar Mudança</span>
-                </a>
-            </div>
-
-            <!-- Implementação e Deploy -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">🚀</div>
-                    <div class="card-title">Implementação e Deploy</div>
-                </div>
-                <div class="card-description">
-                    Execução de mudanças aprovadas, deploy de aplicações e atualizações de sistemas. Acompanhamento em tempo real.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">🚀</span>
-                    <span>Solicitar Deploy</span>
-                </a>
-            </div>
-
-            <!-- Rollback e Reversão -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">↩️</div>
-                    <div class="card-title">Rollback e Reversão</div>
-                </div>
-                <div class="card-description">
-                    Procedimentos de rollback em caso de falhas. Reversão de mudanças e restauração ao estado anterior.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">↩️</span>
-                    <span>Solicitar Rollback</span>
-                </a>
-            </div>
-
-            <!-- Pós-Implementação -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">📋</div>
-                    <div class="card-title">Revisão Pós-Implementação</div>
-                </div>
-                <div class="card-description">
-                    Validação e documentação de mudanças implementadas. Lições aprendidas e métricas de sucesso.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">📋</span>
-                    <span>Registrar PIR</span>
-                </a>
-            </div>
-
-            <!-- Mudanças de Emergência -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">🚨</div>
-                    <div class="card-title">Mudanças de Emergência</div>
-                </div>
-                <div class="card-description">
-                    Processo acelerado para mudanças críticas e urgentes. Aprovação emergencial e implementação imediata.
-                </div>
-                <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/105" class="card-button">
-                    <span style="font-size: 20px;">🚨</span>
-                    <span>Mudança Emergencial</span>
-                </a>
-            </div>
-
-            <!-- Dashboard de Mudanças -->
-            <div class="service-card">
-                <div class="card-header">
-                    <div class="card-icon">📊</div>
-                    <div class="card-title">Dashboard de Mudanças</div>
-                </div>
-                <div class="card-description">
-                    Visualização em tempo real de métricas, gráficos e análises das mudanças. Timeline, status, responsáveis e exportação de relatórios.
-                </div>
-                <a href="dashboard-mudancas.html?v=2" class="card-button">
-                    <span style="font-size: 20px;">📊</span>
-                    <span>Acessar Dashboard</span>
-                </a>
-            </div>
+            <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/portal/1/group/1/create/8"
+                class="card-button">
+                <span style="font-size: 20px;">📝</span>
+                <span>Abrir uma Mudança</span>
+            </a>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p><strong>Gestão de Mudanças</strong> - Change Management | ITIL v4</p>
-            <p style="margin-top: 8px; opacity: 0.7;">Open Finance Brasil © 2025</p>
+
+
+        <!-- Aprovação de Mudanças -->
+        <div class="service-card">
+            <div class="card-header">
+                <div class="card-icon">✅</div>
+                <div class="card-title">Aprovação de Mudanças</div>
+            </div>
+            <div class="card-description">
+                Área técnica para membros do CAB. Visualize e aprove/rejeite mudanças que aguardam sua validação.
+            </div>
+            <a href="https://openfinancebrasil.atlassian.net/servicedesk/customer/user/approvals" class="card-button">
+                <span style="font-size: 20px;">✅</span>
+                <span>Minhas Aprovações</span>
+            </a>
         </div>
+
+        <!-- Agendamento de Mudanças -->
+        <div class="service-card">
+            <div class="card-header">
+                <div class="card-icon">📅</div>
+                <div class="card-title">Calendário</div>
+            </div>
+            <div class="card-description">
+                Agendamento e planejamento de mudanças e projetos
+            </div>
+            <a href="https://openfinancebrasil.atlassian.net/jira/servicedesk/projects/OFBI/change-calendar"
+                class="card-button">
+                <span style="font-size: 20px;">📅</span>
+                <span>Ver Calendário</span>
+            </a>
+        </div>
+
+
+
+        <!-- Dashboard de Mudanças -->
+        <div class="service-card">
+            <div class="card-header">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Dashboard de Mudanças</div>
+            </div>
+            <div class="card-description">
+                Monitoramento de KPIs, Timeline interativa por mês e exportação avançada de dados (Excel e Relatórios
+                PDF).
+            </div>
+            <a href="dashboard-mudancas.html?v=2" class="card-button">
+                <span style="font-size: 20px;">📊</span>
+                <span>Acessar Dashboard</span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Gestão de Mudanças</strong> - Change Management | ITIL v4</p>
+        <p style="margin-top: 8px; opacity: 0.7;">Open Finance Brasil © 2025</p>
+    </div>
     </div>
 
     <script>
         // Verificar autenticação
         window.addEventListener('DOMContentLoaded', () => {
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' ||
-                                   sessionStorage.getItem('isAuthenticated') === 'true';
+                sessionStorage.getItem('isAuthenticated') === 'true';
 
             if (!isAuthenticated) {
                 window.location.href = 'login.html';
@@ -499,4 +455,5 @@
         });
     </script>
 </body>
+
 </html>

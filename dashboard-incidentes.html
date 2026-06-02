@@ -196,7 +196,6 @@
         .status-cancelado { background: #F3E5F5; color: #6A1B9A; }
 
         .priority-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-        .priority-critical { background: #F3E5F5; color: #7B1FA2; }
         .priority-high { background: #FFEBEE; color: #C62828; }
         .priority-medium { background: #FFF3E0; color: #E65100; }
         .priority-low { background: #E8F5E9; color: #2E7D32; }
@@ -372,13 +371,46 @@
                     <div class="metric-value" id="metricCancelado">0</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">P1 Críticos</div>
+                    <div class="metric-label">Alta Prioridade</div>
                     <div class="metric-value" id="metricHigh" style="color: #C62828;">0</div>
                 </div>
                 <div class="metric-card" style="border-left-color: #C62828;">
                     <div class="metric-label">SLA Estourado</div>
                     <div class="metric-value" id="metricSlaBreached" style="color: #C62828;">0</div>
                     <div class="metric-meta danger">Incidentes com SLA vencido</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #4CAF50;">
+                    <div class="metric-label">Dentro do SLA</div>
+                    <div class="metric-value" id="metricSlaOk" style="color: #2E7D32;">0</div>
+                    <div class="metric-meta success">Incidentes dentro do prazo</div>
+                </div>
+            </div>
+
+            <!-- Bloco SLA em destaque -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:30px;">
+                <div class="chart-card" style="background:#FFEBEE; border-left:4px solid #C62828;">
+                    <h3 class="chart-title" style="color:#C62828;">🔴 SLA Estourado</h3>
+                    <div style="font-size:56px; font-weight:700; color:#C62828;" id="slaBreachedBig">0</div>
+                    <div style="font-size:13px; color:#666; margin-top:8px;" id="slaBreachedPct">0% do total</div>
+                    <div style="margin-top:12px; font-size:13px; color:#666;">Incidentes que ultrapassaram o prazo de resolução</div>
+                </div>
+                <div class="chart-card" style="background:#E8F5E9; border-left:4px solid #4CAF50;">
+                    <h3 class="chart-title" style="color:#2E7D32;">🟢 Dentro do SLA</h3>
+                    <div style="font-size:56px; font-weight:700; color:#2E7D32;" id="slaOkBig">0</div>
+                    <div style="font-size:13px; color:#666; margin-top:8px;" id="slaOkPct">0% do total</div>
+                    <div style="margin-top:12px; font-size:13px; color:#666;">Incidentes resolvidos dentro do prazo</div>
+                </div>
+            </div>
+
+            <!-- Gráfico SLA donut + sistemas afetados -->
+            <div class="charts-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:30px;">
+                <div class="chart-card">
+                    <h3 class="chart-title">Conformidade de SLA</h3>
+                    <canvas id="chartSla" style="max-height:260px;"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Incidentes por Sistema Afetado</h3>
+                    <canvas id="chartSistemas"></canvas>
                 </div>
             </div>
 
@@ -389,28 +421,8 @@
             <!-- Timeline Chart -->
             <div class="charts-grid" style="grid-template-columns: 1fr;">
                 <div class="chart-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                        <h3 class="chart-title" style="margin:0;">Timeline de Incidentes</h3>
-                        <div style="display:flex; gap:6px; align-items:center;">
-                            <span style="font-size:12px; color:#888; margin-right:4px;">Granularidade:</span>
-                            <button id="btnSemana" onclick="setTimelineGranularity('week')"
-                                style="padding:4px 12px; border-radius:20px; border:1px solid #D81B60; background:#fff; color:#D81B60; cursor:pointer; font-size:12px; font-weight:600;">
-                                Semana
-                            </button>
-                            <button id="btnMes" onclick="setTimelineGranularity('month')"
-                                style="padding:4px 12px; border-radius:20px; border:1px solid #D81B60; background:#D81B60; color:#fff; cursor:pointer; font-size:12px; font-weight:600;">
-                                Mês
-                            </button>
-                        </div>
-                    </div>
-                    <canvas id="chartTimeline" style="max-height:360px;"></canvas>
-                    <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:#666;">
-                        <span>🟦 Abertos</span>
-                        <span>🟩 Concluídos</span>
-                        <span>🟥 Cancelados</span>
-                        <span style="color:#FF6F00;">⬥ SLA% estourado (sobre resolvidos)</span>
-                        <span style="color:#9C27B0;">— Tendência (média 3 períodos)</span>
-                    </div>
+                    <h3 class="chart-title">Timeline de Incidentes</h3>
+                    <canvas id="chartTimeline" style="max-height: 300px;"></canvas>
                 </div>
             </div>
 
@@ -421,16 +433,16 @@
                     <div class="metric-card">
                         <div class="metric-label">Taxa de Resolução</div>
                         <div class="metric-value" id="indResolucao">0%</div>
-                        <div class="metric-meta">Meta: > 80% (IND-INC-002)</div>
+                        <div class="metric-meta">Meta: > 90%</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">P1 Críticos</div>
-                        <div class="metric-value" id="indAlta">0</div>
-                        <div class="metric-meta">Meta: ≤ 5</div>
+                        <div class="metric-label">Alta Prioridade</div>
+                        <div class="metric-value" id="indAlta">0%</div>
+                        <div class="metric-meta">Meta: < 10%</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Tempo Médio de Resolução</div>
-                        <div class="metric-value" id="indTempoResolucao">—</div>
+                        <div class="metric-value" id="indTempoResolucao">0 dias</div>
                         <div class="metric-meta">Baseado em incidentes resolvidos</div>
                     </div>
                     <div class="metric-card">
@@ -443,7 +455,10 @@
                         <div class="metric-value" id="indSlaPct">0%</div>
                         <div class="metric-meta">Meta: 0%</div>
                     </div>
-
+                    <div class="metric-card">
+                        <div class="metric-label">Sistema Mais Afetado</div>
+                        <div class="metric-value" id="indSistema" style="font-size:16px; padding-top:8px;">—</div>
+                    </div>
                 </div>
             </div>
 
@@ -451,23 +466,18 @@
             <div class="indicators-section">
                 <h2 class="section-title">Indicador por Prioridade</h2>
                 <div class="metrics-grid">
-                    <div class="metric-card" style="border-left-color: #7B1FA2;">
-                        <div class="metric-label">P1 — Crítica (&lt;1h)</div>
-                        <div class="metric-value" id="metricPrioCritical" style="color: #7B1FA2;">0</div>
-                        <div class="metric-meta" id="percentCritical">0%</div>
-                    </div>
-                    <div class="metric-card" style="border-left-color: #C62828;">
-                        <div class="metric-label">P2 — Alta (&lt;2h)</div>
+                    <div class="metric-card">
+                        <div class="metric-label">Alta</div>
                         <div class="metric-value" id="metricPrioHigh" style="color: #C62828;">0</div>
                         <div class="metric-meta" id="percentHigh">0%</div>
                     </div>
-                    <div class="metric-card" style="border-left-color: #E65100;">
-                        <div class="metric-label">P3 — Média (&lt;10h)</div>
+                    <div class="metric-card">
+                        <div class="metric-label">Média</div>
                         <div class="metric-value" id="metricPrioMedium" style="color: #E65100;">0</div>
                         <div class="metric-meta" id="percentMedium">0%</div>
                     </div>
-                    <div class="metric-card" style="border-left-color: #2E7D32;">
-                        <div class="metric-label">P4 — Baixa (&lt;20h)</div>
+                    <div class="metric-card">
+                        <div class="metric-label">Baixa</div>
                         <div class="metric-value" id="metricPrioLow" style="color: #2E7D32;">0</div>
                         <div class="metric-meta" id="percentLow">0%</div>
                     </div>
@@ -488,7 +498,7 @@
 
             <!-- Tabela -->
             <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h2 class="section-title" style="margin-bottom: 0;" id="tabelaTitulo">Todos os Incidentes</h2>
+                <h2 class="section-title" style="margin-bottom: 0;">Últimos 20 Incidentes</h2>
                 <div style="display: flex; gap: 8px;">
                     <button class="filter-btn" onclick="exportToExcel()" style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
                         <span style="font-size: 1.2em;">📊</span> Excel
@@ -506,8 +516,7 @@
                             <th>Sistema Afetado</th>
                             <th>Status</th>
                             <th>Prioridade</th>
-                            <th>Tempo</th>
-                            <th>Prazo SLA</th>
+                            <th>SLA</th>
                             <th>Responsável</th>
                             <th>Criado em</th>
                             <th>Resolvido em</th>
@@ -557,9 +566,7 @@
                 aberto: 0,
                 pendente: 0,
                 concluido: 0,
-                concluido_no_prazo: 0,
                 cancelado: 0,
-                critical: 0,
                 high: 0,
                 medium: 0,
                 low: 0,
@@ -575,30 +582,27 @@
                 const s = i.status || '';
                 if (s.includes('Aberto')) stats.aberto++;
                 else if (s.includes('Pendente')) stats.pendente++;
-                else if (s.includes('Concluído')) {
-                    stats.concluido++;
-                    if (!i.sla_breached) stats.concluido_no_prazo++;
-                }
+                else if (s.includes('Concluído')) stats.concluido++;
                 else if (s.includes('Cancelado')) stats.cancelado++;
 
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
                 stats.responsaveisCount[i.assignee] = (stats.responsaveisCount[i.assignee] || 0) + 1;
 
-                const sistemaKey = i.sistema_afetado || i.assignee || 'Desconhecido';
-                stats.sistemasCount[sistemaKey] = (stats.sistemasCount[sistemaKey] || 0) + 1;
+                if (i.sistema_afetado) {
+                    stats.sistemasCount[i.sistema_afetado] = (stats.sistemasCount[i.sistema_afetado] || 0) + 1;
+                }
 
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'critical') stats.critical++;
-                else if (p === 'high') stats.high++;
+                if (p === 'high') stats.high++;
                 else if (p === 'medium') stats.medium++;
                 else if (p === 'low') stats.low++;
 
                 if (i.sla_breached) stats.slaBreached++;
 
                 if (i.resolutiondate && i.created) {
-                    const horas = (new Date(i.resolutiondate) - new Date(i.created)) / (1000 * 60 * 60);
-                    if (horas >= 0) {
-                        stats.tempoResolucaoTotal += horas;
+                    const dias = (new Date(i.resolutiondate) - new Date(i.created)) / (1000 * 60 * 60 * 24);
+                    if (dias >= 0) {
+                        stats.tempoResolucaoTotal += dias;
                         stats.tempoResolucaoCount++;
                     }
                 }
@@ -616,8 +620,16 @@
             document.getElementById('metricPendente').textContent = stats.pendente;
             document.getElementById('metricConcluido').textContent = stats.concluido;
             document.getElementById('metricCancelado').textContent = stats.cancelado;
-            document.getElementById('metricHigh').textContent = stats.critical;
+            document.getElementById('metricHigh').textContent = stats.high;
+            const slaOk = stats.total - stats.slaBreached;
+
             document.getElementById('metricSlaBreached').textContent = stats.slaBreached;
+            document.getElementById('metricSlaOk').textContent = slaOk;
+
+            document.getElementById('slaBreachedBig').textContent = stats.slaBreached;
+            document.getElementById('slaBreachedPct').textContent = ((stats.slaBreached / total) * 100).toFixed(1) + '% do total';
+            document.getElementById('slaOkBig').textContent = slaOk;
+            document.getElementById('slaOkPct').textContent = ((slaOk / total) * 100).toFixed(1) + '% do total';
 
             // Alerta SLA
             const alertBar = document.getElementById('slaAlertBar');
@@ -629,35 +641,19 @@
                 alertBar.style.display = 'none';
             }
 
-            // IND-INC-002: % resolvidos dentro do prazo (verde >80%, amarelo 70-80%, vermelho <70%)
-            const taxaResolucao = stats.concluido > 0
-                ? ((stats.concluido_no_prazo / stats.concluido) * 100).toFixed(1)
-                : '0';
+            // Indicadores
+            const taxaResolucao = ((stats.concluido / total) * 100).toFixed(1);
             document.getElementById('indResolucao').textContent = isNaN(taxaResolucao) ? '0%' : taxaResolucao + '%';
-            document.getElementById('indResolucao').style.color =
-                taxaResolucao >= 80 ? '#4CAF50' : taxaResolucao >= 70 ? '#E65100' : '#F44336';
+            document.getElementById('indResolucao').style.color = taxaResolucao >= 90 ? '#4CAF50' : '#F44336';
 
-            // IND-INC-009: contagem P1 críticos (verde ≤5, amarelo 6-10, vermelho >10)
-            document.getElementById('indAlta').textContent = stats.critical;
-            document.getElementById('indAlta').style.color =
-                stats.critical <= 5 ? '#4CAF50' : stats.critical <= 10 ? '#E65100' : '#F44336';
+            const percAlta = ((stats.high / total) * 100).toFixed(1);
+            document.getElementById('indAlta').textContent = isNaN(percAlta) ? '0%' : percAlta + '%';
+            document.getElementById('indAlta').style.color = percAlta < 10 ? '#4CAF50' : '#F44336';
 
-            const tmHoras = stats.tempoResolucaoCount > 0
-                ? stats.tempoResolucaoTotal / stats.tempoResolucaoCount
-                : 0;
-            let tmTexto;
-            if (tmHoras === 0) {
-                tmTexto = '—';
-            } else if (tmHoras < 1) {
-                tmTexto = Math.round(tmHoras * 60) + 'min';
-            } else if (tmHoras < 24) {
-                const h = Math.floor(tmHoras), m = Math.round((tmHoras - h) * 60);
-                tmTexto = m > 0 ? `${h}h${String(m).padStart(2,'0')}min` : `${h}h`;
-            } else {
-                const d = Math.floor(tmHoras / 24), h = Math.round(tmHoras % 24);
-                tmTexto = h > 0 ? `${d}d ${h}h` : `${d}d`;
-            }
-            document.getElementById('indTempoResolucao').textContent = tmTexto;
+            const tempoMedio = stats.tempoResolucaoCount > 0
+                ? (stats.tempoResolucaoTotal / stats.tempoResolucaoCount).toFixed(1)
+                : '0';
+            document.getElementById('indTempoResolucao').textContent = tempoMedio + ' dias';
 
             document.getElementById('indPendentes').textContent = stats.pendente;
 
@@ -665,10 +661,10 @@
             document.getElementById('indSlaPct').textContent = slaPct + '%';
             document.getElementById('indSlaPct').style.color = stats.slaBreached > 0 ? '#C62828' : '#4CAF50';
 
+            const topSistema = Object.entries(stats.sistemasCount).sort((a, b) => b[1] - a[1])[0];
+            document.getElementById('indSistema').textContent = topSistema ? `${topSistema[0]} (${topSistema[1]})` : '—';
 
-            // Prioridade (IND-INC-005: P1 <1h | P2 <2h | P3 <10h | P4 <20h)
-            document.getElementById('metricPrioCritical').textContent = stats.critical;
-            document.getElementById('percentCritical').textContent = ((stats.critical / total) * 100).toFixed(1) + '%';
+            // Prioridade
             document.getElementById('metricPrioHigh').textContent = stats.high;
             document.getElementById('percentHigh').textContent = ((stats.high / total) * 100).toFixed(1) + '%';
             document.getElementById('metricPrioMedium').textContent = stats.medium;
@@ -680,144 +676,7 @@
             renderTable(incidentes);
         }
 
-        let chartStatus, chartResponsaveis, chartTimeline;
-        let timelineGranularity = 'month';
-        let lastTimelineIncidentes = [];
-
-        function getWeekKey(dateStr) {
-            const d = new Date(dateStr);
-            const day = d.getDay() || 7;
-            d.setDate(d.getDate() + 4 - day);
-            const yearStart = new Date(d.getFullYear(), 0, 1);
-            const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-            return `S${week.toString().padStart(2,'0')}/${d.getFullYear()}`;
-        }
-        function getMonthKey(dateStr) {
-            const d = new Date(dateStr);
-            return `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
-        }
-        function sortKey(k, gran) {
-            if (gran === 'week') {
-                const [w, y] = k.split('/');
-                return parseInt(y) * 100 + parseInt(w.replace('S',''));
-            }
-            const [m, y] = k.split('/');
-            return parseInt(y) * 100 + parseInt(m);
-        }
-        function setTimelineGranularity(gran) {
-            timelineGranularity = gran;
-            document.getElementById('btnSemana').style.background = gran === 'week'  ? '#D81B60' : '#fff';
-            document.getElementById('btnSemana').style.color      = gran === 'week'  ? '#fff'    : '#D81B60';
-            document.getElementById('btnMes').style.background    = gran === 'month' ? '#D81B60' : '#fff';
-            document.getElementById('btnMes').style.color         = gran === 'month' ? '#fff'    : '#D81B60';
-            renderTimeline(lastTimelineIncidentes);
-        }
-        function movingAvg(arr, w) {
-            return arr.map((_, i) => {
-                if (i < w - 1) return null;
-                const sl = arr.slice(i - w + 1, i + 1).filter(v => v !== null && !isNaN(v));
-                return sl.length ? sl.reduce((a,b) => a+b, 0) / sl.length : null;
-            });
-        }
-        // MTTR thresholds (hours) — Mapa de Indicadores IND-INC-005
-        // P1 Crítica <1h | P2 Alta <2h | P3 Média <10h | P4 Baixa <20h
-        const SLA_HOURS = { critical: 1.0, high: 2.0, medium: 10.0, low: 20.0 };
-
-        function buildTimelineData(incidentes, gran) {
-            const data = {}, keys = new Set();
-            const keyFn = gran === 'week' ? getWeekKey : getMonthKey;
-            incidentes.forEach(i => {
-                const ck = keyFn(i.created);
-                keys.add(ck);
-                if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
-                data[ck].created++;
-
-                const st = i.status || '';
-                const isResolved = st.includes('Conclu');
-                const isCancelled = st.includes('Cancelado');
-                const refDate = i.resolutiondate || (isResolved ? i.updated : null);
-
-                if (isResolved && refDate) {
-                    const uk = keyFn(refDate);
-                    keys.add(uk);
-                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
-                    data[uk].resolved++;
-                    // SLA breach: compare actual resolution time vs threshold
-                    data[uk].slaTotal++;
-                    const elapsedH = (new Date(refDate) - new Date(i.created)) / 3600000;
-                    const limit = SLA_HOURS[(i.priority || 'low').toLowerCase()] || 20;
-                    if (elapsedH > limit) data[uk].slaBreached++;
-                } else if (isCancelled) {
-                    const uk = keyFn(i.updated);
-                    keys.add(uk);
-                    if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, slaBreached:0, slaTotal:0 };
-                    data[uk].cancelled++;
-                }
-            });
-            const sorted = Array.from(keys).sort((a,b) => sortKey(a,gran) - sortKey(b,gran));
-            return { data, sorted };
-        }
-        function renderTimeline(incidentes) {
-            lastTimelineIncidentes = incidentes;
-            const ctx = document.getElementById('chartTimeline').getContext('2d');
-            if (chartTimeline) chartTimeline.destroy();
-            const { data, sorted } = buildTimelineData(incidentes, timelineGranularity);
-            const created   = sorted.map(k => data[k]?.created   || 0);
-            const resolved  = sorted.map(k => data[k]?.resolved  || 0);
-            const cancelled = sorted.map(k => data[k]?.cancelled || 0);
-            // SLA% = breach / resolved (only closed issues, avoids flat 100% from open ones)
-            const slaPct    = sorted.map(k => {
-                const d = data[k];
-                return d && d.slaTotal > 0 ? +((d.slaBreached / d.slaTotal) * 100).toFixed(1) : null;
-            });
-            const trend = movingAvg(created, 3);
-            chartTimeline = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: sorted,
-                    datasets: [
-                        { label: 'Abertos',    type:'bar',  data: created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:1, yAxisID:'y' },
-                        { label: 'Concluídos', type:'bar',  data: resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:2, yAxisID:'y' },
-                        { label: 'Cancelados', type:'bar',  data: cancelled, backgroundColor:'rgba(244,67,54,0.65)',  borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
-                        { label: 'SLA Estourado %', type:'line', data: slaPct,
-                          borderColor:'#FF6F00', backgroundColor:'rgba(255,111,0,0.08)', borderWidth:2.5,
-                          pointRadius:4, pointHoverRadius:6, pointBackgroundColor:'#FF6F00',
-                          fill:false, tension:0.3, order:4, yAxisID:'ySla' },
-                        { label: 'Tendência (média 3 per.)', type:'line', data: trend,
-                          borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2.5,
-                          borderDash:[6,4], pointRadius:3, pointBackgroundColor:'#9C27B0', fill:false, tension:0.4,
-                          order:5, yAxisID:'y', spanGaps:true }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    interaction: { intersect:false, mode:'index' },
-                    plugins: {
-                        legend: { display:false },
-                        tooltip: {
-                            callbacks: {
-                                label(c) {
-                                    if (c.dataset.label === 'SLA Estourado %') return ` SLA Estourado: ${c.parsed.y}%`;
-                                    if (c.dataset.label.startsWith('Tendência')) return ` Tendência: ${c.parsed.y?.toFixed(1) ?? '—'}`;
-                                    return ` ${c.dataset.label}: ${c.parsed.y}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: { grid:{ color:'rgba(0,0,0,0.05)' }, ticks:{ maxRotation:45, font:{ size:11 } } },
-                        y: { beginAtZero:true, position:'left',
-                             title:{ display:true, text:'Qtd. Incidentes', font:{ size:11 } },
-                             ticks:{ precision:0 }, grid:{ color:'rgba(0,0,0,0.06)' } },
-                        ySla: { beginAtZero:true, position:'right',
-                                suggestedMax: 100,
-                                title:{ display:true, text:'SLA Estourado %', font:{ size:11 }, color:'#FF6F00' },
-                                ticks:{ color:'#FF6F00', callback: v => v+'%', precision:0 },
-                                grid:{ drawOnChartArea:false } }
-                    }
-                }
-            });
-        }
+        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas;
 
         function renderCharts(stats, incidentes) {
             const ctxStatus = document.getElementById('chartStatus').getContext('2d');
@@ -843,28 +702,136 @@
                 options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
             });
 
-            renderTimeline(incidentes);
-        }
+            const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
+            if (chartTimeline) chartTimeline.destroy();
 
-        function fmtDate(s) {
-            if (!s) return '—';
-            const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
-            if (!m) return s;
-            return `${m[3]}/${m[2]}/${m[1]} ${m[4]}:${m[5]}:${m[6]}`;
-        }
+            const monthlyData = {};
+            const allMonths = new Set();
 
-        function slaLabel(i) {
-            if (i.sla_breached) return { html: '<span class="sla-breached">Estourado</span>', text: 'Estourado' };
-            if (i.resolutiondate) return { html: '<span class="sla-ok">Dentro do Prazo</span>', text: 'Dentro do Prazo' };
-            return { html: '<span class="sla-ok">No Prazo</span>', text: 'No Prazo' };
+            incidentes.forEach(i => {
+                const cd = new Date(i.created);
+                const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                allMonths.add(ck);
+                if (!monthlyData[ck]) monthlyData[ck] = { created: 0, resolved: 0, cancelled: 0 };
+                monthlyData[ck].created++;
+
+                const ud = new Date(i.updated);
+                const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+
+                if (i.status && i.status.includes('Concluído')) {
+                    allMonths.add(uk);
+                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
+                    monthlyData[uk].resolved++;
+                } else if (i.status && i.status.includes('Cancelado')) {
+                    allMonths.add(uk);
+                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
+                    monthlyData[uk].cancelled++;
+                }
+            });
+
+            const sortedMonths = Array.from(allMonths).sort((a, b) => {
+                const [ma, ya] = a.split('/');
+                const [mb, yb] = b.split('/');
+                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
+            });
+
+            chartTimeline = new Chart(ctxTimeline, {
+                type: 'line',
+                data: {
+                    labels: sortedMonths,
+                    datasets: [
+                        { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), borderColor: '#2196F3', backgroundColor: 'rgba(33,150,243,0.1)', fill: false, tension: 0.4 },
+                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), borderColor: '#4CAF50', backgroundColor: 'rgba(76,175,80,0.1)', fill: false, tension: 0.4 },
+                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), borderColor: '#F44336', backgroundColor: 'rgba(244,67,54,0.1)', fill: false, tension: 0.4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: { legend: { display: true, position: 'top' } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+
+            // 4. SLA Conformity Donut Chart
+            const ctxSla = document.getElementById('chartSla').getContext('2d');
+            if (chartSla) chartSla.destroy();
+            
+            const slaOkCount = stats.total - stats.slaBreached;
+            chartSla = new Chart(ctxSla, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Dentro do SLA', 'SLA Estourado'],
+                    datasets: [{
+                        data: [slaOkCount, stats.slaBreached],
+                        backgroundColor: ['#4CAF50', '#F44336'],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 5. Incidents by Affected System Horizontal Bar Chart
+            const ctxSistemas = document.getElementById('chartSistemas').getContext('2d');
+            if (chartSistemas) chartSistemas.destroy();
+            
+            const sortedSistemas = Object.entries(stats.sistemasCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 8); // Top 8 systems
+                
+            chartSistemas = new Chart(ctxSistemas, {
+                type: 'bar',
+                data: {
+                    labels: sortedSistemas.map(s => s[0]),
+                    datasets: [{
+                        label: 'Quantidade',
+                        data: sortedSistemas.map(s => s[1]),
+                        backgroundColor: '#2196F3',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function renderTable(incidentes) {
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
-            const titulo = document.getElementById('tabelaTitulo');
-            if (titulo) titulo.textContent = `Incidentes (${incidentes.length})`;
-            incidentes.forEach(i => {
+            incidentes.slice(0, 20).forEach(i => {
+                const created = new Date(i.created).toLocaleDateString('pt-BR');
+                const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : '—';
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';
@@ -876,32 +843,29 @@
 
                 const p = (i.priority || '').toLowerCase();
                 let prioClass = 'priority-badge ';
-                if (p === 'critical') prioClass += 'priority-critical';
-                else if (p === 'high') prioClass += 'priority-high';
+                if (p === 'high') prioClass += 'priority-high';
                 else if (p === 'medium') prioClass += 'priority-medium';
                 else prioClass += 'priority-low';
-                const prioLabel = p === 'critical' ? 'Crítica' : p === 'high' ? 'Alta' : p === 'medium' ? 'Média' : 'Baixa';
+                const prioLabel = p === 'high' ? 'Alta' : p === 'medium' ? 'Média' : 'Baixa';
 
-                const tempoHtml = i.sla_breached
-                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || '—'}</span>`
+                const slaHtml = i.sla_breached
+                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || 'Estourado'}</span>`
                     : i.sla_elapsed
                         ? `<span class="sla-ok">✅ ${i.sla_elapsed}</span>`
                         : '—';
 
-                const prazo = slaLabel(i);
                 const sistema = i.sistema_afetado || i.summary || '—';
 
                 tbody.innerHTML += `
-                    <tr style="${i.sla_breached && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
+                    <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
                         <td style="font-weight:500;">${sistema}</td>
                         <td><span class="${statusClass}">${i.status}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
-                        <td>${tempoHtml}</td>
-                        <td>${prazo.html}</td>
+                        <td>${slaHtml}</td>
                         <td>${i.assignee}</td>
-                        <td style="white-space:nowrap;">${fmtDate(i.created)}</td>
-                        <td style="white-space:nowrap;">${fmtDate(i.resolutiondate)}</td>
+                        <td>${created}</td>
+                        <td>${resolved}</td>
                     </tr>
                 `;
             });
@@ -913,14 +877,10 @@
                 'ID': i.key,
                 'Descrição': i.summary,
                 'Status': i.status,
-                'Prioridade': (i.priority || '').toLowerCase() === 'critical' ? 'P1 Crítica'
-                            : (i.priority || '').toLowerCase() === 'high' ? 'P2 Alta'
-                            : (i.priority || '').toLowerCase() === 'medium' ? 'P3 Média' : 'P4 Baixa',
-                'Tempo Resolução': i.sla_elapsed || '—',
-                'Prazo SLA': slaLabel(i).text,
+                'Prioridade': i.priority,
                 'Responsável': i.assignee,
-                'Criado em': fmtDate(i.created),
-                'Resolvido em': fmtDate(i.resolutiondate)
+                'Data Criação': new Date(i.created).toLocaleDateString('pt-BR'),
+                'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : 'N/A'
             }));
             const ws = XLSX.utils.json_to_sheet(rows);
             const wb = XLSX.utils.book_new();
@@ -950,15 +910,14 @@
             doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Status', 'Prioridade', 'Prazo SLA', 'Responsável', 'Criado em', 'Resolvido em', 'Descrição']],
-                body: currentFilteredData.map(i => {
-                    const p = (i.priority || '').toLowerCase();
-                    const prioStr = p === 'critical' ? 'P1 Crítica' : p === 'high' ? 'P2 Alta' : p === 'medium' ? 'P3 Média' : 'P4 Baixa';
-                    return [i.key, i.status, prioStr, slaLabel(i).text, i.assignee || 'N/A', fmtDate(i.created), fmtDate(i.resolutiondate), i.summary];
-                }),
+                head: [['ID', 'Status', 'Prioridade', 'Responsável', 'Criação', 'Descrição']],
+                body: currentFilteredData.map(i => [
+                    i.key, i.status, i.priority, i.assignee || 'N/A',
+                    new Date(i.created).toLocaleDateString('pt-BR'), i.summary
+                ]),
                 startY: 55,
-                styles: { fontSize: 7 },
-                columnStyles: { 0: { cellWidth: 20 }, 1: { cellWidth: 22 }, 2: { cellWidth: 18 }, 3: { cellWidth: 22 }, 4: { cellWidth: 28 }, 5: { cellWidth: 24 }, 6: { cellWidth: 24 }, 7: { cellWidth: 'auto' } },
+                styles: { fontSize: 8 },
+                columnStyles: { 0: { cellWidth: 22 }, 1: { cellWidth: 28 }, 2: { cellWidth: 18 }, 3: { cellWidth: 35 }, 4: { cellWidth: 18 }, 5: { cellWidth: 'auto' } },
                 headStyles: { fillColor: [198, 40, 40] }
             });
             doc.save(`Relatorio_Incidentes_${new Date().toISOString().slice(0,10)}.pdf`);
@@ -982,9 +941,6 @@
             event.target.classList.add('active');
             document.getElementById('dateFrom').value = '';
             document.getElementById('dateTo').value = '';
-            // auto granularity: short periods → week, long → month
-            const autoGran = (days === 20 || days === 60) ? 'week' : 'month';
-            if (autoGran !== timelineGranularity) setTimelineGranularity(autoGran);
             filterAndRender();
         }
 

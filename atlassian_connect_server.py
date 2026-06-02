@@ -10,6 +10,8 @@ import requests
 import json
 import sys
 import os
+import hmac
+import hashlib
 
 # Fix encoding
 if sys.platform == 'win32':
@@ -24,18 +26,76 @@ installations = {}
 # Jira Configuration
 JIRA_URL = "https://openfinancebrasil.atlassian.net"
 
+
+def verify_jwt(token, client_key):
+    """
+    Valida o JWT enviado pelo Atlassian.
+    O sharedSecret é obtido no momento da instalação.
+    """
+    if not token:
+        return None, "Token JWT ausente"
+
+    installation = installations.get(client_key)
+    if not installation:
+        return None, f"Instalação não encontrada para clientKey: {client_key}"
+
+    shared_secret = installation.get('sharedSecret')
+    if not shared_secret:
+        return None, "sharedSecret não encontrado para esta instalação"
+
+    try:
+        decoded = jwt.decode(
+            token,
+            shared_secret,
+            algorithms=["HS256"],
+            options={"verify_exp": True}
+        )
+        return decoded, None
+    except jwt.ExpiredSignatureError:
+        return None, "Token JWT expirado"
+    except jwt.InvalidTokenError as e:
+        return None, f"Token JWT inválido: {str(e)}"
+
+
+def require_jwt(f):
+    """Decorator para proteger endpoints que exigem JWT válido do Atlassian."""
+    from functools import wraps
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        jwt_token = request.args.get('jwt') or request.headers.get('Authorization', '').replace('JWT ', '')
+        client_key = request.args.get('clientKey') or request.headers.get('X-Client-Key')
+
+        if not jwt_token:
+            return jsonify({'error': 'Token JWT obrigatório'}), 401
+
+        # Tentar validar contra todas as instalações se clientKey não informado
+        if not client_key:
+            for ck in installations:
+                decoded, error = verify_jwt(jwt_token, ck)
+                if decoded:
+                    return f(*args, **kwargs)
+            return jsonify({'error': 'Token JWT inválido ou instalação não encontrada'}), 401
+
+        decoded, error = verify_jwt(jwt_token, client_key)
+        if not decoded:
+            return jsonify({'error': error}), 401
+
+        return f(*args, **kwargs)
+    return decorated
+
+
 @app.route('/atlassian-connect.json', methods=['GET'])
 def descriptor():
     """Descriptor do app Atlassian Connect"""
     with open('atlassian-connect.json', 'r') as f:
         return jsonify(json.load(f))
 
+
 @app.route('/installed', methods=['POST'])
 def installed():
     """Webhook chamado quando o app é instalado no Jira"""
     data = request.get_json()
 
-    # Salvar informações da instalação
     client_key = data.get('clientKey')
     installations[client_key] = {
         'baseUrl': data.get('baseUrl'),
@@ -46,6 +106,7 @@ def installed():
 
     print(f"✅ App instalado para: {data.get('baseUrl')}")
     return jsonify({'status': 'installed'}), 200
+
 
 @app.route('/uninstalled', methods=['POST'])
 def uninstalled():
@@ -59,15 +120,11 @@ def uninstalled():
 
     return jsonify({'status': 'uninstalled'}), 200
 
+
 @app.route('/dashboard', methods=['GET'])
+@require_jwt
 def dashboard():
-    """Página principal do dashboard"""
-    jwt_token = request.args.get('jwt')
-
-    # Em produção, validar o JWT aqui
-    # decoded = verify_jwt(jwt_token)
-
-    # Retornar o HTML do dashboard
+    """Página principal do dashboard — protegida por JWT Atlassian"""
     html = """
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -84,17 +141,16 @@ def dashboard():
         <div class="dashboard-container">
             <h1>🎯 Central de Serviços - Open Finance Brasil</h1>
             <p>Dashboard integrado ao Jira via Atlassian Connect</p>
-
             <div id="tickets-container"></div>
         </div>
-
         <script>
-            // Buscar tickets via API do Jira
             async function loadTickets() {
                 try {
-                    const response = await fetch('/api/tickets');
+                    // Passa o JWT na query string para o backend validar
+                    const jwtToken = new URLSearchParams(window.location.search).get('jwt');
+                    const response = await fetch('/api/tickets?jwt=' + jwtToken);
                     const data = await response.json();
-                    displayTickets(data.issues);
+                    displayTickets(data.issues || []);
                 } catch (error) {
                     console.error('Erro ao carregar tickets:', error);
                 }
@@ -117,9 +173,11 @@ def dashboard():
     """
     return render_template_string(html)
 
+
 @app.route('/panel', methods=['GET'])
+@require_jwt
 def panel():
-    """Web panel para exibir em páginas do Jira"""
+    """Web panel para exibir em páginas do Jira — protegido por JWT"""
     return """
     <div style="padding: 15px;">
         <h3>SecOps Dashboard</h3>
@@ -127,17 +185,17 @@ def panel():
     </div>
     """
 
-@app.route('/api/tickets', methods=['GET'])
-def get_tickets():
-    """Buscar tickets do Jira usando credenciais do app"""
-    # Em produção, usar JWT para autenticar
-    # Por enquanto, usar credenciais básicas
 
+@app.route('/api/tickets', methods=['GET'])
+@require_jwt
+def get_tickets():
+    """Buscar tickets do Jira usando credenciais seguras de env vars"""
     try:
-        # Aqui você usaria as credenciais do app instalado
-        # Para teste, vou usar API Token
-        email = os.environ.get('JIRA_EMAIL', 'seu.email@empresa.com')
-        token = os.environ.get('JIRA_TOKEN', 'seu_token_aqui')
+        email = os.environ.get('JIRA_EMAIL')
+        token = os.environ.get('JIRA_TOKEN')
+
+        if not email or not token:
+            return jsonify({'error': 'Credenciais Jira não configuradas no servidor'}), 500
 
         from requests.auth import HTTPBasicAuth
         auth = HTTPBasicAuth(email, token)
@@ -165,14 +223,16 @@ def get_tickets():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
 @app.route('/health', methods=['GET'])
 def health():
-    """Health check"""
+    """Health check — sem autenticação"""
     return jsonify({
         'status': 'ok',
         'app': 'Central de Serviços - Atlassian Connect',
         'installations': len(installations)
     })
+
 
 if __name__ == '__main__':
     print("=" * 80)
@@ -182,18 +242,17 @@ if __name__ == '__main__':
     print()
     print("📡 Servidor rodando em: http://localhost:5000")
     print()
-    print("📋 ENDPOINTS:")
+    print("📋 ENDPOINTS PROTEGIDOS POR JWT:")
+    print("   GET  /dashboard    - Dashboard principal")
+    print("   GET  /panel        - Web panel")
+    print("   GET  /api/tickets  - Listar tickets")
+    print()
+    print("📋 ENDPOINTS PÚBLICOS:")
     print("   GET  /atlassian-connect.json - Descriptor do app")
     print("   POST /installed              - Webhook de instalação")
-    print("   GET  /dashboard              - Dashboard principal")
     print("   GET  /health                 - Health check")
     print()
-    print("🎯 PRÓXIMOS PASSOS:")
-    print("   1. Fazer deploy no Render.com ou Vercel")
-    print("   2. Atualizar baseUrl no atlassian-connect.json")
-    print("   3. Instalar app no Jira via 'Gerenciar apps'")
-    print()
     print("=" * 80)
-    print()
 
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    debug = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(host='0.0.0.0', port=5000, debug=debug)

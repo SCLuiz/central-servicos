@@ -569,7 +569,7 @@
 
             <!-- Tabela -->
             <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h2 class="section-title" style="margin-bottom: 0;">Últimos 20 Incidentes</h2>
+                <h2 class="section-title" style="margin-bottom: 0;">Todos os Incidentes</h2>
                 <div style="display: flex; gap: 8px;">
                     <button class="filter-btn" onclick="exportToExcel()" style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
                         <span style="font-size: 1.2em;">📊</span> Excel
@@ -1067,7 +1067,7 @@
         function renderTable(incidentes) {
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
-            incidentes.slice(0, 20).forEach(i => {
+            incidentes.forEach(i => {
                 const created = new Date(i.created).toLocaleDateString('pt-BR');
                 const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : '—';
                 const url = `${JIRA_URL}/browse/${i.key}`;

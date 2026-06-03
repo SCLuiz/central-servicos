@@ -765,7 +765,7 @@
                 if (mins < 60) return `${mins}min`;
                 const h = Math.floor(mins / 60);
                 const m = mins % 60;
-                return m ? `${h}h${m:02}min`.replace(':02', ('0' + m).slice(-2)) : `${h}h`;
+                return m ? `${h}h${('0' + m).slice(-2)}min` : `${h}h`;
             };
 
             // GERAÇÃO DINÂMICA DO MAPA DE INDICADORES (9 CARDs CONFORME PLANILHA)

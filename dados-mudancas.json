@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-03T19:50:51.375875",
+  "ultima_atualizacao": "2026-06-03T22:16:36.388074",
   "total": 26,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
-      "updated": "2026-05-29T10:53:43.725-0300",
+      "updated": "2026-06-03T17:41:50.670-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

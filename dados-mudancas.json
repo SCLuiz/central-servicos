@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-06-05T18:05:57.170440",
+  "ultima_atualizacao": "2026-06-05T20:06:34.910717",
   "total": 26,
   "mudancas": [
     {
       "key": "OFBI-4526",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Sem responsável",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
-      "updated": "2026-06-05T11:18:30.007-0300",
+      "updated": "2026-06-05T15:55:20.692-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

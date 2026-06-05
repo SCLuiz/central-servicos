@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Incidentes - Open Finance Brasil</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
@@ -1031,6 +1032,7 @@
             const slaOkCount = stats.total - stats.slaBreached;
             chartSla = new Chart(ctxSla, {
                 type: 'doughnut',
+                plugins: [ChartDataLabels],
                 data: {
                     labels: ['Dentro do SLA', 'SLA Estourado'],
                     datasets: [{
@@ -1051,6 +1053,21 @@
                                     size: 12,
                                     weight: 'bold'
                                 }
+                            }
+                        },
+                        datalabels: {
+                            color: '#ffffff',
+                            font: {
+                                weight: 'bold',
+                                size: 14,
+                                family: 'sans-serif'
+                            },
+                            formatter: (value, ctx) => {
+                                if (value === 0) return '';
+                                const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                if (sum === 0) return '';
+                                const pct = (value * 100 / sum).toFixed(1) + '%';
+                                return pct;
                             }
                         }
                     }

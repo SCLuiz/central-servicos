@@ -394,6 +394,39 @@
 
         .apply-filter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(247,194,15,0.4); }
 
+        /* Estilos do Hover de Descrição do Incidente */
+        .description-hover {
+            position: relative;
+            cursor: help;
+        }
+        .desc-tooltip {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            width: 320px;
+            z-index: 9999;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1.4;
+            white-space: normal;
+            border-left: 3px solid var(--of-magenta);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+        .description-hover:hover .desc-tooltip {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 768px) {
             .header h1 { font-size: 32px; }
             .metrics-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
@@ -1104,10 +1137,25 @@
 
                 const sistema = i.sistema_afetado || i.summary || '—';
 
+                // Escapar a descrição para evitar quebras no HTML
+                const escapedDesc = (i.description || 'Sem descrição cadastrada.')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+                    .replace(/\n/g, '<br>');
+
                 tbody.innerHTML += `
                     <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
-                        <td style="font-weight:500;">${sistema}</td>
+                        <td style="font-weight:500; position:relative;" class="description-hover">
+                            ${sistema}
+                            <div class="desc-tooltip">
+                                <strong style="color:var(--of-magenta);">Descrição do Incidente:</strong>
+                                <p style="margin-top:6px; font-weight:normal;">${escapedDesc}</p>
+                            </div>
+                        </td>
                         <td><span class="${statusClass}">${i.status}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>

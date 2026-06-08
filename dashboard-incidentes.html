@@ -1127,8 +1127,8 @@
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
             incidentes.forEach(i => {
-                const created = new Date(i.created).toLocaleDateString('pt-BR');
-                const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : '—';
+                const created = new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+                const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';
@@ -1231,8 +1231,8 @@
                     'Status': i.status,
                     'Prioridade': i.priority,
                     'Responsável': i.assignee,
-                    'Data Criação': new Date(i.created).toLocaleDateString('pt-BR'),
-                    'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : 'N/A',
+                    'Data Criação': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
+                    'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Tempo de Resolução': tempoResolucao
                 };
             });

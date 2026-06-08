@@ -1,11 +1,25 @@
 {
-  "ultima_atualizacao": "2026-06-05T09:27:12",
+  "ultima_atualizacao": "2026-06-05T11:23:21",
   "fonte": "Jira Live — OFBI Incident Queue 31 (Ticket category = Incidents)",
   "incidentes": [
     {
       "key": "OFBI-4532",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "imagem (1).png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39580"
+        },
+        {
+          "filename": "imagem (2).png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39581"
+        },
+        {
+          "filename": "imagem (3).png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39579"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T10:37:03.751-0300",
@@ -30,6 +44,12 @@
       "key": "OFBI-4530",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Image (1).jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39546"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T08:35:14.882-0300",
@@ -54,6 +74,12 @@
       "key": "OFBI-4529",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Image.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39545"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T08:31:50.069-0300",
@@ -78,6 +104,16 @@
       "key": "OFBI-4528",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "imagem.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39511"
+        },
+        {
+          "filename": "imagem.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/39512"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T07:21:57.242-0300",
@@ -102,6 +138,16 @@
       "key": "OFBI-4507",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "report_vulnerabilidade_sandbox 1.pdf",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/38336"
+        },
+        {
+          "filename": "report preliminar - caso raidiam 1.pdf",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/38335"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2026-05-13T14:40:33.384-0300",
@@ -110,12 +156,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Diretório Central",
       "sla_breached": true,
-      "sla_elapsed": "147h46min",
-      "mttr_seconds": 531998,
-      "mttr_elapsed": "147h46min",
+      "sla_elapsed": "149h42min",
+      "mttr_seconds": 538965,
+      "mttr_elapsed": "149h42min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "167h46min",
+      "tma_elapsed": "169h42min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
@@ -126,6 +172,20 @@
       "key": "OFBI-4499",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "image-20260511-133242.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/38019"
+        },
+        {
+          "filename": "image-20260511-133329.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/38020"
+        },
+        {
+          "filename": "Teams.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/38018"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-11T10:20:29.943-0300",
@@ -150,6 +210,7 @@
       "key": "OFBI-4490",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Cancelado",
       "priority": "low",
       "created": "2026-05-04T08:14:32.712-0300",
@@ -174,6 +235,7 @@
       "key": "OFBI-4489",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "high",
       "created": "2026-05-01T13:05:52.384-0300",
@@ -198,6 +260,16 @@
       "key": "OFBI-4483",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Captura de tela 2026-04-14 135340.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/36993"
+        },
+        {
+          "filename": "MessageTraceResult (5).csv",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/36994"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-04-22T22:47:01.630-0300",
@@ -222,6 +294,12 @@
       "key": "OFBI-4482",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "incidente.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/36992"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-04-22T22:38:31.493-0300",
@@ -246,6 +324,7 @@
       "key": "OFBI-4481",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-04-22T22:34:34.966-0300",
@@ -270,6 +349,7 @@
       "key": "OFBI-4472",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-04-14T15:30:45.159-0300",
@@ -294,6 +374,12 @@
       "key": "OFBI-4467",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "imagem (7).png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/36394"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-04-14T08:10:02.301-0300",
@@ -318,6 +404,7 @@
       "key": "OFBI-4446",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-03-30T18:29:18.701-0300",
@@ -342,6 +429,7 @@
       "key": "OFBI-4445",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-03-30T17:46:33.926-0300",
@@ -366,6 +454,7 @@
       "key": "OFBI-4441",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2026-03-27T10:13:43.569-0300",
@@ -390,6 +479,7 @@
       "key": "OFBI-4339",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Aberto",
       "priority": "low",
       "created": "2026-01-20T10:27:46.350-0300",
@@ -398,12 +488,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "880h59min",
-      "mttr_seconds": 3171564,
-      "mttr_elapsed": "880h59min",
+      "sla_elapsed": "882h55min",
+      "mttr_seconds": 3178532,
+      "mttr_elapsed": "882h55min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "981h59min",
+      "tma_elapsed": "983h55min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
@@ -414,6 +504,12 @@
       "key": "OFBI-4283",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "482fddb5-1241-4e3a-b0af-20bff8ba7289.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/27329"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-11-27T09:43:34.550-0300",
@@ -422,12 +518,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Portal Open Finance Brasil",
       "sla_breached": true,
-      "sla_elapsed": "1223h43min",
-      "mttr_seconds": 4405416,
-      "mttr_elapsed": "1223h43min",
+      "sla_elapsed": "1225h39min",
+      "mttr_seconds": 4412384,
+      "mttr_elapsed": "1225h39min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "1362h43min",
+      "tma_elapsed": "1364h39min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
@@ -438,6 +534,12 @@
       "key": "OFBI-3418",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Evidencia.jpg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20784"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-04-17T10:45:13.608-0300",
@@ -446,9 +548,9 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "2662h41min",
-      "mttr_seconds": 9585717,
-      "mttr_elapsed": "2662h41min",
+      "sla_elapsed": "2664h38min",
+      "mttr_seconds": 9592685,
+      "mttr_elapsed": "2664h38min",
       "mttr_breached": true,
       "tma_seconds": 12360,
       "tma_elapsed": "3h26min",
@@ -462,6 +564,12 @@
       "key": "OFBI-2064",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "HelpDesk.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20393"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-03-25T16:30:48.619-0300",
@@ -470,12 +578,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "2809h56min",
-      "mttr_seconds": 10115782,
-      "mttr_elapsed": "2809h56min",
+      "sla_elapsed": "2811h52min",
+      "mttr_seconds": 10122750,
+      "mttr_elapsed": "2811h52min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3125h56min",
+      "tma_elapsed": "3127h52min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
@@ -486,6 +594,12 @@
       "key": "OFBI-2054",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Permissao removida.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20312"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2025-03-21T15:57:08.166-0300",
@@ -510,6 +624,76 @@
       "key": "OFBI-2049",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "ENC_ [OFB] - Incidentes PCM",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20222"
+        },
+        {
+          "filename": "image001.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20247"
+        },
+        {
+          "filename": "image001.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20219"
+        },
+        {
+          "filename": "image002.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20246"
+        },
+        {
+          "filename": "image002.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20218"
+        },
+        {
+          "filename": "image003.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20249"
+        },
+        {
+          "filename": "image003.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20221"
+        },
+        {
+          "filename": "image004.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20248"
+        },
+        {
+          "filename": "image004.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20220"
+        },
+        {
+          "filename": "Outlook-15nrinet.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20252"
+        },
+        {
+          "filename": "Outlook-jwkpkjmi.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20251"
+        },
+        {
+          "filename": "Outlook-kjfwvu5g.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20250"
+        },
+        {
+          "filename": "Outlook-t22rg2sf.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20255"
+        },
+        {
+          "filename": "Outlook-uoan45sm.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20256"
+        },
+        {
+          "filename": "Outlook-yf34hz4l.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20253"
+        },
+        {
+          "filename": "Outlook-zmw02vnx.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20254"
+        },
+        {
+          "filename": "PCM_Sandbox_20-03-2025-Risco Alto.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20159"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-03-20T16:53:30.806-0300",
@@ -518,9 +702,9 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2836h33min",
-      "mttr_seconds": 10211620,
-      "mttr_elapsed": "2836h33min",
+      "sla_elapsed": "2838h29min",
+      "mttr_seconds": 10218588,
+      "mttr_elapsed": "2838h29min",
       "mttr_breached": true,
       "tma_seconds": 12241,
       "tma_elapsed": "3h24min",
@@ -534,6 +718,12 @@
       "key": "OFBI-2048",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "export-issues-20-03-2025-Risco Alto.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/20158"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-03-20T16:37:34.053-0300",
@@ -542,12 +732,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2836h49min",
-      "mttr_seconds": 10212577,
-      "mttr_elapsed": "2836h49min",
+      "sla_elapsed": "2838h45min",
+      "mttr_seconds": 10219545,
+      "mttr_elapsed": "2838h45min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3155h49min",
+      "tma_elapsed": "3157h45min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
@@ -558,6 +748,7 @@
       "key": "OFBI-2043",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-03-19T15:40:50.545-0300",
@@ -566,12 +757,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2846h46min",
-      "mttr_seconds": 10248380,
-      "mttr_elapsed": "2846h46min",
+      "sla_elapsed": "2848h42min",
+      "mttr_seconds": 10255348,
+      "mttr_elapsed": "2848h42min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3166h46min",
+      "tma_elapsed": "3168h42min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
@@ -582,6 +773,12 @@
       "key": "OFBI-2026",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "export-issues-17-03-2025-17-39.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19807"
+        }
+      ],
       "status": "Aberto",
       "priority": "low",
       "created": "2025-03-17T14:55:55.415-0300",
@@ -590,12 +787,12 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2865h31min",
-      "mttr_seconds": 10315875,
-      "mttr_elapsed": "2865h31min",
+      "sla_elapsed": "2867h27min",
+      "mttr_seconds": 10322843,
+      "mttr_elapsed": "2867h27min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3187h31min",
+      "tma_elapsed": "3189h27min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
@@ -606,6 +803,7 @@
       "key": "OFBI-2019",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "low",
       "created": "2025-03-12T10:11:42.995-0300",
@@ -630,6 +828,12 @@
       "key": "OFBI-1862",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "PCM_Sandbox_13-02-2025-Risco Medio.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19302"
+        }
+      ],
       "status": "Pendente",
       "priority": "low",
       "created": "2025-02-13T11:39:46.089-0300",
@@ -654,6 +858,12 @@
       "key": "OFBI-1861",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "PCM_Sandbox_13-02-2025-Risco Alto.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19301"
+        }
+      ],
       "status": "Pendente",
       "priority": "low",
       "created": "2025-02-13T11:35:46.550-0300",
@@ -678,6 +888,12 @@
       "key": "OFBI-1860",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "export-issues-13-02-2025-Risco Medio.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19300"
+        }
+      ],
       "status": "Pendente",
       "priority": "low",
       "created": "2025-02-13T09:46:50.509-0300",
@@ -702,6 +918,12 @@
       "key": "OFBI-1859",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "export-issues-13-02-2025-Risco Alto.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19299"
+        }
+      ],
       "status": "Pendente",
       "priority": "low",
       "created": "2025-02-13T09:41:52.476-0300",
@@ -726,6 +948,12 @@
       "key": "OFBI-1797",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Vulnerabilidades PAD 2.0 - Homolog - 17-01-25.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19259"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2025-02-04T16:57:34.107-0300",
@@ -750,6 +978,12 @@
       "key": "OFBI-1796",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Vulnerabilidades PAD 2.0 - Produção - 17-01-25.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19258"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2025-02-04T16:55:27.947-0300",
@@ -774,6 +1008,12 @@
       "key": "OFBI-1795",
       "summary": "Relatar um incidente de sistema",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Vulnerabilidades PCM Prod, Sdx e Dev - 06-01-25.xlsx",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/19257"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2025-02-04T16:49:56.795-0300",
@@ -798,6 +1038,12 @@
       "key": "OFBI-1348",
       "summary": "Acesso aos dashboards da instituição ",
       "description": "",
+      "anexos": [
+        {
+          "filename": "IMG_0417.jpeg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/18153"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2024-10-21T10:07:05.903-0300",
@@ -822,6 +1068,12 @@
       "key": "OFBI-1202",
       "summary": "Service Unavailable ",
       "description": "",
+      "anexos": [
+        {
+          "filename": "FVP Service Unavaible.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/17477"
+        }
+      ],
       "status": "Concluído",
       "priority": "low",
       "created": "2024-09-19T14:33:52.152-0300",
@@ -846,6 +1098,12 @@
       "key": "OFBI-508",
       "summary": "Plataforma Service Desk fora do ar",
       "description": "",
+      "anexos": [
+        {
+          "filename": "Screenshot 2023-11-14 143959.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/12919"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-11-14T13:54:00.000-0300",
@@ -870,6 +1128,20 @@
       "key": "OFBI-440",
       "summary": "Página \"Quem Participa\" não está carregando os dados dos participantes",
       "description": "",
+      "anexos": [
+        {
+          "filename": "image-20231002-121229.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/11906"
+        },
+        {
+          "filename": "image-20231002-121254.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/11905"
+        },
+        {
+          "filename": "MIR-OP~1.PDF",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/12142"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-10-02T09:08:07.061-0300",
@@ -894,6 +1166,16 @@
       "key": "OFBI-436",
       "summary": "Endpoint misp.openbankingbrasil.org.br do MISP está indisponível",
       "description": "",
+      "anexos": [
+        {
+          "filename": "image-20230927-143246.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/11845"
+        },
+        {
+          "filename": "image-20230927-152640.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/11846"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-09-27T11:30:57.578-0300",
@@ -918,6 +1200,7 @@
       "key": "OFBI-431",
       "summary": "Erro no deploy da função lambda",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-09-21T16:25:52.027-0300",
@@ -942,6 +1225,12 @@
       "key": "OFBI-374",
       "summary": "O sistema parou de receber reportes e ficou indisponível",
       "description": "A aplicação parou de receber reportes durante o período de indisponibilidade.Sem impacto residual.",
+      "anexos": [
+        {
+          "filename": "External RE Post Mortem  Indisponibilidade do Sistema PCM dia 0808.msg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/11418"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-08-08T01:40:00.000-0300",
@@ -966,6 +1255,12 @@
       "key": "OFBI-310",
       "summary": "Por um periodo de cerca de 3h as keystores do diretório ao nível do software statement ficaram vazias",
       "description": "",
+      "anexos": [
+        {
+          "filename": "230727_Incident Report_Directory_Keystores_v1.pdf",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/10723"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-07-28T14:23:37.218-0300",
@@ -990,6 +1285,12 @@
       "key": "OFBI-267",
       "summary": "Certificados inválidos/revogados",
       "description": "",
+      "anexos": [
+        {
+          "filename": "ENC 7481 - EXTERNAL Re Comunicado SERASA  Certificados Digitais SSL - SOFISA.msg",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/10686"
+        }
+      ],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-07-24T09:09:39.382-0300",
@@ -1014,6 +1315,7 @@
       "key": "OFBI-220",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-31T16:19:00.000-0300",
@@ -1038,6 +1340,7 @@
       "key": "OFBI-219",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-29T17:49:00.000-0300",
@@ -1062,6 +1365,7 @@
       "key": "OFBI-218",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-27T02:00:00.000-0300",
@@ -1086,6 +1390,7 @@
       "key": "OFBI-217",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-26T09:25:00.000-0300",
@@ -1110,6 +1415,7 @@
       "key": "OFBI-216",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-25T12:06:00.000-0300",
@@ -1134,6 +1440,7 @@
       "key": "OFBI-215",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-12T10:22:00.000-0300",
@@ -1158,6 +1465,7 @@
       "key": "OFBI-214",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-10T09:18:00.000-0300",
@@ -1182,6 +1490,7 @@
       "key": "OFBI-213",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-07T06:05:00.000-0300",
@@ -1206,6 +1515,7 @@
       "key": "OFBI-212",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-05-03T13:30:00.000-0300",
@@ -1230,6 +1540,7 @@
       "key": "OFBI-211",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-25T13:24:00.000-0300",
@@ -1254,6 +1565,7 @@
       "key": "OFBI-210",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T13:31:00.000-0300",
@@ -1278,6 +1590,7 @@
       "key": "OFBI-209",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T12:12:00.000-0300",
@@ -1302,6 +1615,7 @@
       "key": "OFBI-208",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:54:00.000-0300",
@@ -1326,6 +1640,7 @@
       "key": "OFBI-207",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:48:00.000-0300",
@@ -1350,6 +1665,7 @@
       "key": "OFBI-206",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:33:00.000-0300",
@@ -1374,6 +1690,7 @@
       "key": "OFBI-205",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:30:00.000-0300",
@@ -1398,6 +1715,7 @@
       "key": "OFBI-204",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:10:00.000-0300",
@@ -1422,6 +1740,7 @@
       "key": "OFBI-203",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-24T11:05:00.000-0300",
@@ -1446,6 +1765,7 @@
       "key": "OFBI-202",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-13T03:12:00.000-0300",
@@ -1470,6 +1790,7 @@
       "key": "OFBI-200",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-06T08:52:00.000-0300",
@@ -1494,6 +1815,7 @@
       "key": "OFBI-199",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-06T08:40:00.000-0300",
@@ -1518,6 +1840,7 @@
       "key": "OFBI-198",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-04T16:59:00.000-0300",
@@ -1542,6 +1865,7 @@
       "key": "OFBI-197",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-04T16:54:00.000-0300",
@@ -1566,6 +1890,7 @@
       "key": "OFBI-201",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-04-04T09:42:00.000-0300",
@@ -1590,6 +1915,7 @@
       "key": "OFBI-196",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-24T22:22:00.000-0300",
@@ -1614,6 +1940,7 @@
       "key": "OFBI-195",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-14T18:55:00.000-0300",
@@ -1638,6 +1965,7 @@
       "key": "OFBI-194",
       "summary": "Queda de banco de dados",
       "description": "Sábado, 11/03: queda do nó primário do MongoDB, por volta das 16h, em decorrência de uma rajada de requests ocorrida em torno das 12h;Desde domingo, o nó secundário do MongoDB recebeu cargas excessivas em decorrência da queda do nó primário. Na segunda-feira, quando o nó primário voltou e tentou recuperar 44 horas de \"outage\", o secundário também caiu;Desta forma, como o cluster todo ficou fora desde sábado, 11/03, a recuperação do nó passa por um processo de reindexação (tarefa do próprio MongoDB);Como há cerca de 4 bilhões de documentos neste MongoDB, a recuperação deve durar o dia todo e tem previsão de se encerrar hoje, 14/03;Com o nó recuperado, segue-se com a validação dos dados e com a recomposição do cluster. A previsão de recomposição do cluster é de até amanhã, 15/03, pela manhã. Não há como prever quanto tempo o sistema levará para \"alcançar\" o que está enfileirado no RabbitMQ com o que foi inserido no MongoDB;Após a recomposição do cluster, ocorre a liberação da \"camada de ...",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-11T16:00:00.000-0300",
@@ -1662,6 +1990,7 @@
       "key": "OFBI-177",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-10T13:02:00.000-0300",
@@ -1686,6 +2015,7 @@
       "key": "OFBI-190",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-09T19:10:00.000-0300",
@@ -1710,6 +2040,7 @@
       "key": "OFBI-192",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-06T05:55:00.000-0300",
@@ -1734,6 +2065,7 @@
       "key": "OFBI-193",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-03-02T09:21:00.000-0300",
@@ -1758,6 +2090,7 @@
       "key": "OFBI-189",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-26T00:10:00.000-0300",
@@ -1782,6 +2115,7 @@
       "key": "OFBI-176",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-26T00:00:00.000-0300",
@@ -1806,6 +2140,7 @@
       "key": "OFBI-191",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-18T20:05:00.000-0300",
@@ -1830,6 +2165,7 @@
       "key": "OFBI-188",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-17T15:55:00.000-0300",
@@ -1854,6 +2190,7 @@
       "key": "OFBI-187",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-16T14:30:00.000-0300",
@@ -1878,6 +2215,7 @@
       "key": "OFBI-186",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-13T23:30:00.000-0300",
@@ -1902,6 +2240,7 @@
       "key": "OFBI-185",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-13T11:45:00.000-0300",
@@ -1926,6 +2265,7 @@
       "key": "OFBI-184",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-12T18:00:00.000-0300",
@@ -1950,6 +2290,7 @@
       "key": "OFBI-183",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-02-10T16:00:00.000-0300",
@@ -1974,6 +2315,7 @@
       "key": "OFBI-182",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-01-27T19:55:00.000-0300",
@@ -1998,6 +2340,7 @@
       "key": "OFBI-181",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-01-26T08:15:00.000-0300",
@@ -2022,6 +2365,7 @@
       "key": "OFBI-180",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-01-20T20:20:00.000-0300",
@@ -2046,6 +2390,7 @@
       "key": "OFBI-179",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-01-20T16:25:00.000-0300",
@@ -2070,6 +2415,7 @@
       "key": "OFBI-178",
       "summary": "Indisponibilidade para o usuario",
       "description": "",
+      "anexos": [],
       "status": "Concluído",
       "priority": "medium",
       "created": "2023-01-19T12:15:00.000-0300",

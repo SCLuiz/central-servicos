@@ -1,16 +1,42 @@
 {
-  "ultima_atualizacao": "2026-06-08T18:24:32.061916",
-  "total": 26,
+  "ultima_atualizacao": "2026-06-08T19:50:52.204410",
+  "total": 28,
   "mudancas": [
+    {
+      "key": "OFBI-4552",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-06-08T16:04:37.025-0300",
+      "updated": "2026-06-08T16:05:03.861-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4551",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-06-08T16:01:46.756-0300",
+      "updated": "2026-06-08T16:05:12.114-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4526",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
-      "updated": "2026-06-05T15:55:20.692-0300",
+      "updated": "2026-06-08T16:02:43.261-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

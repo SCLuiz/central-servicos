@@ -417,10 +417,19 @@
             line-height: 1.4;
             white-space: normal;
             border-left: 3px solid var(--of-magenta);
-            pointer-events: none;
+            pointer-events: auto;
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
             transform: translateY(10px);
+        }
+        .desc-tooltip a {
+            color: #00d2ff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .desc-tooltip a:hover {
+            color: #00e5ff;
+            text-decoration: underline;
         }
         .description-hover:hover .desc-tooltip {
             display: block;
@@ -1163,14 +1172,38 @@
                     .replace(/'/g, '&#39;')
                     .replace(/\n/g, '<br>');
 
+                // Gerar HTML de anexos/formulários
+                let anexosHtml = '';
+                if (i.anexos && i.anexos.length > 0) {
+                    anexosHtml = i.anexos.map(a => {
+                        const escName = (a.filename || 'Arquivo')
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#39;');
+                        const escUrl = (a.url || '')
+                            .replace(/&/g, '&amp;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#39;');
+                        return `<a href="${escUrl}" target="_blank" style="display: block; margin-top: 6px; word-break: break-all;">📎 ${escName}</a>`;
+                    }).join('');
+                } else {
+                    anexosHtml = '<p style="color: #888; font-style: italic; margin-top: 6px;">Nenhum formulário ou arquivo anexado.</p>';
+                }
+
                 tbody.innerHTML += `
                     <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
                         <td style="font-weight:500; position:relative;" class="description-hover">
                             ${sistema}
                             <div class="desc-tooltip">
-                                <strong style="color:var(--of-magenta);">Descrição do Incidente:</strong>
-                                <p style="margin-top:6px; font-weight:normal;">${escapedDesc}</p>
+                                <strong style="color:var(--of-magenta); display:block; border-bottom:1px solid #333; padding-bottom:4px; margin-bottom:6px;">Descrição do Incidente:</strong>
+                                <p style="margin-top:6px; margin-bottom: 12px; font-weight:normal; color:#E0E0E0;">${escapedDesc}</p>
+                                <strong style="color:var(--of-magenta); display:block; border-bottom:1px solid #333; padding-bottom:4px; margin-bottom:6px;">Formulários / Arquivos Anexados:</strong>
+                                <div style="font-weight:normal;">
+                                    ${anexosHtml}
+                                </div>
                             </div>
                         </td>
                         <td><span class="${statusClass}">${i.status}</span></td>

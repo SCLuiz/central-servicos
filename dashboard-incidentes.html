@@ -1219,16 +1219,49 @@
 
         function exportToExcel() {
             if (!currentFilteredData.length) { alert('Sem dados para exportar.'); return; }
-            const rows = currentFilteredData.map(i => ({
-                'ID': i.key,
-                'Descrição': i.summary,
-                'Status': i.status,
-                'Prioridade': i.priority,
-                'Responsável': i.assignee,
-                'Data Criação': new Date(i.created).toLocaleDateString('pt-BR'),
-                'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : 'N/A'
-            }));
+            const rows = currentFilteredData.map(i => {
+                const isResolved = i.status && i.status.includes('Concluído');
+                const mttrSec = i.mttr_seconds || 0;
+                // Valor em fração de dia para o Excel entender como tempo/duração (se resolvido)
+                const tempoResolucao = (isResolved && mttrSec > 0) ? (mttrSec / 86400) : '';
+
+                return {
+                    'ID': i.key,
+                    'Descrição': i.summary,
+                    'Status': i.status,
+                    'Prioridade': i.priority,
+                    'Responsável': i.assignee,
+                    'Data Criação': new Date(i.created).toLocaleDateString('pt-BR'),
+                    'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleDateString('pt-BR') : 'N/A',
+                    'Tempo de Resolução': tempoResolucao
+                };
+            });
             const ws = XLSX.utils.json_to_sheet(rows);
+
+            // Identifica dinamicamente a letra da coluna 'Tempo de Resolução'
+            let colLetra = null;
+            const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (let idx = 0; idx < letras.length; idx++) {
+                const letra = letras[idx];
+                const celulaHeader = ws[letra + '1'];
+                if (celulaHeader && celulaHeader.v === 'Tempo de Resolução') {
+                    colLetra = letra;
+                    break;
+                }
+            }
+
+            // Aplica a formatação numérica [h]:mm:ss para as células de tempo
+            if (colLetra) {
+                for (let ref in ws) {
+                    if (ref.startsWith(colLetra) && ref !== (colLetra + '1')) {
+                        const celula = ws[ref];
+                        if (celula && typeof celula.v === 'number') {
+                            celula.z = '[h]:mm:ss';
+                        }
+                    }
+                }
+            }
+
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Incidentes');
             XLSX.writeFile(wb, `Incidentes_Export_${new Date().toISOString().slice(0,10)}.xlsx`);

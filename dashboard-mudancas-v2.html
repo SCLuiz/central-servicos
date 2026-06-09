@@ -1160,11 +1160,11 @@
                 indicators.forEach(ind => {
                     let statusBadge = '';
                     if (ind.status === 'meta-ok') {
-                        statusBadge = '<span class="snap-status status-ok">✓</span>';
+                        statusBadge = '<span class="snap-status status-ok" title="Meta Atingida" style="cursor: help;">✓</span>';
                     } else if (ind.status === 'meta-warn') {
-                        statusBadge = '<span class="snap-status status-warn">!</span>';
+                        statusBadge = '<span class="snap-status status-warn" title="Atenção (Próximo ao limite)" style="cursor: help;">!</span>';
                     } else {
-                        statusBadge = '<span class="snap-status status-crit">✗</span>';
+                        statusBadge = '<span class="snap-status status-crit" title="Meta Não Atingida" style="cursor: help;">✗</span>';
                     }
 
                     indTbody.innerHTML += `

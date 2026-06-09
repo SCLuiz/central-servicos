@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="auth-guard.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Mudanças - Open Finance Brasil</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --of-magenta: #DD249b;
+            --of-yellow: #f7c20f;
+            --of-green: #2e7d32;
+            --of-green-light: #e8f5e9;
+            --of-dark-bg: #1a1d20;
+            --of-light-bg: #eaedf1;
+            --of-card-bg: #ffffff;
+            --of-border: #e2e8f0;
+            --of-text-primary: #1e293b;
+            --of-text-secondary: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--of-light-bg);
+            color: var(--of-text-primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Tier 1 Header */
+        .navbar-tier-1 {
+            background-color: var(--of-magenta);
+            color: #ffffff;
+            padding: 0 20px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--of-yellow);
+        }
+        .nav-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-logo {
+            font-size: 16px;
+        }
+        .brand-name {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .brand-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 10px;
+            margin-left: 5px;
+        }
+        .nav-tabs {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            gap: 5px;
+        }
+        .nav-tab {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0 16px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-tab:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .nav-tab.active {
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-bottom: 3px solid var(--of-yellow);
+        }
+        .back-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            margin-left: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        /* Tier 2 Header */
+        .navbar-tier-2 {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--of-border);
+            padding: 10px 20px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .nav-container-tier-2 {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+        .sub-nav-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sub-nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--of-text-secondary);
+            letter-spacing: 0.5px;
+        }
+        .sub-nav-buttons {
+            display: flex;
+            gap: 4px;
+        }
+        .sub-filter-btn {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .sub-filter-btn:hover {
+            background-color: #f1f5f9;
+        }
+        .sub-filter-btn.active {
+            background-color: var(--of-magenta);
+            border-color: var(--of-magenta);
+            color: #ffffff;
+        }
+        .date-range-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 8px;
+        }
+        .sub-date-input {
+            border: 1px solid #cbd5e1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #334155;
+            outline: none;
+        }
+        .sub-apply-btn {
+            background-color: #475569;
+            color: #ffffff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sub-apply-btn:hover {
+            background-color: #334155;
+        }
+        .sub-nav-divider {
+            width: 1px;
+            height: 20px;
+            background-color: var(--of-border);
+        }
+        .sub-nav-info {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--of-text-secondary);
+            font-weight: 600;
+        }
+        .info-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        .info-badge-realtime {
+            background-color: #e2e8f0;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1600px;
+            margin: 20px auto 40px;
+            padding: 0 20px;
+        }
+
+        /* 3-Column Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Widget Card */
+        .chart-card {
+            background-color: var(--of-card-bg);
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            min-height: 360px;
+        }
+        .chart-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Progress bars inside tables */
+        .progress-bar-container {
+            width: 100%;
+            background-color: #f1f5f9;
+            border-radius: 3px;
+            overflow: hidden;
+            height: 6px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        .bg-magenta { background-color: var(--of-magenta); }
+        .bg-green { background-color: var(--of-green); }
+        .bg-blue { background-color: #3b82f6; }
+        .bg-yellow { background-color: #f59e0b; }
+        .bg-red { background-color: #ef4444; }
+
+        /* Table styles inside cards */
+        .card-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .card-table th {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--of-text-secondary);
+            text-transform: uppercase;
+            padding: 6px 8px;
+            text-align: left;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .card-table td {
+            font-size: 11px;
+            padding: 8px;
+            border-bottom: 1px solid #f8fafc;
+            color: #334155;
+        }
+        .card-table tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Status circle badges */
+        .snap-status {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 9px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .status-ok { background-color: #10b981; }
+        .status-warn { background-color: #f59e0b; }
+        .status-crit { background-color: #ef4444; }
+
+        /* Large Metrics Summary Widget */
+        .summary-widget {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8fafc;
+        }
+        .summary-val {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .summary-lbl {
+            font-size: 10px;
+            color: var(--of-text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Alarms Feed Widget */
+        .alarm-feed {
+            overflow-y: auto;
+            flex-grow: 1;
+            max-height: 290px;
+            padding-right: 5px;
+        }
+        .alarm-item {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .alarm-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .alarm-indicator.green { background-color: #10b981; }
+        .alarm-indicator.red { background-color: #ef4444; }
+        .alarm-indicator.orange { background-color: #f59e0b; }
+        .alarm-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+        .alarm-key {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--of-magenta);
+        }
+        .alarm-desc {
+            font-size: 10px;
+            font-weight: 500;
+            color: #334155;
+            line-height: 1.3;
+        }
+        .alarm-time {
+            font-size: 8px;
+            color: var(--of-text-secondary);
+            font-weight: 600;
+        }
+
+        /* Main Data Table */
+        .table-card {
+            background-color: var(--of-card-bg);
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            margin-top: 20px;
+            padding: 18px;
+        }
+        .table-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .table-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .table-title::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            background-color: var(--of-magenta);
+            border-radius: 2px;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        .export-btn {
+            background: #ffffff;
+            border: 1px solid var(--of-border);
+            color: #475569;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .export-btn.excel:hover {
+            color: #16a34a;
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .export-btn.pdf:hover {
+            color: #dc2626;
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        /* Custom Multiselect Dropdown */
+        .multiselect-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .multiselect-display {
+            background-color: #ffffff;
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .multiselect-display:hover {
+            border-color: var(--of-magenta);
+            background-color: #f8fafc;
+        }
+        .multiselect-display::after {
+            content: '▼';
+            font-size: 8px;
+            color: var(--of-text-secondary);
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        .multiselect-container.open .multiselect-display::after {
+            transform: rotate(180deg);
+        }
+        .multiselect-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 4px;
+            padding: 8px;
+        }
+        .multiselect-container.open .multiselect-options {
+            display: block;
+        }
+        .multiselect-actions {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #edf2f7;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+        }
+        .multiselect-action-btn {
+            background: none;
+            border: none;
+            color: var(--of-magenta);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        .multiselect-action-btn:hover {
+            background-color: #fdf2f8;
+        }
+        .multiselect-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #334155;
+            cursor: pointer;
+            transition: background-color 0.1s;
+            user-select: none;
+        }
+        .multiselect-option:hover {
+            background-color: #f1f5f9;
+        }
+        .multiselect-option input {
+            cursor: pointer;
+            accent-color: var(--of-magenta);
+        }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .main-table th {
+            background-color: #f8fafc;
+            color: #475569;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+        }
+        .main-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 11px;
+        }
+        .main-table tr:hover td {
+            background-color: #f1f5f9;
+        }
+
+        .status-badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .status-concluido { background-color: #dcfce7; color: #15803d; }
+        .status-aberto { background-color: #fee2e2; color: #991b1b; }
+        .status-pendente { background-color: #fef3c7; color: #92400e; }
+        .status-cancelado { background-color: #f1f5f9; color: #475569; }
+
+        .category-badge { display: inline-block; padding: 2px 4px; border-radius: 3px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .category-emergencial { background-color: #fee2e2; color: #991b1b; }
+        .category-planejada { background-color: #e0f2fe; color: #0369a1; }
+        .category-normal { background-color: #f1f5f9; color: #475569; }
+
+        /* Tooltip style */
+        .description-hover {
+            position: relative;
+            cursor: help;
+        }
+        .desc-tooltip {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 35px;
+            background-color: #1e293b;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 320px;
+            z-index: 9999;
+            font-size: 11px;
+            font-weight: normal;
+            line-height: 1.4;
+            white-space: normal;
+            border-left: 3px solid var(--of-magenta);
+            pointer-events: auto;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateY(5px);
+        }
+        .description-hover:hover .desc-tooltip {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Spinner */
+        .loading { text-align: center; padding: 100px 20px; }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid var(--of-magenta);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .nav-container-tier-2 { flex-direction: column; align-items: stretch; gap: 10px; }
+            .sub-nav-divider { display: none; }
+            .sub-nav-info { margin-left: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Tier 1 Header -->
+    <div class="navbar-tier-1">
+        <div class="nav-container">
+            <div class="brand">
+                <span class="brand-logo">🟢</span>
+                <span class="brand-name">Open Finance Brasil</span>
+                <span class="brand-sub">Central de Serviços</span>
+            </div>
+            <div class="nav-tabs">
+                <a href="#" class="nav-tab active">Dashboard de Mudanças (v2.0)</a>
+                <a href="gestao-mudancas.html" class="back-link">← Voltar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tier 2 Header -->
+    <div class="navbar-tier-2">
+        <div class="nav-container-tier-2">
+            <!-- Period Filters -->
+            <div class="sub-nav-section">
+                <span class="sub-nav-label">Período:</span>
+                <div class="sub-nav-buttons">
+                    <button class="sub-filter-btn active" onclick="applyPeriodFilter('all', event)">Todos</button>
+                    <button class="sub-filter-btn" onclick="applyPeriodFilter(20, event)">20 dias</button>
+                    <button class="sub-filter-btn" onclick="applyPeriodFilter(60, event)">60 dias</button>
+                    <button class="sub-filter-btn" onclick="applyPeriodFilter(90, event)">90 dias</button>
+                    <button class="sub-filter-btn" onclick="applyPeriodFilter(180, event)">6 meses</button>
+                    <button class="sub-filter-btn" onclick="applyPeriodFilter(365, event)">1 ano</button>
+                </div>
+                <div class="date-range-group">
+                    <input type="date" id="dateFrom" class="sub-date-input">
+                    <span style="color:#64748b; font-size:11px;">até</span>
+                    <input type="date" id="dateTo" class="sub-date-input">
+                    <button class="sub-apply-btn" onclick="applyCustomDateFilter()">Aplicar</button>
+                </div>
+            </div>
+            
+            <div class="sub-nav-divider"></div>
+            
+            <!-- Category Filters -->
+            <div class="sub-nav-section">
+                <span class="sub-nav-label">Categoria:</span>
+                <div class="sub-nav-buttons">
+                    <button class="sub-filter-btn active" onclick="applyCategoryFilter('all', event)">Todas</button>
+                    <button class="sub-filter-btn" onclick="applyCategoryFilter('normal', event)">Normal</button>
+                    <button class="sub-filter-btn" onclick="applyCategoryFilter('planejada', event)">Planejada</button>
+                    <button class="sub-filter-btn" onclick="applyCategoryFilter('emergencial', event)">Emergencial</button>
+                    <button class="sub-filter-btn" onclick="applyCategoryFilter('cancelado', event)">Canceladas</button>
+                </div>
+            </div>
+            
+            <!-- Right aligned: Last updated -->
+            <div class="sub-nav-info">
+                <span class="info-badge-realtime" id="dataSourceBadge">Carregando...</span>
+                <span class="info-dot"></span>
+                <span id="ultimaAtualizacao">Carregando...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Carregando dados de mudanças do Jira...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            
+            <div class="dashboard-grid">
+                <!-- COLUNA 1: Sucesso e Status -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Widget 1: Taxa de Sucesso -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Taxa de Sucesso</h3>
+                        <div style="position: relative; width: 100%; height: 220px; display: flex; justify-content: center; align-items: center; margin: auto 0;">
+                            <canvas id="chartSuccessRate" style="max-height: 200px; max-width: 200px;"></canvas>
+                            <div style="position: absolute; text-align: center; pointer-events: none; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -5px;">
+                                <span id="successCenterValue" style="font-size: 26px; font-weight: 800; color: #1e293b; line-height: 1;">0%</span>
+                                <span id="successCenterLabel" style="font-size: 9px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 4px; letter-spacing: 0.5px;">SUCESSO</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid #f1f5f9; padding-top: 12px; margin-top: 10px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 10px; font-weight: 700; color: #10b981;">CONCLUÍDAS</div>
+                                <div id="successOkVal" style="font-size: 16px; font-weight: 800; color: #15803d; margin-top: 2px;">0</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 10px; font-weight: 700; color: #ef4444;">FALHAS/ROLLBACK</div>
+                                <div id="successFailVal" style="font-size: 16px; font-weight: 800; color: #991b1b; margin-top: 2px;">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widget 2: Volume e Status -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Distribuição por Status</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
+                            <div class="summary-widget" style="padding: 4px 0;">
+                                <div>
+                                    <span class="summary-lbl" style="color: #15803d; font-size: 8px;">Concluídas</span>
+                                    <div class="summary-val" id="metricConcluido" style="color: #15803d; font-size: 20px;">0</div>
+                                </div>
+                            </div>
+                            <div class="summary-widget" style="padding: 4px 0;">
+                                <div>
+                                    <span class="summary-lbl" style="color: #3b82f6; font-size: 8px;">Planejamento</span>
+                                    <div class="summary-val" id="metricPlanejamento" style="color: #3b82f6; font-size: 20px;">0</div>
+                                </div>
+                            </div>
+                            <div class="summary-widget" style="padding: 4px 0;">
+                                <div>
+                                    <span class="summary-lbl" style="color: #d97706; font-size: 8px;">Aguardando CAB</span>
+                                    <div class="summary-val" id="metricAguardando" style="color: #d97706; font-size: 20px;">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="flex-grow: 1; display: flex; align-items: center; min-height: 120px;">
+                            <canvas id="chartStatus" style="max-height: 125px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA 2: KPIs e Categorias -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Widget 3: KPIs de Performance -->
+                    <div class="chart-card" style="min-height: 420px;">
+                        <h3 class="chart-title">Mapa de Indicadores <span style="font-size:10px; text-transform:none; font-weight:normal; color:#64748b;">(Performance)</span></h3>
+                        <div style="overflow-y: auto; flex-grow: 1;">
+                            <table class="card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Indicador</th>
+                                        <th style="width: 80px;">Meta</th>
+                                        <th style="width: 65px;">Valor</th>
+                                        <th style="text-align: center; width: 45px;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="indicatorsTableBody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Widget 4: Categorias (Proporção) -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Distribuição por Categoria <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Proporção)</span></h3>
+                        <div style="overflow-y: auto; flex-grow: 1;">
+                            <table class="card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Categoria</th>
+                                        <th style="width: 50px;">Qtd</th>
+                                        <th style="width: 140px;">Proporção</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriasTableBody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA 3: Responsáveis e Mudanças Recentes -->
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Widget 5: Top Responsáveis -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Top Responsáveis <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Atribuição)</span></h3>
+                        <div style="overflow-y: auto; flex-grow: 1;">
+                            <table class="card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Responsável</th>
+                                        <th style="width: 50px;">Qtd</th>
+                                        <th style="width: 140px;">Proporção</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="responsaveisTableBody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Widget 6: Mudanças Recentes -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Mudanças Recentes <span style="font-size:9px; color:#ef4444; text-transform:none; font-weight:bold;">● Live</span></h3>
+                        <div class="alarm-feed" id="alertsFeed">
+                            <!-- Preenchido via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget de Timeline de Mudanças (Full Width) -->
+            <div class="table-card" style="margin-top: 20px;">
+                <div class="table-header-row">
+                    <h2 class="table-title">Timeline de Mudanças</h2>
+                </div>
+                <div style="position: relative; width: 100%; height: 260px;">
+                    <canvas id="chartTimeline" style="max-height: 250px;"></canvas>
+                </div>
+            </div>
+
+            <!-- Widget de Comparativo de Performance -->
+            <div class="table-card" style="margin-top: 20px;">
+                <div class="table-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                    <h2 class="table-title">Comparativo de Performance</h2>
+                    <div class="sub-nav-buttons" style="margin-top: 0;">
+                        <button class="sub-filter-btn active" id="btnCompMensal" onclick="changeComparisonViewMode('mensal')">Mensal</button>
+                        <button class="sub-filter-btn" id="btnCompAnual" onclick="changeComparisonViewMode('anual')">Anual</button>
+                    </div>
+                </div>
+                <div id="compSelectorLabel" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--of-text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Selecionar Meses para Comparar:</div>
+                <div class="multiselect-container" id="multiselectContainer">
+                    <div class="multiselect-display" id="multiselectDisplay" onclick="toggleDropdown(event)">Carregando...</div>
+                    <div class="multiselect-options" id="multiselectOptions">
+                        <!-- Preenchido via JS -->
+                    </div>
+                </div>
+                <div style="position: relative; width: 100%; height: 260px;">
+                    <canvas id="chartComparativoMensal" style="max-height: 250px;"></canvas>
+                </div>
+            </div>
+
+            <!-- Tabela Principal no Rodapé -->
+            <div class="table-card">
+                <div class="table-header-row">
+                    <h2 class="table-title">Todas as Mudanças</h2>
+                    <div class="export-buttons">
+                        <button class="export-btn excel" onclick="exportToExcel()">
+                            <span>📊</span> Excel
+                        </button>
+                        <button class="export-btn pdf" onclick="exportToPDF()">
+                            <span>📄</span> PDF
+                        </button>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="main-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th>Resumo da Mudança</th>
+                                <th style="width: 110px;">Status</th>
+                                <th style="width: 110px;">Categoria</th>
+                                <th>Responsável</th>
+                                <th style="width: 110px;">Criado em</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mudancasTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+        const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
+        let allMudancas = [];
+        let currentFilteredData = [];
+        let dataSource = 'loading';
+
+        async function loadData() {
+            try {
+                let data = null;
+
+                // Tentar Worker primeiro
+                try {
+                    const workerResponse = await fetch(WORKER_URL);
+                    if (workerResponse.ok) {
+                        data = await workerResponse.json();
+                        dataSource = 'worker';
+                        console.log('Dados do Worker');
+                    } else {
+                        throw new Error('Worker falhou');
+                    }
+                } catch {
+                    // Fallback para JSON
+                    const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
+                    if (!jsonResponse.ok) throw new Error('Erro ao carregar dados');
+                    data = await jsonResponse.json();
+                    dataSource = 'json';
+                    console.log('Dados do JSON');
+                }
+
+                const updateEl = document.getElementById('ultimaAtualizacao');
+                if (updateEl && data.ultima_atualizacao) {
+                    updateEl.textContent = new Date(data.ultima_atualizacao).toLocaleString('pt-BR');
+                }
+                const sourceBadge = document.getElementById('dataSourceBadge');
+                if (sourceBadge) {
+                    sourceBadge.textContent = dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
+                }
+
+                // Filtrar globalmente para manter apenas mudanças de 2025 em diante
+                allMudancas = (data.mudancas || []).filter(m => {
+                    if (!m.created) return false;
+                    const cd = new Date(m.created);
+                    return cd.getFullYear() >= 2025;
+                });
+
+                initializeComparisonMonths(allMudancas);
+                filterAndRender();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+                setTimeout(loadData, 3600000);
+            } catch (error) {
+                document.getElementById('loading').innerHTML = `
+                    <div class="spinner"></div>
+                    <p style="color: #F44336;">Erro: ${error.message}</p>
+                    <p style="font-size: 14px; margin-top: 10px;">Tentando novamente em 30 segundos...</p>
+                `;
+                setTimeout(loadData, 30000);
+            }
+        }
+
+        function calculateStats(mudancas) {
+            const stats = {
+                total: mudancas.length,
+                abertas: 0,
+                planejamento: 0,
+                concluido: 0,
+                cancelado: 0,
+                rejeitado: 0,
+                statusCount: {},
+                responsaveisCount: {},
+                categoriasCount: { normal: 0, planejada: 0, emergencial: 0 },
+                revertidas: 0,
+                emergenciais: 0,
+                aderentesPrazo: 0,
+                tempoCABTotal: 0
+            };
+
+            mudancas.forEach(m => {
+                const s = m.status || '';
+                if (s.includes('Concluído')) stats.concluido++;
+                else if (s.includes('Planejamento')) stats.planejamento++;
+                else if (s.includes('Cancelado')) stats.cancelado++;
+                else if (s.includes('Rejeitado')) stats.rejeitado++;
+
+                stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
+                stats.responsaveisCount[m.assignee] = (stats.responsaveisCount[m.assignee] || 0) + 1;
+
+                // Categoria
+                const cat = (m.categoria || '').toLowerCase();
+                if (cat === 'normal' || cat.includes('normal')) stats.categoriasCount.normal++;
+                else if (cat === 'planejada' || cat.includes('planejada')) stats.categoriasCount.planejada++;
+                else if (cat === 'emergencial' || cat.includes('emergencial')) stats.categoriasCount.emergencial++;
+                else {
+                    // Tentar inferir de labels
+                    const labels = m.labels || [];
+                    if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
+                        stats.categoriasCount.emergencial++;
+                    } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
+                        stats.categoriasCount.planejada++;
+                    } else {
+                        stats.categoriasCount.normal++;
+                    }
+                }
+
+                // Emergenciais para o KPI
+                const isEmergencial = cat.includes('emergencial') || (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'));
+                if (isEmergencial) stats.emergenciais++;
+
+                // Revertidas
+                const summaryLower = (m.summary || '').toLowerCase();
+                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                if (isReverted) stats.revertidas++;
+
+                // Aderência aos prazos (submissão até terça 12:00)
+                if (m.created) {
+                    const createdDt = new Date(m.created);
+                    const day = createdDt.getDay(); // 0 = Domingo, 2 = Terça
+                    const hour = createdDt.getHours();
+                    if (day < 2 || (day === 2 && hour < 12)) {
+                        stats.aderentesPrazo++;
+                    }
+                }
+
+                // Tempo médio CAB (próxima Quarta 14:00)
+                if (m.created) {
+                    const createdDt = new Date(m.created);
+                    const nextWed = getProximaQuarta14h(createdDt);
+                    const diffDays = (nextWed - createdDt) / (1000 * 60 * 60 * 24);
+                    stats.tempoCABTotal += diffDays;
+                }
+            });
+
+            stats.abertas = stats.total - stats.concluido - stats.cancelado - stats.rejeitado;
+            return stats;
+        }
+
+        function getProximaQuarta14h(data) {
+            const resultado = new Date(data);
+            const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7;
+            resultado.setDate(resultado.getDate() + diasAteQuarta);
+            resultado.setHours(14, 0, 0, 0);
+            if (resultado <= data) {
+                resultado.setDate(resultado.getDate() + 7);
+            }
+            return resultado;
+        }
+
+        function renderDashboard(mudancas) {
+            const stats = calculateStats(mudancas);
+            const total = stats.total || 1;
+
+            // Atualiza status cards
+            const elMetricConcluido = document.getElementById('metricConcluido');
+            if (elMetricConcluido) elMetricConcluido.textContent = stats.concluido;
+            const elMetricPlanejamento = document.getElementById('metricPlanejamento');
+            if (elMetricPlanejamento) elMetricPlanejamento.textContent = stats.planejamento;
+            const elMetricAguardando = document.getElementById('metricAguardando');
+            if (elMetricAguardando) elMetricAguardando.textContent = stats.statusCount['Aguardando CAB'] || stats.statusCount['Aguardando'] || 0;
+
+            // Gráfico Donut de Taxa de Sucesso
+            const taxaSucesso = ((stats.concluido / total) * 100);
+            const elSuccessCenterValue = document.getElementById('successCenterValue');
+            if (elSuccessCenterValue) elSuccessCenterValue.textContent = taxaSucesso.toFixed(1) + '%';
+            
+            const elSuccessOkVal = document.getElementById('successOkVal');
+            if (elSuccessOkVal) elSuccessOkVal.textContent = stats.concluido;
+            const elSuccessFailVal = document.getElementById('successFailVal');
+            if (elSuccessFailVal) elSuccessFailVal.textContent = stats.revertidas;
+
+            // Renderiza Tabela de Indicadores (KPIs)
+            const rateEmergenciais = (stats.emergenciais / total) * 100;
+            const rateRevertidas = (stats.revertidas / total) * 100;
+            const ratePrazos = (stats.aderentesPrazo / total) * 100;
+            const mediaCAB = stats.total > 0 ? (stats.tempoCABTotal / stats.total) : 0;
+            const incidentesCausados = mudancas.filter(m => m.causouIncidente === true).length;
+            const rateIncidentes = (incidentesCausados / total) * 100;
+
+            const indicators = [
+                {
+                    title: 'Volume de Mudanças Concluídas',
+                    value: stats.concluido,
+                    meta: '—',
+                    desc: 'Total de mudanças executadas com sucesso no período.',
+                    status: 'meta-ok'
+                },
+                {
+                    title: 'Taxa de Sucesso de Mudanças',
+                    value: taxaSucesso.toFixed(1) + '%',
+                    meta: '> 95%',
+                    desc: 'Proporção de mudanças finalizadas sem incidentes ou cancelamentos.',
+                    status: taxaSucesso >= 95 ? 'meta-ok' : taxaSucesso >= 85 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    title: 'Mudanças Emergenciais',
+                    value: rateEmergenciais.toFixed(1) + '%',
+                    meta: '< 10%',
+                    desc: 'Proporção de mudanças urgentes executadas fora da janela padrão.',
+                    status: rateEmergenciais < 10 ? 'meta-ok' : rateEmergenciais <= 15 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    title: 'Taxa de Mudanças Revertidas',
+                    value: rateRevertidas.toFixed(1) + '%',
+                    meta: '< 3%',
+                    desc: 'Solicitações de mudança que sofreram rollback ou reversão.',
+                    status: rateRevertidas < 3 ? 'meta-ok' : rateRevertidas <= 5 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    title: 'Aderência aos Prazos de Submissão',
+                    value: ratePrazos.toFixed(1) + '%',
+                    meta: '> 90%',
+                    desc: 'Mudanças submetidas ao CAB até Terça 12:00.',
+                    status: ratePrazos >= 90 ? 'meta-ok' : ratePrazos >= 80 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    title: 'Tempo Médio de Aprovação (CAB)',
+                    value: mediaCAB.toFixed(1) + ' dias',
+                    meta: 'Até quarta 14h',
+                    desc: 'Tempo médio decorrido desde a criação até a aprovação pelo comitê.',
+                    status: mediaCAB <= 3 ? 'meta-ok' : mediaCAB <= 5 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    title: 'Incidentes Causados por Mudanças',
+                    value: rateIncidentes.toFixed(1) + '%',
+                    meta: '< 5%',
+                    desc: 'Mudanças implantadas que geraram incidentes operacionais secundários.',
+                    status: rateIncidentes < 5 ? 'meta-ok' : rateIncidentes <= 10 ? 'meta-warn' : 'meta-crit'
+                }
+            ];
+
+            const indTbody = document.getElementById('indicatorsTableBody');
+            if (indTbody) {
+                indTbody.innerHTML = '';
+                indicators.forEach(ind => {
+                    let statusBadge = '';
+                    if (ind.status === 'meta-ok') {
+                        statusBadge = '<span class="snap-status status-ok">✓</span>';
+                    } else if (ind.status === 'meta-warn') {
+                        statusBadge = '<span class="snap-status status-warn">!</span>';
+                    } else {
+                        statusBadge = '<span class="snap-status status-crit">✗</span>';
+                    }
+
+                    indTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600;" title="${ind.desc}">${ind.title}</td>
+                            <td style="color: var(--of-text-secondary); font-weight: 500;">${ind.meta}</td>
+                            <td style="font-weight: 700;">${ind.value}</td>
+                            <td style="text-align: center;">${statusBadge}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Renderiza Categorias (Widget 4) com barra de proporção
+            const categoriasTbody = document.getElementById('categoriasTableBody');
+            if (categoriasTbody) {
+                categoriasTbody.innerHTML = '';
+                const cats = [
+                    { name: 'Normal', count: stats.categoriasCount.normal, color: 'bg-blue' },
+                    { name: 'Planejada', count: stats.categoriasCount.planejada, color: 'bg-green' },
+                    { name: 'Emergencial', count: stats.categoriasCount.emergencial, color: 'bg-red' }
+                ].sort((a, b) => b.count - a.count);
+
+                cats.forEach(c => {
+                    const pct = ((c.count / total) * 100).toFixed(1);
+                    categoriasTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600;">${c.name}</td>
+                            <td style="font-weight: 700; width: 50px;">${c.count}</td>
+                            <td style="width: 140px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 11px; font-weight: 600; width: 32px; text-align: right;">${pct}%</span>
+                                    <div class="progress-bar-container" style="flex-grow: 1;">
+                                        <div class="progress-bar-fill ${c.color}" style="width: ${pct}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Renderiza Responsáveis (Widget 5)
+            const responsaveisTbody = document.getElementById('responsaveisTableBody');
+            if (responsaveisTbody) {
+                responsaveisTbody.innerHTML = '';
+                const sortedResp = Object.entries(stats.responsaveisCount)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 8);
+
+                sortedResp.forEach(r => {
+                    const count = r[1];
+                    const pct = ((count / total) * 100).toFixed(1);
+                    responsaveisTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600;">${r[0]}</td>
+                            <td style="font-weight: 700; width: 50px;">${count}</td>
+                            <td style="width: 140px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 11px; font-weight: 600; width: 32px; text-align: right;">${pct}%</span>
+                                    <div class="progress-bar-container" style="flex-grow: 1;">
+                                        <div class="progress-bar-fill bg-magenta" style="width: ${pct}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Renderiza Alertas Recentes (Widget 6)
+            const alertsFeed = document.getElementById('alertsFeed');
+            if (alertsFeed) {
+                alertsFeed.innerHTML = '';
+                const recent = [...mudancas]
+                    .sort((a, b) => new Date(b.created) - new Date(a.created))
+                    .slice(0, 10);
+
+                recent.forEach(m => {
+                    const createdDt = new Date(m.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+                    const isEmerg = (m.categoria || '').includes('emergencial') || (m.labels || []).some(l => l.includes('emergencial'));
+                    const indicatorColor = isEmerg ? 'red' : m.causouIncidente ? 'orange' : 'green';
+
+                    alertsFeed.innerHTML += `
+                        <div class="alarm-item">
+                            <div class="alarm-indicator ${indicatorColor}"></div>
+                            <div class="alarm-content">
+                                <span class="alarm-key">${m.key}</span>
+                                <span class="alarm-desc">${m.summary}</span>
+                                <span class="alarm-time">Criada em: ${createdDt} | Status: ${m.status}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            renderCharts(stats, mudancas);
+            renderTable(mudancas);
+        }
+
+        let chartSuccessRate, chartStatus, chartTimeline, chartComparativo;
+        let comparisonMonths = [];
+        let selectedComparisonMonths = new Set();
+        let comparisonYears = [];
+        let selectedComparisonYears = new Set();
+        let comparisonViewMode = 'mensal';
+        const NOME_MESES = {
+            '01': 'Jan', '02': 'Fev', '03': 'Mar', '04': 'Abr', '05': 'Mai', '06': 'Jun',
+            '07': 'Jul', '08': 'Ago', '09': 'Set', '10': 'Out', '11': 'Nov', '12': 'Dez'
+        };
+
+        function renderCharts(stats, mudancas) {
+            // Doughnut Success Rate
+            const ctxSuccess = document.getElementById('chartSuccessRate').getContext('2d');
+            if (chartSuccessRate) chartSuccessRate.destroy();
+            
+            const rateOk = stats.concluido;
+            const rateFail = stats.revertidas;
+            chartSuccessRate = new Chart(ctxSuccess, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Concluídas com Sucesso', 'Revertidas / Rollback'],
+                    datasets: [{
+                        data: [rateOk, rateFail],
+                        backgroundColor: ['#10b981', '#ef4444'],
+                        borderWidth: 1,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, datalabels: { display: false } }
+                }
+            });
+
+            // Status Bar Chart
+            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+            if (chartStatus) chartStatus.destroy();
+            chartStatus = new Chart(ctxStatus, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(stats.statusCount),
+                    datasets: [{
+                        data: Object.values(stats.statusCount),
+                        backgroundColor: '#64748b',
+                        borderRadius: 4,
+                        barThickness: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, datalabels: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
+                }
+            });
+
+            // Timeline
+            const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
+            if (chartTimeline) chartTimeline.destroy();
+
+            const monthlyData = {};
+            const allMonths = new Set();
+
+            mudancas.forEach(m => {
+                const cd = new Date(m.created);
+                const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                allMonths.add(ck);
+                if (!monthlyData[ck]) monthlyData[ck] = { created: 0, resolved: 0, cancelled: 0 };
+                monthlyData[ck].created++;
+
+                const ud = new Date(m.updated || m.created);
+                const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+
+                if (m.status && m.status.includes('Concluído')) {
+                    allMonths.add(uk);
+                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
+                    monthlyData[uk].resolved++;
+                } else if (m.status && m.status.includes('Cancelado')) {
+                    allMonths.add(uk);
+                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
+                    monthlyData[uk].cancelled++;
+                }
+            });
+
+            const sortedMonths = Array.from(allMonths).sort((a, b) => {
+                const [ma, ya] = a.split('/');
+                const [mb, yb] = b.split('/');
+                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
+            });
+
+            chartTimeline = new Chart(ctxTimeline, {
+                type: 'bar',
+                data: {
+                    labels: sortedMonths,
+                    datasets: [
+                        { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), backgroundColor: '#ef4444', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: { legend: { display: true, position: 'top' }, datalabels: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
+                }
+            });
+        }
+
+        function renderTable(mudancas) {
+            const tbody = document.getElementById('mudancasTableBody');
+            tbody.innerHTML = '';
+
+            mudancas.forEach(m => {
+                const created = m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—';
+                const url = `${JIRA_URL}/browse/${m.key}`;
+
+                let statusClass = 'status-badge ';
+                const s = m.status || '';
+                if (s.includes('Concluído')) statusClass += 'status-concluido';
+                else if (s.includes('Planejamento')) statusClass += 'status-aberto';
+                else if (s.includes('Aguardando')) statusClass += 'status-pendente';
+                else if (s.includes('Cancelado')) statusClass += 'status-cancelado';
+
+                const cat = (m.categoria || '').toLowerCase();
+                let catClass = 'category-badge ';
+                let catLabel = 'Normal';
+                if (cat.includes('emergencial')) {
+                    catClass += 'category-emergencial';
+                    catLabel = 'Emergencial';
+                } else if (cat.includes('planejada')) {
+                    catClass += 'category-planejada';
+                    catLabel = 'Planejada';
+                } else {
+                    catClass += 'category-normal';
+                    catLabel = 'Normal';
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
+                        <td>${m.summary}</td>
+                        <td><span class="${statusClass}">${m.status}</span></td>
+                        <td><span class="${catClass}">${catLabel}</span></td>
+                        <td>${m.assignee}</td>
+                        <td>${created}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function exportToExcel() {
+            if (!currentFilteredData.length) { alert('Sem dados para exportar.'); return; }
+            const rows = currentFilteredData.map(m => ({
+                'ID': m.key,
+                'Descrição': m.summary,
+                'Status': m.status,
+                'Categoria': m.categoria || 'normal',
+                'Responsável': m.assignee,
+                'Criado em': m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—',
+                'Causou Incidente': m.causouIncidente ? 'Sim' : 'Não'
+            }));
+            const ws = XLSX.utils.json_to_sheet(rows);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Mudanças');
+            XLSX.writeFile(wb, `Mudancas_Export_${new Date().toISOString().slice(0,10)}.xlsx`);
+        }
+
+        function exportToPDF() {
+            if (!currentFilteredData.length) { alert('Sem dados para exportar.'); return; }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(18);
+            doc.text('Relatório de Mudanças', 14, 22);
+            doc.setFontSize(10);
+            doc.setTextColor(100,100,100);
+            doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 28);
+            doc.line(14, 33, 196, 33);
+
+            doc.autoTable({
+                head: [['ID', 'Descrição', 'Status', 'Categoria', 'Responsável', 'Criado em']],
+                body: currentFilteredData.map(m => [
+                    m.key, m.summary, m.status, m.categoria || 'normal', m.assignee,
+                    m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—'
+                ]),
+                startY: 40,
+                styles: { fontSize: 8 },
+                headStyles: { fillColor: [221, 36, 155] }
+            });
+            doc.save(`Relatorio_Mudancas_${new Date().toISOString().slice(0,10)}.pdf`);
+        }
+
+        let currentFilter = 'all';
+        let customDateRange = null;
+        let currentCategoryFilter = 'all';
+
+        function applyCategoryFilter(category, ev) {
+            currentCategoryFilter = category;
+            const catGroup = document.querySelectorAll('.sub-nav-buttons')[1];
+            if (catGroup) {
+                catGroup.querySelectorAll('.sub-filter-btn').forEach(btn => btn.classList.remove('active'));
+            }
+            if (ev && ev.currentTarget) {
+                ev.currentTarget.classList.add('active');
+            } else if (ev && ev.target) {
+                ev.target.classList.add('active');
+            }
+            filterAndRender();
+        }
+
+        function applyPeriodFilter(days, ev) {
+            currentFilter = days;
+            customDateRange = null;
+            const periodGroup = document.querySelectorAll('.sub-nav-buttons')[0];
+            if (periodGroup) {
+                periodGroup.querySelectorAll('.sub-filter-btn').forEach(btn => btn.classList.remove('active'));
+            }
+            if (ev && ev.currentTarget) {
+                ev.currentTarget.classList.add('active');
+            } else if (ev && ev.target) {
+                ev.target.classList.add('active');
+            }
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+            filterAndRender();
+        }
+
+        function applyCustomDateFilter() {
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            if (!dateFrom || !dateTo) { alert('Por favor, selecione ambas as datas'); return; }
+            customDateRange = { from: new Date(dateFrom + 'T00:00:00'), to: new Date(dateTo + 'T23:59:59') };
+            currentFilter = 'custom';
+            const periodGroup = document.querySelectorAll('.sub-nav-buttons')[0];
+            if (periodGroup) {
+                periodGroup.querySelectorAll('.sub-filter-btn').forEach(btn => btn.classList.remove('active'));
+            }
+            filterAndRender();
+        }
+
+        function filterAndRender() {
+            let filtered = [...allMudancas];
+
+            if (currentFilter !== 'all') {
+                if (currentFilter === 'custom' && customDateRange) {
+                    filtered = filtered.filter(m => {
+                        const d = new Date(m.created);
+                        return d >= customDateRange.from && d <= customDateRange.to;
+                    });
+                } else {
+                    const cutoff = new Date();
+                    cutoff.setDate(cutoff.getDate() - currentFilter);
+                    filtered = filtered.filter(m => new Date(m.created) >= cutoff);
+                }
+            }
+
+            if (currentCategoryFilter !== 'all') {
+                if (currentCategoryFilter === 'cancelado') {
+                    filtered = filtered.filter(m => m.status === 'Cancelado');
+                } else {
+                    filtered = filtered.filter(m => {
+                        const cat = (m.categoria || '').toLowerCase();
+                        const labels = m.labels || [];
+                        const categoryLabel = `tipo:${currentCategoryFilter}`;
+                        return cat === currentCategoryFilter || labels.includes(categoryLabel);
+                    });
+                }
+            }
+
+            currentFilteredData = filtered;
+            renderDashboard(filtered);
+            updateComparisonChart();
+        }
+
+        function formatMonthLabel(mKey) {
+            const [m, y] = mKey.split('/');
+            return `${NOME_MESES[m] || m}/${y}`;
+        }
+
+        function initializeComparisonMonths(mudancas) {
+            const yearsSet = new Set();
+            let maxDate = new Date();
+            mudancas.forEach(m => {
+                if (m.created) {
+                    const cd = new Date(m.created);
+                    if (cd > maxDate) maxDate = cd;
+                }
+            });
+            
+            let currentDate = new Date(2025, 3, 1); // 1º de Abril de 2025
+            const list = [];
+            while (currentDate <= maxDate) {
+                const label = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;
+                list.push(label);
+                yearsSet.add(currentDate.getFullYear().toString());
+                currentDate.setMonth(currentDate.getMonth() + 1);
+            }
+            
+            comparisonMonths = list;
+            selectedComparisonMonths = new Set(comparisonMonths);
+            
+            comparisonYears = Array.from(yearsSet).sort((a, b) => parseInt(a) - parseInt(b));
+            selectedComparisonYears = new Set(comparisonYears);
+            
+            renderComparisonSelector();
+        }
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const container = document.getElementById('multiselectContainer');
+            if (container) container.classList.toggle('open');
+        }
+
+        function renderComparisonSelector() {
+            const optionsContainer = document.getElementById('multiselectOptions');
+            const displayEl = document.getElementById('multiselectDisplay');
+            if (!optionsContainer || !displayEl) return;
+            
+            optionsContainer.innerHTML = '';
+            
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'multiselect-actions';
+            
+            const btnAll = document.createElement('button');
+            btnAll.className = 'multiselect-action-btn';
+            btnAll.textContent = 'Todos';
+            btnAll.onclick = (e) => {
+                e.stopPropagation();
+                selectAllComparisonItems(true);
+            };
+            
+            const btnNone = document.createElement('button');
+            btnNone.className = 'multiselect-action-btn';
+            btnNone.textContent = 'Limpar';
+            btnNone.onclick = (e) => {
+                e.stopPropagation();
+                selectAllComparisonItems(false);
+            };
+            
+            actionsDiv.appendChild(btnAll);
+            actionsDiv.appendChild(btnNone);
+            optionsContainer.appendChild(actionsDiv);
+            
+            if (comparisonViewMode === 'mensal') {
+                comparisonMonths.forEach(m => {
+                    const isActive = selectedComparisonMonths.has(m);
+                    const label = document.createElement('label');
+                    label.className = 'multiselect-option';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = isActive;
+                    checkbox.onchange = (e) => {
+                        e.stopPropagation();
+                        toggleComparisonItem(m);
+                    };
+                    
+                    const span = document.createElement('span');
+                    span.textContent = formatMonthLabel(m);
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(span);
+                    optionsContainer.appendChild(label);
+                });
+                
+                const activeCount = selectedComparisonMonths.size;
+                const totalCount = comparisonMonths.length;
+                if (activeCount === totalCount) {
+                    displayEl.textContent = 'Todos os Meses';
+                } else if (activeCount === 0) {
+                    displayEl.textContent = 'Nenhum Mês Selecionado';
+                } else {
+                    displayEl.textContent = `${activeCount} Meses Selecionados`;
+                }
+            } else {
+                comparisonYears.forEach(y => {
+                    const isActive = selectedComparisonYears.has(y);
+                    const label = document.createElement('label');
+                    label.className = 'multiselect-option';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = isActive;
+                    checkbox.onchange = (e) => {
+                        e.stopPropagation();
+                        toggleComparisonItem(y);
+                    };
+                    
+                    const span = document.createElement('span');
+                    span.textContent = y;
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(span);
+                    optionsContainer.appendChild(label);
+                });
+                
+                const activeCount = selectedComparisonYears.size;
+                const totalCount = comparisonYears.length;
+                if (activeCount === totalCount) {
+                    displayEl.textContent = 'Todos os Anos';
+                } else if (activeCount === 0) {
+                    displayEl.textContent = 'Nenhum Ano Selecionado';
+                } else {
+                    displayEl.textContent = `${activeCount} Anos Selecionados`;
+                }
+            }
+        }
+
+        function toggleComparisonItem(item) {
+            if (comparisonViewMode === 'mensal') {
+                if (selectedComparisonMonths.has(item)) {
+                    selectedComparisonMonths.delete(item);
+                } else {
+                    selectedComparisonMonths.add(item);
+                }
+            } else {
+                if (selectedComparisonYears.has(item)) {
+                    selectedComparisonYears.delete(item);
+                } else {
+                    selectedComparisonYears.add(item);
+                }
+            }
+            renderComparisonSelector();
+            updateComparisonChart();
+        }
+
+        function selectAllComparisonItems(select) {
+            if (comparisonViewMode === 'mensal') {
+                if (select) {
+                    selectedComparisonMonths = new Set(comparisonMonths);
+                } else {
+                    selectedComparisonMonths.clear();
+                }
+            } else {
+                if (select) {
+                    selectedComparisonYears = new Set(comparisonYears);
+                } else {
+                    selectedComparisonYears.clear();
+                }
+            }
+            renderComparisonSelector();
+            updateComparisonChart();
+        }
+
+        function changeComparisonViewMode(mode) {
+            comparisonViewMode = mode;
+            const btnMensal = document.getElementById('btnCompMensal');
+            const btnAnual = document.getElementById('btnCompAnual');
+            
+            if (mode === 'mensal') {
+                if (btnMensal) btnMensal.classList.add('active');
+                if (btnAnual) btnAnual.classList.remove('active');
+                document.getElementById('compSelectorLabel').textContent = 'Selecionar Meses para Comparar:';
+            } else {
+                if (btnMensal) btnMensal.classList.remove('active');
+                if (btnAnual) btnAnual.classList.add('active');
+                document.getElementById('compSelectorLabel').textContent = 'Selecionar Anos para Comparar:';
+            }
+            
+            renderComparisonSelector();
+            updateComparisonChart();
+        }
+
+        function updateComparisonChart() {
+            const ctx = document.getElementById('chartComparativoMensal');
+            if (!ctx) return;
+            
+            let compData = [...allMudancas];
+            if (currentCategoryFilter !== 'all') {
+                if (currentCategoryFilter === 'cancelado') {
+                    compData = compData.filter(m => m.status === 'Cancelado');
+                } else {
+                    compData = compData.filter(m => {
+                        const cat = (m.categoria || '').toLowerCase();
+                        const labels = m.labels || [];
+                        const categoryLabel = `tipo:${currentCategoryFilter}`;
+                        return cat === currentCategoryFilter || labels.includes(categoryLabel);
+                    });
+                }
+            }
+            
+            const stats = {};
+            const cutoffDate = new Date('2025-04-01T00:00:00');
+            
+            if (comparisonViewMode === 'mensal') {
+                selectedComparisonMonths.forEach(m => {
+                    stats[m] = { created: 0, resolved: 0, revertidas: 0 };
+                });
+                
+                compData.forEach(m => {
+                    if (m.created) {
+                        const cd = new Date(m.created);
+                        if (cd >= cutoffDate) {
+                            const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                            if (selectedComparisonMonths.has(ck)) {
+                                stats[ck].created++;
+                                const summaryLower = (m.summary || '').toLowerCase();
+                                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                                if (isReverted) stats[ck].revertidas++;
+                            }
+                        }
+                    }
+                    if (m.updated && m.status && m.status.includes('Concluído')) {
+                        const ud = new Date(m.updated);
+                        const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+                        const cd = m.created ? new Date(m.created) : null;
+                        if (selectedComparisonMonths.has(uk) && (!cd || cd >= cutoffDate)) {
+                            stats[uk].resolved++;
+                        }
+                    }
+                });
+                
+                const sortedKeys = Array.from(selectedComparisonMonths).sort((a, b) => {
+                    const [ma, ya] = a.split('/');
+                    const [mb, yb] = b.split('/');
+                    return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
+                });
+                
+                const labels = sortedKeys.map(k => formatMonthLabel(k));
+                const dataCreated = sortedKeys.map(k => stats[k].created);
+                const dataResolved = sortedKeys.map(k => stats[k].resolved);
+                const dataRevertidas = sortedKeys.map(k => stats[k].revertidas);
+                
+                renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataRevertidas);
+            } else {
+                selectedComparisonYears.forEach(y => {
+                    stats[y] = { created: 0, resolved: 0, revertidas: 0 };
+                });
+                
+                compData.forEach(m => {
+                    if (m.created) {
+                        const cd = new Date(m.created);
+                        if (cd >= cutoffDate) {
+                            const yk = cd.getFullYear().toString();
+                            if (selectedComparisonYears.has(yk)) {
+                                stats[yk].created++;
+                                const summaryLower = (m.summary || '').toLowerCase();
+                                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                                if (isReverted) stats[yk].revertidas++;
+                            }
+                        }
+                    }
+                    if (m.updated && m.status && m.status.includes('Concluído')) {
+                        const ud = new Date(m.updated);
+                        const yk = ud.getFullYear().toString();
+                        const cd = m.created ? new Date(m.created) : null;
+                        if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
+                            stats[yk].resolved++;
+                        }
+                    }
+                });
+                
+                const sortedKeys = Array.from(selectedComparisonYears).sort((a, b) => parseInt(a) - parseInt(b));
+                
+                const labels = sortedKeys;
+                const dataCreated = sortedKeys.map(k => stats[k].created);
+                const dataResolved = sortedKeys.map(k => stats[k].resolved);
+                const dataRevertidas = sortedKeys.map(k => stats[k].revertidas);
+                
+                renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataRevertidas);
+            }
+        }
+
+        function renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataRevertidas) {
+            if (chartComparativo) {
+                chartComparativo.destroy();
+            }
+            
+            chartComparativo = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Criações', data: dataCreated, backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: 'Concluídas', data: dataResolved, backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Revertidas / Rollback', data: dataRevertidas, backgroundColor: '#ef4444', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { display: true, position: 'top' },
+                        datalabels: { display: false }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            window.addEventListener('click', () => {
+                const container = document.getElementById('multiselectContainer');
+                if (container) container.classList.remove('open');
+            });
+            
+            const optionsEl = document.getElementById('multiselectOptions');
+            if (optionsEl) {
+                optionsEl.addEventListener('click', (e) => e.stopPropagation());
+            }
+            
+            loadData();
+        });
+    </script>
+</body>
+
+</html>

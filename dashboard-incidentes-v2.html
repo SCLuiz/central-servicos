@@ -880,7 +880,11 @@
                     updateEl.textContent = new Date(data.ultima_atualizacao).toLocaleString('pt-BR');
                 }
 
-                allIncidentes = data.incidentes || [];
+                allIncidentes = (data.incidentes || []).filter(i => {
+                    if (!i.created) return false;
+                    const cd = new Date(i.created);
+                    return cd.getFullYear() >= 2025;
+                });
                 initializeComparisonMonths(allIncidentes);
                 filterAndRender();
 

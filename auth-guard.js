@@ -1,4 +1,9 @@
 (function () {
+    // Ignora a autenticação se for aberto localmente via arquivo (file://)
+    if (window.location.protocol === 'file:') {
+        return;
+    }
+
     var token       = localStorage.getItem('oauth_access_token');
     var auth        = localStorage.getItem('isAuthenticated');
     var expiresAt   = parseInt(localStorage.getItem('oauth_expires_at')    || '0', 10);

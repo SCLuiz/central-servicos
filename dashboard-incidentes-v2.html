@@ -811,12 +811,16 @@
                 </div>
             </div>
 
-            <!-- Widget de Comparativo Mensal de Performance -->
+            <!-- Widget de Comparativo Mensal/Anual de Performance -->
             <div class="table-card" style="margin-top: 20px;">
-                <div class="table-header-row">
-                    <h2 class="table-title">Comparativo Mensal de Performance</h2>
+                <div class="table-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                    <h2 class="table-title">Comparativo de Performance</h2>
+                    <div class="sub-nav-buttons" style="margin-top: 0;">
+                        <button class="sub-filter-btn active" id="btnCompMensal" onclick="changeComparisonViewMode('mensal')">Mensal</button>
+                        <button class="sub-filter-btn" id="btnCompAnual" onclick="changeComparisonViewMode('anual')">Anual</button>
+                    </div>
                 </div>
-                <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--of-text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Selecionar Meses para Comparar:</div>
+                <div id="compSelectorLabel" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--of-text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Selecionar Meses para Comparar:</div>
                 <div class="month-selector-container" id="monthSelector">
                     <!-- Preenchido via JS -->
                 </div>
@@ -1235,6 +1239,9 @@
         let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartComparativo;
         let comparisonMonths = [];
         let selectedComparisonMonths = new Set();
+        let comparisonYears = [];
+        let selectedComparisonYears = new Set();
+        let comparisonViewMode = 'mensal'; // 'mensal' ou 'anual'
         const NOME_MESES = {
             '01': 'Jan', '02': 'Fev', '03': 'Mar', '04': 'Abr', '05': 'Mai', '06': 'Jun',
             '07': 'Jul', '08': 'Ago', '09': 'Set', '10': 'Out', '11': 'Nov', '12': 'Dez'
@@ -1620,11 +1627,13 @@
 
         function initializeComparisonMonths(incidentes) {
             const monthsSet = new Set();
+            const yearsSet = new Set();
             incidentes.forEach(i => {
                 if (i.created) {
                     const cd = new Date(i.created);
                     const label = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
                     monthsSet.add(label);
+                    yearsSet.add(cd.getFullYear().toString());
                 }
             });
             
@@ -1634,39 +1643,85 @@
                 const [mb, yb] = b.split('/');
                 return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
             });
-            
-            // Por padrão, seleciona todos
             selectedComparisonMonths = new Set(comparisonMonths);
-            renderMonthSelector();
+
+            // Ordena os anos
+            comparisonYears = Array.from(yearsSet).sort((a, b) => parseInt(a) - parseInt(b));
+            selectedComparisonYears = new Set(comparisonYears);
+            
+            renderComparisonSelector();
         }
 
-        function renderMonthSelector() {
+        function renderComparisonSelector() {
             const container = document.getElementById('monthSelector');
             if (!container) return;
             container.innerHTML = '';
             
-            comparisonMonths.forEach(m => {
-                const isActive = selectedComparisonMonths.has(m);
-                const pill = document.createElement('div');
-                pill.className = `month-pill ${isActive ? 'active' : ''}`;
-                pill.textContent = formatMonthLabel(m);
-                pill.onclick = () => toggleComparisonMonth(m);
-                container.appendChild(pill);
-            });
+            if (comparisonViewMode === 'mensal') {
+                comparisonMonths.forEach(m => {
+                    const isActive = selectedComparisonMonths.has(m);
+                    const pill = document.createElement('div');
+                    pill.className = `month-pill ${isActive ? 'active' : ''}`;
+                    pill.textContent = formatMonthLabel(m);
+                    pill.onclick = () => toggleComparisonItem(m);
+                    container.appendChild(pill);
+                });
+            } else {
+                comparisonYears.forEach(y => {
+                    const isActive = selectedComparisonYears.has(y);
+                    const pill = document.createElement('div');
+                    pill.className = `month-pill ${isActive ? 'active' : ''}`;
+                    pill.textContent = y;
+                    pill.onclick = () => toggleComparisonItem(y);
+                    container.appendChild(pill);
+                });
+            }
         }
 
-        function toggleComparisonMonth(m) {
-            if (selectedComparisonMonths.has(m)) {
-                if (selectedComparisonMonths.size > 1) {
-                    selectedComparisonMonths.delete(m);
+        function toggleComparisonItem(item) {
+            if (comparisonViewMode === 'mensal') {
+                if (selectedComparisonMonths.has(item)) {
+                    if (selectedComparisonMonths.size > 1) {
+                        selectedComparisonMonths.delete(item);
+                    } else {
+                        alert('Selecione pelo menos um mês para o comparativo.');
+                        return;
+                    }
                 } else {
-                    alert('Selecione pelo menos um mês para o comparativo.');
-                    return;
+                    selectedComparisonMonths.add(item);
                 }
             } else {
-                selectedComparisonMonths.add(m);
+                if (selectedComparisonYears.has(item)) {
+                    if (selectedComparisonYears.size > 1) {
+                        selectedComparisonYears.delete(item);
+                    } else {
+                        alert('Selecione pelo menos um ano para o comparativo.');
+                        return;
+                    }
+                } else {
+                    selectedComparisonYears.add(item);
+                }
             }
-            renderMonthSelector();
+            renderComparisonSelector();
+            updateComparisonChart();
+        }
+
+        function changeComparisonViewMode(mode) {
+            comparisonViewMode = mode;
+            const btnMensal = document.getElementById('btnCompMensal');
+            const btnAnual = document.getElementById('btnCompAnual');
+            
+            if (mode === 'mensal') {
+                if (btnMensal) btnMensal.classList.add('active');
+                if (btnAnual) btnAnual.classList.remove('active');
+                document.getElementById('compSelectorLabel').textContent = 'Selecionar Meses para Comparar:';
+            } else {
+                if (btnMensal) btnMensal.classList.remove('active');
+                if (btnAnual) btnAnual.classList.add('active');
+                document.getElementById('compSelectorLabel').textContent = 'Selecionar Anos para Comparar:';
+            }
+            
+            renderComparisonSelector();
             updateComparisonChart();
         }
 
@@ -1674,7 +1729,6 @@
             const ctx = document.getElementById('chartComparativoMensal');
             if (!ctx) return;
             
-            // Aplica filtros de prioridade aos dados do comparativo
             let compIncidentes = [...allIncidentes];
             if (currentPriorityFilter !== 'all') {
                 if (currentPriorityFilter === 'cancelado') {
@@ -1684,47 +1738,80 @@
                 }
             }
             
-            // Agrupa as estatísticas por mês
-            const monthlyStats = {};
-            selectedComparisonMonths.forEach(m => {
-                monthlyStats[m] = { created: 0, resolved: 0, breached: 0 };
-            });
+            const stats = {};
             
-            compIncidentes.forEach(i => {
-                if (i.created) {
-                    const cd = new Date(i.created);
-                    const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                    
-                    if (selectedComparisonMonths.has(ck)) {
-                        monthlyStats[ck].created++;
-                        if (i.sla_breached) {
-                            monthlyStats[ck].breached++;
+            if (comparisonViewMode === 'mensal') {
+                selectedComparisonMonths.forEach(m => {
+                    stats[m] = { created: 0, resolved: 0, breached: 0 };
+                });
+                
+                compIncidentes.forEach(i => {
+                    if (i.created) {
+                        const cd = new Date(i.created);
+                        const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                        
+                        if (selectedComparisonMonths.has(ck)) {
+                            stats[ck].created++;
+                            if (i.sla_breached) stats[ck].breached++;
                         }
                     }
-                }
-                
-                if (i.updated && i.status && i.status.includes('Concluído')) {
-                    const ud = new Date(i.updated);
-                    const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-                    
-                    if (selectedComparisonMonths.has(uk)) {
-                        monthlyStats[uk].resolved++;
+                    if (i.updated && i.status && i.status.includes('Concluído')) {
+                        const ud = new Date(i.updated);
+                        const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+                        if (selectedComparisonMonths.has(uk)) {
+                            stats[uk].resolved++;
+                        }
                     }
-                }
-            });
-            
-            // Ordena os meses selecionados cronologicamente para exibição no gráfico
-            const sortedSelected = Array.from(selectedComparisonMonths).sort((a, b) => {
-                const [ma, ya] = a.split('/');
-                const [mb, yb] = b.split('/');
-                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
-            });
-            
-            const labels = sortedSelected.map(m => formatMonthLabel(m));
-            const dataCreated = sortedSelected.map(m => monthlyStats[m].created);
-            const dataResolved = sortedSelected.map(m => monthlyStats[m].resolved);
-            const dataBreached = sortedSelected.map(m => monthlyStats[m].breached);
-            
+                });
+                
+                const sortedKeys = Array.from(selectedComparisonMonths).sort((a, b) => {
+                    const [ma, ya] = a.split('/');
+                    const [mb, yb] = b.split('/');
+                    return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
+                });
+                
+                const labels = sortedKeys.map(k => formatMonthLabel(k));
+                const dataCreated = sortedKeys.map(k => stats[k].created);
+                const dataResolved = sortedKeys.map(k => stats[k].resolved);
+                const dataBreached = sortedKeys.map(k => stats[k].breached);
+                
+                renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataBreached);
+            } else {
+                selectedComparisonYears.forEach(y => {
+                    stats[y] = { created: 0, resolved: 0, breached: 0 };
+                });
+                
+                compIncidentes.forEach(i => {
+                    if (i.created) {
+                        const cd = new Date(i.created);
+                        const yk = cd.getFullYear().toString();
+                        
+                        if (selectedComparisonYears.has(yk)) {
+                            stats[yk].created++;
+                            if (i.sla_breached) stats[yk].breached++;
+                        }
+                    }
+                    if (i.updated && i.status && i.status.includes('Concluído')) {
+                        const ud = new Date(i.updated);
+                        const yk = ud.getFullYear().toString();
+                        if (selectedComparisonYears.has(yk)) {
+                            stats[yk].resolved++;
+                        }
+                    }
+                });
+                
+                const sortedKeys = Array.from(selectedComparisonYears).sort((a, b) => parseInt(a) - parseInt(b));
+                
+                const labels = sortedKeys;
+                const dataCreated = sortedKeys.map(k => stats[k].created);
+                const dataResolved = sortedKeys.map(k => stats[k].resolved);
+                const dataBreached = sortedKeys.map(k => stats[k].breached);
+                
+                renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataBreached);
+            }
+        }
+
+        function renderComparisonBarChart(ctx, labels, dataCreated, dataResolved, dataBreached) {
             if (chartComparativo) {
                 chartComparativo.destroy();
             }

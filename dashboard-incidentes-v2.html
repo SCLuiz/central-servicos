@@ -1630,29 +1630,36 @@
         }
 
         function initializeComparisonMonths(incidentes) {
-            const monthsSet = new Set();
             const yearsSet = new Set();
-            const cutoffDate = new Date('2025-04-01T00:00:00');
+            
+            // Encontra a data máxima no dataset
+            let maxDate = new Date();
             incidentes.forEach(i => {
                 if (i.created) {
                     const cd = new Date(i.created);
-                    if (cd >= cutoffDate) {
-                        const label = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                        monthsSet.add(label);
-                        yearsSet.add(cd.getFullYear().toString());
+                    if (cd > maxDate) {
+                        maxDate = cd;
                     }
                 }
             });
             
-            // Ordena os meses cronologicamente
-            comparisonMonths = Array.from(monthsSet).sort((a, b) => {
-                const [ma, ya] = a.split('/');
-                const [mb, yb] = b.split('/');
-                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
-            });
+            // Data inicial: 1º de Abril de 2025 (mês 3 em JS)
+            let currentDate = new Date(2025, 3, 1);
+            
+            // Gera todos os meses consecutivos até a data máxima
+            const list = [];
+            while (currentDate <= maxDate) {
+                const label = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;
+                list.push(label);
+                
+                yearsSet.add(currentDate.getFullYear().toString());
+                
+                currentDate.setMonth(currentDate.getMonth() + 1);
+            }
+            
+            comparisonMonths = list;
             selectedComparisonMonths = new Set(comparisonMonths);
-
-            // Ordena os anos
+            
             comparisonYears = Array.from(yearsSet).sort((a, b) => parseInt(a) - parseInt(b));
             selectedComparisonYears = new Set(comparisonYears);
             

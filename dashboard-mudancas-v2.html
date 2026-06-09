@@ -1031,12 +1031,15 @@
                 const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
                 if (isReverted) stats.revertidas++;
 
-                // Aderência aos prazos (submissão até terça 12:00)
+                // Aderência aos prazos (submissão até terça 14:00 para o CAB de quarta 14:00)
                 if (m.created) {
                     const createdDt = new Date(m.created);
-                    const day = createdDt.getDay(); // 0 = Domingo, 2 = Terça
+                    const day = createdDt.getDay(); // 0 = Domingo, 2 = Terça, 3 = Quarta
                     const hour = createdDt.getHours();
-                    if (day < 2 || (day === 2 && hour < 12)) {
+                    
+                    // Considera fora do prazo (não aderente) apenas se criado na terça após as 14h ou na quarta antes do CAB (14h)
+                    const isLate = (day === 2 && hour >= 14) || (day === 3 && hour < 14);
+                    if (!isLate) {
                         stats.aderentesPrazo++;
                     }
                 }

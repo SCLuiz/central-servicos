@@ -1335,34 +1335,38 @@
             if (chartTimeline) chartTimeline.destroy();
 
             const monthlyData = {};
-            const allMonths = new Set();
+            const allMonths = [];
+            
+            // Gerar todos os meses continuamente de Abril de 2025 até o mês/ano atual
+            let currentDate = new Date(2025, 3, 1); // 1º de Abril de 2025
+            const endDate = new Date();
+            
+            while (currentDate <= endDate) {
+                const mk = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;
+                allMonths.push(mk);
+                monthlyData[mk] = { created: 0, resolved: 0, cancelled: 0 };
+                currentDate.setMonth(currentDate.getMonth() + 1);
+            }
 
             mudancas.forEach(m => {
                 const cd = new Date(m.created);
                 const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                allMonths.add(ck);
-                if (!monthlyData[ck]) monthlyData[ck] = { created: 0, resolved: 0, cancelled: 0 };
-                monthlyData[ck].created++;
+                if (monthlyData[ck]) {
+                    monthlyData[ck].created++;
+                }
 
                 const ud = new Date(m.updated || m.created);
                 const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-
-                if (m.status && m.status.includes('Concluído')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].resolved++;
-                } else if (m.status && m.status.includes('Cancelado')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].cancelled++;
+                if (monthlyData[uk]) {
+                    if (m.status && m.status.includes('Concluído')) {
+                        monthlyData[uk].resolved++;
+                    } else if (m.status && m.status.includes('Cancelado')) {
+                        monthlyData[uk].cancelled++;
+                    }
                 }
             });
 
-            const sortedMonths = Array.from(allMonths).sort((a, b) => {
-                const [ma, ya] = a.split('/');
-                const [mb, yb] = b.split('/');
-                return new Date(ya, ma-1, 1) - new Date(yb, mb-1, 1);
-            });
+            const sortedMonths = allMonths;
 
             chartTimeline = new Chart(ctxTimeline, {
                 type: 'bar',

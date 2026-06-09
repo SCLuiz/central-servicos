@@ -461,38 +461,102 @@
             background-color: #fef2f2;
         }
 
-        /* Month Selector Pills */
-        .month-selector-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+        /* Custom Multiselect Dropdown */
+        .multiselect-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
             margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 1px dashed #edf2f7;
+            display: inline-block;
         }
-        .month-pill {
-            background-color: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            color: #475569;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
+        .multiselect-display {
+            background-color: #ffffff;
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
             font-weight: 600;
+            color: #334155;
             cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.2s ease;
             user-select: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
-        .month-pill:hover {
-            background-color: #e2e8f0;
-            color: #1e293b;
-        }
-        .month-pill.active {
-            background-color: var(--of-magenta);
+        .multiselect-display:hover {
             border-color: var(--of-magenta);
-            color: #ffffff;
+            background-color: #f8fafc;
+        }
+        .multiselect-display::after {
+            content: '▼';
+            font-size: 8px;
+            color: var(--of-text-secondary);
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        .multiselect-container.open .multiselect-display::after {
+            transform: rotate(180deg);
+        }
+        .multiselect-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 4px;
+            padding: 8px;
+        }
+        .multiselect-container.open .multiselect-options {
+            display: block;
+        }
+        .multiselect-actions {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #edf2f7;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+        }
+        .multiselect-action-btn {
+            background: none;
+            border: none;
+            color: var(--of-magenta);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        .multiselect-action-btn:hover {
+            background-color: #fdf2f8;
+        }
+        .multiselect-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #334155;
+            cursor: pointer;
+            transition: background-color 0.1s;
+            user-select: none;
+        }
+        .multiselect-option:hover {
+            background-color: #f1f5f9;
+        }
+        .multiselect-option input {
+            cursor: pointer;
+            accent-color: var(--of-magenta);
         }
 
         .main-table {
@@ -821,8 +885,11 @@
                     </div>
                 </div>
                 <div id="compSelectorLabel" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--of-text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Selecionar Meses para Comparar:</div>
-                <div class="month-selector-container" id="monthSelector">
-                    <!-- Preenchido via JS -->
+                <div class="multiselect-container" id="multiselectContainer">
+                    <div class="multiselect-display" id="multiselectDisplay" onclick="toggleDropdown(event)">Carregando...</div>
+                    <div class="multiselect-options" id="multiselectOptions">
+                        <!-- Preenchido via JS -->
+                    </div>
                 </div>
                 <div style="position: relative; width: 100%; height: 260px;">
                     <canvas id="chartComparativoMensal" style="max-height: 250px;"></canvas>
@@ -1666,54 +1733,138 @@
             renderComparisonSelector();
         }
 
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const container = document.getElementById('multiselectContainer');
+            if (container) container.classList.toggle('open');
+        }
+
         function renderComparisonSelector() {
-            const container = document.getElementById('monthSelector');
-            if (!container) return;
-            container.innerHTML = '';
+            const optionsContainer = document.getElementById('multiselectOptions');
+            const displayEl = document.getElementById('multiselectDisplay');
+            if (!optionsContainer || !displayEl) return;
+            
+            optionsContainer.innerHTML = '';
+            
+            // Adiciona botões de ação rápida no topo
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'multiselect-actions';
+            
+            const btnAll = document.createElement('button');
+            btnAll.className = 'multiselect-action-btn';
+            btnAll.textContent = 'Todos';
+            btnAll.onclick = (e) => {
+                e.stopPropagation();
+                selectAllComparisonItems(true);
+            };
+            
+            const btnNone = document.createElement('button');
+            btnNone.className = 'multiselect-action-btn';
+            btnNone.textContent = 'Limpar';
+            btnNone.onclick = (e) => {
+                e.stopPropagation();
+                selectAllComparisonItems(false);
+            };
+            
+            actionsDiv.appendChild(btnAll);
+            actionsDiv.appendChild(btnNone);
+            optionsContainer.appendChild(actionsDiv);
             
             if (comparisonViewMode === 'mensal') {
                 comparisonMonths.forEach(m => {
                     const isActive = selectedComparisonMonths.has(m);
-                    const pill = document.createElement('div');
-                    pill.className = `month-pill ${isActive ? 'active' : ''}`;
-                    pill.textContent = formatMonthLabel(m);
-                    pill.onclick = () => toggleComparisonItem(m);
-                    container.appendChild(pill);
+                    const label = document.createElement('label');
+                    label.className = 'multiselect-option';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = isActive;
+                    checkbox.onchange = (e) => {
+                        e.stopPropagation();
+                        toggleComparisonItem(m);
+                    };
+                    
+                    const span = document.createElement('span');
+                    span.textContent = formatMonthLabel(m);
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(span);
+                    optionsContainer.appendChild(label);
                 });
+                
+                const activeCount = selectedComparisonMonths.size;
+                const totalCount = comparisonMonths.length;
+                if (activeCount === totalCount) {
+                    displayEl.textContent = 'Todos os Meses';
+                } else if (activeCount === 0) {
+                    displayEl.textContent = 'Nenhum Mês Selecionado';
+                } else {
+                    displayEl.textContent = `${activeCount} Meses Selecionados`;
+                }
             } else {
                 comparisonYears.forEach(y => {
                     const isActive = selectedComparisonYears.has(y);
-                    const pill = document.createElement('div');
-                    pill.className = `month-pill ${isActive ? 'active' : ''}`;
-                    pill.textContent = y;
-                    pill.onclick = () => toggleComparisonItem(y);
-                    container.appendChild(pill);
+                    const label = document.createElement('label');
+                    label.className = 'multiselect-option';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = isActive;
+                    checkbox.onchange = (e) => {
+                        e.stopPropagation();
+                        toggleComparisonItem(y);
+                    };
+                    
+                    const span = document.createElement('span');
+                    span.textContent = y;
+                    
+                    label.appendChild(checkbox);
+                    label.appendChild(span);
+                    optionsContainer.appendChild(label);
                 });
+                
+                const activeCount = selectedComparisonYears.size;
+                const totalCount = comparisonYears.length;
+                if (activeCount === totalCount) {
+                    displayEl.textContent = 'Todos os Anos';
+                } else if (activeCount === 0) {
+                    displayEl.textContent = 'Nenhum Ano Selecionado';
+                } else {
+                    displayEl.textContent = `${activeCount} Anos Selecionados`;
+                }
             }
         }
 
         function toggleComparisonItem(item) {
             if (comparisonViewMode === 'mensal') {
                 if (selectedComparisonMonths.has(item)) {
-                    if (selectedComparisonMonths.size > 1) {
-                        selectedComparisonMonths.delete(item);
-                    } else {
-                        alert('Selecione pelo menos um mês para o comparativo.');
-                        return;
-                    }
+                    selectedComparisonMonths.delete(item);
                 } else {
                     selectedComparisonMonths.add(item);
                 }
             } else {
                 if (selectedComparisonYears.has(item)) {
-                    if (selectedComparisonYears.size > 1) {
-                        selectedComparisonYears.delete(item);
-                    } else {
-                        alert('Selecione pelo menos um ano para o comparativo.');
-                        return;
-                    }
+                    selectedComparisonYears.delete(item);
                 } else {
                     selectedComparisonYears.add(item);
+                }
+            }
+            renderComparisonSelector();
+            updateComparisonChart();
+        }
+
+        function selectAllComparisonItems(select) {
+            if (comparisonViewMode === 'mensal') {
+                if (select) {
+                    selectedComparisonMonths = new Set(comparisonMonths);
+                } else {
+                    selectedComparisonMonths.clear();
+                }
+            } else {
+                if (select) {
+                    selectedComparisonYears = new Set(comparisonYears);
+                } else {
+                    selectedComparisonYears.clear();
                 }
             }
             renderComparisonSelector();
@@ -1863,7 +2014,23 @@
             });
         }
 
-        window.addEventListener('DOMContentLoaded', loadData);
+        window.addEventListener('DOMContentLoaded', () => {
+            // Fecha o dropdown ao clicar fora
+            window.addEventListener('click', () => {
+                const container = document.getElementById('multiselectContainer');
+                if (container) {
+                    container.classList.remove('open');
+                }
+            });
+            
+            // Impede fechamento ao clicar dentro das opções do dropdown
+            const optionsEl = document.getElementById('multiselectOptions');
+            if (optionsEl) {
+                optionsEl.addEventListener('click', (e) => e.stopPropagation());
+            }
+            
+            loadData();
+        });
     </script>
 </body>
 

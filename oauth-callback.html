@@ -46,17 +46,14 @@
 
     <script src="oauth-config.js"></script>
     <script>
-        // URL do Cloudflare Worker
         const WORKER_URL = 'https://oauth-token-exchange.luiz-santos.workers.dev';
+        const OFB_CLOUD_ID = '833a5b89-ffad-428e-9374-e8478ba01f4a';
+        const OFB_EMAIL_DOMAIN = '@openfinancebrasil.org.br';
     </script>
     <script>
-        // OAuth callback usando Cloudflare Worker para segurança
-        // O CLIENT_SECRET fica protegido no Worker, não no frontend
-
         async function handleOAuthCallback() {
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
-            const state = params.get('state');
             const error = params.get('error');
 
             if (error) {
@@ -70,50 +67,45 @@
             }
 
             try {
-                // Trocar código por token
+                // Passo 1 — Troca o code pelo access_token
+                document.getElementById('message').textContent = 'Obtendo token de acesso...';
                 const tokenData = await exchangeCodeForToken(code);
 
-                // Obter informações do usuário
-                const cloudId = await getCloudId(tokenData.access_token);
-                const userInfo = await getUserInfo(tokenData.access_token, cloudId);
+                // Passo 2 — Valida Cloud ID (usuário tem acesso ao Jira da OFB?)
+                document.getElementById('message').textContent = 'Verificando acesso à organização...';
+                const cloudId = await getAndValidateCloudId(tokenData.access_token);
 
-                // Salvar tokens e informações
-                const storage = localStorage; // Sempre persistir OAuth
-                storage.setItem('oauth_access_token', tokenData.access_token);
-                storage.setItem('oauth_refresh_token', tokenData.refresh_token);
-                storage.setItem('oauth_expires_at', Date.now() + (tokenData.expires_in * 1000));
-                storage.setItem('oauth_cloud_id', cloudId);
-                storage.setItem('isAuthenticated', 'true');
-                storage.setItem('userName', userInfo.displayName || userInfo.email);
-                storage.setItem('userEmail', userInfo.email);
-                storage.setItem('userAvatar', userInfo.avatarUrls ? userInfo.avatarUrls['48x48'] : '');
-                storage.setItem('authMethod', 'oauth');
+                // Passo 3 — Obtém dados do usuário e valida domínio de e-mail
+                document.getElementById('message').textContent = 'Verificando identidade...';
+                const userInfo = await getAndValidateUserInfo(tokenData.access_token, cloudId);
 
-                // Sucesso!
+                // Passo 4 — Tudo validado, salva sessão
+                localStorage.setItem('oauth_access_token', tokenData.access_token);
+                localStorage.setItem('oauth_refresh_token', tokenData.refresh_token);
+                localStorage.setItem('oauth_expires_at', Date.now() + (tokenData.expires_in * 1000));
+                localStorage.setItem('oauth_cloud_id', cloudId);
+                localStorage.setItem('isAuthenticated', 'true');
+                localStorage.setItem('userName', userInfo.displayName || userInfo.emailAddress);
+                localStorage.setItem('userEmail', userInfo.emailAddress);
+                localStorage.setItem('userAvatar', userInfo.avatarUrls ? userInfo.avatarUrls['48x48'] : '');
+                localStorage.setItem('authMethod', 'oauth');
+
                 document.getElementById('status').textContent = '✅ Autenticado!';
                 document.getElementById('message').textContent = 'Bem-vindo(a), ' + userInfo.displayName + '! Redirecionando...';
 
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
 
             } catch (error) {
                 console.error('Erro OAuth:', error);
-                showError('Erro ao processar autenticação: ' + error.message);
+                showError(error.message);
             }
         }
 
         async function exchangeCodeForToken(code) {
-            // Chamar Cloudflare Worker para fazer token exchange de forma segura
             const response = await fetch(WORKER_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    code: code,
-                    redirect_uri: OAUTH_CONFIG.redirectUri
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, redirect_uri: OAUTH_CONFIG.redirectUri })
             });
 
             if (!response.ok) {
@@ -124,32 +116,33 @@
             return await response.json();
         }
 
-        async function getCloudId(accessToken) {
+        async function getAndValidateCloudId(accessToken) {
             const response = await fetch('https://api.atlassian.com/oauth/token/accessible-resources', {
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Accept': 'application/json'
-                }
+                headers: { 'Authorization': 'Bearer ' + accessToken, 'Accept': 'application/json' }
             });
 
             if (!response.ok) {
-                throw new Error('Falha ao obter Cloud ID');
+                throw new Error('Falha ao verificar recursos Atlassian');
             }
 
             const resources = await response.json();
-            if (resources.length === 0) {
-                throw new Error('Nenhum recurso Atlassian encontrado');
+
+            if (!resources || resources.length === 0) {
+                throw new Error('Acesso negado: nenhum recurso Atlassian encontrado para este usuário');
             }
 
-            return resources[0].id;
+            // Validação 2: verifica se o usuário tem acesso ao site da Open Finance Brasil
+            const ofbResource = resources.find(r => r.id === OFB_CLOUD_ID);
+            if (!ofbResource) {
+                throw new Error('Acesso negado: você não tem acesso ao Jira da Open Finance Brasil');
+            }
+
+            return ofbResource.id;
         }
 
-        async function getUserInfo(accessToken, cloudId) {
+        async function getAndValidateUserInfo(accessToken, cloudId) {
             const response = await fetch(`https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/myself`, {
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Accept': 'application/json'
-                }
+                headers: { 'Authorization': 'Bearer ' + accessToken, 'Accept': 'application/json' }
             });
 
             if (!response.ok) {
@@ -157,24 +150,25 @@
             }
 
             const userInfo = await response.json();
-            console.log('🔍 DEBUG - User Info completo:', userInfo);
-            console.log('🔍 DEBUG - Avatar URLs:', userInfo.avatarUrls);
+
+            // Validação 1: verifica se o e-mail pertence ao domínio da Open Finance Brasil
+            const email = (userInfo.emailAddress || '').toLowerCase();
+            if (!email.endsWith(OFB_EMAIL_DOMAIN)) {
+                throw new Error('Acesso negado: este portal é restrito a funcionários da Open Finance Brasil (' + OFB_EMAIL_DOMAIN + ')');
+            }
+
             return userInfo;
         }
 
         function showError(message) {
             document.querySelector('.spinner').style.display = 'none';
-            document.getElementById('status').textContent = '❌ Erro';
+            document.getElementById('status').textContent = '❌ Acesso Negado';
             document.getElementById('status').className = 'error';
             document.getElementById('message').textContent = message;
             document.getElementById('message').className = 'error';
-
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 5000);
+            setTimeout(() => { window.location.href = 'login.html'; }, 5000);
         }
 
-        // Executar quando a página carregar
         handleOAuthCallback();
     </script>
 </body>

@@ -1248,13 +1248,13 @@
             });
 
             chartTimeline = new Chart(ctxTimeline, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: sortedMonths,
                     datasets: [
-                        { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: false, tension: 0.4 },
-                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: false, tension: 0.4 },
-                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: false, tension: 0.4 }
+                        { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), backgroundColor: '#ef4444', borderRadius: 4 }
                     ]
                 },
                 options: {
@@ -1262,7 +1262,10 @@
                     maintainAspectRatio: false,
                     interaction: { intersect: false, mode: 'index' },
                     plugins: { legend: { display: true, position: 'top' }, datalabels: { display: false } },
-                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
                 }
             });
 

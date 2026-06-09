@@ -1628,12 +1628,15 @@
         function initializeComparisonMonths(incidentes) {
             const monthsSet = new Set();
             const yearsSet = new Set();
+            const cutoffDate = new Date('2025-04-01T00:00:00');
             incidentes.forEach(i => {
                 if (i.created) {
                     const cd = new Date(i.created);
-                    const label = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                    monthsSet.add(label);
-                    yearsSet.add(cd.getFullYear().toString());
+                    if (cd >= cutoffDate) {
+                        const label = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                        monthsSet.add(label);
+                        yearsSet.add(cd.getFullYear().toString());
+                    }
                 }
             });
             
@@ -1739,6 +1742,7 @@
             }
             
             const stats = {};
+            const cutoffDate = new Date('2025-04-01T00:00:00');
             
             if (comparisonViewMode === 'mensal') {
                 selectedComparisonMonths.forEach(m => {
@@ -1748,17 +1752,20 @@
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                        
-                        if (selectedComparisonMonths.has(ck)) {
-                            stats[ck].created++;
-                            if (i.sla_breached) stats[ck].breached++;
+                        if (cd >= cutoffDate) {
+                            const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                            
+                            if (selectedComparisonMonths.has(ck)) {
+                                stats[ck].created++;
+                                if (i.sla_breached) stats[ck].breached++;
+                            }
                         }
                     }
                     if (i.updated && i.status && i.status.includes('Concluído')) {
                         const ud = new Date(i.updated);
                         const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-                        if (selectedComparisonMonths.has(uk)) {
+                        const cd = i.created ? new Date(i.created) : null;
+                        if (selectedComparisonMonths.has(uk) && (!cd || cd >= cutoffDate)) {
                             stats[uk].resolved++;
                         }
                     }
@@ -1784,17 +1791,20 @@
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        const yk = cd.getFullYear().toString();
-                        
-                        if (selectedComparisonYears.has(yk)) {
-                            stats[yk].created++;
-                            if (i.sla_breached) stats[yk].breached++;
+                        if (cd >= cutoffDate) {
+                            const yk = cd.getFullYear().toString();
+                            
+                            if (selectedComparisonYears.has(yk)) {
+                                stats[yk].created++;
+                                if (i.sla_breached) stats[yk].breached++;
+                            }
                         }
                     }
                     if (i.updated && i.status && i.status.includes('Concluído')) {
                         const ud = new Date(i.updated);
                         const yk = ud.getFullYear().toString();
-                        if (selectedComparisonYears.has(yk)) {
+                        const cd = i.created ? new Date(i.created) : null;
+                        if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
                             stats[yk].resolved++;
                         }
                     }

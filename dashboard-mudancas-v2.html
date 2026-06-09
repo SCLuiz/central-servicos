@@ -1038,8 +1038,8 @@
                     const day = createdDt.getDay(); // 0 = Domingo, 2 = Terça, 3 = Quarta
                     const hour = createdDt.getHours();
                     
-                    // Considera fora do prazo (não aderente) apenas se criado na terça após as 14h ou na quarta antes do CAB (14h)
-                    const isLate = (day === 2 && hour >= 14) || (day === 3 && hour < 14);
+                    // Considera fora do prazo (não aderente) se criado na terça após as 12h ou na quarta antes do CAB (14h)
+                    const isLate = (day === 2 && hour >= 12) || (day === 3 && hour < 14);
                     if (!isLate) {
                         stats.aderentesPrazo++;
                     }
@@ -1139,7 +1139,7 @@
                     title: 'Aderência aos Prazos de Submissão',
                     value: ratePrazos.toFixed(1) + '%',
                     meta: '> 90%',
-                    desc: 'Mudanças submetidas ao CAB até Terça 14:00.',
+                    desc: 'Mudanças submetidas ao CAB até Terça 12:00.',
                     status: ratePrazos >= 90 ? 'meta-ok' : ratePrazos >= 80 ? 'meta-warn' : 'meta-crit'
                 },
                 {

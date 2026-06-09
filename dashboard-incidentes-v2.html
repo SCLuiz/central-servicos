@@ -799,8 +799,8 @@
                                 <th style="width: 90px;">Prioridade</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>Responsável</th>
-                                <th style="width: 130px;">Criado em</th>
-                                <th style="width: 130px;">Resolvido em</th>
+                                <th style="width: 160px;">Início da Indisponibilidade</th>
+                                <th style="width: 160px;">Fim da Indisponibilidade</th>
                             </tr>
                         </thead>
                         <tbody id="incidentesTableBody"></tbody>
@@ -1296,8 +1296,8 @@
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
             incidentes.forEach(i => {
-                const created = new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
-                const resolved = i.resolutiondate ? new Date(i.resolutiondate).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+                const inicioIndisp = i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+                const fimIndisp = i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';
@@ -1379,8 +1379,8 @@
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td>
-                        <td>${created}</td>
-                        <td>${resolved}</td>
+                        <td>${inicioIndisp}</td>
+                        <td>${fimIndisp}</td>
                     </tr>
                 `;
             });
@@ -1400,8 +1400,8 @@
                     'Status': i.status,
                     'Prioridade': i.priority,
                     'Responsável': i.assignee,
-                    'Data Criação': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
-                    'Data Resolução': i.resolutiondate ? new Date(i.resolutiondate).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Tempo de Resolução': tempoResolucao
                 };
             });
@@ -1458,14 +1458,16 @@
             doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Status', 'Prioridade', 'Responsável', 'Criação', 'Descrição']],
+                head: [['ID', 'Status', 'Prioridade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Descrição']],
                 body: currentFilteredData.map(i => [
                     i.key, i.status, i.priority, i.assignee || 'N/A',
-                    new Date(i.created).toLocaleDateString('pt-BR'), i.summary
+                    i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
+                    i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',
+                    i.summary
                 ]),
                 startY: 55,
                 styles: { fontSize: 8 },
-                columnStyles: { 0: { cellWidth: 22 }, 1: { cellWidth: 28 }, 2: { cellWidth: 18 }, 3: { cellWidth: 35 }, 4: { cellWidth: 18 }, 5: { cellWidth: 'auto' } },
+                columnStyles: { 0: { cellWidth: 20 }, 1: { cellWidth: 25 }, 2: { cellWidth: 16 }, 3: { cellWidth: 30 }, 4: { cellWidth: 22 }, 5: { cellWidth: 22 }, 6: { cellWidth: 'auto' } },
                 headStyles: { fillColor: [198, 40, 40] }
             });
             doc.save(`Relatorio_Incidentes_${new Date().toISOString().slice(0,10)}.pdf`);

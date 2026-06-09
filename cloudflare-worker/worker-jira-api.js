@@ -1,16 +1,39 @@
 /**
  * Cloudflare Worker - Jira API Proxy & Reservations Backend
- * Central de Serviços - Open Finance Brasil
+ * Central de Servicos - Open Finance Brasil
  */
+
+const ALLOWED_ORIGINS = [
+  'https://scluiz.github.io',
+  'http://localhost:3000',
+  'http://localhost:5000',
+];
+
+function getCorsHeaders(request) {
+  const origin = request.headers.get('Origin') || '';
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowed,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Vary': 'Origin',
+  };
+}
 
 export default {
   async fetch(request, env) {
-    // CORS Configuration
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*', // Em produção, restrinja para seu domínio
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
+    const corsHeaders = getCorsHeaders(request);
+
+    // Rejeita origens não permitidas (exceto OPTIONS)
+    if (request.method !== 'OPTIONS') {
+      const origin = request.headers.get('Origin') || '';
+      if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+        return new Response(JSON.stringify({ error: 'Origem não autorizada' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    }
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
@@ -21,14 +44,12 @@ export default {
     try {
       // --- ROTA 1: RESERVAS (BACKEND KV) ---
       if (url.pathname.endsWith('/reservations')) {
-        // Verifica se o KV está configurado
         if (!env.RESERVATIONS_KV) {
-          return new Response(JSON.stringify({ error: 'KV não configurado no Worker' }), {
+          return new Response(JSON.stringify({ error: 'KV nao configurado no Worker' }), {
             status: 500, headers: corsHeaders
           });
         }
 
-        // GET: Ler Dia
         if (request.method === 'GET') {
           const date = url.searchParams.get('date');
           if (!date) return new Response('Date required', { status: 400, headers: corsHeaders });
@@ -39,7 +60,6 @@ export default {
           });
         }
 
-        // POST: Salvar Dia
         if (request.method === 'POST') {
           const body = await request.json();
           const { date, seats } = body;

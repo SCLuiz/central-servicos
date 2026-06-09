@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <script src="auth-guard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Mudanças - Open Finance Brasil</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Bibliotecas para Exportação -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 
     <style>
         * {
@@ -30,21 +24,8 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg,
-                rgba(255, 20, 147, 0.55) 0%,
-                rgba(255, 105, 180, 0.50) 25%,
-                rgba(255, 182, 193, 0.45) 50%,
-                rgba(255, 215, 0, 0.50) 75%,
-                rgba(255, 165, 0, 0.55) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: var(--of-light-gray);
             color: var(--of-dark);
-        }
-
-        @keyframes gradientShift {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* Header com design Open Finance */
@@ -115,7 +96,6 @@
             font-size: 14px;
             font-weight: 500;
         }
-
         .back-button {
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
@@ -160,15 +140,8 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         /* Container principal */
@@ -301,13 +274,8 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Tabela */
@@ -349,19 +317,20 @@
             font-weight: 600;
         }
 
-        .status-concluido  { background: #E8F5E9; color: #2E7D32; }
-        .status-aguardando { background: #FFF3E0; color: #E65100; }
-        .status-cancelado  { background: #FFEBEE; color: #C62828; }
-        .status-planejamento { background: #E3F2FD; color: #1565C0; }
-        .status-rejeitado  { background: #F3E5F5; color: #7B1FA2; }
+        .status-concluido {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
 
-        .cat-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-        .cat-normal      { background: #E3F2FD; color: #1565C0; }
-        .cat-emergencial { background: #FFEBEE; color: #C62828; }
-        .cat-planejada   { background: #E8F5E9; color: #2E7D32; }
+        .status-aguardando {
+            background: #FFF3E0;
+            color: #E65100;
+        }
 
-        .inc-sim { background: #FFEBEE; color: #C62828; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-        .inc-nao { background: #F5F5F5; color: #757575; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .status-cancelado {
+            background: #FFEBEE;
+            color: #C62828;
+        }
 
         /* Responsivo */
         @media (max-width: 768px) {
@@ -503,9 +472,9 @@
                 display: none;
             }
         }
+
     </style>
 </head>
-
 <body>
     <!-- Header -->
     <div class="header">
@@ -514,7 +483,7 @@
             <p>Monitoramento em tempo real das mudanças Open Finance Brasil</p>
             <div class="header-info">
                 <a href="gestao-mudancas.html" class="back-button">Voltar</a>
-
+                
                 <div class="info-badge status-indicator">
                     <span class="status-dot"></span>
                     <span id="ultimaAtualizacao">Carregando...</span>
@@ -551,12 +520,7 @@
                     <input type="date" id="dateTo" class="date-input">
                 </div>
                 <button class="apply-filter-btn" onclick="applyCustomDateFilter()">Aplicar</button>
-
-                <div class="filter-divider"></div>
-
-
             </div>
-        </div>
 
         <!-- Filtros de Categoria -->
         <div class="filters-bar" style="margin-top: 20px;">
@@ -606,30 +570,6 @@
                 </div>
             </div>
 
-            <!-- Timeline Chart -->
-            <div class="charts-grid" style="grid-template-columns: 1fr;">
-                <div class="chart-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-                        <h3 class="chart-title" style="margin-bottom:0;">Timeline de Mudanças</h3>
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span style="font-size:12px; color:#888;">Granularidade:</span>
-                            <button id="btnSemana" onclick="setTimelineGranularity('week')"
-                                style="padding:4px 12px; border-radius:20px; border:1px solid #DD249b; background:#fff; color:#DD249b; cursor:pointer; font-size:12px; font-weight:600;">Semana</button>
-                            <button id="btnMes" onclick="setTimelineGranularity('month')"
-                                style="padding:4px 12px; border-radius:20px; border:1px solid #DD249b; background:#DD249b; color:#fff; cursor:pointer; font-size:12px; font-weight:600;">Mês</button>
-                        </div>
-                    </div>
-                    <canvas id="chartTimeline" style="max-height:320px;"></canvas>
-                    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:#555;">
-                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(33,150,243,0.75);border-radius:2px;margin-right:4px;"></span>Abertas</span>
-                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(76,175,80,0.75);border-radius:2px;margin-right:4px;"></span>Concluídas</span>
-                        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(244,67,54,0.65);border-radius:2px;margin-right:4px;"></span>Canceladas</span>
-                        <span><span style="display:inline-block;width:28px;height:3px;background:#FF6F00;vertical-align:middle;margin-right:4px;"></span>% Emergencial</span>
-                        <span><span style="display:inline-block;width:28px;height:2px;background:#9C27B0;border-top:2px dashed #9C27B0;vertical-align:middle;margin-right:4px;"></span>Tendência</span>
-                    </div>
-                </div>
-            </div>
-
             <!-- Indicadores de Performance -->
             <div class="indicators-section">
                 <h2 class="section-title">Indicadores de Performance</h2>
@@ -643,723 +583,477 @@
                         <div class="metric-label">Mudanças Emergenciais</div>
                         <div class="metric-value" id="indEmergencial">0%</div>
                         <div class="metric-meta">Meta: < 10%</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Mudanças Revertidas</div>
-                            <div class="metric-value" id="indRevertidas">0%</div>
-                            <div class="metric-meta">Meta: < 3%</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-label">Aderência aos Prazos</div>
-                                <div class="metric-value" id="indPrazos">0%</div>
-                                <div class="metric-meta">Submissão até terça 12:00</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-label">Tempo Médio CAB</div>
-                                <div class="metric-value" id="indTempoCAB">0 dias</div>
-                                <div class="metric-meta">Até próxima quarta 14h</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-label">Incidentes Causados</div>
-                                <div class="metric-value" id="indIncidentes">0%</div>
-                                <div class="metric-meta">Meta: < 5%</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Categoria -->
-                        <div class="indicators-section">
-                            <h2 class="section-title">Indicador por Categoria</h2>
-                            <div class="metrics-grid">
-                                <div class="metric-card">
-                                    <div class="metric-label">Normal</div>
-                                    <div class="metric-value" id="metricNormal">0</div>
-                                    <div class="metric-meta" id="percentNormal">0%</div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-label">Emergencial</div>
-                                    <div class="metric-value" id="metricEmergencial" style="color: #F44336;">0</div>
-                                    <div class="metric-meta" id="percentEmergencial">0%</div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-label">Planejada</div>
-                                    <div class="metric-value" id="metricPlanejada" style="color: #2196F3;">0</div>
-                                    <div class="metric-meta" id="percentPlanejada">0%</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Gráficos -->
-                        <div class="charts-grid">
-                            <div class="chart-card">
-                                <h3 class="chart-title">Mudanças por Status</h3>
-                                <canvas id="chartStatus"></canvas>
-                            </div>
-                            <div class="chart-card">
-                                <h3 class="chart-title">Top 10 Responsáveis</h3>
-                                <canvas id="chartResponsaveis"></canvas>
-                            </div>
-                        </div>
-
-                        <!-- Tabela -->
-                        <!-- Tabela com Header Flex -->
-                        <div
-                            style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <h2 class="section-title" style="margin-bottom: 0;" id="tabelaTitulo">Todas as Mudanças</h2>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="filter-btn" onclick="exportToExcel()"
-                                    style="color: #2E7D32; border-color: #2E7D32; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
-                                    <span style="font-size: 1.2em;">📊</span> Excel
-                                </button>
-                                <button class="filter-btn" onclick="exportToPDF()"
-                                    style="color: #D32F2F; border-color: #D32F2F; display: flex; align-items: center; gap: 5px; padding: 6px 16px;">
-                                    <span style="font-size: 1.2em;">📄</span> PDF
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Status</th>
-                                        <th>Categoria</th>
-                                        <th>Causou Incidente</th>
-                                        <th>Responsável</th>
-                                        <th>Criado em</th>
-                                        <th>Encerrado em</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="mudancasTableBody">
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Mudanças Revertidas</div>
+                        <div class="metric-value" id="indRevertidas">0%</div>
+                        <div class="metric-meta">Meta: < 3%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Aderência aos Prazos</div>
+                        <div class="metric-value" id="indPrazos">0%</div>
+                        <div class="metric-meta">Submissão até terça 12:00</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Tempo Médio CAB</div>
+                        <div class="metric-value" id="indTempoCAB">0 dias</div>
+                        <div class="metric-meta">Até próxima quarta 14h</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Incidentes Causados</div>
+                        <div class="metric-value" id="indIncidentes">0%</div>
+                        <div class="metric-meta">Meta: < 5%</div>
                     </div>
                 </div>
+            </div>
 
-                <script>
-                    const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
-                    const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
-                    let allMudancas = [];
-                    let currentFilteredData = []; // Store for export
-                    let dataSource = 'loading';
+            <!-- Categoria -->
+            <div class="indicators-section">
+                <h2 class="section-title">Indicador por Categoria</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Normal</div>
+                        <div class="metric-value" id="metricNormal">0</div>
+                        <div class="metric-meta" id="percentNormal">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Emergencial</div>
+                        <div class="metric-value" id="metricEmergencial" style="color: #F44336;">0</div>
+                        <div class="metric-meta" id="percentEmergencial">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Planejada</div>
+                        <div class="metric-value" id="metricPlanejada" style="color: #2196F3;">0</div>
+                        <div class="metric-meta" id="percentPlanejada">0%</div>
+                    </div>
+                </div>
+            </div>
 
-                    async function loadData() {
-                        try {
-                            let data = null;
+            <!-- Gráficos -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Mudanças por Status</h3>
+                    <canvas id="chartStatus"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 10 Responsáveis</h3>
+                    <canvas id="chartResponsaveis"></canvas>
+                </div>
+            </div>
 
-                            // Tentar Worker primeiro
-                            try {
-                                const workerResponse = await fetch(WORKER_URL);
-                                if (workerResponse.ok) {
-                                    data = await workerResponse.json();
-                                    dataSource = 'worker';
-                                    console.log('Dados do Worker');
-                                } else {
-                                    throw new Error('Worker falhou');
-                                }
-                            } catch {
-                                // Fallback para JSON
-                                const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
-                                if (!jsonResponse.ok) throw new Error('Erro ao carregar dados');
-                                data = await jsonResponse.json();
-                                dataSource = 'json';
-                                console.log('Dados do JSON');
-                            }
+            <!-- Tabela -->
+            <div style="margin-top: 30px;">
+                <h2 class="section-title">Últimas 20 Mudanças</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>Responsável</th>
+                            <th>Criado em</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mudancasTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-                            // Atualizar UI
-                            const dataAtualizacao = new Date(data.ultima_atualizacao);
-                            document.getElementById('ultimaAtualizacao').textContent =
-                                dataAtualizacao.toLocaleString('pt-BR');
+    <script>
+        const WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev';
+        const JIRA_URL = 'https://openfinancebrasil.atlassian.net';
+        let allMudancas = [];
+        let dataSource = 'loading';
 
-                            document.getElementById('dataSourceBadge').textContent =
-                                dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
+        async function loadData() {
+            try {
+                let data = null;
 
-                            allMudancas = data.mudancas || [];
-                            filterAndRender();
+                // Tentar Worker primeiro
+                try {
+                    const workerResponse = await fetch(WORKER_URL);
+                    if (workerResponse.ok) {
+                        data = await workerResponse.json();
+                        dataSource = 'worker';
+                        console.log('Dados do Worker');
+                    } else {
+                        throw new Error('Worker falhou');
+                    }
+                } catch {
+                    // Fallback para JSON
+                    const jsonResponse = await fetch('dados-mudancas.json?t=' + Date.now());
+                    if (!jsonResponse.ok) throw new Error('Erro ao carregar dados');
+                    data = await jsonResponse.json();
+                    dataSource = 'json';
+                    console.log('Dados do JSON');
+                }
 
-                            document.getElementById('loading').style.display = 'none';
-                            document.getElementById('content').style.display = 'block';
+                // Atualizar UI
+                const dataAtualizacao = new Date(data.ultima_atualizacao);
+                document.getElementById('ultimaAtualizacao').textContent =
+                    dataAtualizacao.toLocaleString('pt-BR');
 
-                            // Auto-refresh
-                            const refreshInterval = 3600000; // 1 hora
-                            setTimeout(loadData, refreshInterval);
+                document.getElementById('dataSourceBadge').textContent =
+                    dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
 
-                        } catch (error) {
-                            console.error('Erro:', error);
-                            document.getElementById('loading').innerHTML = `
+                allMudancas = data.mudancas || [];
+                filterAndRender();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+                // Auto-refresh
+                const refreshInterval = 3600000; // 1 hora
+                setTimeout(loadData, refreshInterval);
+
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('loading').innerHTML = `
                     <div class="spinner"></div>
                     <p style="color: #F44336;">Erro: ${error.message}</p>
                     <p style="font-size: 14px; margin-top: 10px;">Tentando novamente em 30 segundos...</p>
                 `;
-                            setTimeout(loadData, 30000);
-                        }
-                    }
-
-                    function renderDashboard(mudancas) {
-                        const stats = calculateStats(mudancas);
-
-                        // Métricas principais
-                        document.getElementById('metricTotal').textContent = stats.total;
-                        document.getElementById('metricAbertas').textContent = stats.abertas;
-                        document.getElementById('metricPlanejamento').textContent = stats.planejamento;
-                        document.getElementById('metricConcluido').textContent = stats.concluido;
-                        document.getElementById('metricCancelado').textContent = stats.cancelado;
-                        document.getElementById('metricRejeitado').textContent = stats.rejeitado;
-
-                        // Indicadores
-                        renderIndicadores(stats, mudancas);
-
-                        // Categoria
-                        renderCategoria(stats);
-
-                        // Gráficos (Status, Responsáveis e Timeline)
-                        renderCharts(stats, mudancas);
-
-                        // Tabela
-                        renderTable(mudancas);
-                    }
-
-                    function calculateStats(mudancas) {
-                        const stats = {
-                            total: mudancas.length,
-                            abertas: 0,
-                            planejamento: 0,
-                            concluido: 0,
-                            cancelado: 0,
-                            rejeitado: 0,
-                            statusCount: {},
-                            responsaveisCount: {},
-                            tipos: { Normal: 0, Emergencial: 0, Planejada: 0 }
-                        };
-
-                        mudancas.forEach(m => {
-                            // Status
-                            if (m.status.includes('Planejamento')) stats.planejamento++;
-                            else if (m.status.includes('Concluído')) stats.concluido++;
-                            else if (m.status.includes('Cancelado')) stats.cancelado++;
-                            else if (m.status.includes('Rejeitado')) stats.rejeitado++;
-
-                            stats.statusCount[m.status] = (stats.statusCount[m.status] || 0) + 1;
-                            stats.responsaveisCount[m.assignee] = (stats.responsaveisCount[m.assignee] || 0) + 1;
-
-                            // Tipos
-                            const labels = m.labels || [];
-                            if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
-                                stats.tipos.Normal++;
-                            } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
-                                stats.tipos.Emergencial++;
-                            } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
-                                stats.tipos.Planejada++;
-                            }
-                        });
-
-                        // Calcular abertas (total - finalizadas)
-                        stats.abertas = stats.total - stats.concluido - stats.cancelado - stats.rejeitado;
-
-                        return stats;
-                    }
-
-                    function renderIndicadores(stats, mudancas) {
-                        // Taxa de Sucesso
-                        const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
-                        document.getElementById('indSucesso').textContent = isNaN(taxaSucesso) ? '0%' : taxaSucesso + '%';
-                        document.getElementById('indSucesso').style.color =
-                            taxaSucesso >= 95 ? '#4CAF50' : '#F44336';
-
-                        // Emergenciais
-                        const emergenciais = mudancas.filter(m =>
-                            m.summary?.toLowerCase().includes('emergência') ||
-                            m.summary?.toLowerCase().includes('emergencial') ||
-                            (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'))
-                        ).length;
-                        const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
-                        document.getElementById('indEmergencial').textContent = isNaN(percEmergencial) ? '0%' : percEmergencial + '%';
-                        document.getElementById('indEmergencial').style.color =
-                            percEmergencial < 10 ? '#4CAF50' : '#F44336';
-
-                        // Revertidas
-                        const revertidas = mudancas.filter(m =>
-                            m.summary?.toLowerCase().includes('rollback') ||
-                            m.summary?.toLowerCase().includes('reverter')
-                        ).length;
-                        const percRevertidas = ((revertidas / stats.total) * 100).toFixed(1);
-                        document.getElementById('indRevertidas').textContent = isNaN(percRevertidas) ? '0%' : percRevertidas + '%';
-                        document.getElementById('indRevertidas').style.color =
-                            percRevertidas < 3 ? '#4CAF50' : '#F44336';
-
-                        // Aderência aos prazos
-                        const nosPrazos = mudancas.filter(m => {
-                            const created = new Date(m.created);
-                            const diaSemana = created.getDay();
-                            const hora = created.getHours();
-                            return (diaSemana < 2) || (diaSemana === 2 && hora < 12);
-                        }).length;
-                        const percPrazos = ((nosPrazos / stats.total) * 100).toFixed(1);
-                        document.getElementById('indPrazos').textContent = isNaN(percPrazos) ? '0%' : percPrazos + '%';
-
-                        // Tempo médio CAB
-                        let totalDias = 0;
-                        mudancas.forEach(m => {
-                            const created = new Date(m.created);
-                            const proximaQuarta = getProximaQuarta14h(created);
-                            const dias = (proximaQuarta - created) / (1000 * 60 * 60 * 24);
-                            totalDias += dias;
-                        });
-                        const mediaDias = (totalDias / stats.total).toFixed(1);
-                        document.getElementById('indTempoCAB').textContent = isNaN(mediaDias) ? '0 dias' : mediaDias + ' dias';
-
-                        // Incidentes
-                        const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
-                        const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
-                        document.getElementById('indIncidentes').textContent = isNaN(percIncidentes) ? '0%' : percIncidentes + '%';
-                        document.getElementById('indIncidentes').style.color =
-                            percIncidentes < 5 ? '#4CAF50' : '#F44336';
-                    }
-
-                    function renderCategoria(stats) {
-                        const total = stats.total || 1;
-
-                        document.getElementById('metricNormal').textContent = stats.tipos.Normal || 0;
-                        document.getElementById('percentNormal').textContent =
-                            ((stats.tipos.Normal / total) * 100).toFixed(1) + '%';
-
-                        document.getElementById('metricEmergencial').textContent = stats.tipos.Emergencial || 0;
-                        document.getElementById('percentEmergencial').textContent =
-                            ((stats.tipos.Emergencial / total) * 100).toFixed(1) + '%';
-
-                        document.getElementById('metricPlanejada').textContent = stats.tipos.Planejada || 0;
-                        document.getElementById('percentPlanejada').textContent =
-                            ((stats.tipos.Planejada / total) * 100).toFixed(1) + '%';
-                    }
-
-                    function getProximaQuarta14h(data) {
-                        const resultado = new Date(data);
-                        const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7;
-                        resultado.setDate(resultado.getDate() + diasAteQuarta);
-                        resultado.setHours(14, 0, 0, 0);
-                        if (resultado <= data) {
-                            resultado.setDate(resultado.getDate() + 7);
-                        }
-                        return resultado;
-                    }
-
-                    let chartStatus, chartResponsaveis, chartTimeline;
-
-                    function renderCharts(stats, mudancas) {
-                        // Status
-                        const ctxStatus = document.getElementById('chartStatus').getContext('2d');
-                        if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
-
-                        chartStatus = new Chart(ctxStatus, {
-                            type: 'bar',
-                            data: {
-                                labels: Object.keys(stats.statusCount),
-                                datasets: [{
-                                    label: 'Quantidade',
-                                    data: Object.values(stats.statusCount),
-                                    backgroundColor: '#D81B60',
-                                    borderRadius: 8
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: { legend: { display: false } }
-                            }
-                        });
-
-                        // Responsáveis
-                        const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
-                        if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
-
-                        const topResponsaveis = Object.entries(stats.responsaveisCount)
-                            .sort((a, b) => b[1] - a[1])
-                            .slice(0, 10);
-
-                        chartResponsaveis = new Chart(ctxResp, {
-                            type: 'bar',
-                            data: {
-                                labels: topResponsaveis.map(r => r[0]),
-                                datasets: [{
-                                    label: 'Mudanças',
-                                    data: topResponsaveis.map(r => r[1]),
-                                    backgroundColor: '#FFC107',
-                                    borderRadius: 8
-                                }]
-                            },
-                            options: {
-                                indexAxis: 'y',
-                                responsive: true,
-                                plugins: { legend: { display: false } }
-                            }
-                        });
-
-                        renderTimeline(mudancas, currentGranularity);
-                    }
-                    function fmtDate(s) {
-                        if (!s) return '—';
-                        const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
-                        if (!m) return s;
-                        return `${m[3]}/${m[2]}/${m[1]} ${m[4]}:${m[5]}:${m[6]}`;
-                    }
-
-                    function getWeekKey(s) {
-                        if (!s) return '—';
-                        const d = new Date(s);
-                        const jan1 = new Date(d.getFullYear(), 0, 1);
-                        const w = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
-                        return `S${String(w).padStart(2,'0')}/${d.getFullYear()}`;
-                    }
-                    function getMonthKey(s) {
-                        if (!s) return '—';
-                        const d = new Date(s);
-                        return `${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
-                    }
-                    function sortKey(k, gran) {
-                        if (gran === 'week') {
-                            const [sw, y] = k.split('/');
-                            return parseInt(y)*100 + parseInt(sw.replace('S',''));
-                        }
-                        const [mo, y] = k.split('/');
-                        return parseInt(y)*100 + parseInt(mo);
-                    }
-                    function movingAvg(arr, n) {
-                        return arr.map((_, i) => {
-                            if (i < n-1) return null;
-                            const slice = arr.slice(i-n+1, i+1);
-                            if (slice.some(v => v === null)) return null;
-                            return slice.reduce((a,b)=>a+b,0)/n;
-                        });
-                    }
-
-                    let currentGranularity = 'month';
-
-                    function buildTimelineData(mudancas, gran) {
-                        const data = {}, keys = new Set();
-                        const keyFn = gran === 'week' ? getWeekKey : getMonthKey;
-                        mudancas.forEach(m => {
-                            const ck = keyFn(m.created);
-                            keys.add(ck);
-                            if (!data[ck]) data[ck] = { created:0, resolved:0, cancelled:0, emergencial:0 };
-                            data[ck].created++;
-                            if ((m.categoria||'').toLowerCase()==='emergencial') data[ck].emergencial++;
-                            const st = m.status || '';
-                            if (st.includes('Concluí')) {
-                                const uk = keyFn(m.updated);
-                                keys.add(uk);
-                                if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, emergencial:0 };
-                                data[uk].resolved++;
-                            } else if (st.includes('Cancelado')) {
-                                const uk = keyFn(m.updated);
-                                keys.add(uk);
-                                if (!data[uk]) data[uk] = { created:0, resolved:0, cancelled:0, emergencial:0 };
-                                data[uk].cancelled++;
-                            }
-                        });
-                        const sorted = Array.from(keys).sort((a,b)=>sortKey(a,gran)-sortKey(b,gran));
-                        return { data, sorted };
-                    }
-
-                    function renderTimeline(mudancas, gran) {
-                        const ctx = document.getElementById('chartTimeline').getContext('2d');
-                        if (chartTimeline && typeof chartTimeline.destroy === 'function') chartTimeline.destroy();
-                        const { data, sorted } = buildTimelineData(mudancas, gran);
-                        const created   = sorted.map(k => data[k]?.created   || 0);
-                        const resolved  = sorted.map(k => data[k]?.resolved  || 0);
-                        const cancelled = sorted.map(k => data[k]?.cancelled || 0);
-                        const emergPct  = sorted.map(k => {
-                            const c = data[k]?.created || 0;
-                            const e = data[k]?.emergencial || 0;
-                            return c > 0 ? parseFloat((e/c*100).toFixed(1)) : null;
-                        });
-                        const trend = movingAvg(created, 3);
-
-                        chartTimeline = new Chart(ctx, {
-                            data: {
-                                labels: sorted,
-                                datasets: [
-                                    { label:'Abertas',    type:'bar',  data:created,   backgroundColor:'rgba(33,150,243,0.75)', borderColor:'#1565C0', borderWidth:1, borderRadius:4, order:1, yAxisID:'y' },
-                                    { label:'Concluídas', type:'bar',  data:resolved,  backgroundColor:'rgba(76,175,80,0.75)',  borderColor:'#2E7D32', borderWidth:1, borderRadius:4, order:2, yAxisID:'y' },
-                                    { label:'Canceladas', type:'bar',  data:cancelled, backgroundColor:'rgba(244,67,54,0.65)', borderColor:'#B71C1C', borderWidth:1, borderRadius:4, order:3, yAxisID:'y' },
-                                    { label:'% Emergencial', type:'line', data:emergPct,
-                                      borderColor:'#FF6F00', backgroundColor:'rgba(255,111,0,0.08)', borderWidth:2.5,
-                                      pointRadius:4, pointHoverRadius:6, pointBackgroundColor:'#FF6F00',
-                                      fill:false, tension:0.3, order:4, yAxisID:'yEmerg' },
-                                    { label:'Tendência (média 3 per.)', type:'line', data:trend,
-                                      borderColor:'#9C27B0', backgroundColor:'transparent', borderWidth:2.5,
-                                      borderDash:[6,4], pointRadius:3, pointBackgroundColor:'#9C27B0',
-                                      fill:false, tension:0.4, order:5, yAxisID:'y', spanGaps:true }
-                                ]
-                            },
-                            options: {
-                                responsive:true,
-                                interaction:{ intersect:false, mode:'index' },
-                                plugins:{
-                                    legend:{ display:false },
-                                    tooltip:{ callbacks:{ label: ctx => {
-                                        const l = ctx.dataset.label||'';
-                                        const v = ctx.parsed.y;
-                                        if (v===null||v===undefined) return null;
-                                        return l.includes('%') ? `${l}: ${v}%` : `${l}: ${v}`;
-                                    }}}
-                                },
-                                scales:{
-                                    y:{ beginAtZero:true, position:'left', ticks:{ precision:0 }, grid:{ color:'rgba(0,0,0,0.05)' } },
-                                    yEmerg:{ beginAtZero:true, max:100, position:'right', ticks:{ callback: v=>`${v}%` }, grid:{ drawOnChartArea:false } }
-                                }
-                            }
-                        });
-                    }
-
-                    function setTimelineGranularity(gran) {
-                        currentGranularity = gran;
-                        const btnS = document.getElementById('btnSemana');
-                        const btnM = document.getElementById('btnMes');
-                        if (btnS && btnM) {
-                            const on  = 'padding:4px 12px;border-radius:20px;border:1px solid #DD249b;background:#DD249b;color:#fff;cursor:pointer;font-size:12px;font-weight:600;';
-                            const off = 'padding:4px 12px;border-radius:20px;border:1px solid #DD249b;background:#fff;color:#DD249b;cursor:pointer;font-size:12px;font-weight:600;';
-                            btnS.style.cssText = gran==='week' ? on : off;
-                            btnM.style.cssText = gran==='month' ? on : off;
-                        }
-                        renderTimeline(currentFilteredData, gran);
-                    }
-
-                    function renderTable(mudancas) {
-                        const tbody = document.getElementById('mudancasTableBody');
-                        tbody.innerHTML = '';
-                        const titulo = document.getElementById('tabelaTitulo');
-                        if (titulo) titulo.textContent = `Mudanças (${mudancas.length})`;
-                        mudancas.forEach(m => {
-                            const url = `${JIRA_URL}/browse/${m.key}`;
-                            const st = m.status || '';
-                            let statusClass = 'status-badge ';
-                            if (st.includes('Concluí')) statusClass += 'status-concluido';
-                            else if (st.includes('Aguardando')) statusClass += 'status-aguardando';
-                            else if (st.includes('Cancelado')) statusClass += 'status-cancelado';
-                            else if (st.includes('Planejamento')) statusClass += 'status-planejamento';
-                            else if (st.includes('Rejeitado')) statusClass += 'status-rejeitado';
-
-                            const cat = (m.categoria||'normal').toLowerCase();
-                            const catClass = cat==='emergencial' ? 'cat-emergencial' : cat==='planejada' ? 'cat-planejada' : 'cat-normal';
-                            const catLabel = cat.charAt(0).toUpperCase()+cat.slice(1);
-
-                            const encerrado = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : '—';
-
-                            tbody.innerHTML += `
-                                <tr>
-                                    <td><a href="${url}" target="_blank" style="color:#D81B60;font-weight:600;">${m.key}</a></td>
-                                    <td style="font-weight:500;">${m.summary}</td>
-                                    <td><span class="${statusClass}">${m.status}</span></td>
-                                    <td><span class="cat-badge ${catClass}">${catLabel}</span></td>
-                                    <td><span class="${m.causouIncidente ? 'inc-sim' : 'inc-nao'}">${m.causouIncidente ? 'Sim' : 'Não'}</span></td>
-                                    <td>${m.assignee}</td>
-                                    <td style="white-space:nowrap;">${fmtDate(m.created)}</td>
-                                    <td style="white-space:nowrap;">${encerrado}</td>
-                                </tr>
-                            `;
-                        });
-                    }
-
-                    function exportToExcel() {
-                        if (!currentFilteredData || currentFilteredData.length === 0) {
-                            alert("Sem dados para exportar.");
-                            return;
-                        }
-
-                        const rows = currentFilteredData.map(m => {
-                            const st = m.status || '';
-                            const encerrado = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : 'N/A';
-                            return {
-                                "ID": m.key,
-                                "Resumo": m.summary,
-                                "Status": m.status,
-                                "Categoria": (m.categoria||'normal').charAt(0).toUpperCase()+(m.categoria||'normal').slice(1),
-                                "Causou Incidente": m.causouIncidente ? 'Sim' : 'Não',
-                                "Responsável": m.assignee,
-                                "Criado em": fmtDate(m.created),
-                                "Encerrado em": encerrado
-                            };
-                        });
-
-                        const worksheet = XLSX.utils.json_to_sheet(rows);
-                        const workbook = XLSX.utils.book_new();
-                        XLSX.utils.book_append_sheet(workbook, worksheet, "Mudanças");
-
-                        XLSX.writeFile(workbook, `Mudancas_Export_${new Date().toISOString().slice(0, 10)}.xlsx`);
-                    }
-
-                    function exportToPDF() {
-                        if (!currentFilteredData || currentFilteredData.length === 0) {
-                            alert("Sem dados para exportar.");
-                            return;
-                        }
-
-                        const { jsPDF } = window.jspdf;
-                        const doc = new jsPDF();
-
-                        // Título
-                        doc.setFontSize(18);
-                        doc.setTextColor(40, 40, 40);
-                        doc.text("Relatório de Gestão de Mudanças", 14, 22);
-
-                        doc.setFontSize(10);
-                        doc.setTextColor(100, 100, 100);
-                        const activePeriod = document.querySelectorAll('.filters-bar')[0].querySelector('.filter-btn.active').textContent;
-                        const activeCategory = document.querySelectorAll('.filters-bar')[1].querySelector('.filter-btn.active').textContent;
-
-                        doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 28);
-                        doc.text(`Filtros: ${activePeriod} | Tipo: ${activeCategory}`, 14, 33);
-
-                        // Resumo Executivo
-                        const total = currentFilteredData.length;
-                        const concluido = currentFilteredData.filter(m => m.status.includes('Concluído')).length;
-                        const cancelado = currentFilteredData.filter(m => m.status.includes('Cancelado')).length;
-                        const aberto = total - concluido - cancelado;
-
-                        doc.setDrawColor(200, 200, 200);
-                        doc.line(14, 38, 196, 38);
-
-                        doc.setFontSize(12);
-                        doc.setTextColor(0, 0, 0);
-                        doc.text("Resumo Executivo", 14, 45);
-
-                        doc.setFontSize(10);
-                        doc.text(`Total no Período: ${total}`, 14, 52);
-                        doc.text(`Concluídas: ${concluido} (${total > 0 ? ((concluido / total) * 100).toFixed(1) : 0}%)`, 60, 52);
-                        doc.text(`Canceladas: ${cancelado}`, 110, 52);
-                        doc.text(`Em Aberto: ${aberto}`, 150, 52);
-
-                        doc.autoTable({
-                            head: [['ID', 'Status', 'Categoria', 'Causou Inc.', 'Responsável', 'Criado em', 'Encerrado em', 'Resumo']],
-                            body: currentFilteredData.map(m => {
-                                const st = m.status || '';
-                                const enc = (st.includes('Concluí')||st.includes('Cancelado')||st.includes('Rejeitado')) ? fmtDate(m.updated) : '—';
-                                const cat = (m.categoria||'normal');
-                                return [m.key, m.status, cat.charAt(0).toUpperCase()+cat.slice(1), m.causouIncidente ? 'Sim' : 'Não', m.assignee||'N/A', fmtDate(m.created), enc, m.summary];
-                            }),
-                            startY: 60,
-                            styles: { fontSize: 7 },
-                            columnStyles: { 0:{cellWidth:20}, 1:{cellWidth:22}, 2:{cellWidth:20}, 3:{cellWidth:16}, 4:{cellWidth:28}, 5:{cellWidth:24}, 6:{cellWidth:24}, 7:{cellWidth:'auto'} },
-                            headStyles: { fillColor: [216, 27, 96] }
-                        });
-
-                        doc.save(`Relatorio_Mudancas_${new Date().toISOString().slice(0, 10)}.pdf`);
-                    }
-
-                    // Carregar ao iniciar
-
-                    let currentFilter = 'all';
-                    let customDateRange = null;
-                    let currentCategoryFilter = 'all';
-
-
-                    function applyCategoryFilter(category) {
-                        currentCategoryFilter = category;
-
-                        // Atualizar botões ativos - pegar apenas os botões de categoria
-                        const categoryButtons = document.querySelectorAll('.filters-bar')[1].querySelectorAll('.filter-btn');
-                        categoryButtons.forEach(btn => {
-                            btn.classList.remove('active');
-                        });
-                        event.target.classList.add('active');
-
-                        // Aplicar filtros combinados
-                        filterAndRender();
-                    }
-
-                    function applyPeriodFilter(days) {
-                        currentFilter = days;
-                        customDateRange = null;
-
-                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                        event.target.classList.add('active');
-                        document.getElementById('dateFrom').value = '';
-                        document.getElementById('dateTo').value = '';
-
-                        // Auto-granularity: períodos curtos → semana, longos → mês
-                        const gran = (days === 20 || days === 60) ? 'week' : 'month';
-                        if (gran !== currentGranularity) setTimelineGranularity(gran);
-
-                        filterAndRender();
-                    }
-
-                    function applyCustomDateFilter() {
-                        const dateFrom = document.getElementById('dateFrom').value;
-                        const dateTo = document.getElementById('dateTo').value;
-
-                        if (!dateFrom || !dateTo) {
-                            alert('Por favor, selecione ambas as datas');
-                            return;
-                        }
-
-                        customDateRange = {
-                            from: new Date(dateFrom + 'T00:00:00'),
-                            to: new Date(dateTo + 'T23:59:59')
-                        };
-                        currentFilter = 'custom';
-
-                        // Remover active de todos os botões
-                        document.querySelectorAll('.filters-bar')[0].querySelectorAll('.filter-btn').forEach(btn => {
-                            btn.classList.remove('active');
-                        });
-
-                        // Filtrar dados
-                        filterAndRender();
-                    }
-
-                    function filterAndRender() {
-                        let filteredMudancas = [...allMudancas];
-
-                        if (currentFilter === 'all') {
-                            // Mostrar todos
-                        } else if (currentFilter === 'custom' && customDateRange) {
-                            // Filtro por data customizada
-                            filteredMudancas = filteredMudancas.filter(m => {
-                                const created = new Date(m.created);
-                                return created >= customDateRange.from && created <= customDateRange.to;
-                            });
-                        } else {
-                            // Filtro por período predefinido (dias)
-                            const cutoffDate = new Date();
-                            cutoffDate.setDate(cutoffDate.getDate() - currentFilter);
-
-                            filteredMudancas = filteredMudancas.filter(m => {
-                                const created = new Date(m.created);
-                                return created >= cutoffDate;
-                            });
-                        }
-
-                        // Filtro por categoria
-                        if (currentCategoryFilter !== 'all') {
-                            if (currentCategoryFilter === 'cancelado') {
-                                // Filtrar por status "Cancelado"
-                                filteredMudancas = filteredMudancas.filter(m => {
-                                    return m.status === 'Cancelado';
-                                });
-                            } else {
-                                // Filtrar por categoria (Normal, Planejada, Emergencial)
-                                const categoryLabel = `tipo:${currentCategoryFilter}`;
-                                filteredMudancas = filteredMudancas.filter(m => {
-                                    const labels = m.labels || [];
-                                    const categoria = m.categoria || '';
-                                    // Verificar tanto pela label quanto pelo campo categoria
-                                    return labels.includes(categoryLabel) ||
-                                        categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
-                                });
-                            }
-                        }
-
-                        // Save filtered data for export
-                        currentFilteredData = filteredMudancas;
-
-                        // Re-renderizar dashboard com dados filtrados
-                        renderDashboard(filteredMudancas);
-                    }
-
-
-                    window.addEventListener('DOMContentLoaded', loadData);
-                </script>
+                setTimeout(loadData, 30000);
+            }
+        }
+
+        function renderDashboard(mudancas) {
+            const stats = calculateStats(mudancas);
+
+            // Métricas principais
+            document.getElementById('metricTotal').textContent = stats.total;
+            document.getElementById('metricAbertas').textContent = stats.abertas;
+            document.getElementById('metricPlanejamento').textContent = stats.planejamento;
+            document.getElementById('metricConcluido').textContent = stats.concluido;
+            document.getElementById('metricCancelado').textContent = stats.cancelado;
+            document.getElementById('metricRejeitado').textContent = stats.rejeitado;
+
+            // Indicadores
+            renderIndicadores(stats, mudancas);
+
+            // Categoria
+            renderCategoria(stats);
+
+            // Gráficos
+            renderCharts(stats);
+
+            // Tabela
+            renderTable(mudancas);
+        }
+
+        function calculateStats(mudancas) {
+            const stats = {
+                total: mudancas.length,
+                abertas: 0,
+                planejamento: 0,
+                concluido: 0,
+                cancelado: 0,
+                rejeitado: 0,
+                statusCount: {},
+                responsaveisCount: {},
+                tipos: { Normal: 0, Emergencial: 0, Planejada: 0 }
+            };
+
+            mudancas.forEach(m => {
+                // Status
+                if (m.status.includes('Planejamento')) stats.planejamento++;
+                else if (m.status.includes('Concluído')) stats.concluido++;
+                else if (m.status.includes('Cancelado')) stats.cancelado++;
+                else if (m.status.includes('Rejeitado')) stats.rejeitado++;
+
+                stats.statusCount[m.status] = (stats.statusCount[m.status] || 0) + 1;
+                stats.responsaveisCount[m.assignee] = (stats.responsaveisCount[m.assignee] || 0) + 1;
+
+                // Tipos
+                const labels = m.labels || [];
+                if (labels.some(l => l.toLowerCase().includes('tipo:normal'))) {
+                    stats.tipos.Normal++;
+                } else if (labels.some(l => l.toLowerCase().includes('tipo:emergencial'))) {
+                    stats.tipos.Emergencial++;
+                } else if (labels.some(l => l.toLowerCase().includes('tipo:planejada'))) {
+                    stats.tipos.Planejada++;
+                }
+            });
+
+            // Calcular abertas (total - finalizadas)
+            stats.abertas = stats.total - stats.concluido - stats.cancelado - stats.rejeitado;
+
+            return stats;
+        }
+
+        function renderIndicadores(stats, mudancas) {
+            // Taxa de Sucesso
+            const taxaSucesso = ((stats.concluido / stats.total) * 100).toFixed(1);
+            document.getElementById('indSucesso').textContent = taxaSucesso + '%';
+            document.getElementById('indSucesso').style.color =
+                taxaSucesso >= 95 ? '#4CAF50' : '#F44336';
+
+            // Emergenciais
+            const emergenciais = mudancas.filter(m =>
+                m.summary?.toLowerCase().includes('emergência') ||
+                m.summary?.toLowerCase().includes('emergencial') ||
+                (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'))
+            ).length;
+            const percEmergencial = ((emergenciais / stats.total) * 100).toFixed(1);
+            document.getElementById('indEmergencial').textContent = percEmergencial + '%';
+            document.getElementById('indEmergencial').style.color =
+                percEmergencial < 10 ? '#4CAF50' : '#F44336';
+
+            // Revertidas
+            const revertidas = mudancas.filter(m =>
+                m.summary?.toLowerCase().includes('rollback') ||
+                m.summary?.toLowerCase().includes('reverter')
+            ).length;
+            const percRevertidas = ((revertidas / stats.total) * 100).toFixed(1);
+            document.getElementById('indRevertidas').textContent = percRevertidas + '%';
+            document.getElementById('indRevertidas').style.color =
+                percRevertidas < 3 ? '#4CAF50' : '#F44336';
+
+            // Aderência aos prazos
+            const nosPrazos = mudancas.filter(m => {
+                const created = new Date(m.created);
+                const diaSemana = created.getDay();
+                const hora = created.getHours();
+                return (diaSemana < 2) || (diaSemana === 2 && hora < 12);
+            }).length;
+            const percPrazos = ((nosPrazos / stats.total) * 100).toFixed(1);
+            document.getElementById('indPrazos').textContent = percPrazos + '%';
+
+            // Tempo médio CAB
+            let totalDias = 0;
+            mudancas.forEach(m => {
+                const created = new Date(m.created);
+                const proximaQuarta = getProximaQuarta14h(created);
+                const dias = (proximaQuarta - created) / (1000 * 60 * 60 * 24);
+                totalDias += dias;
+            });
+            const mediaDias = (totalDias / stats.total).toFixed(1);
+            document.getElementById('indTempoCAB').textContent = mediaDias + ' dias';
+
+            // Incidentes
+            const comIncidentes = mudancas.filter(m => m.causouIncidente === true).length;
+            const percIncidentes = ((comIncidentes / stats.total) * 100).toFixed(1);
+            document.getElementById('indIncidentes').textContent = percIncidentes + '%';
+            document.getElementById('indIncidentes').style.color =
+                percIncidentes < 5 ? '#4CAF50' : '#F44336';
+        }
+
+        function renderCategoria(stats) {
+            const total = stats.total || 1;
+
+            document.getElementById('metricNormal').textContent = stats.tipos.Normal || 0;
+            document.getElementById('percentNormal').textContent =
+                ((stats.tipos.Normal / total) * 100).toFixed(1) + '%';
+
+            document.getElementById('metricEmergencial').textContent = stats.tipos.Emergencial || 0;
+            document.getElementById('percentEmergencial').textContent =
+                ((stats.tipos.Emergencial / total) * 100).toFixed(1) + '%';
+
+            document.getElementById('metricPlanejada').textContent = stats.tipos.Planejada || 0;
+            document.getElementById('percentPlanejada').textContent =
+                ((stats.tipos.Planejada / total) * 100).toFixed(1) + '%';
+        }
+
+        function getProximaQuarta14h(data) {
+            const resultado = new Date(data);
+            const diasAteQuarta = (3 - resultado.getDay() + 7) % 7 || 7;
+            resultado.setDate(resultado.getDate() + diasAteQuarta);
+            resultado.setHours(14, 0, 0, 0);
+            if (resultado <= data) {
+                resultado.setDate(resultado.getDate() + 7);
+            }
+            return resultado;
+        }
+
+        let chartStatus, chartResponsaveis;
+
+        function renderCharts(stats) {
+            // Status
+            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+            if (chartStatus && typeof chartStatus.destroy === "function") chartStatus.destroy();
+
+            chartStatus = new Chart(ctxStatus, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(stats.statusCount),
+                    datasets: [{
+                        label: 'Quantidade',
+                        data: Object.values(stats.statusCount),
+                        backgroundColor: '#D81B60',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Responsáveis
+            const ctxResp = document.getElementById('chartResponsaveis').getContext('2d');
+            if (chartResponsaveis && typeof chartResponsaveis.destroy === "function") chartResponsaveis.destroy();
+
+            const topResponsaveis = Object.entries(stats.responsaveisCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            chartResponsaveis = new Chart(ctxResp, {
+                type: 'bar',
+                data: {
+                    labels: topResponsaveis.map(r => r[0]),
+                    datasets: [{
+                        label: 'Mudanças',
+                        data: topResponsaveis.map(r => r[1]),
+                        backgroundColor: '#FFC107',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderTable(mudancas) {
+            const tbody = document.getElementById('mudancasTableBody');
+            tbody.innerHTML = '';
+
+            mudancas.slice(0, 20).forEach(m => {
+                const created = new Date(m.created).toLocaleDateString('pt-BR');
+                const url = `${JIRA_URL}/browse/${m.key}`;
+
+                let statusClass = 'status-badge ';
+                if (m.status.includes('Concluído')) statusClass += 'status-concluido';
+                else if (m.status.includes('Aguardando')) statusClass += 'status-aguardando';
+                else if (m.status.includes('Cancelado')) statusClass += 'status-cancelado';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
+                        <td>${m.summary}</td>
+                        <td><span class="${statusClass}">${m.status}</span></td>
+                        <td>${m.assignee}</td>
+                        <td>${created}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Carregar ao iniciar
+
+        let currentFilter = 'all';
+        let customDateRange = null;
+        let currentCategoryFilter = 'all';
+
+        
+        function applyCategoryFilter(category) {
+            currentCategoryFilter = category;
+
+            // Atualizar botões ativos - pegar apenas os botões de categoria
+            const categoryButtons = document.querySelectorAll('.filters-bar')[1].querySelectorAll('.filter-btn');
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Aplicar filtros combinados
+            loadData();
+        }
+
+        function applyPeriodFilter(days) {
+            currentFilter = days;
+            customDateRange = null;
+
+            // Atualizar UI dos botões
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Limpar datas customizadas
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+
+            // Filtrar dados
+            filterAndRender();
+        }
+
+        function applyCustomDateFilter() {
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            if (!dateFrom || !dateTo) {
+                alert('Por favor, selecione ambas as datas');
+                return;
+            }
+
+            customDateRange = {
+                from: new Date(dateFrom + 'T00:00:00'),
+                to: new Date(dateTo + 'T23:59:59')
+            };
+            currentFilter = 'custom';
+
+            // Remover active de todos os botões
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Filtrar dados
+            filterAndRender();
+        }
+
+        function filterAndRender() {
+            let filteredMudancas = [...allMudancas];
+
+            if (currentFilter === 'all') {
+                // Mostrar todos
+            } else if (currentFilter === 'custom' && customDateRange) {
+                // Filtro por data customizada
+                filteredMudancas = filteredMudancas.filter(m => {
+                    const created = new Date(m.created);
+                    return created >= customDateRange.from && created <= customDateRange.to;
+                });
+            } else {
+                // Filtro por período predefinido (dias)
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - currentFilter);
+
+                filteredMudancas = filteredMudancas.filter(m => {
+                    const created = new Date(m.created);
+                    return created >= cutoffDate;
+                });
+            }
+
+            // Filtro por categoria
+            if (currentCategoryFilter !== 'all') {
+                if (currentCategoryFilter === 'cancelado') {
+                    // Filtrar por status "Cancelado"
+                    filteredMudancas = allMudancas.filter(m => {
+                        return m.status === 'Cancelado';
+                    });
+                } else {
+                    // Filtrar por categoria (Normal, Planejada, Emergencial)
+                    const categoryLabel = `tipo:${currentCategoryFilter}`;
+                    filteredMudancas = allMudancas.filter(m => {
+                        const labels = m.labels || [];
+                        const categoria = m.categoria || '';
+                        // Verificar tanto pela label quanto pelo campo categoria
+                        return labels.includes(categoryLabel) ||
+                               categoria.toLowerCase() === currentCategoryFilter.toLowerCase();
+                    });
+                }
+            }
+
+            // Re-renderizar dashboard com dados filtrados
+            renderDashboard(filteredMudancas);
+        }
+
+
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
 </body>
-
 </html>

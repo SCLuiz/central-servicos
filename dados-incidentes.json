@@ -1,7 +1,43 @@
 {
-  "ultima_atualizacao": "2026-06-05T11:23:21",
+  "ultima_atualizacao": "2026-06-09T11:23:43",
   "fonte": "Jira Live — OFBI Incident Queue 31 (Ticket category = Incidents)",
   "incidentes": [
+    {
+      "key": "OFBI-4549",
+      "summary": "[SECOPS] Use of living-off-the-land binary to run malicious code",
+      "description": "",
+      "anexos": [
+        {
+          "filename": "image-20260608-144109.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/40324"
+        },
+        {
+          "filename": "image-20260608-144913.png",
+          "url": "https://openfinancebrasil.atlassian.net/rest/api/3/attachment/content/40325"
+        }
+      ],
+      "status": "Concluído",
+      "priority": "low",
+      "created": "2026-06-08T11:32:09.497-0300",
+      "updated": "2026-06-08T16:29:45.136-0300",
+      "resolutiondate": "2026-06-08T11:52:56.954-0300",
+      "assignee": "Alan Marques | Operações SI | Minsait",
+      "sistema_afetado": "Service Desk",
+      "sla_breached": false,
+      "sla_elapsed": "20min",
+      "mttr_seconds": 1247,
+      "mttr_elapsed": "20min",
+      "mttr_breached": false,
+      "tma_seconds": 48,
+      "tma_elapsed": "0min",
+      "tma_breached": false,
+      "csat_rating": "Neutro",
+      "reopened": false,
+      "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
+      "labels": []
+    },
     {
       "key": "OFBI-4532",
       "summary": "Relatar um incidente de sistema",
@@ -23,7 +59,7 @@
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T10:37:03.751-0300",
-      "updated": "2026-05-28T10:56:36.585-0300",
+      "updated": "2026-06-09T11:15:44.959-0300",
       "resolutiondate": "2026-05-28T10:56:36.523-0300",
       "assignee": "Marcos Santana",
       "sistema_afetado": "Teams",
@@ -38,6 +74,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2026-05-19T08:30:00.000-0300",
+      "fim_indisponibilidade": "2026-05-19T09:00:00.000-0300",
       "labels": []
     },
     {
@@ -53,7 +91,7 @@
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T08:35:14.882-0300",
-      "updated": "2026-05-28T08:49:56.840-0300",
+      "updated": "2026-06-09T11:15:18.086-0300",
       "resolutiondate": "2026-05-28T08:49:56.755-0300",
       "assignee": "Marcos Santana",
       "sistema_afetado": "Teams",
@@ -68,6 +106,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2026-05-21T10:00:00.000-0300",
+      "fim_indisponibilidade": "2026-05-21T10:30:00.000-0300",
       "labels": []
     },
     {
@@ -83,7 +123,7 @@
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T08:31:50.069-0300",
-      "updated": "2026-05-28T08:50:07.388-0300",
+      "updated": "2026-06-09T11:16:48.654-0300",
       "resolutiondate": "2026-05-28T08:50:07.345-0300",
       "assignee": "Marcos Santana",
       "sistema_afetado": "Teams",
@@ -98,6 +138,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2026-05-21T10:00:00.000-0300",
+      "fim_indisponibilidade": "2026-06-21T10:30:00.000-0300",
       "labels": []
     },
     {
@@ -117,7 +159,7 @@
       "status": "Concluído",
       "priority": "low",
       "created": "2026-05-28T07:21:57.242-0300",
-      "updated": "2026-05-28T07:29:52.764-0300",
+      "updated": "2026-06-09T11:17:39.339-0300",
       "resolutiondate": "2026-05-28T07:26:32.354-0300",
       "assignee": "Luiz Santos",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
@@ -132,6 +174,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-05-22T11:00:00.000-0300",
+      "fim_indisponibilidade": "2026-05-22T15:00:00.000-0300",
       "labels": []
     },
     {
@@ -156,16 +200,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Diretório Central",
       "sla_breached": true,
-      "sla_elapsed": "149h42min",
-      "mttr_seconds": 538965,
-      "mttr_elapsed": "149h42min",
+      "sla_elapsed": "167h43min",
+      "mttr_seconds": 603791,
+      "mttr_elapsed": "167h43min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "169h42min",
+      "tma_elapsed": "189h43min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-05-07T11:00:00.000-0300",
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -204,6 +250,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-05-11T08:30:00.000-0300",
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -229,6 +277,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -254,6 +304,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-05-01T10:30:00.000-0300",
+      "fim_indisponibilidade": "2026-05-01T13:30:00.000-0300",
       "labels": []
     },
     {
@@ -288,6 +340,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-04-17T14:00:00.000-0300",
+      "fim_indisponibilidade": "2026-04-17T15:00:00.000-0300",
       "labels": []
     },
     {
@@ -318,6 +372,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-04-18T15:00:00.000-0300",
+      "fim_indisponibilidade": "2026-04-18T16:00:00.000-0300",
       "labels": []
     },
     {
@@ -343,6 +399,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-04-18T13:30:00.000-0300",
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -368,6 +426,8 @@
       "csat_rating": "Positivo",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-04-14T17:30:00.000-0300",
+      "fim_indisponibilidade": "2026-04-15T14:00:00.000-0300",
       "labels": []
     },
     {
@@ -398,6 +458,8 @@
       "csat_rating": "Positivo",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2026-04-14T10:00:00.000-0300",
+      "fim_indisponibilidade": "2026-04-14T11:00:00.000-0300",
       "labels": []
     },
     {
@@ -423,6 +485,8 @@
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -448,6 +512,8 @@
       "csat_rating": "Positivo",
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -473,6 +539,8 @@
       "csat_rating": "Positivo",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -488,16 +556,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "882h55min",
-      "mttr_seconds": 3178532,
-      "mttr_elapsed": "882h55min",
+      "sla_elapsed": "900h55min",
+      "mttr_seconds": 3243358,
+      "mttr_elapsed": "900h55min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "983h55min",
+      "tma_elapsed": "1003h55min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -518,16 +588,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Portal Open Finance Brasil",
       "sla_breached": true,
-      "sla_elapsed": "1225h39min",
-      "mttr_seconds": 4412384,
-      "mttr_elapsed": "1225h39min",
+      "sla_elapsed": "1243h40min",
+      "mttr_seconds": 4477210,
+      "mttr_elapsed": "1243h40min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "1364h39min",
+      "tma_elapsed": "1384h40min",
       "tma_breached": true,
       "csat_rating": "Neutro",
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -548,9 +620,9 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "2664h38min",
-      "mttr_seconds": 9592685,
-      "mttr_elapsed": "2664h38min",
+      "sla_elapsed": "2682h38min",
+      "mttr_seconds": 9657511,
+      "mttr_elapsed": "2682h38min",
       "mttr_breached": true,
       "tma_seconds": 12360,
       "tma_elapsed": "3h26min",
@@ -558,6 +630,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -578,16 +652,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "Service Desk",
       "sla_breached": true,
-      "sla_elapsed": "2811h52min",
-      "mttr_seconds": 10122750,
-      "mttr_elapsed": "2811h52min",
+      "sla_elapsed": "2829h52min",
+      "mttr_seconds": 10187576,
+      "mttr_elapsed": "2829h52min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3127h52min",
+      "tma_elapsed": "3147h52min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -618,6 +694,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -702,9 +780,9 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2838h29min",
-      "mttr_seconds": 10218588,
-      "mttr_elapsed": "2838h29min",
+      "sla_elapsed": "2856h30min",
+      "mttr_seconds": 10283414,
+      "mttr_elapsed": "2856h30min",
       "mttr_breached": true,
       "tma_seconds": 12241,
       "tma_elapsed": "3h24min",
@@ -712,6 +790,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -732,16 +812,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2838h45min",
-      "mttr_seconds": 10219545,
-      "mttr_elapsed": "2838h45min",
+      "sla_elapsed": "2856h46min",
+      "mttr_seconds": 10284370,
+      "mttr_elapsed": "2856h46min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3157h45min",
+      "tma_elapsed": "3177h46min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -757,16 +839,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2848h42min",
-      "mttr_seconds": 10255348,
-      "mttr_elapsed": "2848h42min",
+      "sla_elapsed": "2866h42min",
+      "mttr_seconds": 10320174,
+      "mttr_elapsed": "2866h42min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3168h42min",
+      "tma_elapsed": "3188h42min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -787,16 +871,18 @@
       "assignee": "Marcos Santana",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "sla_breached": true,
-      "sla_elapsed": "2867h27min",
-      "mttr_seconds": 10322843,
-      "mttr_elapsed": "2867h27min",
+      "sla_elapsed": "2885h27min",
+      "mttr_seconds": 10387669,
+      "mttr_elapsed": "2885h27min",
       "mttr_breached": true,
       "tma_seconds": 0,
-      "tma_elapsed": "3189h27min",
+      "tma_elapsed": "3209h27min",
       "tma_breached": true,
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -822,6 +908,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -852,6 +940,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -882,6 +972,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -912,6 +1004,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -942,6 +1036,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -972,6 +1068,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1002,6 +1100,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1032,6 +1132,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1062,6 +1164,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1092,6 +1196,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1122,6 +1228,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2023-11-14T13:54:00.000-0300",
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1160,6 +1268,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1194,6 +1304,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1219,6 +1331,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1249,6 +1363,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1279,6 +1395,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1309,6 +1427,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -1334,6 +1454,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-31T16:19:00.000-0300",
+      "fim_indisponibilidade": "2023-05-31T16:22:00.000-0300",
       "labels": []
     },
     {
@@ -1359,6 +1481,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-29T17:49:00.000-0300",
+      "fim_indisponibilidade": "2023-05-29T17:52:00.000-0300",
       "labels": []
     },
     {
@@ -1384,6 +1508,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-27T02:00:00.000-0300",
+      "fim_indisponibilidade": "2023-05-27T02:05:00.000-0300",
       "labels": []
     },
     {
@@ -1409,6 +1535,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-26T09:25:00.000-0300",
+      "fim_indisponibilidade": "2023-05-26T09:28:00.000-0300",
       "labels": []
     },
     {
@@ -1434,6 +1562,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-25T12:06:00.000-0300",
+      "fim_indisponibilidade": "2023-05-25T12:09:00.000-0300",
       "labels": []
     },
     {
@@ -1459,6 +1589,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-12T10:22:00.000-0300",
+      "fim_indisponibilidade": "2023-05-12T10:26:00.000-0300",
       "labels": []
     },
     {
@@ -1484,6 +1616,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-10T09:18:00.000-0300",
+      "fim_indisponibilidade": "2023-05-10T09:25:00.000-0300",
       "labels": []
     },
     {
@@ -1509,6 +1643,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-07T06:05:00.000-0300",
+      "fim_indisponibilidade": "2023-05-07T06:09:00.000-0300",
       "labels": []
     },
     {
@@ -1534,6 +1670,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-05-03T13:30:00.000-0300",
+      "fim_indisponibilidade": "2023-05-03T13:34:00.000-0300",
       "labels": []
     },
     {
@@ -1559,6 +1697,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-25T13:24:00.000-0300",
+      "fim_indisponibilidade": "2023-04-25T14:16:00.000-0300",
       "labels": []
     },
     {
@@ -1584,6 +1724,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T13:31:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T13:34:00.000-0300",
       "labels": []
     },
     {
@@ -1609,6 +1751,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T12:12:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T12:16:00.000-0300",
       "labels": []
     },
     {
@@ -1634,6 +1778,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:54:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T12:11:00.000-0300",
       "labels": []
     },
     {
@@ -1659,6 +1805,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:48:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T11:50:00.000-0300",
       "labels": []
     },
     {
@@ -1684,6 +1832,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:33:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T11:42:00.000-0300",
       "labels": []
     },
     {
@@ -1709,6 +1859,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:30:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T11:32:00.000-0300",
       "labels": []
     },
     {
@@ -1734,6 +1886,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:10:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T11:18:00.000-0300",
       "labels": []
     },
     {
@@ -1759,6 +1913,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-24T11:05:00.000-0300",
+      "fim_indisponibilidade": "2023-04-24T11:08:00.000-0300",
       "labels": []
     },
     {
@@ -1784,6 +1940,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-13T03:12:00.000-0300",
+      "fim_indisponibilidade": "2023-04-13T03:17:00.000-0300",
       "labels": []
     },
     {
@@ -1809,6 +1967,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-06T08:52:00.000-0300",
+      "fim_indisponibilidade": "2023-04-06T08:55:00.000-0300",
       "labels": []
     },
     {
@@ -1834,6 +1994,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-06T08:40:00.000-0300",
+      "fim_indisponibilidade": "2023-04-06T08:48:00.000-0300",
       "labels": []
     },
     {
@@ -1859,6 +2021,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-04T16:59:00.000-0300",
+      "fim_indisponibilidade": "2023-04-04T17:07:00.000-0300",
       "labels": []
     },
     {
@@ -1884,6 +2048,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-04-04T16:54:00.000-0300",
+      "fim_indisponibilidade": "2023-04-04T16:58:00.000-0300",
       "labels": []
     },
     {
@@ -1909,6 +2075,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2023-04-04T09:42:00.000-0300",
+      "fim_indisponibilidade": "2023-04-05T11:52:00.000-0300",
       "labels": []
     },
     {
@@ -1934,6 +2102,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-24T22:22:00.000-0300",
+      "fim_indisponibilidade": "2023-03-24T22:37:00.000-0300",
       "labels": []
     },
     {
@@ -1959,6 +2129,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-14T18:55:00.000-0300",
+      "fim_indisponibilidade": "2023-03-14T19:03:00.000-0300",
       "labels": []
     },
     {
@@ -1984,6 +2156,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": null,
+      "fim_indisponibilidade": null,
       "labels": []
     },
     {
@@ -2009,6 +2183,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-10T13:02:00.000-0300",
+      "fim_indisponibilidade": "2023-03-10T13:05:00.000-0300",
       "labels": []
     },
     {
@@ -2034,6 +2210,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-09T19:10:00.000-0300",
+      "fim_indisponibilidade": "2023-03-09T19:20:00.000-0300",
       "labels": []
     },
     {
@@ -2059,6 +2237,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-06T05:55:00.000-0300",
+      "fim_indisponibilidade": "2023-03-06T06:05:00.000-0300",
       "labels": []
     },
     {
@@ -2084,6 +2264,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-03-02T09:21:00.000-0300",
+      "fim_indisponibilidade": "2023-03-02T09:37:00.000-0300",
       "labels": []
     },
     {
@@ -2109,6 +2291,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-26T00:10:00.000-0300",
+      "fim_indisponibilidade": "2023-02-26T00:15:00.000-0300",
       "labels": []
     },
     {
@@ -2134,6 +2318,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2023-02-26T00:00:00.000-0300",
+      "fim_indisponibilidade": "2023-03-04T00:00:00.000-0300",
       "labels": []
     },
     {
@@ -2159,6 +2345,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": false,
+      "inicio_indisponibilidade": "2023-02-18T20:05:00.000-0300",
+      "fim_indisponibilidade": "2023-02-19T04:55:00.000-0300",
       "labels": []
     },
     {
@@ -2184,6 +2372,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-17T15:55:00.000-0300",
+      "fim_indisponibilidade": "2023-02-17T16:15:00.000-0300",
       "labels": []
     },
     {
@@ -2209,6 +2399,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-16T14:30:00.000-0300",
+      "fim_indisponibilidade": "2023-02-16T14:35:00.000-0300",
       "labels": []
     },
     {
@@ -2234,6 +2426,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-13T23:30:00.000-0300",
+      "fim_indisponibilidade": "2023-02-13T23:40:00.000-0300",
       "labels": []
     },
     {
@@ -2259,6 +2453,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-13T11:45:00.000-0300",
+      "fim_indisponibilidade": "2023-02-13T11:55:00.000-0300",
       "labels": []
     },
     {
@@ -2284,6 +2480,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-12T18:00:00.000-0300",
+      "fim_indisponibilidade": "2023-02-12T18:05:00.000-0300",
       "labels": []
     },
     {
@@ -2309,6 +2507,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-02-10T16:00:00.000-0300",
+      "fim_indisponibilidade": "2023-02-10T16:05:00.000-0300",
       "labels": []
     },
     {
@@ -2334,6 +2534,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-01-27T19:55:00.000-0300",
+      "fim_indisponibilidade": "2023-01-27T20:00:00.000-0300",
       "labels": []
     },
     {
@@ -2359,6 +2561,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-01-26T08:15:00.000-0300",
+      "fim_indisponibilidade": "2023-01-26T08:20:00.000-0300",
       "labels": []
     },
     {
@@ -2384,6 +2588,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-01-20T20:20:00.000-0300",
+      "fim_indisponibilidade": "2023-01-20T20:25:00.000-0300",
       "labels": []
     },
     {
@@ -2409,6 +2615,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-01-20T16:25:00.000-0300",
+      "fim_indisponibilidade": "2023-01-20T18:10:00.000-0300",
       "labels": []
     },
     {
@@ -2434,6 +2642,8 @@
       "csat_rating": null,
       "reopened": false,
       "fcr": true,
+      "inicio_indisponibilidade": "2023-01-19T12:15:00.000-0300",
+      "fim_indisponibilidade": "2023-01-19T13:00:00.000-0300",
       "labels": []
     }
   ]

@@ -2,7 +2,7 @@ name: Atualizar Dashboard de Incidentes
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
   push:
     branches:

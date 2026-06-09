@@ -1353,15 +1353,10 @@
                 const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
                 if (monthlyData[ck]) {
                     monthlyData[ck].created++;
-                }
-
-                const ud = new Date(m.updated || m.created);
-                const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-                if (monthlyData[uk]) {
                     if (m.status && m.status.includes('Concluído')) {
-                        monthlyData[uk].resolved++;
+                        monthlyData[ck].resolved++;
                     } else if (m.status && m.status.includes('Cancelado')) {
-                        monthlyData[uk].cancelled++;
+                        monthlyData[ck].cancelled++;
                     }
                 }
             });
@@ -1790,15 +1785,11 @@
                                 const summaryLower = (m.summary || '').toLowerCase();
                                 const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
                                 if (isReverted) stats[ck].revertidas++;
+                                
+                                if (m.status && m.status.includes('Concluído')) {
+                                    stats[ck].resolved++;
+                                }
                             }
-                        }
-                    }
-                    if (m.updated && m.status && m.status.includes('Concluído')) {
-                        const ud = new Date(m.updated);
-                        const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-                        const cd = m.created ? new Date(m.created) : null;
-                        if (selectedComparisonMonths.has(uk) && (!cd || cd >= cutoffDate)) {
-                            stats[uk].resolved++;
                         }
                     }
                 });
@@ -1830,15 +1821,11 @@
                                 const summaryLower = (m.summary || '').toLowerCase();
                                 const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
                                 if (isReverted) stats[yk].revertidas++;
+                                
+                                if (m.status && m.status.includes('Concluído')) {
+                                    stats[yk].resolved++;
+                                }
                             }
-                        }
-                    }
-                    if (m.updated && m.status && m.status.includes('Concluído')) {
-                        const ud = new Date(m.updated);
-                        const yk = ud.getFullYear().toString();
-                        const cd = m.created ? new Date(m.created) : null;
-                        if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
-                            stats[yk].resolved++;
                         }
                     }
                 });

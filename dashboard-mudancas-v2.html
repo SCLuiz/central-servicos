@@ -902,6 +902,8 @@
                                 <th style="width: 110px;">Status</th>
                                 <th style="width: 110px;">Categoria</th>
                                 <th>Responsável</th>
+                                <th style="width: 120px;">Início Planejado</th>
+                                <th style="width: 120px;">Conclusão Planejada</th>
                                 <th style="width: 110px;">Criado em</th>
                             </tr>
                         </thead>
@@ -1403,6 +1405,9 @@
                     catLabel = 'Normal';
                 }
 
+                const inicioVal = m.inicio_planejado ? new Date(m.inicio_planejado).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+                const conclusaoVal = m.conclusao_planejada ? new Date(m.conclusao_planejada).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+
                 tbody.innerHTML += `
                     <tr>
                         <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
@@ -1410,6 +1415,8 @@
                         <td><span class="${statusClass}">${m.status}</span></td>
                         <td><span class="${catClass}">${catLabel}</span></td>
                         <td>${m.assignee}</td>
+                        <td>${inicioVal}</td>
+                        <td>${conclusaoVal}</td>
                         <td>${created}</td>
                     </tr>
                 `;
@@ -1424,6 +1431,8 @@
                 'Status': m.status,
                 'Categoria': m.categoria || 'normal',
                 'Responsável': m.assignee,
+                'Início Planejado': m.inicio_planejado ? new Date(m.inicio_planejado).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—',
+                'Conclusão Planejada': m.conclusao_planejada ? new Date(m.conclusao_planejada).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—',
                 'Criado em': m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—',
                 'Causou Incidente': m.causouIncidente ? 'Sim' : 'Não'
             }));
@@ -1445,13 +1454,15 @@
             doc.line(14, 33, 196, 33);
 
             doc.autoTable({
-                head: [['ID', 'Descrição', 'Status', 'Categoria', 'Responsável', 'Criado em']],
+                head: [['ID', 'Descrição', 'Status', 'Categoria', 'Responsável', 'Início Planejado', 'Conclusão Planejada', 'Criado em']],
                 body: currentFilteredData.map(m => [
                     m.key, m.summary, m.status, m.categoria || 'normal', m.assignee,
+                    m.inicio_planejado ? new Date(m.inicio_planejado).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—',
+                    m.conclusao_planejada ? new Date(m.conclusao_planejada).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—',
                     m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—'
                 ]),
                 startY: 40,
-                styles: { fontSize: 8 },
+                styles: { fontSize: 7 },
                 headStyles: { fillColor: [221, 36, 155] }
             });
             doc.save(`Relatorio_Mudancas_${new Date().toISOString().slice(0,10)}.pdf`);

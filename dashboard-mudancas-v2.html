@@ -1077,23 +1077,27 @@
             const elMetricAguardando = document.getElementById('metricAguardando');
             if (elMetricAguardando) elMetricAguardando.textContent = stats.statusCount['Aguardando CAB'] || stats.statusCount['Aguardando'] || 0;
 
-            // Gráfico Donut de Taxa de Sucesso
-            const taxaSucesso = ((stats.concluido / total) * 100);
+            // Gráfico Donut de Taxa de Sucesso (Exclui canceladas e em andamento, calcula apenas sobre executadas)
+            const totalExecutadas = stats.concluido;
+            const taxaSucesso = totalExecutadas > 0 ? (((totalExecutadas - stats.revertidas) / totalExecutadas) * 100) : 100;
             const elSuccessCenterValue = document.getElementById('successCenterValue');
             if (elSuccessCenterValue) elSuccessCenterValue.textContent = taxaSucesso.toFixed(1) + '%';
             
             const elSuccessOkVal = document.getElementById('successOkVal');
-            if (elSuccessOkVal) elSuccessOkVal.textContent = stats.concluido;
+            if (elSuccessOkVal) elSuccessOkVal.textContent = totalExecutadas - stats.revertidas;
             const elSuccessFailVal = document.getElementById('successFailVal');
             if (elSuccessFailVal) elSuccessFailVal.textContent = stats.revertidas;
 
+            // Base para indicadores gerais excluindo canceladas
+            const totalValidas = total - stats.cancelado || 1;
+
             // Renderiza Tabela de Indicadores (KPIs)
-            const rateEmergenciais = (stats.emergenciais / total) * 100;
-            const rateRevertidas = (stats.revertidas / total) * 100;
-            const ratePrazos = (stats.aderentesPrazo / total) * 100;
-            const mediaCAB = stats.total > 0 ? (stats.tempoCABTotal / stats.total) : 0;
+            const rateEmergenciais = (stats.emergenciais / totalValidas) * 100;
+            const rateRevertidas = totalExecutadas > 0 ? ((stats.revertidas / totalExecutadas) * 100) : 0;
+            const ratePrazos = (stats.aderentesPrazo / totalValidas) * 100;
+            const mediaCAB = (stats.total - stats.cancelado) > 0 ? (stats.tempoCABTotal / (stats.total - stats.cancelado)) : 0;
             const incidentesCausados = mudancas.filter(m => m.causouIncidente === true).length;
-            const rateIncidentes = (incidentesCausados / total) * 100;
+            const rateIncidentes = totalExecutadas > 0 ? ((incidentesCausados / totalExecutadas) * 100) : 0;
 
             const indicators = [
                 {
@@ -1274,7 +1278,7 @@
             const ctxSuccess = document.getElementById('chartSuccessRate').getContext('2d');
             if (chartSuccessRate) chartSuccessRate.destroy();
             
-            const rateOk = stats.concluido;
+            const rateOk = stats.concluido - stats.revertidas;
             const rateFail = stats.revertidas;
             chartSuccessRate = new Chart(ctxSuccess, {
                 type: 'doughnut',

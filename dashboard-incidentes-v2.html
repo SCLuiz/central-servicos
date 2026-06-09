@@ -704,7 +704,6 @@
                             <table class="card-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 65px;">Ref</th>
                                         <th>Indicador</th>
                                         <th style="width: 80px;">Meta</th>
                                         <th style="width: 60px;">Valor</th>
@@ -880,7 +879,8 @@
                 
                 // Reopen (IND-INC-006) and FCR (IND-INC-007)
                 reopenedCount: 0,
-                fcrCount: 0
+                fcrCount: 0,
+                concluidoSlaBreached: 0
             };
 
             incidentes.forEach(i => {
@@ -918,6 +918,7 @@
 
                 // MTTR calculations (resolved incidentes only)
                 if (s.includes('Concluído')) {
+                    if (i.sla_breached) stats.concluidoSlaBreached++;
                     if (i.mttr_seconds !== undefined && i.mttr_seconds > 0) {
                         stats.mttrSecondsTotal += i.mttr_seconds;
                         stats.mttrCount++;
@@ -978,7 +979,7 @@
                 return m ? `${h}h${('0' + m).slice(-2)}min` : `${h}h`;
             };
 
-            const rateResolvidosSLA = stats.concluido > 0 ? (((stats.concluido - stats.slaBreached) / stats.concluido) * 100) : 100;
+            const rateResolvidosSLA = stats.concluido > 0 ? (((stats.concluido - stats.concluidoSlaBreached) / stats.concluido) * 100) : 100;
             const rateCSAT = stats.csatTotal > 0 ? ((stats.csatPositive / stats.csatTotal) * 100) : 0;
             const rateReabertura = stats.total > 0 ? ((stats.reopenedCount / stats.total) * 100) : 0;
             const rateFCR = stats.concluido > 0 ? ((stats.fcrCount / stats.concluido) * 100) : 0;
@@ -1022,7 +1023,7 @@
                     value: stats.mttrCount > 0 ? formatTime(stats.mttrSecondsTotal / stats.mttrCount) : '—',
                     meta: 'P1 <1h | P2 <2h | P3 <10h',
                     desc: 'Tempo comercial entre abertura e conclusão do incidente.',
-                    status: stats.slaBreached === 0 ? 'meta-ok' : stats.slaBreached <= stats.total * 0.15 ? 'meta-warn' : 'meta-crit'
+                    status: stats.concluidoSlaBreached === 0 ? 'meta-ok' : stats.concluidoSlaBreached <= stats.concluido * 0.15 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-006',
@@ -1074,8 +1075,10 @@
 
                     indTbody.innerHTML += `
                         <tr>
-                            <td><span class="kpi-ref">${ind.ref}</span></td>
-                            <td style="font-weight: 600;" title="${ind.desc}">${ind.title}</td>
+                            <td style="font-weight: 600;" title="${ind.desc}">
+                                <span class="kpi-ref" style="margin-right: 6px;">${ind.ref}</span>
+                                ${ind.title}
+                            </td>
                             <td style="color: var(--of-text-secondary); font-weight: 500;">${ind.meta}</td>
                             <td style="font-weight: 700;">${ind.value}</td>
                             <td style="text-align: center;">${statusBadge}</td>

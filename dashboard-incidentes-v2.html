@@ -1084,6 +1084,38 @@
                 if (i.reopened) stats.reopenedCount++;
             });
 
+            // MTTF calculation
+            stats.mttfSeconds = 0;
+            const failures = incidentes
+                .map(i => {
+                    const startStr = i.inicio_indisponibilidade || i.created;
+                    const endStr = i.fim_indisponibilidade || i.resolutiondate || i.updated;
+                    if (!startStr) return null;
+                    return {
+                        start: new Date(startStr),
+                        end: endStr ? new Date(endStr) : new Date(startStr)
+                    };
+                })
+                .filter(f => f !== null && !isNaN(f.start.getTime()) && !isNaN(f.end.getTime()))
+                .sort((a, b) => a.start - b.start);
+
+            if (failures.length > 1) {
+                let totalUptimeMs = 0;
+                let count = 0;
+                for (let idx = 1; idx < failures.length; idx++) {
+                    const prev = failures[idx - 1];
+                    const curr = failures[idx];
+                    const uptime = curr.start - prev.end;
+                    if (uptime > 0) {
+                        totalUptimeMs += uptime;
+                        count++;
+                    }
+                }
+                if (count > 0) {
+                    stats.mttfSeconds = (totalUptimeMs / count) / 1000;
+                }
+            }
+
             return stats;
         }
 
@@ -1121,6 +1153,17 @@
                 const h = Math.floor(mins / 60);
                 const m = mins % 60;
                 return m ? `${h}h${('0' + m).slice(-2)}min` : `${h}h`;
+            };
+
+            // Formatação amigável de tempo em dias/horas para MTTF
+            const formatMTTF = (secs) => {
+                if (secs === undefined || secs === null || secs <= 0) return '—';
+                const hours = secs / 3600;
+                if (hours < 24) {
+                    return Math.round(hours) + 'h';
+                }
+                const days = hours / 24;
+                return days.toFixed(1) + ' dias';
             };
 
             const rateResolvidosSLA = stats.concluido > 0 ? (((stats.concluido - stats.concluidoSlaBreached) / stats.concluido) * 100) : 100;
@@ -1200,6 +1243,14 @@
                     meta: '<= 5',
                     desc: 'Total de incidentes de prioridade Crítica criados.',
                     status: stats.critical <= 5 ? 'meta-ok' : stats.critical <= 10 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    ref: 'IND-INC-010',
+                    title: 'MTTF Médio entre Incidentes',
+                    value: stats.mttfSeconds > 0 ? formatMTTF(stats.mttfSeconds) : '—',
+                    meta: '> 15 dias',
+                    desc: 'Tempo médio de estabilidade operacional entre o fim de um incidente e o início do próximo.',
+                    status: stats.mttfSeconds >= 15 * 86400 ? 'meta-ok' : stats.mttfSeconds >= 7 * 86400 ? 'meta-warn' : 'meta-crit'
                 }
             ];
 

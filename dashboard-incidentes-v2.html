@@ -939,6 +939,21 @@
         let allIncidentes = [];
         let currentFilteredData = [];
 
+        function getIncidentMTTRSeconds(i) {
+            if (i.inicio_indisponibilidade && i.fim_indisponibilidade) {
+                const start = new Date(i.inicio_indisponibilidade);
+                const end = new Date(i.fim_indisponibilidade);
+                const diffMs = end - start;
+                if (diffMs >= 0) {
+                    return diffMs / 1000;
+                }
+            }
+            if (i.mttr_seconds !== undefined && i.mttr_seconds > 0) {
+                return i.mttr_seconds;
+            }
+            return 0;
+        }
+
         async function loadData() {
             try {
                 const response = await fetch('dados-incidentes.json?t=' + Date.now());
@@ -1047,10 +1062,11 @@
                 // MTTR calculations (resolved incidentes only)
                 if (s.includes('Concluído')) {
                     if (i.sla_breached) stats.concluidoSlaBreached++;
-                    if (i.mttr_seconds !== undefined && i.mttr_seconds > 0) {
-                        stats.mttrSecondsTotal += i.mttr_seconds;
+                    const mttrSec = getIncidentMTTRSeconds(i);
+                    if (mttrSec > 0) {
+                        stats.mttrSecondsTotal += mttrSec;
                         stats.mttrCount++;
-                        stats.mttrPrioTotal[p] = (stats.mttrPrioTotal[p] || 0) + i.mttr_seconds;
+                        stats.mttrPrioTotal[p] = (stats.mttrPrioTotal[p] || 0) + mttrSec;
                         stats.mttrPrioCount[p] = (stats.mttrPrioCount[p] || 0) + 1;
                     }
                     if (i.fcr) stats.fcrCount++;
@@ -1150,7 +1166,7 @@
                     title: 'MTTR Médio de Resolução',
                     value: stats.mttrCount > 0 ? formatTime(stats.mttrSecondsTotal / stats.mttrCount) : '—',
                     meta: 'P1 <1h | P2 <2h | P3 <10h',
-                    desc: 'Tempo comercial entre abertura e conclusão do incidente.',
+                    desc: 'Tempo médio de indisponibilidade (Início ao Fim da Indisponibilidade) com fallback para criação/conclusão.',
                     status: stats.concluidoSlaBreached === 0 ? 'meta-ok' : stats.concluidoSlaBreached <= stats.concluido * 0.15 ? 'meta-warn' : 'meta-crit'
                 },
                 {
@@ -1530,7 +1546,7 @@
             if (!currentFilteredData.length) { alert('Sem dados para exportar.'); return; }
             const rows = currentFilteredData.map(i => {
                 const isResolved = i.status && i.status.includes('Concluído');
-                const mttrSec = i.mttr_seconds || 0;
+                const mttrSec = getIncidentMTTRSeconds(i);
                 // Valor em fração de dia para o Excel entender como tempo/duração (se resolvido)
                 const tempoResolucao = (isResolved && mttrSec > 0) ? (mttrSec / 86400) : '';
 

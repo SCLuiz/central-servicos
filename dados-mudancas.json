@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-11T06:27:51.744185",
+  "ultima_atualizacao": "2026-06-11T11:10:38.901211",
   "total": 29,
   "mudancas": [
     {
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4551",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Planejamento",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-08T16:01:46.756-0300",
-      "updated": "2026-06-10T15:54:52.273-0300",
+      "updated": "2026-06-11T08:09:21.239-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

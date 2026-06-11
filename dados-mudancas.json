@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-11T11:10:38.901211",
+  "ultima_atualizacao": "2026-06-11T14:54:27.667962",
   "total": 29,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4554",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Santos",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Higor Santos",
       "created": "2026-06-09T11:59:16.555-0300",
-      "updated": "2026-06-10T16:24:27.268-0300",
+      "updated": "2026-06-11T09:22:41.300-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

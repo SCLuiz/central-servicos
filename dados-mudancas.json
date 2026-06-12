@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-06-12T19:58:44.447988",
-  "total": 30,
+  "ultima_atualizacao": "2026-06-12T21:53:34.843921",
+  "total": 31,
   "mudancas": [
+    {
+      "key": "OFBI-4563",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-06-12T18:43:01.175-0300",
+      "updated": "2026-06-12T18:43:01.360-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4560",
       "summary": "Solicitação de Mudanças",

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-15T13:36:06.195672",
+  "ultima_atualizacao": "2026-06-15T18:13:52.866502",
   "total": 31,
   "mudancas": [
     {
@@ -20,10 +20,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T09:57:36.515-0300",
-      "updated": "2026-06-12T09:57:41.104-0300",
+      "updated": "2026-06-15T13:33:42.184-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4558",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-06-09T19:03:40.153-0300",
-      "updated": "2026-06-09T19:03:40.280-0300",
+      "updated": "2026-06-15T14:58:51.526-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4554",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-06-09T11:59:16.555-0300",
-      "updated": "2026-06-11T09:22:41.300-0300",
+      "updated": "2026-06-15T15:01:04.580-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -70,12 +70,12 @@
     {
       "key": "OFBI-4551",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Cancelado",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-08T16:01:46.756-0300",
-      "updated": "2026-06-11T08:09:21.239-0300",
+      "updated": "2026-06-15T13:32:13.781-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

@@ -20,16 +20,5 @@
     "status_dot": "dot-info",
     "date": "12/06/2026 18:43",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4563"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4552",
-    "title": "OFBI-4552 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "09/06/2026 10:07",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4552"
   }
 ]

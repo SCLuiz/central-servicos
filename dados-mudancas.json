@@ -1,7 +1,46 @@
 {
-  "ultima_atualizacao": "2026-06-16T12:22:28.687711",
-  "total": 31,
+  "ultima_atualizacao": "2026-06-16T17:27:49.557228",
+  "total": 34,
   "mudancas": [
+    {
+      "key": "OFBI-4570",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-06-16T11:59:35.608-0300",
+      "updated": "2026-06-16T11:59:35.741-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4569",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-06-16T11:42:40.926-0300",
+      "updated": "2026-06-16T11:45:53.661-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4568",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Sabrina Thieghi",
+      "created": "2026-06-16T11:42:21.514-0300",
+      "updated": "2026-06-16T12:00:13.995-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4563",
       "summary": "Solicitação de Mudanças",

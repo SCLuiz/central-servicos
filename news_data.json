@@ -1,6 +1,39 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4568",
+    "title": "OFBI-4568 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "16/06/2026 12:00",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4568"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4570",
+    "title": "OFBI-4570 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "16/06/2026 11:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4570"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4569",
+    "title": "OFBI-4569 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "16/06/2026 11:45",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4569"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4560",
     "title": "OFBI-4560 - Solicitação de Mudanças",
     "type_name": "Mudança",

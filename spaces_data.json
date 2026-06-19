@@ -27,13 +27,13 @@
     "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/CO/overview"
   },
   {
-    "name": "Diretoria de Tecnologia e Operações",
+    "name": "Diretoria de Experiência e Tecnologia",
     "key": "DTO",
     "url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO",
-    "icon": "https://openfinancebrasil.atlassian.net/wiki/download/attachments/56819720/DTO?version=2&modificationDate=1679434490060&cacheVersion=1&api=v2",
+    "icon": "https://openfinancebrasil.atlassian.net/wiki/download/attachments/56819720/DTO?version=3&modificationDate=1781894308418&cacheVersion=1&api=v2",
     "description": "Espaço corporativo Open Finance Brasil",
-    "latest_title": "Migração Pipeline Open-Trust para OIDC Assume Role",
-    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO/pages/1837924427/Migra+o+Pipeline+Open-Trust+para+OIDC+Assume+Role"
+    "latest_title": "Experiência e Produtos",
+    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO/pages/92340544/Experi+ncia+e+Produtos"
   },
   {
     "name": "Docmentação do Portal Público",

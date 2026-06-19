@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-06-19T18:24:19.591294",
-  "total": 34,
+  "ultima_atualizacao": "2026-06-19T20:12:42.232616",
+  "total": 36,
   "mudancas": [
+    {
+      "key": "OFBI-4585",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-06-19T15:38:03.668-0300",
+      "updated": "2026-06-19T16:29:38.121-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
+    {
+      "key": "OFBI-4584",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando Implantação",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-06-19T15:29:25.155-0300",
+      "updated": "2026-06-19T16:29:32.433-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-4570",
       "summary": "Solicitação de Mudanças",

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-22T10:29:00.701580",
+  "ultima_atualizacao": "2026-06-22T15:36:18.851608",
   "total": 36,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-06-19T15:38:03.668-0300",
-      "updated": "2026-06-19T16:29:38.121-0300",
+      "updated": "2026-06-22T11:17:34.380-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"
@@ -23,7 +23,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-06-19T15:29:25.155-0300",
-      "updated": "2026-06-19T16:29:32.433-0300",
+      "updated": "2026-06-22T11:13:18.293-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Emergencial"

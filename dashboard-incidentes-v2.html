@@ -956,7 +956,7 @@
 
         async function loadData() {
             try {
-                const response = await fetch('dados-incidentes.json?t=' + Date.now());
+                const response = await fetch('https://jira-incidentes-proxy.luiz-santos.workers.dev?days=365&t=' + Date.now());
                 if (!response.ok) throw new Error('Erro ao carregar dados');
                 const data = await response.json();
 
@@ -965,11 +965,7 @@
                     updateEl.textContent = new Date(data.ultima_atualizacao).toLocaleString('pt-BR');
                 }
 
-                allIncidentes = (data.incidentes || []).filter(i => {
-                    if (!i.created) return false;
-                    const cd = new Date(i.created);
-                    return cd.getFullYear() >= 2025;
-                });
+                allIncidentes = data.incidentes || [];
                 initializeComparisonMonths(allIncidentes);
                 filterAndRender();
 

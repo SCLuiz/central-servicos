@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-06-23T14:00:01.492451",
-  "total": 29,
+  "ultima_atualizacao": "2026-06-23T16:30:44.970958",
+  "total": 30,
   "mudancas": [
+    {
+      "key": "OFBI-4600",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Guilherme Machado",
+      "created": "2026-06-23T11:47:48.754-0300",
+      "updated": "2026-06-23T12:29:34.476-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4599",
+      "summary": "Remediação Microsoft Secure Score – Disable 'Autoplay' for all drives",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Guilherme Machado",
+      "created": "2026-06-23T11:36:17.684-0300",
+      "updated": "2026-06-23T12:29:30.840-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4585",
       "summary": "Solicitação de Mudanças",
@@ -62,7 +88,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Sabrina Thieghi",
       "created": "2026-06-16T11:42:21.514-0300",
-      "updated": "2026-06-18T09:16:28.200-0300",
+      "updated": "2026-06-23T12:29:57.432-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -365,19 +391,6 @@
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4424",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Hyanka Coelho",
-      "reporter": "Hyanka Coelho",
-      "created": "2026-03-17T08:29:59.872-0300",
-      "updated": "2026-03-25T11:02:33.650-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Emergencial"
     }
   ]
 }

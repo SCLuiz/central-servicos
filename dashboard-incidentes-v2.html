@@ -845,7 +845,7 @@
                             <table class="card-table">
                                 <thead>
                                     <tr>
-                                        <th>Responsável</th>
+                                        <th>Responsável</th><th>Relator</th>
                                         <th style="width: 50px;">Qtd</th>
                                         <th style="width: 140px;">Proporção</th>
                                     </tr>
@@ -921,7 +921,7 @@
                                 <th style="width: 90px;">Status</th>
                                 <th style="width: 90px;">Prioridade</th>
                                 <th style="width: 110px;">SLA</th>
-                                <th>Responsável</th>
+                                <th>Responsável</th><th>Relator</th>
                                 <th>Início da Indisponibilidade</th>
                                 <th>Fim da Indisponibilidade</th>
                             </tr>
@@ -1581,7 +1581,7 @@
                         <td><span class="${statusClass}">${i.status}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
-                        <td>${i.assignee}</td>
+                        <td>${i.assignee}</td><td>${i.reporter || "—"}</td>
                         <td>${inicioIndisp}</td>
                         <td>${fimIndisp}</td>
                     </tr>

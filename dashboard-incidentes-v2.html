@@ -1018,6 +1018,7 @@
                 
                 // Reopen (IND-INC-006) and FCR (IND-INC-007)
                 reopenedCount: 0,
+                gmudEmergencialCount: 0,
                 fcrCount: 0,
                 concluidoSlaBreached: 0
             };
@@ -1078,6 +1079,7 @@
 
                 // Reopen
                 if (i.reopened) stats.reopenedCount++;
+                if (i.gmud_emergencial) stats.gmudEmergencialCount++;
             });
 
             // MTTF calculation
@@ -1231,6 +1233,14 @@
                     meta: '< 5',
                     desc: 'Incidentes ativos pendentes de solução atualmente.',
                     status: (stats.aberto + stats.pendente) < 5 ? 'meta-ok' : (stats.aberto + stats.pendente) <= 10 ? 'meta-warn' : 'meta-crit'
+                },
+                {
+                    ref: 'IND-INC-009',
+                    title: 'Incidentes com GMUD Emergencial',
+                    value: stats.gmudEmergencialCount,
+                    meta: '= 0',
+                    desc: 'Incidentes que exigiram mudança emergencial — indica mudança não planejada ou não autorizada.',
+                    status: stats.gmudEmergencialCount === 0 ? 'meta-ok' : stats.gmudEmergencialCount <= 2 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-009',

@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-06-23T11:28:25.277167",
-  "total": 31,
+  "ultima_atualizacao": "2026-06-23T14:00:01.492451",
+  "total": 29,
   "mudancas": [
     {
       "key": "OFBI-4585",
@@ -365,32 +365,6 @@
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4427",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Constantino Neto",
-      "reporter": "Constantino Neto",
-      "created": "2026-03-20T11:18:12.947-0300",
-      "updated": "2026-03-25T09:24:35.813-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4426",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Guilherme Machado",
-      "reporter": "Guilherme Machado",
-      "created": "2026-03-18T16:04:06.505-0300",
-      "updated": "2026-03-25T09:14:37.850-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Emergencial"
     },
     {
       "key": "OFBI-4424",

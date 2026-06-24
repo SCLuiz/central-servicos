@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-24T17:46:12.593285",
+  "ultima_atualizacao": "2026-06-24T19:19:38.025235",
   "total": 30,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:47:48.754-0300",
-      "updated": "2026-06-24T08:24:12.046-0300",
+      "updated": "2026-06-24T15:13:04.196-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-06-24T08:24:41.476-0300",
+      "updated": "2026-06-24T15:12:56.910-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -101,7 +101,7 @@
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T18:43:01.175-0300",
-      "updated": "2026-06-24T14:02:58.072-0300",
+      "updated": "2026-06-24T15:13:33.065-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

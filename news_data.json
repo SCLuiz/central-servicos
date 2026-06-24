@@ -7,8 +7,30 @@
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "24/06/2026 14:02",
+    "date": "24/06/2026 15:13",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4563"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4600",
+    "title": "OFBI-4600 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "24/06/2026 15:13",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4600"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4599",
+    "title": "OFBI-4599 - Remediação Microsoft Secure Score – Disable 'Autoplay' for all drives",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "24/06/2026 15:12",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4599"
   },
   {
     "source": "Jira",
@@ -20,28 +42,6 @@
     "status_dot": "dot-info",
     "date": "24/06/2026 08:26",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4570"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4599",
-    "title": "OFBI-4599 - Remediação Microsoft Secure Score – Disable 'Autoplay' for all drives",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "24/06/2026 08:24",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4599"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4600",
-    "title": "OFBI-4600 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "24/06/2026 08:24",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4600"
   },
   {
     "source": "Jira",

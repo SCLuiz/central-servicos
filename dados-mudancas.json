@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-24T11:12:36.811561",
+  "ultima_atualizacao": "2026-06-24T13:28:47.626532",
   "total": 30,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:47:48.754-0300",
-      "updated": "2026-06-23T12:29:34.476-0300",
+      "updated": "2026-06-24T08:24:12.046-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-06-23T12:29:30.840-0300",
+      "updated": "2026-06-24T08:24:41.476-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4570",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-06-16T11:59:35.608-0300",
-      "updated": "2026-06-18T09:21:32.795-0300",
+      "updated": "2026-06-24T08:26:15.806-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -70,12 +70,12 @@
     {
       "key": "OFBI-4569",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-06-16T11:42:40.926-0300",
-      "updated": "2026-06-18T09:20:02.515-0300",
+      "updated": "2026-06-24T09:41:28.135-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -83,12 +83,12 @@
     {
       "key": "OFBI-4568",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Falha",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Sabrina Thieghi",
       "reporter": "Sabrina Thieghi",
       "created": "2026-06-16T11:42:21.514-0300",
-      "updated": "2026-06-23T12:29:57.432-0300",
+      "updated": "2026-06-24T08:46:40.685-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -109,12 +109,12 @@
     {
       "key": "OFBI-4560",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T09:57:36.515-0300",
-      "updated": "2026-06-18T09:16:51.042-0300",
+      "updated": "2026-06-24T08:23:15.339-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

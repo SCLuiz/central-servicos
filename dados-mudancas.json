@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-25T11:27:50.946244",
+  "ultima_atualizacao": "2026-06-25T13:37:39.498215",
   "total": 30,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Comunicação externa via MS Teams",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Guilherme Capelleto Restani | Operações SI | Minsait",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:47:48.754-0300",
-      "updated": "2026-06-24T22:32:44.964-0300",
+      "updated": "2026-06-25T08:38:19.005-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -20,10 +20,10 @@
       "summary": "Desabilitar autorun nas estações de trabalho",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Marcio Paulo | Operações SI | Minsait",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-06-24T16:42:27.713-0300",
+      "updated": "2026-06-25T09:10:11.884-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

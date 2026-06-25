@@ -5,9 +5,9 @@
     "title": "OFBI-4599 - Desabilitar autorun nas estações de trabalho",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "25/06/2026 09:10",
+    "date": "25/06/2026 10:59",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4599"
   },
   {
@@ -16,9 +16,9 @@
     "title": "OFBI-4600 - Comunicação externa via MS Teams",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "25/06/2026 08:38",
+    "date": "25/06/2026 10:59",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4600"
   },
   {

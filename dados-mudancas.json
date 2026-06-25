@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-25T16:07:57.811472",
+  "ultima_atualizacao": "2026-06-25T18:23:56.703128",
   "total": 30,
   "mudancas": [
     {
@@ -96,12 +96,12 @@
     {
       "key": "OFBI-4563",
       "summary": "Release 2.4.0 - Producão",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T18:43:01.175-0300",
-      "updated": "2026-06-24T16:44:08.126-0300",
+      "updated": "2026-06-25T14:59:20.205-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

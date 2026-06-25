@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-24T23:40:35.264158",
+  "ultima_atualizacao": "2026-06-25T01:49:25.046177",
   "total": 30,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:47:48.754-0300",
-      "updated": "2026-06-24T16:40:04.817-0300",
+      "updated": "2026-06-24T22:32:44.964-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

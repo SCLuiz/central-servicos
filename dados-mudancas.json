@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-06-30T12:00:23.760054",
-  "total": 30,
+  "ultima_atualizacao": "2026-06-30T14:37:27.279212",
+  "total": 28,
   "mudancas": [
     {
       "key": "OFBI-4600",
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4570",
       "summary": "Integração das ferramentas (ITSM + GV)",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-06-16T11:59:35.608-0300",
-      "updated": "2026-06-26T10:19:02.600-0300",
+      "updated": "2026-06-30T10:09:43.409-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -365,32 +365,6 @@
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4432",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Daniel Gonzales",
-      "reporter": "Daniel Gonzales",
-      "created": "2026-03-24T14:01:13.233-0300",
-      "updated": "2026-04-01T09:23:46.905-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4431",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Daniel Gonzales",
-      "reporter": "Daniel Gonzales",
-      "created": "2026-03-24T13:26:16.611-0300",
-      "updated": "2026-04-01T09:23:37.202-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Normal"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-06-30T20:30:02.555462",
+  "ultima_atualizacao": "2026-06-30T21:59:19.301299",
   "total": 29,
   "mudancas": [
     {
@@ -114,7 +114,7 @@
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T18:43:01.175-0300",
-      "updated": "2026-06-25T14:59:20.205-0300",
+      "updated": "2026-06-30T18:07:04.840-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -127,7 +127,7 @@
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T09:57:36.515-0300",
-      "updated": "2026-06-24T16:44:18.010-0300",
+      "updated": "2026-06-30T18:06:33.264-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

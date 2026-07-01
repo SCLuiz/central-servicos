@@ -7,29 +7,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "01/07/2026 10:32",
+    "date": "01/07/2026 14:37",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4632"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4563",
-    "title": "OFBI-4563 - Release 2.4.0 - Producão",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "30/06/2026 18:07",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4563"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4560",
-    "title": "OFBI-4560 - Release em Sandbox",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "30/06/2026 18:06",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4560"
   }
 ]

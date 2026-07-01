@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-07-01T17:31:22.092611",
-  "total": 29,
+  "ultima_atualizacao": "2026-07-01T19:20:33.450305",
+  "total": 30,
   "mudancas": [
+    {
+      "key": "OFBI-4639",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Guilherme Machado",
+      "created": "2026-07-01T16:04:34.356-0300",
+      "updated": "2026-07-01T16:06:07.553-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4632",
       "summary": "Solicitação de Mudanças",
@@ -10,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Marcio Paulo | Operações SI | Minsait",
       "created": "2026-06-30T11:44:13.537-0300",
-      "updated": "2026-07-01T10:32:44.747-0300",
+      "updated": "2026-07-01T14:37:12.936-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -109,12 +122,12 @@
     {
       "key": "OFBI-4563",
       "summary": "Release 2.4.0 - Producão",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Fabricio Lobo",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T18:43:01.175-0300",
-      "updated": "2026-06-30T18:07:04.840-0300",
+      "updated": "2026-07-01T15:09:22.139-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -122,12 +135,12 @@
     {
       "key": "OFBI-4560",
       "summary": "Release em Sandbox",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-06-12T09:57:36.515-0300",
-      "updated": "2026-06-30T18:06:33.264-0300",
+      "updated": "2026-07-01T15:09:39.675-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

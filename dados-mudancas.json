@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-01T12:47:18.119021",
+  "ultima_atualizacao": "2026-07-01T15:31:32.840374",
   "total": 29,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Marcio Paulo | Operações SI | Minsait",
       "created": "2026-06-30T11:44:13.537-0300",
-      "updated": "2026-06-30T11:51:35.345-0300",
+      "updated": "2026-07-01T10:32:44.747-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

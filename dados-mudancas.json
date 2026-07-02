@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-02T13:11:10.864978",
+  "ultima_atualizacao": "2026-07-02T15:30:28.360091",
   "total": 30,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4632",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Marcio Paulo | Operações SI | Minsait",
       "created": "2026-06-30T11:44:13.537-0300",
-      "updated": "2026-07-02T10:02:06.347-0300",
+      "updated": "2026-07-02T11:16:11.663-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-07-02T10:10:41.006-0300",
+      "updated": "2026-07-02T10:17:13.736-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

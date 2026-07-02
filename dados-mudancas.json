@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-07-02T11:17:26.895813",
+  "ultima_atualizacao": "2026-07-02T13:11:10.864978",
   "total": 30,
   "mudancas": [
     {
       "key": "OFBI-4639",
-      "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "summary": "Desabilitar autorun nas estações de trabalho",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-07-01T16:04:34.356-0300",
-      "updated": "2026-07-01T16:06:07.553-0300",
+      "updated": "2026-07-02T09:29:43.861-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4632",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Guilherme Machado",
       "reporter": "Marcio Paulo | Operações SI | Minsait",
       "created": "2026-06-30T11:44:13.537-0300",
-      "updated": "2026-07-01T14:37:12.936-0300",
+      "updated": "2026-07-02T10:02:06.347-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-06-25T15:29:52.318-0300",
+      "updated": "2026-07-02T10:10:41.006-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

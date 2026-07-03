@@ -1,35 +1,35 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-4644",
-    "title": "OFBI-4644 - Solicitação de Mudanças - Microsoft Secure Score - Disable Solicited Remote Assistance",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "03/07/2026 11:13",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4644"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4643",
-    "title": "OFBI-4643 - Solicitação de Mudanças - Disclaimer [external] para e-mails",
+    "title": "OFBI-4643 - Solicitação de Mudanças - Microsoft Secure Score - Disclaimer [external] para e-mails",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "03/07/2026 11:12",
+    "date": "03/07/2026 15:29",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4643"
   },
   {
     "source": "Jira",
-    "key": "OFBI-4642",
-    "title": "OFBI-4642 - Solicitação de Mudanças - Microsoft Secure Score - Set user authentication for remote connections by using Network Level Authentication to 'Enabled'",
+    "key": "OFBI-4644",
+    "title": "OFBI-4644 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "03/07/2026 11:12",
+    "date": "03/07/2026 15:27",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4644"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4642",
+    "title": "OFBI-4642 - Solicitação de Mudanças - Microsoft Secure Score - Definir a autenticação de usuário para conexões remotas usando Autenticação em Nível de Rede (Network Level Authentication - NLA) como \"Habilitada\".",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "03/07/2026 15:25",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4642"
   }
 ]

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-07-06T09:39:47.928527",
-  "total": 33,
+  "ultima_atualizacao": "2026-07-06T13:28:53.268325",
+  "total": 34,
   "mudancas": [
+    {
+      "key": "OFBI-4649",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Alan Marques",
+      "created": "2026-07-06T09:11:25.631-0300",
+      "updated": "2026-07-06T09:13:08.632-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4644",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",

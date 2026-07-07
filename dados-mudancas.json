@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-07T18:09:19.973161",
+  "ultima_atualizacao": "2026-07-07T20:12:54.090477",
   "total": 35,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Djair Silva",
       "reporter": "Djair Silva",
       "created": "2026-07-07T11:11:21.477-0300",
-      "updated": "2026-07-07T11:56:12.128-0300",
+      "updated": "2026-07-07T16:40:10.844-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

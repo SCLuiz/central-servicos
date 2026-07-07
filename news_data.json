@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4652",
+    "title": "OFBI-4652 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "07/07/2026 11:56",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4652"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4649",
     "title": "OFBI-4649 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
     "type_name": "Mudança",

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-07-07T13:27:00.901948",
-  "total": 34,
+  "ultima_atualizacao": "2026-07-07T16:01:19.908041",
+  "total": 35,
   "mudancas": [
+    {
+      "key": "OFBI-4652",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Djair Silva",
+      "reporter": "Djair Silva",
+      "created": "2026-07-07T11:11:21.477-0300",
+      "updated": "2026-07-07T11:56:12.128-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4649",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-08T15:28:53.021989",
+  "ultima_atualizacao": "2026-07-08T16:58:31.188242",
   "total": 35,
   "mudancas": [
     {
@@ -59,10 +59,10 @@
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Definir a autenticação de usuário para conexões remotas usando Autenticação em Nível de Rede (Network Level Authentication - NLA) como \"Habilitada\".",
       "status": "Planejamento",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Sem responsável",
       "reporter": "Guilherme Machado",
       "created": "2026-07-02T15:53:58.223-0300",
-      "updated": "2026-07-03T15:25:55.203-0300",
+      "updated": "2026-07-08T13:54:35.680-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-08T16:58:31.188242",
+  "ultima_atualizacao": "2026-07-08T18:21:30.522751",
   "total": 35,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Djair Silva",
       "reporter": "Djair Silva",
       "created": "2026-07-07T11:11:21.477-0300",
-      "updated": "2026-07-08T10:18:39.563-0300",
+      "updated": "2026-07-08T14:31:59.688-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4649",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Alan Marques",
       "created": "2026-07-06T09:11:25.631-0300",
-      "updated": "2026-07-06T09:13:08.632-0300",
+      "updated": "2026-07-08T14:33:43.993-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4644",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:42:41.857-0300",
-      "updated": "2026-07-03T15:27:15.124-0300",
+      "updated": "2026-07-08T14:32:47.173-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-4643",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Disclaimer [external] para e-mails",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Alan Marques",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-03T15:29:07.456-0300",
+      "updated": "2026-07-08T14:33:14.681-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4642",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Definir a autenticação de usuário para conexões remotas usando Autenticação em Nível de Rede (Network Level Authentication - NLA) como \"Habilitada\".",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Sem responsável",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Guilherme Machado",
       "created": "2026-07-02T15:53:58.223-0300",
-      "updated": "2026-07-08T13:54:35.680-0300",
+      "updated": "2026-07-08T14:32:50.523-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

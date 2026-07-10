@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-07-10T10:44:00.312512",
+  "ultima_atualizacao": "2026-07-10T12:58:49.916519",
   "total": 35,
   "mudancas": [
     {
       "key": "OFBI-4652",
-      "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "summary": "[EKS Sandbox] Upgrade eks-pcm-qa-v2 → Kubernetes 1.35",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Djair Silva",
+      "assignee": "Luiz Santos",
       "reporter": "Djair Silva",
       "created": "2026-07-07T11:11:21.477-0300",
-      "updated": "2026-07-08T14:31:59.688-0300",
+      "updated": "2026-07-10T09:21:04.741-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Alan Marques",
       "created": "2026-07-06T09:11:25.631-0300",
-      "updated": "2026-07-08T14:33:43.993-0300",
+      "updated": "2026-07-10T09:20:07.872-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -36,7 +36,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:42:41.857-0300",
-      "updated": "2026-07-08T14:32:47.173-0300",
+      "updated": "2026-07-10T09:19:37.502-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-08T14:33:14.681-0300",
+      "updated": "2026-07-10T09:20:39.919-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -59,10 +59,10 @@
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Definir a autenticação de usuário para conexões remotas usando Autenticação em Nível de Rede (Network Level Authentication - NLA) como \"Habilitada\".",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-07-02T15:53:58.223-0300",
-      "updated": "2026-07-08T14:32:50.523-0300",
+      "updated": "2026-07-10T09:21:15.882-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

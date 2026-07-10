@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-10T20:17:12.532867",
+  "ultima_atualizacao": "2026-07-10T21:30:14.098021",
   "total": 35,
   "mudancas": [
     {
@@ -49,7 +49,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-10T10:31:52.648-0300",
+      "updated": "2026-07-10T17:35:39.142-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

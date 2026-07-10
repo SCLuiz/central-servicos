@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-07-10T12:58:49.916519",
+  "ultima_atualizacao": "2026-07-10T15:34:18.075205",
   "total": 35,
   "mudancas": [
     {
       "key": "OFBI-4652",
       "summary": "[EKS Sandbox] Upgrade eks-pcm-qa-v2 → Kubernetes 1.35",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Djair Silva",
       "reporter": "Djair Silva",
       "created": "2026-07-07T11:11:21.477-0300",
-      "updated": "2026-07-10T09:21:04.741-0300",
+      "updated": "2026-07-10T10:31:32.616-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -33,10 +33,10 @@
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:42:41.857-0300",
-      "updated": "2026-07-10T09:19:37.502-0300",
+      "updated": "2026-07-10T10:32:12.470-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-10T09:20:39.919-0300",
+      "updated": "2026-07-10T10:31:52.648-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -62,7 +62,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-07-02T15:53:58.223-0300",
-      "updated": "2026-07-10T09:21:15.882-0300",
+      "updated": "2026-07-10T10:32:25.389-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

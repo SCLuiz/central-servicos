@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-07-13T19:00:01.959727",
-  "total": 35,
+  "ultima_atualizacao": "2026-07-13T20:20:37.854161",
+  "total": 37,
   "mudancas": [
+    {
+      "key": "OFBI-4669",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Djair Silva",
+      "created": "2026-07-13T17:04:58.859-0300",
+      "updated": "2026-07-13T17:19:50.906-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4668",
+      "summary": "Solicitação de Mudanças",
+      "status": "Cancelado",
+      "priority": "Low",
+      "assignee": "Djair Silva",
+      "reporter": "Djair Silva",
+      "created": "2026-07-13T16:55:43.240-0300",
+      "updated": "2026-07-13T16:59:08.424-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4652",
       "summary": "[EKS Sandbox] Upgrade eks-pcm-qa-v2 → Kubernetes 1.35",
@@ -23,7 +49,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Alan Marques",
       "created": "2026-07-06T09:11:25.631-0300",
-      "updated": "2026-07-10T09:20:07.872-0300",
+      "updated": "2026-07-13T16:36:24.156-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

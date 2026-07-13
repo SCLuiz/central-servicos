@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4669",
+    "title": "OFBI-4669 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "13/07/2026 17:05",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4669"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4649",
+    "title": "OFBI-4649 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "13/07/2026 16:36",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4649"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4644",
     "title": "OFBI-4644 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
     "type_name": "Mudança",
@@ -31,16 +53,5 @@
     "status_dot": "dot-info",
     "date": "10/07/2026 17:35",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4643"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4649",
-    "title": "OFBI-4649 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "10/07/2026 09:20",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4649"
   }
 ]

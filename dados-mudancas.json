@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-13T17:32:51.924446",
+  "ultima_atualizacao": "2026-07-13T19:00:01.959727",
   "total": 35,
   "mudancas": [
     {
@@ -36,7 +36,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:42:41.857-0300",
-      "updated": "2026-07-10T10:32:12.470-0300",
+      "updated": "2026-07-13T15:28:38.480-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

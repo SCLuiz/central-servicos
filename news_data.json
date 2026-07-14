@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4674",
+    "title": "OFBI-4674 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/07/2026 12:02",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4674"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4673",
+    "title": "OFBI-4673 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/07/2026 11:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4673"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4671",
     "title": "OFBI-4671 - Upgrade Kubernetes 1.33 → 1.35 — Cluster PAD (eks-pad20-prd)",
     "type_name": "Mudança",

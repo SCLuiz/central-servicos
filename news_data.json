@@ -1,6 +1,39 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4649",
+    "title": "OFBI-4649 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/07/2026 08:23",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4649"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4644",
+    "title": "OFBI-4644 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/07/2026 08:22",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4644"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4643",
+    "title": "OFBI-4643 - Solicitação de Mudanças - Microsoft Secure Score - Disclaimer [external] para e-mails",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "14/07/2026 08:21",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4643"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4671",
     "title": "OFBI-4671 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -23,28 +56,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-4649",
-    "title": "OFBI-4649 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar \"Continuar executando aplicativos em segundo plano quando o Google Chrome for fechado\"",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "13/07/2026 16:36",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4649"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4644",
-    "title": "OFBI-4644 - Solicitação de Mudanças - Microsoft Secure Score - Desabilitar a Assistência Remota Solicitada",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "13/07/2026 15:28",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4644"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4642",
     "title": "OFBI-4642 - Solicitação de Mudanças - Microsoft Secure Score - Definir a autenticação de usuário para conexões remotas usando Autenticação em Nível de Rede (Network Level Authentication - NLA) como \"Habilitada\".",
     "type_name": "Mudança",
@@ -53,16 +64,5 @@
     "status_dot": "dot-info",
     "date": "13/07/2026 13:51",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4642"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4643",
-    "title": "OFBI-4643 - Solicitação de Mudanças - Microsoft Secure Score - Disclaimer [external] para e-mails",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "10/07/2026 17:35",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4643"
   }
 ]

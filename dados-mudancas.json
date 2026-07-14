@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-14T18:35:47.013645",
+  "ultima_atualizacao": "2026-07-14T19:53:23.305513",
   "total": 41,
   "mudancas": [
     {
@@ -30,13 +30,13 @@
     },
     {
       "key": "OFBI-4672",
-      "summary": "Solicitação de Mudanças",
+      "summary": "Ativação da regra ASR - impedirá criação de processos filhos por aplicações Microsoft Office",
       "status": "Planejamento",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-07-14T09:20:50.989-0300",
-      "updated": "2026-07-14T09:28:49.540-0300",
+      "updated": "2026-07-14T16:45:25.529-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

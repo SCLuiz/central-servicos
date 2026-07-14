@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-14T10:13:43.771418",
+  "ultima_atualizacao": "2026-07-14T11:45:15.352477",
   "total": 38,
   "mudancas": [
     {
@@ -62,7 +62,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Alan Marques",
       "created": "2026-07-06T09:11:25.631-0300",
-      "updated": "2026-07-13T16:36:24.156-0300",
+      "updated": "2026-07-14T08:23:57.461-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -75,7 +75,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:42:41.857-0300",
-      "updated": "2026-07-13T15:28:38.480-0300",
+      "updated": "2026-07-14T08:22:42.910-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -88,7 +88,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-10T17:35:39.142-0300",
+      "updated": "2026-07-14T08:21:56.894-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

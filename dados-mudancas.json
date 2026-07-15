@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-15T13:46:03.678428",
+  "ultima_atualizacao": "2026-07-15T15:12:41.121897",
   "total": 41,
   "mudancas": [
     {
@@ -127,7 +127,7 @@
       "assignee": "Alan Marques",
       "reporter": "Alan Marques",
       "created": "2026-07-02T16:18:02.448-0300",
-      "updated": "2026-07-14T09:42:36.061-0300",
+      "updated": "2026-07-15T11:02:45.618-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

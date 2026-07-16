@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-16T12:45:16.376596",
+  "ultima_atualizacao": "2026-07-16T14:47:38.552566",
   "total": 41,
   "mudancas": [
     {
@@ -36,7 +36,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-07-14T09:20:50.989-0300",
-      "updated": "2026-07-16T09:06:55.900-0300",
+      "updated": "2026-07-16T10:38:50.288-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Normal"

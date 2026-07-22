@@ -1,17 +1,6 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-4672",
-    "title": "OFBI-4672 - Ativação da regra ASR - impedirá criação de processos filhos por aplicações Microsoft Office",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "16/07/2026 10:38",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4672"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4673",
     "title": "OFBI-4673 - Solicitação de Mudanças",
     "type_name": "Mudança",

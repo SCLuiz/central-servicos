@@ -1571,9 +1571,9 @@
                 }
 
                 const slaHtml = i.sla_breached
-                    ? `<span class="sla-breached">🔴 ${i.sla_elapsed || 'Estourado'}</span>`
+                    ? `<span class="sla-breached">${i.sla_elapsed || 'Estourado'}</span>`
                     : i.sla_elapsed
-                        ? `<span class="sla-ok">✅ ${i.sla_elapsed}</span>`
+                        ? `<span class="sla-ok">${i.sla_elapsed}</span>`
                         : '—';
 
                 const sistema = i.sistema_afetado || i.summary || '—';

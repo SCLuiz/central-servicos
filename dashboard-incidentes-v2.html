@@ -944,12 +944,12 @@
                             <tr>
                                 <th style="width: 80px;">ID</th>
                                 <th>Sistema Afetado</th>
-                                <th style="width: 90px;">Status</th>
                                 <th style="width: 90px;">Severidade</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>Responsável</th><th>Relator</th><th>GMUDs</th>
                                 <th>Início da Indisponibilidade</th>
                                 <th>Fim da Indisponibilidade</th>
+                                <th style="width: 90px;">Status</th>
                             </tr>
                         </thead>
                         <tbody id="incidentesTableBody"></tbody>
@@ -1637,12 +1637,12 @@
                                 </div>
                             </div>
                         </td>
-                        <td>${statusHtml}</td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${inicioIndisp}</td>
                         <td>${fimIndisp}</td>
+                        <td>${statusHtml}</td>
                     </tr>
                 `;
             });
@@ -1670,11 +1670,11 @@
                 return {
                     'ID': i.key,
                     'Descrição': i.summary,
-                    'Status': i.status,
                     'Severidade': i.priority,
                     'Responsável': i.assignee,
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Status': i.status,
                     'Tempo de Resolução': tempoResolucao
                 };
             });
@@ -1731,11 +1731,12 @@
             doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Status', 'Severidade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Descrição']],
+                head: [['ID', 'Severidade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
                 body: currentFilteredData.map(i => [
-                    i.key, i.status, i.priority, i.assignee || 'N/A',
+                    i.key, i.priority, i.assignee || 'N/A',
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',
+                    i.status,
                     i.summary
                 ]),
                 startY: 55,

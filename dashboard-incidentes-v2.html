@@ -595,7 +595,7 @@
         .main-table tr.row-failed { background-color: #ffcccc !important; }
         .main-table tr.row-failed td { background-color: transparent !important; }
 
-        .status-badge, .priority-badge {
+        .status-badge, .priority-badge, .sla-breached, .sla-ok {
             padding: 4px 10px;
             border-radius: 4px;
             font-weight: 600;
@@ -603,9 +603,10 @@
             text-transform: uppercase;
             text-align: center;
             display: inline-block;
-            min-width: 80px;
+            min-width: 85px;
             color: white !important;
             box-sizing: border-box;
+            white-space: nowrap;
         }
         .status-concluido { background-color: #329932 !important; }
         .status-aberto { background-color: #e64040 !important; }
@@ -616,8 +617,8 @@
         .priority-medium { background-color: #f59e0b !important; }
         .priority-low { background-color: #329932 !important; }
 
-        .sla-breached { display: inline-flex; align-items: center; justify-content: center; gap: 4px; background-color: #e64040 !important; color: white !important; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; min-width: 80px; box-sizing: border-box; }
-        .sla-ok { display: inline-flex; align-items: center; justify-content: center; gap: 4px; background-color: #329932 !important; color: white !important; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; min-width: 80px; box-sizing: border-box; }
+        .sla-breached { background-color: #e64040 !important; }
+        .sla-ok { background-color: #329932 !important; }
 
         /* Tooltip style */
         .description-hover {
@@ -1621,7 +1622,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: 80px; text-align: center; display: inline-block; box-sizing: border-box;">${statusIcon}</span></td>
+                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: 85px; text-align: center; display: inline-block; box-sizing: border-box;">${statusIcon}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>
@@ -1640,7 +1641,7 @@
             return i.gmuds_vinculadas.map(function(g) {
                 var emg = g.tipo === 'Emergencial';
                 var bg = emg ? '#e64040' : '#226b74';
-                return '<a href="https://openfinancebrasil.atlassian.net/browse/' + g.key + '" target="_blank" style="display:inline-block;margin:1px 2px;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;text-decoration:none;color:white;background:' + bg + ';min-width:80px;box-sizing:border-box;">' + g.key + (emg ? ' ⚠' : '') + '</a>';
+                return '<a href="https://openfinancebrasil.atlassian.net/browse/' + g.key + '" target="_blank" style="display:inline-block;margin:1px 2px;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;text-align:center;text-decoration:none;color:white;background:' + bg + ';min-width:85px;box-sizing:border-box;white-space:nowrap;">' + g.key + (emg ? ' ⚠' : '') + '</a>';
             }).join('');
         }
         function exportToExcel() {

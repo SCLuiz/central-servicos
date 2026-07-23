@@ -791,7 +791,7 @@
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px;">
                             <div class="summary-widget">
                                 <div>
-                                    <span class="summary-lbl" style="color: #15803d;">Concluídos</span>
+                                    <span class="summary-lbl" style="color: #15803d;">Resolvidos</span>
                                     <div class="summary-val" id="metricConcluido" style="color: #15803d;">0</div>
                                 </div>
                             </div>
@@ -1216,7 +1216,7 @@
                     title: '% Resolvidos no Prazo (SLA)',
                     value: rateResolvidosSLA.toFixed(1) + '%',
                     meta: '> 80%',
-                    desc: 'Incidentes concluídos dentro do prazo estipulado de SLA.',
+                    desc: 'Incidentes resolvidos dentro do prazo estipulado de SLA.',
                     status: rateResolvidosSLA > 80 ? 'meta-ok' : rateResolvidosSLA >= 70 ? 'meta-warn' : 'meta-crit'
                 },
                 {
@@ -1495,7 +1495,7 @@
                     labels: sortedMonths,
                     datasets: [
                         { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), backgroundColor: '#3b82f6', borderRadius: 4 },
-                        { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Resolvido', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), backgroundColor: '#10b981', borderRadius: 4 },
                         { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), backgroundColor: '#ef4444', borderRadius: 4 }
                     ]
                 },
@@ -1547,10 +1547,11 @@
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';
-                const s = i.status || '';
+                let s = i.status || '';
+                if (s.includes('Concluído')) s = 'Resolvido';
                 let isFailed = false;
                 
-                if (s.includes('Concluído') || s.includes('Closed') || s.includes('Resolvido')) { 
+                if (s.includes('Resolvido') || s.includes('Closed')) { 
                     statusClass += 'status-concluido'; 
                 }
                 else if (s.includes('Aberto') || s.includes('Open')) { 
@@ -1674,7 +1675,7 @@
                     'Responsável': i.assignee,
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
-                    'Status': i.status,
+                    'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     'Tempo de Resolução': tempoResolucao
                 };
             });
@@ -1728,7 +1729,7 @@
             doc.text('Resumo Executivo', 14, 40);
             doc.setFontSize(10);
             doc.text(`Total: ${total}`, 14, 47);
-            doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
+            doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
                 head: [['ID', 'Severidade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
@@ -1736,7 +1737,7 @@
                     i.key, i.priority, i.assignee || 'N/A',
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',
-                    i.status,
+                    (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     i.summary
                 ]),
                 startY: 55,

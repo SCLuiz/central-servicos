@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-23T11:28:37.312066",
+  "ultima_atualizacao": "2026-07-23T13:04:42.373135",
   "total": 39,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-14T11:54:46.618-0300",
-      "updated": "2026-07-23T00:17:36.346-0300",
+      "updated": "2026-07-23T09:11:14.221-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

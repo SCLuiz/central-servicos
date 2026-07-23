@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mudanças (GMUDs) - Junho 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        body { font-family: 'Segoe UI', sans-serif; background-color: #ffffff; color: #333; margin: 0; padding: 40px; }
+        .header-logo { display: flex; align-items: center; margin-bottom: 5px; color: #1a3644; font-size: 24px; font-weight: 700; }
+        .header-logo svg { margin-right: 8px; fill: #31828f; }
+        .header-logo span { font-weight: 400; }
+        h1 { font-size: 24px; margin: 0 0 20px 0; color: #000; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 11px; text-align: center; }
+        th { background-color: #226b74; color: white; padding: 12px 8px; font-weight: 600; }
+        td { padding: 10px 8px; border: none; }
+        .left { text-align: left; }
+        tr:nth-child(even) { background-color: #ebf1f6; }
+        tr:nth-child(odd) { background-color: #ffffff; }
+        tr.row-failed { background-color: #ffcccc !important; }
+        .ticket-link { color: #0066cc; text-decoration: underline; font-weight: 600; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-weight: 600; color: white; display: inline-block; min-width: 80px; }
+        .cat-normal { background-color: #329932; }
+        .cat-emergency { background-color: #e64040; }
+        .sev-low { background-color: #329932; }
+        .sev-medium { background-color: #329932; }
+        .sev-high { background-color: #e64040; }
+        .sev-critical { background-color: #e64040; }
+        .status-icon { padding: 4px 10px; border-radius: 4px; color: white; font-weight: bold; }
+        .icon-success { background-color: #329932; }
+        .icon-failed { background-color: #e64040; }
+        
+        .kpi-container { display: flex; justify-content: space-between; border: 1px solid #e0e0e0; padding: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .kpi-card { flex: 1; text-align: center; border-right: 1px solid #e0e0e0; }
+        .kpi-card:last-child { border-right: none; }
+        .kpi-value { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
+        .kpi-label { font-size: 10px; color: #888; text-transform: uppercase; font-weight: 600; }
+        .val-teal { color: #226b74; }
+        .val-red { color: #e64040; }
+        .val-green { color: #329932; }
+    </style>
+</head>
+<body>
+    <div class="header-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.5-7-3.88-7-7.93s3.06-7.43 7-7.93v15.86zm2 0V4.07c3.94.5 7 3.88 7 7.93s-3.06 7.43-7 7.93z"/></svg>
+        open<span>finance</span>
+    </div>
+    <h1>3. Mudanças (GMUDs) - Junho 2026</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket</th>
+                <th class="left">Descrição</th>
+                <th>Área</th>
+                <th>Data</th>
+                <th>Ambiente</th>
+                <th>Categoria</th>
+                <th>Severidade</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class='row-failed'><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4551' class='ticket-link'>OFBI-4551</a></td><td class='left'>Solicitação de Mudanças</td><td>Fabricio Lobo</td><td>11/06</td><td>Diretório Central</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-failed'>X</span></td></tr>
+            <tr class='row-failed'><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4552' class='ticket-link'>OFBI-4552</a></td><td class='left'>Solicitação de Mudanças</td><td>Fabricio Lobo</td><td>18/06</td><td>Diretório Central</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-failed'>X</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4554' class='ticket-link'>OFBI-4554</a></td><td class='left'>Solicitação de Mudanças</td><td>Higor Santos</td><td>11/06</td><td>PCM - Plataforma de Coleta de Métricas</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4558' class='ticket-link'>OFBI-4558</a></td><td class='left'>Solicitação de Mudanças</td><td>Higor Santos</td><td>10/06</td><td>MQD</td><td><span class='badge cat-emergency'>EMERGENCIAL</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4560' class='ticket-link'>OFBI-4560</a></td><td class='left'>Release em Sandbox</td><td>Fabricio Lobo</td><td>18/06</td><td>Diretório Central</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4563' class='ticket-link'>OFBI-4563</a></td><td class='left'>Release 2.4.0 - Producão</td><td>Luiz Santos</td><td>25/06</td><td>Diretório Central</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class='row-failed'><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4568' class='ticket-link'>OFBI-4568</a></td><td class='left'>Revisão da credencial servicedesk@openfinancebrasil.org.br</td><td>Sabrina Thieghi</td><td>24/06</td><td>Service Desk</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-failed'>X</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4569' class='ticket-link'>OFBI-4569</a></td><td class='left'>Adição de logs estruturados MQD</td><td>Higor Santos</td><td>23/06</td><td>MQD</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4570' class='ticket-link'>OFBI-4570</a></td><td class='left'>Integração das ferramentas (ITSM + GV)</td><td>Guilherme Machado</td><td>23/06</td><td>JIRA Cloud</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4584' class='ticket-link'>OFBI-4584</a></td><td class='left'>Ajuste em microsserviço MQD</td><td>Higor Santos</td><td>19/06</td><td>MQD</td><td><span class='badge cat-emergency'>EMERGENCIAL</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4585' class='ticket-link'>OFBI-4585</a></td><td class='left'>Ajuste em microsserviço PCM</td><td>Higor Santos</td><td>19/06</td><td>PCM 2 - Plataforma de Coleta de Métricas</td><td><span class='badge cat-emergency'>EMERGENCIAL</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4599' class='ticket-link'>OFBI-4599</a></td><td class='left'>Desabilitar autorun nas estações de trabalho</td><td>Guilherme Machado</td><td>25/06</td><td>Office 365</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+            <tr class=''><td><a href='https://openfinancebrasil.atlassian.net/browse/OFBI-4600' class='ticket-link'>OFBI-4600</a></td><td class='left'>Comunicação externa via MS Teams</td><td>Guilherme Machado</td><td>24/06</td><td>Teams</td><td><span class='badge cat-normal'>PLANEJADA</span></td><td><span class='badge sev-low'>BAIXO</span></td><td><span class='status-icon icon-success'>✔</span></td></tr>
+
+        </tbody>
+    </table>
+    
+    <div class="kpi-container">
+        <div class="kpi-card">
+            <div class="kpi-value val-teal">13</div>
+            <div class="kpi-label">TOTAL MUDANÇAS</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value val-red">23%</div>
+            <div class="kpi-label">EMERGENCIAIS</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value val-green">77%</div>
+            <div class="kpi-label">APROVADAS CAB</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value val-green">0</div>
+            <div class="kpi-label">GERARAM INCIDENTES</div>
+        </div>
+    </div>
+</body>
+</html>

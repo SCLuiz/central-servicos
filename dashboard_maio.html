@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Incidentes - Maio 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #333; margin: 0; padding: 40px; }
+        .header { margin-bottom: 30px; }
+        .header h1 { color: #1a3644; font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        th { background-color: #31828f; color: white; text-align: left; padding: 16px; font-size: 14px; font-weight: 600; }
+        td { padding: 14px 16px; border-bottom: 1px solid #edf2f7; font-size: 13px; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+        tr:hover { background-color: #f1f5f9; }
+        .ticket-link { color: #0066cc; text-decoration: none; font-weight: 600; }
+        .badge { padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 11px; text-transform: uppercase; text-align: center; display: inline-block; min-width: 90px; }
+        .badge-status-resolved { background-color: #38a169; color: white; }
+        .badge-status-open { background-color: #3182ce; color: white; }
+        .badge-status-progress { background-color: #d69e2e; color: white; }
+        .badge-high { background-color: #e53e3e; color: white; }
+        .badge-low { background-color: #edf2f7; color: #4a5568; }
+        
+        .dashboard-cards { display: flex; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; flex: 1; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
+        .card h3 { font-size: 32px; margin: 0; color: #2d3748; }
+        .card p { margin: 5px 0 0; color: #718096; font-size: 14px; text-transform: uppercase; font-weight: 600; }
+        .card-divider { border-top: 4px solid #31828f; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Painel de Incidentes - Maio 2026</h1>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket</th>
+                <th>Time Solucionador</th>
+                <th>Data</th>
+                <th>Ambiente</th>
+                <th>Severidade</th>
+                <th>Impacto</th>
+                <th>SLA (16h)</th>
+                <th style="text-align: center;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4489</a></td><td>Daniel Gonzales</td><td>01/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>MÉDIO</span></td><td><span class="badge badge-high" style="background-color: #e53e3e; color: white;" title="ESTOURADO">16h 22m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4490</a></td><td>Segurança</td><td>04/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-high" style="background-color: #e53e3e; color: white;" title="ESTOURADO">52h 4m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CANCELADO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4499</a></td><td>Daniel Gonzales</td><td>11/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-high" style="background-color: #e53e3e; color: white;" title="ESTOURADO">115h 39m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4507</a></td><td>Segurança</td><td>13/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-high" style="background-color: #e53e3e; color: white;" title="ESTOURADO">174h 19m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4528</a></td><td>Luiz Santos</td><td>28/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-low" style="background-color: #38a169; color: white;" title="NO PRAZO">0m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4529</a></td><td>Segurança</td><td>28/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-low" style="background-color: #38a169; color: white;" title="NO PRAZO">0m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4530</a></td><td>Segurança</td><td>28/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-low" style="background-color: #38a169; color: white;" title="NO PRAZO">0m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4532</a></td><td>Segurança</td><td>28/05</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class="badge badge-low" style="background-color: #38a169; color: white;" title="NO PRAZO">19m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>CONCLUÍDO COM SUCESSO</span></td></tr>
+
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Tratamento: Tickets Cancelados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d53f8c;
+            --primary-dark: #97266d;
+            --primary-light: #fbb6ce;
+            --secondary: #d69e2e;
+            --secondary-dark: #b7791f;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f7fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 28px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 15px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- PURE CSS FLOWCHART --- */
+        .css-flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fdfdfd;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 20px;
+            margin-bottom: 50px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        /* Standard vertical arrow */
+        .flow-arrow {
+            width: 2px;
+            height: 40px;
+            margin: 0;
+            position: relative;
+            background: transparent;
+        }
+        .flow-arrow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 8px);
+            background: #cbd5e0;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #cbd5e0;
+        }
+
+        /* Vertical line without arrowhead for seamless connections */
+        .flow-line {
+            width: 2px;
+            height: 40px;
+            background: #cbd5e0;
+            margin: 0;
+        }
+
+        /* Flow Node Style */
+        .flow-node {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(213, 63, 140, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        .flow-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(213, 63, 140, 0.2);
+        }
+        .flow-node.etapa2 {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(214, 158, 46, 0.1);
+        }
+        .flow-node.etapa2:hover {
+            box-shadow: 0 8px 25px rgba(214, 158, 46, 0.2);
+        }
+        .flow-node.etapa3-nao {
+            border-color: #a0aec0;
+            box-shadow: 0 4px 15px rgba(160, 174, 192, 0.1);
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .node-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 15px;
+            letter-spacing: 0.5px;
+        }
+        .etapa2 .node-badge { background: var(--secondary); }
+        .etapa3-nao .node-badge { background: #718096; }
+
+        .node-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+        .etapa2 .node-title { color: var(--secondary-dark); }
+        .etapa3-nao .node-title { color: #4a5568; }
+
+        .node-content {
+            font-size: 14px;
+            color: var(--text);
+        }
+        .node-content ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+        .node-content li {
+            margin-bottom: 6px;
+        }
+
+        /* Decision Diamond */
+        .decision-container {
+            margin: 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
+        .diamond {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 180px;
+            height: 180px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 20px rgba(213, 63, 140, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .diamond:hover {
+            transform: scale(1.05);
+        }
+
+        /* Split paths */
+        .split-path {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 40px;
+            max-width: 950px;
+            margin-top: 0;
+            position: relative;
+        }
+        
+        .path-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            padding-top: 40px; /* Space for the branch arrows */
+        }
+
+        /* The horizontal joining lines */
+        .path-branch.sim::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: calc(50% + 20px); /* Extends exactly half the gap (20px) to the right */
+            height: 2px;
+            background: #cbd5e0;
+        }
+        .path-branch.nao::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            width: calc(50% + 20px); /* Extends exactly half the gap (20px) to the left */
+            height: 2px;
+            background: #cbd5e0;
+        }
+
+        /* The vertical arrow for each branch */
+        .branch-arrow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: transparent;
+        }
+        .branch-arrow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 8px);
+            background: #cbd5e0;
+        }
+        .branch-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #cbd5e0;
+        }
+
+        .branch-label {
+            background: var(--white);
+            border: 2px solid #cbd5e0;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        .branch-label.sim {
+            color: var(--primary-dark);
+            border-color: var(--primary);
+            background: #fff5f7;
+        }
+        .branch-label.nao {
+            color: #4a5568;
+            border-color: #a0aec0;
+            background: #f7fafc;
+        }
+
+        /* --- TABLES & DETAILS --- */
+        h2 {
+            color: var(--primary-dark);
+            font-size: 22px;
+            margin-top: 50px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #edf2f7; }
+
+        .note {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            color: #2c5282;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Fluxo de Tratamento: Tickets Cancelados → GMUD</h1>
+    <p class="subtitle">Processo oficial de amarração de tickets cancelados motivados por instabilidades na AOF a incidentes abertos, determinando a necessidade de abertura de GMUD.</p>
+
+    <!-- CSS FLOWCHART -->
+    <div class="css-flowchart">
+        
+        <div class="flow-node">
+            <div class="node-header">
+                <span class="node-badge">ETAPA 1</span>
+                <h3 class="node-title">Tickets Cancelados</h3>
+            </div>
+            <div class="node-content">
+                Identificação e agrupamento dos tickets:
+                <ul>
+                    <li><strong>FVP & UX:</strong> 59% (313 tickets)</li>
+                    <li><strong>Plataformas:</strong> 24% (127 tickets)</li>
+                    <li><strong>Monit. Regulatório:</strong> 14% (76 tickets)</li>
+                    <li><strong>Demais:</strong> 3% (15 tickets)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flow-arrow"></div>
+
+        <div class="flow-node etapa2">
+            <div class="node-header">
+                <span class="node-badge">ETAPA 2</span>
+                <h3 class="node-title">Incidente Aberto</h3>
+            </div>
+            <div class="node-content">
+                <strong>Rito de Abertura:</strong>
+                <ol>
+                    <li>Time identifica impacto/indisponibilidade</li>
+                    <li>Registra ticket de incidente com evidências</li>
+                    <li>Define responsável e severidade</li>
+                    <li><strong>Vincula os tickets cancelados relacionados</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="flow-arrow"></div>
+
+        <div class="decision-container">
+            <div class="diamond">A solução vai<br>alterar o ambiente<br>produtivo?</div>
+        </div>
+
+        <div class="flow-line"></div>
+
+        <div class="split-path">
+            <div class="path-branch sim">
+                <div class="branch-arrow"></div>
+                <div class="branch-label sim">SIM</div>
+                <div class="flow-node">
+                    <div class="node-header">
+                        <span class="node-badge">ETAPA 3</span>
+                        <h3 class="node-title">Abre GMUD</h3>
+                    </div>
+                    <div class="node-content">
+                        <strong>Correção Estrutural</strong>
+                        <p style="margin-top:10px;">Abre-se o Jira de GMUD, formaliza-se o escopo, responsável e leva para aprovação do Comitê de Mudanças antes da execução.</p>
+                        <em>Ex: DSH-161 (Reprocessamento Out/25 a Jun/26)</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="path-branch nao">
+                <div class="branch-arrow"></div>
+                <div class="branch-label nao">NÃO</div>
+                <div class="flow-node etapa3-nao">
+                    <div class="node-header">
+                        <span class="node-badge">ENCERRADO</span>
+                        <h3 class="node-title">Registrado e Encerrado</h3>
+                    </div>
+                    <div class="node-content">
+                        <strong>Ajuste Pontual</strong>
+                        <p style="margin-top:10px;">Solução sem necessidade de mudança estrutural. O motivo do cancelamento fica documentado no próprio ticket e ele é encerrado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END CSS FLOWCHART -->
+
+
+    <h2>Responsáveis Mapeados (Junho)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Área / Grupo</th>
+                <th>Representatividade</th>
+                <th>Responsáveis Mapeados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>FVP & UX</strong></td>
+                <td>313 tickets (59%)</td>
+                <td>Hanna (Piloto), Michel (Produção)</td>
+            </tr>
+            <tr>
+                <td><strong>Plataformas</strong></td>
+                <td>127 tickets (24%)</td>
+                <td>Balz ➔ Reis (MQD / PCM)</td>
+            </tr>
+            <tr>
+                <td><strong>Monitoramento Regulatório</strong></td>
+                <td>76 tickets (14%)</td>
+                <td>Balz, Hanna, Trabuco ➔ Vinicius Girão</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>Nota de Impacto:</strong> Esses grupos concentraram praticamente a totalidade (97%) dos tickets cancelados no período, o que reforça a obrigatoriedade da esteira de GMUD quando as correções afetarem produção (reprocessamentos massivos, alteração de regras de SLA).
+    </div>
+
+</div>
+
+</body>
+</html>

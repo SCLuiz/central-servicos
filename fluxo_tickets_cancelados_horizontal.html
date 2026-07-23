@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Tratamento (Horizontal)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #DD249b;
+            --primary-dark: #b8167f;
+            --primary-light: #f772ca;
+            --secondary: #f7c20f;
+            --secondary-dark: #c99c08;
+            --tertiary: #025D7C; /* Azul Turquesa Escuro */
+            --gray: #d9d9d9;
+            --text: #2d3748;
+            --text-light: #718096;
+            --bg: #f7fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 98%; /* Fluid container */
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 28px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 15px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- HORIZONTAL CSS FLOWCHART --- */
+        .css-flowchart-wrapper {
+            width: 100%;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .css-flowchart {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background: #fdfdfd;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            width: fit-content;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Standard horizontal arrow */
+        .flow-arrow-h {
+            height: 2px;
+            width: 35px;
+            margin: 0;
+            position: relative;
+            background: transparent;
+            flex-shrink: 0;
+        }
+        .flow-arrow-h::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(100% - 8px);
+            background: #cbd5e0;
+        }
+        .flow-arrow-h::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px; /* centraliza a ponta de 12px na linha de 2px */
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #cbd5e0;
+        }
+
+        /* Horizontal line without arrowhead */
+        .flow-line-h {
+            height: 2px;
+            width: 35px;
+            background: #cbd5e0;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        /* Flow Node Style */
+        .flow-node {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(213, 63, 140, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        .flow-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(213, 63, 140, 0.2);
+        }
+        .flow-node.etapa2 {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(214, 158, 46, 0.1);
+        }
+        .flow-node.etapa2:hover {
+            box-shadow: 0 8px 25px rgba(214, 158, 46, 0.2);
+        }
+        .flow-node.etapa3-nao {
+            border-color: #a0aec0;
+            box-shadow: 0 4px 15px rgba(160, 174, 192, 0.1);
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .node-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 10px;
+            letter-spacing: 0.5px;
+        }
+        .etapa2 .node-badge { background: var(--secondary); }
+        .etapa3-nao .node-badge { background: #718096; }
+
+        .node-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+        .etapa2 .node-title { color: var(--secondary-dark); }
+        .etapa3-nao .node-title { color: #4a5568; }
+
+        .node-content {
+            font-size: 13px;
+            color: var(--text);
+        }
+        .node-content ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+        .node-content li {
+            margin-bottom: 6px;
+        }
+
+        /* Decision Diamond */
+        .decision-container {
+            margin: 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .diamond {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 160px;
+            height: 160px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 25px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 20px rgba(213, 63, 140, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .diamond:hover {
+            transform: scale(1.05);
+        }
+
+        /* Split paths (Vertical stack on the right) */
+        .split-path-h {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            padding-left: 35px; /* Space for the horizontal arrows */
+            margin-left: 0;
+            flex: 1;
+        }
+        
+        .path-branch-h {
+            display: flex;
+            flex-direction: row; /* row inside the branch */
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        /* The vertical joining lines */
+        .path-branch-h.sim::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            height: calc(50% + 10px); /* 50% + half gap */
+            width: 2px;
+            background: #cbd5e0;
+        }
+        .path-branch-h.nao::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            bottom: 50%;
+            height: calc(50% + 10px); /* 50% + half gap */
+            width: 2px;
+            background: #cbd5e0;
+        }
+
+        /* The horizontal arrow for each branch */
+        .branch-arrow-h {
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 2px;
+            width: 35px;
+            background: transparent;
+        }
+        .branch-arrow-h::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(100% - 8px);
+            background: #cbd5e0;
+        }
+        .branch-arrow-h::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #cbd5e0;
+        }
+
+        .branch-label-h {
+            background: var(--white);
+            border: 2px solid #cbd5e0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-right: 15px;
+            z-index: 2;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .branch-label-h.sim {
+            color: var(--primary-dark);
+            border-color: var(--primary);
+            background: #fff5f7;
+        }
+        .branch-label-h.nao {
+            color: #4a5568;
+            border-color: #a0aec0;
+            background: #f7fafc;
+        }
+
+        /* --- TABLES & DETAILS --- */
+        h2 {
+            color: var(--primary-dark);
+            font-size: 22px;
+            margin-top: 50px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #edf2f7; }
+
+        .note {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            color: #2c5282;
+            font-size: 15px;
+        }
+
+        /* --- CARD FLOW (RITO DE ABERTURA) --- */
+        .card-flow-container {
+            display: flex;
+            justify-content: center;
+            background: #f4f5f7;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0 50px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .card-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 30px;
+            position: relative;
+            border-right: 3px solid #ffffff;
+        }
+        .card-step:last-child {
+            border-right: none;
+        }
+
+        /* Colored bottom bar */
+        .card-step::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 10px;
+        }
+        .card-step.step-1::after { background: var(--primary); }
+        .card-step.step-2::after { background: var(--secondary); }
+        .card-step.step-3::after { background: var(--gray); }
+        .card-step.step-4::after { background: var(--tertiary); }
+
+        /* The icon shape */
+        .step-icon-container {
+            position: relative;
+            margin-bottom: 35px;
+            z-index: 2;
+        }
+
+        .step-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            box-shadow: inset 0 0 0 5px rgba(255,255,255,0.25);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .step-icon .proc {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .step-icon .num {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .card-step.step-1 .step-icon { background: var(--primary); }
+        .card-step.step-2 .step-icon { background: var(--secondary); }
+        .card-step.step-3 .step-icon { background: var(--gray); color: #2d3748; } /* Dark text for contrast on light gray */
+        .card-step.step-4 .step-icon { background: var(--tertiary); }
+
+        /* Arrow pointing right */
+        .step-arrow {
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 24px;
+            z-index: 1;
+        }
+        .step-arrow::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 15px;
+            height: 12px;
+        }
+        .step-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 15px solid;
+        }
+
+        .card-step.step-1 .step-arrow::before { background: var(--primary); }
+        .card-step.step-1 .step-arrow::after { border-left-color: var(--primary); }
+
+        .card-step.step-2 .step-arrow::before { background: var(--secondary); }
+        .card-step.step-2 .step-arrow::after { border-left-color: var(--secondary); }
+
+        .card-step.step-3 .step-arrow::before { background: var(--gray); }
+        .card-step.step-3 .step-arrow::after { border-left-color: var(--gray); }
+
+        .card-step.step-4 .step-arrow { display: none; }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a202c;
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: #4a5568;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* --- ZIGZAG INFOGRAPHIC --- */
+        .zigzag-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            padding: 40px 0 80px 0;
+            margin: 20px 0;
+        }
+
+        .info-step {
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: -25px; /* Overlap the shapes horizontally */
+        }
+        .info-step:first-child { margin-left: 0; }
+
+        .hex-shadow {
+            width: 220px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .hex-main {
+            width: 100%;
+            height: 100%;
+            background: white;
+            clip-path: polygon(15% 0, 85% 0, 100% 50%, 85% 100%, 15% 100%, 0 50%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 45px 0 35px;
+            box-sizing: border-box;
+        }
+
+        .hex-main .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .hex-main .num {
+            font-size: 46px;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+        }
+
+        .info-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 200px;
+            flex: 1; /* Allows vertical stacking balance */
+        }
+
+        .mini-hex {
+            width: 30px;
+            height: 30px;
+            clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+            margin: 20px 0;
+        }
+
+        .info-text h5 {
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            color: #1a202c;
+            font-weight: 700;
+        }
+        .info-text p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Fluxo de Tratamento (Formato Horizontal)</h1>
+    <p class="subtitle">Processo oficial de amarração de tickets cancelados motivados por instabilidades na AOF a incidentes abertos, determinando a necessidade de abertura de GMUD.</p>
+
+    <!-- HORIZONTAL CSS FLOWCHART -->
+    <div class="css-flowchart-wrapper">
+        <div class="css-flowchart">
+            
+            <div class="flow-node">
+                <div class="node-header">
+                    <span class="node-badge">ETAPA 1</span>
+                    <h3 class="node-title">Tickets Cancelados</h3>
+                </div>
+                <div class="node-content">
+                    Identificação e agrupamento dos tickets:
+                    <ul>
+                        <li><strong>FVP & UX:</strong> 59% (313)</li>
+                        <li><strong>Plataformas:</strong> 24% (127)</li>
+                        <li><strong>Monit. Regulat:</strong> 14% (76)</li>
+                        <li><strong>Demais:</strong> 3% (15)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flow-arrow-h"></div>
+
+            <div class="flow-node etapa2">
+                <div class="node-header">
+                    <span class="node-badge">ETAPA 2</span>
+                    <h3 class="node-title">Incidente Aberto</h3>
+                </div>
+                <div class="node-content">
+                    <strong>Rito de Abertura:</strong>
+                    <ol>
+                        <li>Time identifica impacto</li>
+                        <li>Registra ticket com evidências</li>
+                        <li>Define responsável/severidade</li>
+                        <li><strong>Vincula tickets cancelados</strong></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="flow-arrow-h"></div>
+
+            <div class="decision-container">
+                <div class="diamond">A solução vai<br>alterar o ambiente<br>produtivo?</div>
+            </div>
+
+            <div class="flow-line-h"></div>
+
+            <div class="split-path-h">
+                <div class="path-branch-h sim">
+                    <div class="branch-arrow-h"></div>
+                    <div class="branch-label-h sim">SIM</div>
+                    <div class="flow-node">
+                        <div class="node-header">
+                            <span class="node-badge">ETAPA 3</span>
+                            <h3 class="node-title">Abre GMUD</h3>
+                        </div>
+                        <div class="node-content">
+                            <strong>Correção Estrutural</strong>
+                            <p style="margin-top:10px;">Abre-se o Jira de GMUD, formaliza-se o escopo, responsável e leva para aprovação do Comitê de Mudanças.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="path-branch-h nao">
+                    <div class="branch-arrow-h"></div>
+                    <div class="branch-label-h nao">NÃO</div>
+                    <div class="flow-node etapa3-nao">
+                        <div class="node-header">
+                            <span class="node-badge">ENCERRADO</span>
+                            <h3 class="node-title">Reg. e Encerrado</h3>
+                        </div>
+                        <div class="node-content">
+                            <strong>Ajuste Pontual</strong>
+                            <p style="margin-top:10px;">Solução sem necessidade de mudança estrutural. O motivo documentado no próprio ticket e ele é encerrado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- END HORIZONTAL CSS FLOWCHART -->
+
+    <h2>Macroprocesso: Visão Executiva</h2>
+    <div class="card-flow-container">
+        <!-- Step 1 -->
+        <div class="card-step step-1">
+            <div class="step-icon-container">
+                <div class="step-icon">
+                    <span class="proc">ETAPA</span>
+                    <span class="num">01</span>
+                </div>
+                <div class="step-arrow"></div>
+            </div>
+            <h3 class="step-title">Cancelamentos</h3>
+            <p class="step-text">Identificação e agrupamento dos tickets indevidamente cancelados por instabilidades na AOF.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-step step-2">
+            <div class="step-icon-container">
+                <div class="step-icon">
+                    <span class="proc">ETAPA</span>
+                    <span class="num">02</span>
+                </div>
+                <div class="step-arrow"></div>
+            </div>
+            <h3 class="step-title">Incidente</h3>
+            <p class="step-text">Abertura oficial de incidente, com definição de severidade e amarração dos tickets originais.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-step step-3">
+            <div class="step-icon-container">
+                <div class="step-icon">
+                    <span class="proc">ETAPA</span>
+                    <span class="num">03</span>
+                </div>
+                <div class="step-arrow"></div>
+            </div>
+            <h3 class="step-title">Avaliação</h3>
+            <p class="step-text">Análise técnica e arquitetural para definir se a correção exigirá alterações em ambiente produtivo.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="card-step step-4">
+            <div class="step-icon-container">
+                <div class="step-icon">
+                    <span class="proc">ETAPA</span>
+                    <span class="num">04</span>
+                </div>
+                <div class="step-arrow"></div>
+            </div>
+            <h3 class="step-title">GMUD</h3>
+            <p class="step-text">Abertura de GMUD para mudanças estruturais ou encerramento direto para ajustes pontuais.</p>
+        </div>
+    </div>
+
+    <h2>Fluxo Alternativo: Hexágonos (ZigZag)</h2>
+    <div class="zigzag-container">
+        <!-- Step 1 (Odd) -->
+        <div class="info-step">
+            <div class="hex-shadow" style="filter: drop-shadow(10px 0 0 var(--primary)) drop-shadow(0 15px 25px rgba(0,0,0,0.08));">
+                <div class="hex-main">
+                    <span class="title">Info.</span>
+                    <span class="num" style="color: var(--primary);">01</span>
+                </div>
+            </div>
+            <div class="info-details">
+                <div class="mini-hex" style="background: var(--primary);"></div>
+                <div class="info-text">
+                    <h5>Cancelamentos</h5>
+                    <p>Identificação e agrupamento dos tickets indevidamente cancelados.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 (Even) -->
+        <div class="info-step">
+            <div class="info-details">
+                <div class="info-text">
+                    <h5>Incidente</h5>
+                    <p>Abertura de incidente e amarração estrutural dos tickets.</p>
+                </div>
+                <div class="mini-hex" style="background: var(--secondary);"></div>
+            </div>
+            <div class="hex-shadow" style="filter: drop-shadow(10px 0 0 var(--secondary)) drop-shadow(0 15px 25px rgba(0,0,0,0.08));">
+                <div class="hex-main">
+                    <span class="title">Info.</span>
+                    <span class="num" style="color: var(--secondary);">02</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 3 (Odd) -->
+        <div class="info-step">
+            <div class="hex-shadow" style="filter: drop-shadow(10px 0 0 var(--gray)) drop-shadow(0 15px 25px rgba(0,0,0,0.08));">
+                <div class="hex-main">
+                    <span class="title">Info.</span>
+                    <span class="num" style="color: #a0aec0;">03</span>
+                </div>
+            </div>
+            <div class="info-details">
+                <div class="mini-hex" style="background: var(--gray);"></div>
+                <div class="info-text">
+                    <h5>Avaliação</h5>
+                    <p>Análise técnica para definir alterações em produção.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 (Even) -->
+        <div class="info-step">
+            <div class="info-details">
+                <div class="info-text">
+                    <h5>GMUD</h5>
+                    <p>Abertura para mudanças estruturais ou encerramento direto.</p>
+                </div>
+                <div class="mini-hex" style="background: var(--tertiary);"></div>
+            </div>
+            <div class="hex-shadow" style="filter: drop-shadow(10px 0 0 var(--tertiary)) drop-shadow(0 15px 25px rgba(0,0,0,0.08));">
+                <div class="hex-main">
+                    <span class="title">Info.</span>
+                    <span class="num" style="color: var(--tertiary);">04</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Responsáveis Mapeados (Junho)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Área / Grupo</th>
+                <th>Representatividade</th>
+                <th>Responsáveis Mapeados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>FVP & UX</strong></td>
+                <td>313 tickets (59%)</td>
+                <td>Hanna (Piloto), Michel (Produção)</td>
+            </tr>
+            <tr>
+                <td><strong>Plataformas</strong></td>
+                <td>127 tickets (24%)</td>
+                <td>Balz ➔ Reis (MQD / PCM)</td>
+            </tr>
+            <tr>
+                <td><strong>Monitoramento Regulatório</strong></td>
+                <td>76 tickets (14%)</td>
+                <td>Balz, Hanna, Trabuco ➔ Vinicius Girão</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>Nota de Impacto:</strong> Esses grupos concentraram praticamente a totalidade (97%) dos tickets cancelados no período, o que reforça a obrigatoriedade da esteira de GMUD quando as correções afetarem produção (reprocessamentos massivos, alteração de regras de SLA).
+    </div>
+
+</div>
+
+</body>
+</html>

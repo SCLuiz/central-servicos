@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativo de KPIs - GMUDs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        body { font-family: 'Segoe UI', sans-serif; background-color: #ffffff; color: #333; margin: 0; padding: 40px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; }
+        .header-logo { display: flex; align-items: center; color: #1a3644; font-size: 28px; font-weight: 700; }
+        .header-logo svg { margin-right: 12px; fill: #31828f; }
+        .header-logo span { font-weight: 400; }
+        h1 { margin: 0; font-size: 24px; color: #1a3644; }
+        .subtitle { color: #718096; margin-top: 5px; font-size: 14px; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .chart-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .chart-card h3 { margin: 0 0 5px 0; color: #2d3748; font-size: 18px; }
+        .chart-card p.sub { margin: 0 0 20px 0; font-size: 12px; color: #a0aec0; text-transform: uppercase; }
+        .chart-card:last-child { grid-column: span 2; }
+        .chart-container { position: relative; height: 250px; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Comparativo de KPIs de Mudanças (GMUDs)</h1>
+            <div class="subtitle">Evolução trimestral (Maio, Junho e Julho de 2026)</div>
+        </div>
+        <div class="header-logo">
+            <svg width="32" height="32" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.5-7-3.88-7-7.93s3.06-7.43 7-7.93v15.86zm2 0V4.07c3.94.5 7 3.88 7 7.93s-3.06 7.43-7 7.93z"/></svg>
+            open<span>finance</span>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Total Mudanças -->
+        <div class="chart-card">
+            <h3>Volume de Mudanças</h3>
+            <p class="sub">Total de GMUDs no mês</p>
+            <div class="chart-container"><canvas id="chartTotal"></canvas></div>
+        </div>
+
+        <!-- Mudanças Emergenciais -->
+        <div class="chart-card">
+            <h3>Mudanças Emergenciais</h3>
+            <p class="sub">Quantidade de GMUDs emergenciais aprovadas fora da janela</p>
+            <div class="chart-container"><canvas id="chartEmerg"></canvas></div>
+        </div>
+
+        <!-- Aprovadas CAB -->
+        <div class="chart-card">
+            <h3>Aprovação CAB (%)</h3>
+            <p class="sub">Taxa de sucesso (Não Canceladas / Não Falhas)</p>
+            <div class="chart-container"><canvas id="chartAprov"></canvas></div>
+        </div>
+
+
+    </div>
+
+    <script>
+        const labels = ['Maio', 'Junho', 'Julho'];
+        
+        // 1. Total Mudanças
+        new Chart(document.getElementById('chartTotal').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total de GMUDs',
+                    data: [9, 13, 12],
+                    backgroundColor: '#226b74',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+
+        // 2. Emergenciais
+        new Chart(document.getElementById('chartEmerg').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Emergenciais',
+                    data: [3, 3, 0],
+                    backgroundColor: '#e64040',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, suggestedMax: 5 } } }
+        });
+
+        // 3. Aprovadas CAB (%)
+        new Chart(document.getElementById('chartAprov').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '% Aprovadas',
+                    data: [89, 77, 75],
+                    backgroundColor: '#329932',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
+        });
+
+
+    </script>
+</body>
+</html>

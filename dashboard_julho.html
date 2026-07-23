@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Incidentes - Julho 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: #333; margin: 0; padding: 40px; }
+        .header { margin-bottom: 30px; display: flex; align-items: center; gap: 10px; flex-direction: column; align-items: flex-start; }
+        .header h1 { color: #1a3644; font-size: 24px; font-weight: 700; margin: 0; }
+        .open-logo { font-size: 28px; font-weight: 700; color: #1a3644; display: flex; align-items: center; margin-bottom: 10px; }
+        .open-logo span { font-weight: 400; margin-left: 5px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        th { background-color: #31828f; color: white; text-align: left; padding: 16px; font-size: 14px; font-weight: 600; }
+        td { padding: 14px 16px; border-bottom: 1px solid #edf2f7; font-size: 13px; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #ffffff; }
+        tr:hover { background-color: #f1f5f9; }
+        .ticket-link { color: #0066cc; text-decoration: none; font-weight: 600; }
+        .badge { padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 11px; text-transform: uppercase; text-align: center; display: inline-block; min-width: 90px; }
+        .badge-status-resolved { background-color: #38a169; color: white; }
+        .badge-high { background-color: #e53e3e; color: white; }
+        .badge-low { background-color: #38a169; color: white; }
+        
+        .dashboard-cards { display: flex; gap: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); justify-content: space-around; margin-top: 40px; }
+        .card { text-align: center; }
+        .card h3 { font-size: 32px; margin: 0; }
+        .card p { margin: 5px 0 0; color: #718096; font-size: 11px; text-transform: uppercase; font-weight: 600; }
+        .text-red { color: #e53e3e; }
+        .text-green { color: #38a169; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="open-logo">ⓘ open <span>finance</span></div>
+        <h1>Incidentes - Julho 2026</h1>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket</th>
+                <th>Time Solucionador</th>
+                <th>Data</th>
+                <th>Ambiente</th>
+                <th>Severidade</th>
+                <th>Impacto</th>
+                <th>SLA (16h)</th>
+                <th style="text-align: center;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4633</a></td><td>Segurança</td><td>01/07</td><td>AWS</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>37m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4634</a></td><td>Segurança</td><td>01/07</td><td>Service Desk</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>34m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4635</a></td><td>Segurança</td><td>01/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>31m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4636</a></td><td>Segurança</td><td>01/07</td><td>Service Desk</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>27m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4637</a></td><td>Segurança</td><td>01/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>23m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4638</a></td><td>Segurança</td><td>01/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>9m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4645</a></td><td>Segurança</td><td>03/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>3m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4646</a></td><td>Segurança</td><td>03/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>4m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4647</a></td><td>Segurança</td><td>03/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>2m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4648</a></td><td>Segurança</td><td>03/07</td><td>Service Desk</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>1m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4650</a></td><td>Segurança</td><td>06/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-high' style='background-color: #e53e3e; color: white;' title='ESTOURADO'>93h 28m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4651</a></td><td>Segurança</td><td>07/07</td><td>Office 365</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-high' style='background-color: #e53e3e; color: white;' title='ESTOURADO'>92h 13m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+            <tr><td><a href='#' class='ticket-link'>OFBI-4687</a></td><td>Engenharia/Arquitetura</td><td>08/07</td><td>Service Desk</td><td><span class='badge badge-low'>BAIXO</span></td><td><span class='badge badge-low'>SEM IMPACTO</span></td><td><span class='badge badge-low' style='background-color: #38a169; color: white;' title='NO PRAZO'>1h 47m</span></td><td style='text-align: center;'><span class='badge badge-status-resolved'>RESOLVIDO</span></td></tr>
+        </tbody>
+    </table>
+    <div class="dashboard-cards">
+        <div class="card"><h3 class="text-red">13</h3><p>TOTAL INCIDENTES</p></div>
+        <div class="card"><h3 class="text-red">0</h3><p>CRÍTICOS</p></div>
+        <div class="card"><h3 class="text-green">2h</h3><p>MTTR</p></div>
+        <div class="card"><h3 class="text-green">1h</h3><p>MTTA</p></div>
+        <div class="card"><h3 class="text-green">1 dia</h3><p>MTTF</p></div>
+        <div class="card"><h3 class="text-green">0</h3><p>RECORRENTES</p></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Comparativo - KPIs (Maio a Julho 2026)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .header h1 {
+            color: #1a3644;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #718096;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a3644;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span { font-weight: 400; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .chart-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #4a5568;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .chart-card p.subtitle {
+            margin: 0 0 20px 0;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 220px;
+            width: 100%;
+        }
+        
+        .disclaimer {
+            margin-top: 40px;
+            padding: 15px;
+            background: #e6f6ff;
+            border-left: 4px solid #3182ce;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #2b6cb0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            <h1>Comparativo de KPIs de Incidentes</h1>
+            <p>Evolução trimestral (Maio, Junho e Julho de 2026)</p>
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Total Incidentes -->
+        <div class="chart-card">
+            <h3>Total de Incidentes</h3>
+            <p class="subtitle">Volume bruto de chamados no mês</p>
+            <div class="chart-container">
+                <canvas id="chartTotal"></canvas>
+            </div>
+        </div>
+
+        <!-- Críticos -->
+        <div class="chart-card">
+            <h3>Incidentes Críticos</h3>
+            <p class="subtitle">Impacto de indisponibilidade severa</p>
+            <div class="chart-container">
+                <canvas id="chartCriticos"></canvas>
+            </div>
+        </div>
+
+        <!-- MTTR -->
+        <div class="chart-card">
+            <h3>MTTR (Horas)</h3>
+            <p class="subtitle">Tempo Médio de Resolução (Estimado)</p>
+            <div class="chart-container">
+                <canvas id="chartMTTR"></canvas>
+            </div>
+        </div>
+
+        <!-- MTTA -->
+        <div class="chart-card">
+            <h3>MTTA (Horas)</h3>
+            <p class="subtitle">Tempo Médio de Atendimento (Estimado)</p>
+            <div class="chart-container">
+                <canvas id="chartMTTA"></canvas>
+            </div>
+        </div>
+
+        <!-- MTTF -->
+        <div class="chart-card">
+            <h3>MTTF (Dias)</h3>
+            <p class="subtitle">Tempo Médio entre Falhas</p>
+            <div class="chart-container">
+                <canvas id="chartMTTF"></canvas>
+            </div>
+        </div>
+
+        <!-- Recorrentes -->
+        <div class="chart-card">
+            <h3>Recorrentes (RC)</h3>
+            <p class="subtitle">Volume de reaberturas / repetições</p>
+            <div class="chart-container">
+                <canvas id="chartRC"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="disclaimer">
+        <strong>Nota de cálculo:</strong> Os dados de Total de Incidentes e Críticos são exatos extraídos via API. Os SLAs (MTTR, MTTA, MTTF) e Recorrências são aproximações baseadas no cruzamento de datas de criação/resolução e mockups para fins de visualização do dashboard.
+    </div>
+
+    <script>
+        const labels = ['Maio', 'Junho', 'Julho'];
+        
+        // Common chart options for uniformity and aesthetics
+        const getChartOptions = (yAxisTitle) => ({
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(26, 54, 68, 0.9)',
+                    titleFont: { family: 'Inter', size: 13 },
+                    bodyFont: { family: 'Inter', size: 13 },
+                    padding: 10,
+                    cornerRadius: 4,
+                    displayColors: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#edf2f7', borderDash: [5, 5] },
+                    border: { display: false },
+                    title: { display: true, text: yAxisTitle, color: '#a0aec0', font: { size: 11 } }
+                },
+                x: {
+                    grid: { display: false },
+                    border: { display: false }
+                }
+            },
+            animation: { duration: 1500, easing: 'easeOutQuart' }
+        });
+
+        // 1. Total de Incidentes
+        new Chart(document.getElementById('chartTotal'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [8, 19, 13],
+                    backgroundColor: ['#63b3ed', '#3182ce', '#2b6cb0'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: getChartOptions('Qtd Incidentes')
+        });
+
+        // 2. Incidentes Críticos
+        new Chart(document.getElementById('chartCriticos'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [1, 3, 0],
+                    backgroundColor: ['#fc8181', '#e53e3e', '#c53030'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                ...getChartOptions('Qtd Críticos'),
+                scales: { y: { beginAtZero: true, max: 4, ticks: { stepSize: 1 } } }
+            }
+        });
+
+        // 3. MTTR (Horas)
+        new Chart(document.getElementById('chartMTTR'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [24, 18, 12],
+                    backgroundColor: ['#68d391', '#38a169', '#2f855a'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: getChartOptions('Horas')
+        });
+
+        // 4. MTTA (Horas)
+        new Chart(document.getElementById('chartMTTA'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [2, 1, 1],
+                    backgroundColor: ['#f6ad55', '#dd6b20', '#c05621'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: getChartOptions('Horas')
+        });
+
+        // 5. MTTF (Dias)
+        new Chart(document.getElementById('chartMTTF'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [3.8, 1.5, 1.6],
+                    backgroundColor: ['#b794f4', '#805ad5', '#6b46c1'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: getChartOptions('Dias (Aprox)')
+        });
+
+        // 6. Recorrentes
+        new Chart(document.getElementById('chartRC'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: [1, 0, 0],
+                    backgroundColor: ['#a0aec0', '#718096', '#4a5568'],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                ...getChartOptions('Qtd Tickets'),
+                scales: { y: { beginAtZero: true, max: 3, ticks: { stepSize: 1 } } }
+            }
+        });
+    </script>
+</body>
+</html>

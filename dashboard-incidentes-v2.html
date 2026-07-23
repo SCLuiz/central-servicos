@@ -1792,13 +1792,16 @@
             if (currentFilter !== 'all') {
                 if (currentFilter === 'custom' && customDateRange) {
                     filtered = filtered.filter(i => {
-                        const d = new Date(i.created);
+                        const d = new Date(i.inicio_indisponibilidade ? i.inicio_indisponibilidade : i.created);
                         return d >= customDateRange.from && d <= customDateRange.to;
                     });
                 } else {
                     const cutoff = new Date();
                     cutoff.setDate(cutoff.getDate() - currentFilter);
-                    filtered = filtered.filter(i => new Date(i.created) >= cutoff);
+                    filtered = filtered.filter(i => {
+                        const d = new Date(i.inicio_indisponibilidade ? i.inicio_indisponibilidade : i.created);
+                        return d >= cutoff;
+                    });
                 }
             }
 

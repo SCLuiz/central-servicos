@@ -594,6 +594,9 @@
         .main-table tr:nth-child(odd) { background-color: #ffffff; }
         .main-table tr.row-failed { background-color: #fee2e2 !important; }
         .main-table tr.row-failed td { background-color: transparent !important; }
+        .main-table tbody tr:hover { background-color: #dde4ea; cursor: pointer; }
+        .main-table tbody tr.row-selected { background-color: #cbd5e1 !important; }
+        .main-table tbody tr.row-selected td { background-color: transparent !important; }
 
         .status-badge, .priority-badge, .sla-breached, .sla-ok {
             padding: 5px 12px;
@@ -1609,7 +1612,7 @@
                 }
 
                 tbody.innerHTML += `
-                    <tr class="${rowClass}">
+                    <tr class="${rowClass}" onclick="this.classList.toggle('row-selected')">
                         <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${i.key}</a></td>
                         <td style="font-weight:500; position:relative;" class="description-hover">
                             ${sistema}

@@ -980,7 +980,14 @@
             try {
                 const response = await fetch('https://jira-incidentes-proxy.luiz-santos.workers.dev?days=365&t=' + Date.now());
                 if (!response.ok) throw new Error('Erro ao carregar dados');
-                const data = await response.json();
+                let data = await response.json();
+
+                if (!data.incidentes || data.incidentes.length === 0) {
+                    const fallbackRes = await fetch('https://scluiz.github.io/central-servicos/dados-incidentes.json?t=' + Date.now());
+                    if (fallbackRes.ok) {
+                        data = await fallbackRes.json();
+                    }
+                }
 
                 const updateEl = document.getElementById('ultimaAtualizacao');
                 if (updateEl) {

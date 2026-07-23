@@ -562,37 +562,59 @@
         .main-table {
             width: 100%;
             border-collapse: collapse;
+            background: white;
+            font-size: 11px;
+            text-align: center;
         }
         .main-table th {
-            background-color: #f8fafc;
-            color: #475569;
-            padding: 10px 8px;
-            text-align: left;
-            font-weight: 700;
-            font-size: 10px;
+            background-color: #226b74;
+            color: white;
+            padding: 12px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border-bottom: none;
+            text-align: center;
             text-transform: uppercase;
-            border-bottom: 2px solid #e2e8f0;
-            white-space: nowrap;
+        }
+        .main-table th:first-child { border-top-left-radius: 8px; }
+        .main-table th:last-child { border-top-right-radius: 8px; }
+        .main-table th:nth-child(2), .main-table td:nth-child(2) {
+            text-align: left;
         }
         .main-table td {
             padding: 10px 8px;
             border-bottom: 1px solid #edf2f7;
             font-size: 11px;
+            vertical-align: middle;
         }
-        .main-table tr:hover td {
-            background-color: #f1f5f9;
+        .main-table td:first-child {
+            white-space: nowrap;
         }
+        .main-table tr:nth-child(even) { background-color: #ebf1f6; }
+        .main-table tr:nth-child(odd) { background-color: #ffffff; }
+        .main-table tr.row-failed { background-color: #ffcccc !important; }
+        .main-table tr.row-failed td { background-color: transparent !important; }
 
-        .status-badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
-        .status-concluido { background-color: #dcfce7; color: #15803d; }
-        .status-aberto { background-color: #fee2e2; color: #991b1b; }
-        .status-pendente { background-color: #fef3c7; color: #92400e; }
-        .status-cancelado { background-color: #f1f5f9; color: #475569; }
+        .status-badge, .priority-badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            display: inline-block;
+            min-width: 80px;
+            color: white !important;
+            box-sizing: border-box;
+        }
+        .status-concluido { background-color: #329932 !important; }
+        .status-aberto { background-color: #e64040 !important; }
+        .status-pendente { background-color: #e64040 !important; }
+        .status-cancelado { background-color: #e64040 !important; }
 
-        .priority-badge { display: inline-block; padding: 2px 4px; border-radius: 3px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
-        .priority-high { background-color: #fee2e2; color: #991b1b; }
-        .priority-medium { background-color: #fef3c7; color: #92400e; }
-        .priority-low { background-color: #ecfdf5; color: #065f46; }
+        .priority-high { background-color: #e64040 !important; }
+        .priority-medium { background-color: #f59e0b !important; }
+        .priority-low { background-color: #329932 !important; }
 
         .sla-breached { display: inline-flex; align-items: center; gap: 4px; background-color: #fee2e2; color: #991b1b; padding: 2px 4px; border-radius: 3px; font-size: 9px; font-weight: 700; }
         .sla-ok { display: inline-flex; align-items: center; gap: 4px; background-color: #ecfdf5; color: #065f46; padding: 2px 4px; border-radius: 3px; font-size: 9px; font-weight: 700; }
@@ -1515,26 +1537,30 @@
 
                 let statusClass = 'status-badge ';
                 const s = i.status || '';
-                if (s.includes('Concluído')) statusClass += 'status-concluido';
-                else if (s.includes('Aberto')) statusClass += 'status-aberto';
-                else if (s.includes('Pendente')) statusClass += 'status-pendente';
-                else if (s.includes('Cancelado')) statusClass += 'status-cancelado';
+                let statusIcon = '';
+                if (s.includes('Concluído')) { statusClass += 'status-concluido'; statusIcon = '✔'; }
+                else if (s.includes('Aberto')) { statusClass += 'status-aberto'; statusIcon = 'X'; }
+                else if (s.includes('Pendente')) { statusClass += 'status-pendente'; statusIcon = 'X'; }
+                else if (s.includes('Cancelado') || s.includes('Falha') || s.includes('Rejeitado')) { statusClass += 'status-cancelado'; statusIcon = 'X'; }
+                else { statusIcon = '-'; }
+
+                let rowClass = statusIcon === 'X' ? 'row-failed' : '';
 
                 const p = (i.priority || '').toLowerCase();
                 let prioClass = 'priority-badge ';
-                let prioLabel = 'Baixa';
+                let prioLabel = 'BAIXA';
                 if (p === 'critical') {
                     prioClass += 'priority-high';
-                    prioLabel = 'Crítica';
+                    prioLabel = 'CRÍTICA';
                 } else if (p === 'high') {
                     prioClass += 'priority-high';
-                    prioLabel = 'Alta';
+                    prioLabel = 'ALTA';
                 } else if (p === 'medium') {
                     prioClass += 'priority-medium';
-                    prioLabel = 'Média';
+                    prioLabel = 'MÉDIA';
                 } else {
                     prioClass += 'priority-low';
-                    prioLabel = 'Baixa';
+                    prioLabel = 'BAIXA';
                 }
 
                 const slaHtml = i.sla_breached
@@ -1575,8 +1601,8 @@
                 }
 
                 tbody.innerHTML += `
-                    <tr style="${i.sla_breached && !s.includes('Concluído') && !s.includes('Cancelado') ? 'background:#FFF5F5;' : ''}">
-                        <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${i.key}</a></td>
+                    <tr class="${rowClass}">
+                        <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${i.key}</a></td>
                         <td style="font-weight:500; position:relative;" class="description-hover">
                             ${sistema}
                             <div class="desc-tooltip">
@@ -1588,7 +1614,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><span class="${statusClass}">${i.status}</span></td>
+                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>

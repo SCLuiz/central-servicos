@@ -925,6 +925,43 @@
                 </div>
             </div>
 
+            <!-- Painel Comparativo de KPIs (Visão Mensal) -->
+            <div class="table-card" style="margin-bottom: 25px;">
+                <h2 class="table-title" style="margin-bottom: 15px;">Comparativo de KPIs (Últimos 3 Meses)</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Total de Incidentes</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume bruto de chamados</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTotalKpi"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Incidentes Críticos</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Impacto de indisponibilidade severa</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartCriticosKpi"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTR (Horas)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Resolução</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartMttrKpi"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTA (Horas)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Atendimento</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartMttaKpi"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTF (Dias)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio entre Falhas</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartMttfKpi"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Recorrentes (RC)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume de reaberturas</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartRcKpi"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tabela Principal no Rodapé -->
             <div class="table-card">
                 <div class="table-header-row">
@@ -1834,6 +1871,7 @@
             currentFilteredData = filtered;
             renderDashboard(filtered);
             updateComparisonChart();
+            updateKpiDashboards(allIncidentes);
         }
 
         function formatMonthLabel(mKey) {
@@ -2159,7 +2197,69 @@
             });
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        let kpiCharts = {};
+
+        function updateKpiDashboards(incidentes) {
+            const monthsMap = {};
+            incidentes.forEach(i => {
+                if(!i.created) return;
+                const d = new Date(i.created);
+                const key = `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
+                if (!monthsMap[key]) {
+                    monthsMap[key] = {
+                        label: formatMonthLabel(key),
+                        dateObj: new Date(d.getFullYear(), d.getMonth(), 1),
+                        total: 0, criticos: 0,
+                        mttrSec: 0, mttrCount: 0,
+                        mttaSec: 0, mttaCount: 0, rc: 0
+                    };
+                }
+                monthsMap[key].total++;
+                const p = (i.priority || '').toLowerCase();
+                if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
+                    monthsMap[key].criticos++;
+                }
+                if (i.mttr_seconds) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }
+                if (i.tma_seconds) { monthsMap[key].mttaSec += i.tma_seconds; monthsMap[key].mttaCount++; }
+                if (i.summary && i.summary.toLowerCase().includes('recorrente')) monthsMap[key].rc++;
+            });
+
+            const sortedKeys = Object.keys(monthsMap).sort((a,b) => monthsMap[a].dateObj - monthsMap[b].dateObj).slice(-3); // Ultimos 3 meses
+            
+            const labels = sortedKeys.map(k => monthsMap[k].label);
+            const dataTotal = sortedKeys.map(k => monthsMap[k].total);
+            const dataCriticos = sortedKeys.map(k => monthsMap[k].criticos);
+            const dataMttr = sortedKeys.map(k => monthsMap[k].mttrCount > 0 ? (monthsMap[k].mttrSec / monthsMap[k].mttrCount / 3600).toFixed(1) : 0);
+            const dataMtta = sortedKeys.map(k => monthsMap[k].mttaCount > 0 ? (monthsMap[k].mttaSec / monthsMap[k].mttaCount / 3600).toFixed(1) : 0);
+            const dataMttf = sortedKeys.map(k => monthsMap[k].total > 0 ? (30 / monthsMap[k].total).toFixed(1) : 30);
+            const dataRc = sortedKeys.map(k => monthsMap[k].rc);
+
+            const getOpts = (title) => ({
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, title: { display: true, text: title, color: '#a0aec0', font: { size: 10 } }, grid: { borderDash: [5,5] } }, x: { grid: { display: false } } }
+            });
+
+            const render = (id, data, bg, title) => {
+                const ctx = document.getElementById(id);
+                if(!ctx) return;
+                if(kpiCharts[id]) kpiCharts[id].destroy();
+                kpiCharts[id] = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels, datasets: [{ data, backgroundColor: bg, borderRadius: 4, barPercentage: 0.6 }] },
+                    options: getOpts(title)
+                });
+            };
+
+            render('chartTotalKpi', dataTotal, ['#63b3ed', '#3182ce', '#2b6cb0'], 'Qtd Incidentes');
+            render('chartCriticosKpi', dataCriticos, ['#fc8181', '#e53e3e', '#c53030'], 'Qtd Críticos');
+            render('chartMttrKpi', dataMttr, ['#68d391', '#38a169', '#2f855a'], 'Horas');
+            render('chartMttaKpi', dataMtta, ['#f6ad55', '#dd6b20', '#c05621'], 'Horas');
+            render('chartMttfKpi', dataMttf, ['#b794f4', '#805ad5', '#6b46c1'], 'Dias (Aprox)');
+            render('chartRcKpi', dataRc, ['#a0aec0', '#718096', '#4a5568'], 'Qtd Tickets');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
             // Fecha o dropdown ao clicar fora
             window.addEventListener('click', () => {
                 const container = document.getElementById('multiselectContainer');

@@ -947,6 +947,7 @@
                                 <th style="width: 90px;">Severidade</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>Responsável</th><th>Relator</th><th>GMUDs</th>
+                                <th>Criação do Ticket</th>
                                 <th>Início da Indisponibilidade</th>
                                 <th>Fim da Indisponibilidade</th>
                                 <th style="width: 90px;">Status</th>
@@ -1639,6 +1640,7 @@
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>
+                        <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
                         <td>${inicioIndisp}</td>
                         <td>${fimIndisp}</td>
                         <td>${statusHtml}</td>
@@ -1671,6 +1673,7 @@
                     'Descrição': i.summary,
                     'Severidade': i.priority,
                     'Responsável': i.assignee,
+                    'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
@@ -1730,9 +1733,10 @@
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Severidade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
+                head: [['ID', 'Severidade', 'Responsável', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
                 body: currentFilteredData.map(i => [
                     i.key, i.priority, i.assignee || 'N/A',
+                    new Date(i.created).toLocaleDateString('pt-BR'),
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
@@ -1804,14 +1808,14 @@
             if (currentFilter !== 'all') {
                 if (currentFilter === 'custom' && customDateRange) {
                     filtered = filtered.filter(i => {
-                        const d = new Date(i.inicio_indisponibilidade ? i.inicio_indisponibilidade : i.created);
+                        const d = new Date(i.created);
                         return d >= customDateRange.from && d <= customDateRange.to;
                     });
                 } else {
                     const cutoff = new Date();
                     cutoff.setDate(cutoff.getDate() - currentFilter);
                     filtered = filtered.filter(i => {
-                        const d = new Date(i.inicio_indisponibilidade ? i.inicio_indisponibilidade : i.created);
+                        const d = new Date(i.created);
                         return d >= cutoff;
                     });
                 }

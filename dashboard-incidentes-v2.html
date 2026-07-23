@@ -1548,14 +1548,26 @@
 
                 let statusClass = 'status-badge ';
                 const s = i.status || '';
-                let statusIcon = '';
-                if (s.includes('Concluído')) { statusClass += 'status-concluido'; statusIcon = '✔'; }
-                else if (s.includes('Aberto')) { statusClass += 'status-aberto'; statusIcon = 'X'; }
-                else if (s.includes('Pendente')) { statusClass += 'status-pendente'; statusIcon = 'X'; }
-                else if (s.includes('Cancelado') || s.includes('Falha') || s.includes('Rejeitado')) { statusClass += 'status-cancelado'; statusIcon = 'X'; }
-                else { statusIcon = '-'; }
+                let isFailed = false;
+                
+                if (s.includes('Concluído') || s.includes('Closed') || s.includes('Resolvido')) { 
+                    statusClass += 'status-concluido'; 
+                }
+                else if (s.includes('Aberto') || s.includes('Open')) { 
+                    statusClass += 'status-aberto'; 
+                    isFailed = true; 
+                }
+                else if (s.includes('Pendente') || s.includes('In Progress') || s.includes('andamento')) { 
+                    statusClass += 'status-pendente'; 
+                    isFailed = true; 
+                }
+                else if (s.includes('Cancelado') || s.includes('Falha') || s.includes('Rejeitado') || s.includes('Canceled')) { 
+                    statusClass += 'status-cancelado'; 
+                    isFailed = true; 
+                }
 
-                let rowClass = statusIcon === 'X' ? 'row-failed' : '';
+                let rowClass = isFailed ? 'row-failed' : '';
+                const statusHtml = `<span class="${statusClass}">${s}</span>`;
 
                 const p = (i.priority || '').toLowerCase();
                 let prioClass = 'priority-badge ';

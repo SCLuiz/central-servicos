@@ -733,7 +733,7 @@
             
             <!-- Priority Filters -->
             <div class="sub-nav-section">
-                <span class="sub-nav-label">Prioridade:</span>
+                <span class="sub-nav-label">Severidade:</span>
                 <div class="sub-nav-buttons">
                     <button class="sub-filter-btn active" onclick="applyPriorityFilter('all', event)">Todas</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('high', event)">Alta</button>
@@ -945,7 +945,7 @@
                                 <th style="width: 80px;">ID</th>
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Status</th>
-                                <th style="width: 90px;">Prioridade</th>
+                                <th style="width: 90px;">Severidade</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>Responsável</th><th>Relator</th><th>GMUDs</th>
                                 <th>Início da Indisponibilidade</th>
@@ -1280,7 +1280,7 @@
                     title: 'Incidentes Críticos (P1)',
                     value: stats.critical,
                     meta: '<= 5',
-                    desc: 'Total de incidentes de prioridade Crítica criados.',
+                    desc: 'Total de incidentes de severidade Crítica criados.',
                     status: stats.critical <= 5 ? 'meta-ok' : stats.critical <= 10 ? 'meta-warn' : 'meta-crit'
                 },
                 {
@@ -1671,7 +1671,7 @@
                     'ID': i.key,
                     'Descrição': i.summary,
                     'Status': i.status,
-                    'Prioridade': i.priority,
+                    'Severidade': i.priority,
                     'Responsável': i.assignee,
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
@@ -1731,7 +1731,7 @@
             doc.text(`Concluídos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Status', 'Prioridade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Descrição']],
+                head: [['ID', 'Status', 'Severidade', 'Responsável', 'Início Indisp.', 'Fim Indisp.', 'Descrição']],
                 body: currentFilteredData.map(i => [
                     i.key, i.status, i.priority, i.assignee || 'N/A',
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',

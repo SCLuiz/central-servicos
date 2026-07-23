@@ -562,52 +562,56 @@
             width: 100%;
             border-collapse: collapse;
             background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            font-size: 11px;
+            text-align: center;
         }
         .main-table th {
-            background-color: #31828f;
+            background-color: #226b74;
             color: white;
-            text-align: left;
-            padding: 16px;
-            font-size: 14px;
+            padding: 12px 8px;
+            font-size: 11px;
             font-weight: 600;
             border-bottom: none;
-            white-space: nowrap;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .main-table th:nth-child(2), .main-table td:nth-child(2) {
+            text-align: left;
         }
         .main-table td {
-            padding: 14px 16px;
+            padding: 10px 8px;
             border-bottom: 1px solid #edf2f7;
-            font-size: 13px;
+            font-size: 11px;
             vertical-align: middle;
         }
         .main-table td:first-child {
             white-space: nowrap;
         }
-        .main-table tr:nth-child(even) { background-color: #f8fafc; }
-        .main-table tr:hover td { background-color: #f1f5f9; }
+        .main-table tr:nth-child(even) { background-color: #ebf1f6; }
+        .main-table tr:nth-child(odd) { background-color: #ffffff; }
+        .main-table tr.row-failed { background-color: #ffcccc !important; }
+        .main-table tr.row-failed td { background-color: transparent !important; }
 
         .status-badge, .category-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 4px;
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
             text-align: center;
             display: inline-block;
-            width: 140px;
-            box-sizing: border-box;
+            min-width: 80px;
             color: white !important;
+            box-sizing: border-box;
         }
-        .status-concluido { background-color: #38a169 !important; }
-        .status-aberto { background-color: #e53e3e !important; }
-        .status-pendente { background-color: #dd6b20 !important; }
-        .status-cancelado { background-color: #718096 !important; }
+        .status-concluido { background-color: #329932 !important; }
+        .status-aberto { background-color: #e64040 !important; }
+        .status-pendente { background-color: #e64040 !important; }
+        .status-cancelado { background-color: #e64040 !important; }
 
-        .category-emergencial { background-color: #e53e3e !important; }
-        .category-planejada { background-color: #3182ce !important; }
-        .category-normal { background-color: #4a5568 !important; }
+        .category-emergencial { background-color: #e64040 !important; }
+        .category-planejada { background-color: #329932 !important; }
+        .category-normal { background-color: #329932 !important; }
 
         /* Tooltip style */
         .description-hover {
@@ -1419,33 +1423,50 @@
 
                 let statusClass = 'status-badge ';
                 const s = m.status || '';
-                if (s.includes('Concluído')) statusClass += 'status-concluido';
-                else if (s.includes('Planejamento')) statusClass += 'status-aberto';
-                else if (s.includes('Aguardando')) statusClass += 'status-pendente';
-                else if (s.includes('Cancelado')) statusClass += 'status-cancelado';
+                let statusIcon = '';
+                if (s.includes('Concluído')) {
+                    statusClass += 'status-concluido';
+                    statusIcon = '✔';
+                }
+                else if (s.includes('Planejamento')) {
+                    statusClass += 'status-aberto';
+                    statusIcon = 'X';
+                }
+                else if (s.includes('Aguardando')) {
+                    statusClass += 'status-pendente';
+                    statusIcon = 'X';
+                }
+                else if (s.includes('Cancelado') || s.includes('Rejeitado') || s.includes('Falha') || m.causouIncidente) {
+                    statusClass += 'status-cancelado';
+                    statusIcon = 'X';
+                } else {
+                    statusIcon = '-';
+                }
+
+                let rowClass = statusIcon === 'X' ? 'row-failed' : '';
 
                 const cat = (m.categoria || '').toLowerCase();
                 let catClass = 'category-badge ';
                 let catLabel = 'Normal';
                 if (cat.includes('emergencial')) {
                     catClass += 'category-emergencial';
-                    catLabel = 'Emergencial';
+                    catLabel = 'EMERGENCIAL';
                 } else if (cat.includes('planejada')) {
                     catClass += 'category-planejada';
-                    catLabel = 'Planejada';
+                    catLabel = 'PLANEJADA';
                 } else {
                     catClass += 'category-normal';
-                    catLabel = 'Normal';
+                    catLabel = 'NORMAL';
                 }
 
                 const inicioVal = m.inicio_planejado ? new Date(m.inicio_planejado).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
                 const conclusaoVal = m.conclusao_planejada ? new Date(m.conclusao_planejada).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
 
                 tbody.innerHTML += `
-                    <tr>
-                        <td><a href="${url}" target="_blank" style="color: #D81B60; font-weight: 600;">${m.key}</a></td>
+                    <tr class="${rowClass}">
+                        <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${m.key}</a></td>
                         <td>${m.summary}</td>
-                        <td><span class="${statusClass}">${m.status}</span></td>
+                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
                         <td><span class="${catClass}">${catLabel}</span></td>
                         <td>${m.assignee}</td>
                         <td>${inicioVal}</td>

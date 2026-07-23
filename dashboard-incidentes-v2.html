@@ -871,7 +871,7 @@
                             <table class="card-table">
                                 <thead>
                                     <tr>
-                                        <th>Responsável</th><th>Relator</th><th>GMUDs</th>
+                                        <th>Responsável</th>
                                         <th style="width: 50px;">Qtd</th>
                                         <th style="width: 140px;">Proporção</th>
                                     </tr>
@@ -946,7 +946,7 @@
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Severidade</th>
                                 <th style="width: 110px;">SLA</th>
-                                <th>Responsável</th><th>Relator</th><th>GMUDs</th>
+                                <th>Responsável</th><th>GMUDs</th>
                                 <th>Criação do Ticket</th>
                                 <th>Início da Indisponibilidade</th>
                                 <th>Fim da Indisponibilidade</th>
@@ -1639,7 +1639,7 @@
                         </td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
-                        <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>
+                        <td>${i.assignee}</td><td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
                         <td>${inicioIndisp}</td>
                         <td>${fimIndisp}</td>

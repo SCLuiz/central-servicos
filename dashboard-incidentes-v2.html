@@ -864,14 +864,14 @@
 
                 <!-- COLUNA 3: Responsáveis, Linha do Tempo e Alertas -->
                 <div style="display: flex; flex-direction: column; gap: 20px;">
-                    <!-- Widget 5: Top Responsáveis -->
+                    <!-- Widget 5: Top Times Solucionadores -->
                     <div class="chart-card">
-                        <h3 class="chart-title">Top Responsáveis <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Atendimento)</span></h3>
+                        <h3 class="chart-title">Top Times Solucionadores <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Atendimento)</span></h3>
                         <div style="overflow-y: auto; flex-grow: 1;">
                             <table class="card-table">
                                 <thead>
                                     <tr>
-                                        <th>Responsável</th>
+                                        <th>Time Solucionador</th>
                                         <th style="width: 50px;">Qtd</th>
                                         <th style="width: 140px;">Proporção</th>
                                     </tr>
@@ -943,10 +943,11 @@
                         <thead>
                             <tr>
                                 <th style="width: 80px;">ID</th>
+                                <th>Time Solucionador</th>
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Severidade</th>
                                 <th style="width: 110px;">SLA</th>
-                                <th>Responsável</th><th>GMUDs</th>
+                                <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
                                 <th>Início da Indisponibilidade</th>
                                 <th>Fim da Indisponibilidade</th>
@@ -1626,6 +1627,7 @@
                 tbody.innerHTML += `
                     <tr class="${rowClass}" onclick="this.classList.toggle('row-selected')">
                         <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${i.key}</a></td>
+                        <td>${i.assignee}</td>
                         <td style="font-weight:500; position:relative;" class="description-hover">
                             ${sistema}
                             <div class="desc-tooltip">
@@ -1639,7 +1641,7 @@
                         </td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
-                        <td>${i.assignee}</td><td class="gmud-cell">${renderGmuds(i)}</td>
+                        <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
                         <td>${inicioIndisp}</td>
                         <td>${fimIndisp}</td>
@@ -1670,9 +1672,9 @@
 
                 return {
                     'ID': i.key,
+                    'Time Solucionador': i.assignee,
                     'Descrição': i.summary,
                     'Severidade': i.priority,
-                    'Responsável': i.assignee,
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
@@ -1733,9 +1735,9 @@
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['ID', 'Severidade', 'Responsável', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
+                head: [['ID', 'Time Solucionador', 'Severidade', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
                 body: currentFilteredData.map(i => [
-                    i.key, i.priority, i.assignee || 'N/A',
+                    i.key, i.assignee || 'N/A', i.priority,
                     new Date(i.created).toLocaleDateString('pt-BR'),
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',

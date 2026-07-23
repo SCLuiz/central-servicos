@@ -596,28 +596,29 @@
         .main-table tr.row-failed td { background-color: transparent !important; }
 
         .status-badge, .priority-badge, .sla-breached, .sla-ok {
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
             text-align: center;
             display: inline-block;
-            min-width: 85px;
+            min-width: 100px;
+            color: white !important;
             box-sizing: border-box;
             white-space: nowrap;
         }
-        .status-concluido { background-color: #dcfce7 !important; color: #15803d !important; }
-        .status-aberto { background-color: #fee2e2 !important; color: #991b1b !important; }
-        .status-pendente { background-color: #fef3c7 !important; color: #92400e !important; }
-        .status-cancelado { background-color: #f1f5f9 !important; color: #475569 !important; }
+        .status-concluido { background-color: #3ba76a !important; }
+        .status-aberto { background-color: #df4a4a !important; }
+        .status-pendente { background-color: #df7b29 !important; }
+        .status-cancelado { background-color: #8392a5 !important; }
 
-        .priority-high { background-color: #fee2e2 !important; color: #991b1b !important; }
-        .priority-medium { background-color: #fef3c7 !important; color: #92400e !important; }
-        .priority-low { background-color: #dcfce7 !important; color: #15803d !important; }
+        .priority-high { background-color: #df4a4a !important; }
+        .priority-medium { background-color: #df7b29 !important; }
+        .priority-low { background-color: #3ba76a !important; }
 
-        .sla-breached { background-color: #fee2e2 !important; color: #991b1b !important; }
-        .sla-ok { background-color: #dcfce7 !important; color: #15803d !important; }
+        .sla-breached { background-color: #df4a4a !important; }
+        .sla-ok { background-color: #3ba76a !important; }
 
         /* Tooltip style */
         .description-hover {
@@ -1621,7 +1622,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: 85px; text-align: center; display: inline-block; box-sizing: border-box;">${statusIcon}</span></td>
+                        <td><span class="${statusClass}" style="padding: 5px 12px; border-radius: 20px; font-weight: bold; min-width: 100px; text-align: center; display: inline-block; box-sizing: border-box;">${statusIcon}</span></td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td>${i.assignee}</td><td>${i.reporter || "—"}</td><td class="gmud-cell">${renderGmuds(i)}</td>
@@ -1639,9 +1640,8 @@
             if (!i.gmuds_vinculadas || i.gmuds_vinculadas.length === 0) return '<span style="color:#94a3b8">—</span>';
             return i.gmuds_vinculadas.map(function(g) {
                 var emg = g.tipo === 'Emergencial';
-                var bg = emg ? '#fee2e2' : '#f1f5f9';
-                var textColor = emg ? '#991b1b' : '#475569';
-                return '<a href="https://openfinancebrasil.atlassian.net/browse/' + g.key + '" target="_blank" style="display:inline-block;margin:1px 2px;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;text-align:center;text-decoration:none;color:' + textColor + ';background:' + bg + ';min-width:85px;box-sizing:border-box;white-space:nowrap;">' + g.key + (emg ? ' ⚠' : '') + '</a>';
+                var bg = emg ? '#df4a4a' : '#8392a5';
+                return '<a href="https://openfinancebrasil.atlassian.net/browse/' + g.key + '" target="_blank" style="display:inline-block;margin:1px 2px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;text-align:center;text-decoration:none;color:white;background:' + bg + ';min-width:100px;box-sizing:border-box;white-space:nowrap;">' + g.key + (emg ? ' ⚠' : '') + '</a>';
             }).join('');
         }
         function exportToExcel() {

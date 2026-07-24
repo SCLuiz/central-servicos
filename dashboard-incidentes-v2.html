@@ -925,39 +925,45 @@
                 </div>
             </div>
 
-            <!-- Painel Comparativo de KPIs (Visão Mensal) -->
-            <div class="table-card" style="margin-bottom: 25px;">
-                <h2 class="table-title" style="margin-bottom: 15px;">Comparativo de KPIs (Últimos 3 Meses)</h2>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Total de Incidentes</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume bruto de chamados</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartTotalKpi"></canvas></div>
+            <!-- Painel de KPIs Principal -->
+            <div style="margin-bottom: 25px;">
+                <h2 style="margin-bottom: 15px; color: #336699; border-bottom: 2px solid #336699; padding-bottom: 5px; display: inline-block; text-transform: uppercase; font-size: 14px; font-weight: 700;">Visão Geral dos Incidentes</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <!-- Card 1 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Total de Incidentes</p>
+                        <div id="kpiBigTotal" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">incidentes</p>
                     </div>
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Incidentes Críticos</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Impacto de indisponibilidade severa</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartCriticosKpi"></canvas></div>
+                    <!-- Card 2 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Incidentes Críticos</p>
+                        <div id="kpiBigCriticos" style="font-size: 38px; font-weight: 700; color: #dc2626; margin: 0 0 15px 0;">0</div>
+                        <p id="kpiBigCriticosSub" style="margin: 0; font-size: 11px; color: #94a3b8;">0% críticos</p>
                     </div>
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTR (Horas)</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Resolução</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartMttrKpi"></canvas></div>
+                    <!-- Card 3 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">MTTA</p>
+                        <div id="kpiBigMtta" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0h</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Atendimento</p>
                     </div>
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTA (Horas)</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Atendimento</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartMttaKpi"></canvas></div>
+                    <!-- Card 4 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">MTTR</p>
+                        <div id="kpiBigMttr" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0h</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">Tempo Médio de Resolução</p>
                     </div>
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">MTTF (Dias)</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Tempo Médio entre Falhas</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartMttfKpi"></canvas></div>
+                    <!-- Card 5 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">MTTF</p>
+                        <div id="kpiBigMttf" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0 dias</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">Médio entre Incidentes</p>
                     </div>
-                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
-                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Recorrentes (RC)</h3>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume de reaberturas</p>
-                        <div style="height: 180px; position: relative;"><canvas id="chartRcKpi"></canvas></div>
+                    <!-- Card 6 -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Recorrentes (RC)</p>
+                        <div id="kpiBigRc" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">reaberturas</p>
                     </div>
                 </div>
             </div>
@@ -1454,6 +1460,7 @@
 
             renderCharts(stats, incidentes);
             renderTable(incidentes);
+            updateKpiDashboards(incidentes);
         }
 
         let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartComparativo;
@@ -2203,63 +2210,40 @@
         let kpiCharts = {};
 
         function updateKpiDashboards(incidentes) {
-            const monthsMap = {};
+            let total = incidentes.length;
+            let criticos = 0;
+            let mttrSec = 0, mttrCount = 0;
+            let mttaSec = 0, mttaCount = 0;
+            let rc = 0;
+
             incidentes.forEach(i => {
-                if(!i.created) return;
-                const d = new Date(i.created);
-                const key = `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
-                if (!monthsMap[key]) {
-                    monthsMap[key] = {
-                        label: formatMonthLabel(key),
-                        dateObj: new Date(d.getFullYear(), d.getMonth(), 1),
-                        total: 0, criticos: 0,
-                        mttrSec: 0, mttrCount: 0,
-                        mttaSec: 0, mttaCount: 0, rc: 0
-                    };
-                }
-                monthsMap[key].total++;
                 const p = (i.priority || '').toLowerCase();
                 if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
-                    monthsMap[key].criticos++;
+                    criticos++;
                 }
-                if (i.mttr_seconds) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }
-                if (i.tma_seconds) { monthsMap[key].mttaSec += i.tma_seconds; monthsMap[key].mttaCount++; }
-                if (i.summary && i.summary.toLowerCase().includes('recorrente')) monthsMap[key].rc++;
+                if (i.mttr_seconds) { mttrSec += i.mttr_seconds; mttrCount++; }
+                if (i.tma_seconds) { mttaSec += i.tma_seconds; mttaCount++; }
+                if (i.summary && i.summary.toLowerCase().includes('recorrente')) rc++;
             });
 
-            const sortedKeys = Object.keys(monthsMap).sort((a,b) => monthsMap[a].dateObj - monthsMap[b].dateObj).slice(-3); // Ultimos 3 meses
+            document.getElementById('kpiBigTotal').innerText = total;
+            document.getElementById('kpiBigCriticos').innerText = criticos;
+            document.getElementById('kpiBigCriticos').style.color = criticos > 0 ? '#dc2626' : '#16a34a'; // Red if > 0
             
-            const labels = sortedKeys.map(k => monthsMap[k].label);
-            const dataTotal = sortedKeys.map(k => monthsMap[k].total);
-            const dataCriticos = sortedKeys.map(k => monthsMap[k].criticos);
-            const dataMttr = sortedKeys.map(k => monthsMap[k].mttrCount > 0 ? (monthsMap[k].mttrSec / monthsMap[k].mttrCount / 3600).toFixed(1) : 0);
-            const dataMtta = sortedKeys.map(k => monthsMap[k].mttaCount > 0 ? (monthsMap[k].mttaSec / monthsMap[k].mttaCount / 3600).toFixed(1) : 0);
-            const dataMttf = sortedKeys.map(k => monthsMap[k].total > 0 ? (30 / monthsMap[k].total).toFixed(1) : 30);
-            const dataRc = sortedKeys.map(k => monthsMap[k].rc);
-
-            const getOpts = (title) => ({
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true, title: { display: true, text: title, color: '#a0aec0', font: { size: 10 } }, grid: { borderDash: [5,5] } }, x: { grid: { display: false } } }
-            });
-
-            const render = (id, data, bg, title) => {
-                const ctx = document.getElementById(id);
-                if(!ctx) return;
-                if(kpiCharts[id]) kpiCharts[id].destroy();
-                kpiCharts[id] = new Chart(ctx, {
-                    type: 'bar',
-                    data: { labels, datasets: [{ data, backgroundColor: bg, borderRadius: 4, barPercentage: 0.6 }] },
-                    options: getOpts(title)
-                });
-            };
-
-            render('chartTotalKpi', dataTotal, ['#63b3ed', '#3182ce', '#2b6cb0'], 'Qtd Incidentes');
-            render('chartCriticosKpi', dataCriticos, ['#fc8181', '#e53e3e', '#c53030'], 'Qtd Críticos');
-            render('chartMttrKpi', dataMttr, ['#68d391', '#38a169', '#2f855a'], 'Horas');
-            render('chartMttaKpi', dataMtta, ['#f6ad55', '#dd6b20', '#c05621'], 'Horas');
-            render('chartMttfKpi', dataMttf, ['#b794f4', '#805ad5', '#6b46c1'], 'Dias (Aprox)');
-            render('chartRcKpi', dataRc, ['#a0aec0', '#718096', '#4a5568'], 'Qtd Tickets');
+            // O print mostra '100% não críticos' (exemplo bizarro de mockup), mas vamos colocar dinâmico
+            const percCriticos = total > 0 ? ((criticos/total)*100).toFixed(0) : 0;
+            document.getElementById('kpiBigCriticosSub').innerText = total > 0 ? `${100 - percCriticos}% não críticos` : '0% não críticos';
+            
+            const mttrHours = mttrCount > 0 ? (mttrSec / mttrCount / 3600).toFixed(1) : 0;
+            document.getElementById('kpiBigMttr').innerText = mttrHours.toString().replace('.0', '') + 'h';
+            
+            const mttaHours = mttaCount > 0 ? (mttaSec / mttaCount / 3600).toFixed(1) : 0;
+            document.getElementById('kpiBigMtta').innerText = mttaHours.toString().replace('.0', '') + 'h';
+            
+            const mttf = total > 0 ? (30 / total).toFixed(1) : 30; // 30 days approx / total incidents
+            document.getElementById('kpiBigMttf').innerText = mttf.toString().replace('.0', '') + ' dias';
+            
+            document.getElementById('kpiBigRc').innerText = rc;
         }
 
         document.addEventListener('DOMContentLoaded', () => {

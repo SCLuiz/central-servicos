@@ -983,6 +983,7 @@
                                 <th>Time Solucionador</th>
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Severidade</th>
+                                <th style="width: 90px;">Impacto</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
@@ -1677,6 +1678,7 @@
                             </div>
                         </td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
+                        <td><span style="font-size: 11px; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-weight: 500;">${i.impacto || '-'}</span></td>
                         <td>${slaHtml}</td>
                         <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
@@ -1712,6 +1714,7 @@
                     'Time Solucionador': i.assignee,
                     'Descrição': i.summary,
                     'Severidade': i.priority,
+                    'Impacto': i.impacto || '-',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
@@ -1772,9 +1775,9 @@
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
             doc.autoTable({
-                head: [['Ticket', 'Time Solucionador', 'Severidade', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
+                head: [['Ticket', 'Time Solucionador', 'Severidade', 'Impacto', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
                 body: currentFilteredData.map(i => [
-                    i.key, i.assignee || 'N/A', i.priority,
+                    i.key, i.assignee || 'N/A', i.priority, i.impacto || '-',
                     new Date(i.created).toLocaleDateString('pt-BR'),
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',

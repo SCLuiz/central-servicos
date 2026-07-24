@@ -744,6 +744,43 @@
 
         <div id="content" style="display: none;">
             
+            <!-- Visão Geral das Mudanças (Big Numbers) -->
+            <div class="table-card" style="margin-bottom: 25px; padding: 25px; background: white;">
+                <h2 style="margin-bottom: 15px; color: #336699; border-bottom: 2px solid #336699; padding-bottom: 5px; display: inline-block; text-transform: uppercase; font-size: 14px; font-weight: 700;">Visão Geral das Mudanças</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Total de Mudanças</p>
+                        <div id="kpiBigTotalMud" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">mudanças executadas</p>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Taxa de Sucesso</p>
+                        <div id="kpiBigSucesso" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0%</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">sem incidentes/rollbacks</p>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Mudanças Emergenciais</p>
+                        <div id="kpiBigEmerg" style="font-size: 38px; font-weight: 700; color: #dc2626; margin: 0 0 15px 0;">0</div>
+                        <p id="kpiBigEmergSub" style="margin: 0; font-size: 11px; color: #94a3b8;">0% emergenciais</p>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Revertidas / Rollback</p>
+                        <div id="kpiBigRevertidas" style="font-size: 38px; font-weight: 700; color: #dc2626; margin: 0 0 15px 0;">0</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">mudanças que falharam</p>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Incidentes Causados</p>
+                        <div id="kpiBigIncidentes" style="font-size: 38px; font-weight: 700; color: #dc2626; margin: 0 0 15px 0;">0</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">mudanças que quebraram algo</p>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Tempo Médio CAB</p>
+                        <div id="kpiBigPrazo" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0 dias</div>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">médio p/ aprovação</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="dashboard-grid">
                 <!-- COLUNA 1: Sucesso e Status -->
                 <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -881,24 +918,40 @@
                 </div>
             </div>
 
-            <!-- Widget de Comparativo de Performance -->
-            <div class="table-card" style="margin-top: 20px;">
-                <div class="table-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-                    <h2 class="table-title">Comparativo de Performance</h2>
-                    <div class="sub-nav-buttons" style="margin-top: 0;">
-                        <button class="sub-filter-btn active" id="btnCompMensal" onclick="changeComparisonViewMode('mensal')">Mensal</button>
-                        <button class="sub-filter-btn" id="btnCompAnual" onclick="changeComparisonViewMode('anual')">Anual</button>
+            <!-- Painel Comparativo de Histórico (Últimos 3 Meses) -->
+            <div class="table-card" style="margin-top: 20px; margin-bottom: 25px;">
+                <h2 class="table-title" style="margin-bottom: 15px;">Comparativo de Histórico (Últimos 3 Meses)</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Total de Mudanças</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume bruto de mudanças</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendTotal"></canvas></div>
                     </div>
-                </div>
-                <div id="compSelectorLabel" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--of-text-secondary); margin-bottom: 8px; letter-spacing: 0.5px;">Selecionar Meses para Comparar:</div>
-                <div class="multiselect-container" id="multiselectContainer">
-                    <div class="multiselect-display" id="multiselectDisplay" onclick="toggleDropdown(event)">Carregando...</div>
-                    <div class="multiselect-options" id="multiselectOptions">
-                        <!-- Preenchido via JS -->
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Taxa de Sucesso (%)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Proporção sem falhas/rollbacks</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendSucesso"></canvas></div>
                     </div>
-                </div>
-                <div style="position: relative; width: 100%; height: 260px;">
-                    <canvas id="chartComparativoMensal" style="max-height: 250px;"></canvas>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Emergenciais</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Fora da janela padrão</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendEmerg"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Revertidas / Rollback</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Falharam e voltaram</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendRev"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Incidentes Causados</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume de P1/P2/P3 gerados</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendInc"></canvas></div>
+                    </div>
+                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Tempo Médio CAB (Dias)</h3>
+                        <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Aprovação pelo comitê</p>
+                        <div style="height: 180px; position: relative;"><canvas id="chartTrendCab"></canvas></div>
+                    </div>
                 </div>
             </div>
 

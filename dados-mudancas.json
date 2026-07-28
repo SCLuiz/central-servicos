@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-07-28T13:07:47.507589",
-  "total": 41,
+  "ultima_atualizacao": "2026-07-28T15:30:51.811533",
+  "total": 42,
   "mudancas": [
+    {
+      "key": "OFBI-4706",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Block Adobe Reader from creating child processes",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-07-28T10:33:59.926-0300",
+      "updated": "2026-07-28T10:39:00.280-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4705",
       "summary": "Solicitação de Mudanças - SECOPS - Block untrusted and unsigned processes that run from USB",

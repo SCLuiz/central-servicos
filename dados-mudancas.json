@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-28T17:03:08.418377",
+  "ultima_atualizacao": "2026-07-28T18:22:57.257079",
   "total": 42,
   "mudancas": [
     {
@@ -20,10 +20,10 @@
       "summary": "Solicitação de Mudanças - SECOPS - Block untrusted and unsigned processes that run from USB",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T08:38:12.646-0300",
-      "updated": "2026-07-28T09:08:07.447-0300",
+      "updated": "2026-07-28T15:22:33.297-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -33,10 +33,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Guilherme Machado",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-27T17:59:55.907-0300",
-      "updated": "2026-07-27T18:01:00.786-0300",
+      "updated": "2026-07-28T15:22:21.789-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-4673",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-14T11:54:46.618-0300",
-      "updated": "2026-07-23T09:11:14.221-0300",
+      "updated": "2026-07-28T15:21:16.850-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

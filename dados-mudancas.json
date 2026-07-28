@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-07-28T11:25:20.481228",
-  "total": 40,
+  "ultima_atualizacao": "2026-07-28T13:07:47.507589",
+  "total": 41,
   "mudancas": [
+    {
+      "key": "OFBI-4705",
+      "summary": "Solicitação de Mudanças - SECOPS - Block untrusted and unsigned processes that run from USB",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Guilherme Machado",
+      "created": "2026-07-28T08:38:12.646-0300",
+      "updated": "2026-07-28T09:08:07.447-0300",
+      "labels": [],
+      "causouIncidente": null,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4704",
       "summary": "Solicitação de Mudanças",

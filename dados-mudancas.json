@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-07-29T20:27:49.730790",
+  "ultima_atualizacao": "2026-07-29T21:26:45.796186",
   "total": 41,
   "mudancas": [
     {
       "key": "OFBI-4706",
       "summary": "Microsoft Secure Score - Block Adobe Reader from creating child processes",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Marcio Paulo",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T10:33:59.926-0300",
-      "updated": "2026-07-29T14:55:56.014-0300",
+      "updated": "2026-07-29T17:59:41.158-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-4705",
       "summary": "Microsoft Secure Score - Block untrusted and unsigned processes that run from USB",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Marcio Paulo",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T08:38:12.646-0300",
-      "updated": "2026-07-29T14:56:27.920-0300",
+      "updated": "2026-07-29T18:02:52.974-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-4704",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-27T17:59:55.907-0300",
-      "updated": "2026-07-28T15:22:21.789-0300",
+      "updated": "2026-07-29T17:58:15.001-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-14T12:01:24.199-0300",
-      "updated": "2026-07-29T13:57:25.048-0300",
+      "updated": "2026-07-29T17:38:40.607-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

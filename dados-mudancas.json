@@ -1,29 +1,29 @@
 {
-  "ultima_atualizacao": "2026-07-29T16:45:53.105595",
+  "ultima_atualizacao": "2026-07-29T17:58:16.106061",
   "total": 41,
   "mudancas": [
     {
       "key": "OFBI-4706",
-      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Block Adobe Reader from creating child processes",
-      "status": "Planejamento",
+      "summary": "Microsoft Secure Score - Block Adobe Reader from creating child processes",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T10:33:59.926-0300",
-      "updated": "2026-07-28T10:39:00.280-0300",
+      "updated": "2026-07-29T14:55:56.014-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
     },
     {
       "key": "OFBI-4705",
-      "summary": "Solicitação de Mudanças - SECOPS - Block untrusted and unsigned processes that run from USB",
+      "summary": "Microsoft Secure Score - Block untrusted and unsigned processes that run from USB",
       "status": "Aguardando CAB",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T08:38:12.646-0300",
-      "updated": "2026-07-28T15:22:33.297-0300",
+      "updated": "2026-07-29T14:56:27.920-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-14T12:01:24.199-0300",
-      "updated": "2026-07-27T18:02:13.796-0300",
+      "updated": "2026-07-29T13:57:25.048-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

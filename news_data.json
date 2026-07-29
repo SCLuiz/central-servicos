@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4706",
+    "title": "OFBI-4706 - Microsoft Secure Score - Block Adobe Reader from creating child processes",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "29/07/2026 17:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4706"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4704",
+    "title": "OFBI-4704 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "29/07/2026 17:58",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4704"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4674",
     "title": "OFBI-4674 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -9,38 +31,5 @@
     "status_dot": "dot-info",
     "date": "29/07/2026 17:38",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4674"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4704",
-    "title": "OFBI-4704 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "29/07/2026 17:36",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4704"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4705",
-    "title": "OFBI-4705 - Microsoft Secure Score - Block untrusted and unsigned processes that run from USB",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "29/07/2026 17:35",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4705"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4706",
-    "title": "OFBI-4706 - Microsoft Secure Score - Block Adobe Reader from creating child processes",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "29/07/2026 17:35",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4706"
   }
 ]

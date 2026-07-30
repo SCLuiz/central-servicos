@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-07-30T13:00:00.434246",
+  "ultima_atualizacao": "2026-07-30T15:18:10.994553",
   "total": 41,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Marcio Paulo",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T10:33:59.926-0300",
-      "updated": "2026-07-29T17:59:41.158-0300",
+      "updated": "2026-07-30T11:12:16.665-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-08-03T08:14:31.949803",
-  "total": 41,
+  "ultima_atualizacao": "2026-08-03T11:46:36.845273",
+  "total": 40,
   "mudancas": [
     {
       "key": "OFBI-4706",
@@ -518,19 +518,6 @@
       "reporter": "Higor Santos",
       "created": "2026-04-22T15:46:26.565-0300",
       "updated": "2026-05-06T10:14:01.234-0300",
-      "labels": [],
-      "causouIncidente": null,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4474",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Falha",
-      "priority": "Low",
-      "assignee": "Fabricio Lobo",
-      "reporter": "Fabricio Lobo",
-      "created": "2026-04-16T15:00:42.235-0300",
-      "updated": "2026-05-05T08:04:11.457-0300",
       "labels": [],
       "causouIncidente": null,
       "categoria": "Planejada"

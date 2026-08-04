@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-08-04T11:51:01.677627",
-  "total": 40,
+  "ultima_atualizacao": "2026-08-04T13:27:59.865704",
+  "total": 39,
   "mudancas": [
     {
       "key": "OFBI-4706",
@@ -505,19 +505,6 @@
       "reporter": "Felipe Belisário",
       "created": "2026-04-30T11:36:41.614-0300",
       "updated": "2026-05-11T16:47:28.700-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4480",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Higor Santos",
-      "reporter": "Higor Santos",
-      "created": "2026-04-22T15:46:26.565-0300",
-      "updated": "2026-05-06T10:14:01.234-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

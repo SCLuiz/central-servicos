@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-08-05T15:22:25.425433",
+  "ultima_atualizacao": "2026-08-05T16:56:57.371496",
   "total": 38,
   "mudancas": [
     {
       "key": "OFBI-4706",
       "summary": "Microsoft Secure Score - Block Adobe Reader from creating child processes",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Marcio Paulo",
       "reporter": "Guilherme Machado",
       "created": "2026-07-28T10:33:59.926-0300",
-      "updated": "2026-07-30T11:12:16.665-0300",
+      "updated": "2026-08-05T12:27:17.252-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

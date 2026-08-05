@@ -1,17 +1,6 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-4706",
-    "title": "OFBI-4706 - Microsoft Secure Score - Block Adobe Reader from creating child processes",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "30/07/2026 11:12",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4706"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-4704",
     "title": "OFBI-4704 - Solicitação de Mudanças",
     "type_name": "Mudança",

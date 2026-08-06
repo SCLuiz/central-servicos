@@ -759,11 +759,6 @@
     </div>
 
     <div class="container">
-        
-        <div class="main-tabs" style="display: flex; gap: 20px; border-bottom: 2px solid #e2e8f0; margin-bottom: 25px; padding: 0 10px;">
-            <div id="tabAtivos" class="main-tab active" onclick="switchMainTab('ativos')" style="padding: 10px 20px; cursor: pointer; font-weight: 700; color: var(--of-magenta); border-bottom: 3px solid var(--of-magenta); margin-bottom: -2px; font-size: 14px; text-transform: uppercase; transition: all 0.2s;">Todos os Tickets</div>
-            <div id="tabCancelados" class="main-tab" onclick="switchMainTab('cancelados')" style="padding: 10px 20px; cursor: pointer; font-weight: 600; color: #64748b; border-bottom: 3px solid transparent; margin-bottom: -2px; font-size: 14px; text-transform: uppercase; transition: all 0.2s;">Tickets Cancelados</div>
-        </div>
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
@@ -1019,8 +1014,11 @@
 
             <!-- Tabela Principal no Rodapé -->
             <div class="table-card">
-                <div class="table-header-row">
-                    <h2 class="table-title">Todos os Incidentes</h2>
+                <div class="table-header-row" style="border-bottom: 2px solid #e2e8f0; margin-bottom: 15px; padding-bottom: 0;">
+                    <div class="main-tabs" style="display: flex; gap: 20px;">
+                        <div id="tabAtivos" class="main-tab active" onclick="switchMainTab('ativos')" style="padding: 10px 20px; cursor: pointer; font-weight: 700; color: var(--of-magenta); border-bottom: 3px solid var(--of-magenta); margin-bottom: -2px; font-size: 16px; text-transform: uppercase; transition: all 0.2s;">Todos os Incidentes</div>
+                        <div id="tabCancelados" class="main-tab" onclick="switchMainTab('cancelados')" style="padding: 10px 20px; cursor: pointer; font-weight: 600; color: #64748b; border-bottom: 3px solid transparent; margin-bottom: -2px; font-size: 16px; text-transform: uppercase; transition: all 0.2s;">Tickets Cancelados</div>
+                    </div>
                     <div class="export-buttons">
                         <button class="export-btn excel" onclick="exportToExcel()">
                             <span>📊</span> Excel

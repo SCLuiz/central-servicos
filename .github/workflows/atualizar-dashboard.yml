@@ -53,8 +53,8 @@ jobs:
               'Content-Type': 'application/json'
           }
 
-          # JQL para buscar mudanças dos últimos 90 dias
-          jql = 'project = OFBI AND type = "[System] Mudança" AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
+          # JQL para buscar mudanças dos últimos 90 dias com tipos variados
+          jql = 'project = OFBI AND issuetype in ("[System] Mudança", "Mudança", "Change") AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
 
           mudancas = []
           max_results = 100

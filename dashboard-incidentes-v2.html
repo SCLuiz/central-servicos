@@ -1738,13 +1738,13 @@
                 const p = (i.priority || '').toLowerCase();
                 let prioClass = 'priority-badge ';
                 let prioLabel = 'BAIXA';
-                if (p === 'critical') {
+                if (p === 'critical' || p === 'highest' || p === 'crítico' || p === 'crítica') {
                     prioClass += 'priority-high';
                     prioLabel = 'CRÍTICA';
-                } else if (p === 'high') {
+                } else if (p === 'high' || p === 'alta' || p === 'alto') {
                     prioClass += 'priority-high';
                     prioLabel = 'ALTA';
-                } else if (p === 'medium') {
+                } else if (p === 'medium' || p === 'média' || p === 'médio' || p === 'medio' || p === 'media') {
                     prioClass += 'priority-medium';
                     prioLabel = 'MÉDIA';
                 } else {

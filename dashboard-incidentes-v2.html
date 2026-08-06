@@ -849,21 +849,7 @@
                         </div>
                     </div>
 
-                    <!-- Widget 4: Sistemas Afetados (Gráfico) -->
-                    <div class="chart-card" id="widget-sistemas">
-                        <h3 class="chart-title">Top Sistemas Afetados</h3>
-                        <div style="height: 250px; position: relative;">
-                            <canvas id="chartSistemas"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Widget 6: Top 10 Instituições (Gráfico) -->
-                    <div class="chart-card" id="widget-instituicoes">
-                        <h3 class="chart-title">Top 10 Instituições</h3>
-                        <div style="height: 250px; position: relative;">
-                            <canvas id="chartInstituicoes"></canvas>
-                        </div>
-                    </div>
+                    <!-- Os gráficos Top Sistemas e Top Instituições foram movidos para canceladosGrid -->
                 </div>
 
                 <!-- COLUNA 3: Responsáveis, Linha do Tempo e Alertas -->
@@ -1005,6 +991,22 @@
                         <h3 style="margin: 0 0 5px 0; font-size: 13px; color: #475569; font-weight: 700; text-transform: uppercase;">Recorrentes (RC)</h3>
                         <p style="margin: 0 0 10px 0; font-size: 11px; color: #94a3b8;">Volume de reaberturas</p>
                         <div style="height: 180px; position: relative;"><canvas id="chartRcKpi"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel Específico da Aba Cancelados -->
+            <div id="canceladosGrid" class="dashboard-grid" style="display: none; grid-template-columns: repeat(2, 1fr); margin-bottom: 25px;">
+                <div class="chart-card">
+                    <h3 class="chart-title">Top Sistemas Afetados</h3>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="chartSistemas"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 10 Instituições</h3>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="chartInstituicoes"></canvas>
                     </div>
                 </div>
             </div>
@@ -2001,6 +2003,7 @@
                 tabCancelados.style.borderBottom = '3px solid transparent';
                 
                 if (mainGrid) mainGrid.style.display = 'grid';
+                const cg = document.getElementById('canceladosGrid'); if(cg) cg.style.display = 'none';
             } else {
                 tabCancelados.style.fontWeight = '700';
                 tabCancelados.style.color = 'var(--of-magenta)';
@@ -2011,6 +2014,7 @@
                 tabAtivos.style.borderBottom = '3px solid transparent';
                 
                 if (mainGrid) mainGrid.style.display = 'none';
+                const cg = document.getElementById('canceladosGrid'); if(cg) cg.style.display = 'grid';
                 
                 // Força o reset dos filtros para garantir que todos os cancelados apareçam
                 currentFilter = 'all';
@@ -2119,13 +2123,9 @@
 
             if (currentMainTab === 'cancelados') {
                 filtered = filtered.filter(i => isSysAidTicket(i));
-                const ws = document.getElementById('widget-sistemas'); if(ws) ws.style.display = 'block';
-                const wi = document.getElementById('widget-instituicoes'); if(wi) wi.style.display = 'block';
             } else {
                 // Aba 'Todos' -> exibe todos MENOS os de SysAid
                 filtered = filtered.filter(i => !isSysAidTicket(i));
-                const ws = document.getElementById('widget-sistemas'); if(ws) ws.style.display = 'none';
-                const wi = document.getElementById('widget-instituicoes'); if(wi) wi.style.display = 'none';
             }
 
             if (currentPriorityFilter !== 'all') {

@@ -1695,6 +1695,20 @@
                     prioLabel = 'BAIXA';
                 }
 
+                const imp = (i.impacto || '').toLowerCase();
+                let impClass = 'priority-badge ';
+                let impLabel = 'BAIXO';
+                if (imp === 'crítico' || imp === 'critico' || imp === 'highest' || imp === 'alto' || imp === 'high') {
+                    impClass += 'priority-high';
+                    impLabel = imp === 'alto' || imp === 'high' ? 'ALTO' : 'CRÍTICO';
+                } else if (imp === 'médio' || imp === 'medio' || imp === 'medium') {
+                    impClass += 'priority-medium';
+                    impLabel = 'MÉDIO';
+                } else {
+                    impClass += 'priority-low';
+                    impLabel = 'BAIXO';
+                }
+
                 const slaHtml = i.sla_breached
                     ? `<span class="sla-breached">${i.sla_elapsed || 'Estourado'}</span>`
                     : i.sla_elapsed

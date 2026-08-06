@@ -56,27 +56,36 @@ jobs:
           # JQL para buscar mudanças dos últimos 90 dias
           jql = 'project = OFBI AND type = "[System] Mudança" AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
 
-          payload = {
-              'jql': jql,
-              'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_11106'],
-              'maxResults': 100
-          }
+          mudancas = []
+          max_results = 100
+          next_page_token = None
 
           print('Buscando dados do Jira...')
-          response = requests.post(
-              f'{JIRA_URL}/rest/api/3/search/jql',
-              auth=auth,
-              headers=headers,
-              json=payload,
-              timeout=30
-          )
+          while True:
+              payload = {
+                  'jql': jql,
+                  'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_11106'],
+                  'maxResults': max_results
+              }
+              if next_page_token:
+                  payload['nextPageToken'] = next_page_token
 
-          if response.status_code == 200:
+              response = requests.post(
+                  f'{JIRA_URL}/rest/api/3/search/jql',
+                  auth=auth,
+                  headers=headers,
+                  json=payload,
+                  timeout=30
+              )
+
+              if response.status_code != 200:
+                  print(f'✗ Erro: {response.status_code}')
+                  print(response.text)
+                  exit(1)
+
               data = response.json()
               issues = data.get('issues', [])
 
-              # Processar dados
-              mudancas = []
               for issue in issues:
                   key = issue.get('key')
                   fields = issue.get('fields', {})
@@ -89,7 +98,7 @@ jobs:
                   # Pegar categoria (se não tiver, inferir das labels)
                   categoria = fields.get('customfield_11106', {})
                   categoria_value = categoria.get('value', '') if categoria else ''
-                  
+
                   # Se não tem categoria, tentar inferir das labels
                   if not categoria_value:
                       labels = fields.get('labels', [])
@@ -99,7 +108,7 @@ jobs:
                           categoria_value = 'Planejada'
                       elif 'tipo:normal' in labels:
                           categoria_value = 'Normal'
-                  
+
                   mudancas.append({
                       'key': key,
                       'summary': fields.get('summary', ''),
@@ -114,21 +123,21 @@ jobs:
                       'categoria': categoria_value,
                   })
 
-              # Salvar JSON
-              output = {
-                  'ultima_atualizacao': datetime.now().isoformat(),
-                  'total': len(mudancas),
-                  'mudancas': mudancas
-              }
+              next_page_token = data.get('nextPageToken')
+              if data.get('isLast', True) or not next_page_token:
+                  break
 
-              with open('dados-mudancas.json', 'w', encoding='utf-8') as f:
-                  json.dump(output, f, ensure_ascii=False, indent=2)
+          # Salvar JSON
+          output = {
+              'ultima_atualizacao': datetime.now().isoformat(),
+              'total': len(mudancas),
+              'mudancas': mudancas
+          }
 
-              print(f'✓ {len(mudancas)} mudanças exportadas para dados-mudancas.json')
-          else:
-              print(f'✗ Erro: {response.status_code}')
-              print(response.text)
-              exit(1)
+          with open('dados-mudancas.json', 'w', encoding='utf-8') as f:
+              json.dump(output, f, ensure_ascii=False, indent=2)
+
+          print(f'✓ {len(mudancas)} mudanças exportadas para dados-mudancas.json')
           EOF
 
       - name: Commit e Push

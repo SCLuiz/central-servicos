@@ -3031,7 +3031,7 @@
       "key": "OFBI-4715",
       "summary": "[GooglePAY] Unificação dos Authorization Servers da Shopee e desativação do servidor antigo",
       "status": "Concluído com Sucesso",
-      "priority": "low",
+      "priority": "Highest",
       "created": "2026-08-03T14:56:02.613-03:00",
       "updated": "2026-08-03T16:09:57.171-03:00",
       "resolutiondate": "2026-08-03T16:09:57.129-03:00",
@@ -3053,13 +3053,14 @@
       "reopened": false,
       "fcr": true,
       "gmuds_vinculadas": [],
-      "gmud_emergencial": false
+      "gmud_emergencial": false,
+      "impacto": "Crítico"
     },
     {
       "key": "OFBI-4710",
       "summary": "Relatar um incidente de sistema",
       "status": "Aberto",
-      "priority": "low",
+      "priority": "Medium",
       "created": "2026-07-29T12:12:47.05-03:00",
       "updated": "2026-08-05T13:50:24.398-03:00",
       "resolutiondate": null,
@@ -3081,7 +3082,8 @@
       "reopened": false,
       "fcr": false,
       "gmuds_vinculadas": [],
-      "gmud_emergencial": false
+      "gmud_emergencial": false,
+      "impacto": "Médio"
     },
     {
       "key": "OFBI-4707",
@@ -5192,4 +5194,3 @@
     }
   ]
 }
-

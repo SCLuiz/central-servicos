@@ -1523,7 +1523,7 @@
             renderCharts(stats, incidentes);
             renderTable(incidentes);
             updateKpiDashboards(incidentes);
-            updateTrendDashboards(allIncidentes);
+            updateTrendDashboards(incidentes);
         }
 
         let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartComparativo;
@@ -1993,10 +1993,24 @@
                 }
             }
 
-            if (currentMainTab === 'cancelados') {
-                filtered = filtered.filter(i => i.status === 'Cancelado');
+            function isSysAidTicket(i) {
+                if (i.summary && i.summary.includes('SysAid')) return true;
+                if (i.key) {
+                    const match = i.key.match(/OFBI-(\d+)/);
+                    if (match) {
+                        const num = parseInt(match[1], 10);
+                        if (num >= 4720 && num <= 4928) return true;
+                    }
+                }
+                return false;
             }
-            // Quando for 'ativos' (Todos os Tickets), não filtra nada por status, exibe todos.
+
+            if (currentMainTab === 'cancelados') {
+                filtered = filtered.filter(i => i.status === 'Cancelado' || isSysAidTicket(i));
+            } else {
+                // Aba 'Todos' -> exibe todos MENOS os de SysAid, para não poluírem a operação real
+                filtered = filtered.filter(i => !isSysAidTicket(i));
+            }
 
             if (currentPriorityFilter !== 'all') {
                 filtered = filtered.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
@@ -2215,10 +2229,25 @@
             if (!ctx) return;
             
             let compIncidentes = [...allIncidentes];
-            if (currentMainTab === 'cancelados') {
-                compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado');
+            
+            function isSysAid(i) {
+                if (i.summary && i.summary.includes('SysAid')) return true;
+                if (i.key) {
+                    const match = i.key.match(/OFBI-(\d+)/);
+                    if (match) {
+                        const num = parseInt(match[1], 10);
+                        if (num >= 4720 && num <= 4928) return true;
+                    }
+                }
+                return false;
             }
-            // Aba 'Todos' não filtra por status.
+
+            if (currentMainTab === 'cancelados') {
+                compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado' || isSysAid(i));
+            } else {
+                // Aba 'Todos' não filtra por status, mas EXCLUI tickets SysAid
+                compIncidentes = compIncidentes.filter(i => !isSysAid(i));
+            }
 
             if (currentPriorityFilter !== 'all') {
                 compIncidentes = compIncidentes.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);

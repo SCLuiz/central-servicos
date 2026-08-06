@@ -1033,6 +1033,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 80px;">Ticket</th>
+                                <th style="width: 200px;">Título do Incidente</th>
                                 <th>Time Solucionador</th>
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Prioridade</th>
@@ -1900,7 +1901,7 @@
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
 
-            let headRow = ['Ticket', 'Time'];
+            let headRow = ['Ticket', 'Título', 'Time'];
             if (currentMainTab === 'cancelados') headRow.push('Instituição');
             headRow = headRow.concat(['Prior.', 'Impacto', 'Criação', 'Fim Indisp.', 'Status']);
 
@@ -1915,7 +1916,8 @@
                         inst = i.reporter;
                     }
 
-                    let rowData = [i.key, i.assignee || 'N/A'];
+                    const tituloTruncado = i.summary && i.summary.length > 35 ? i.summary.substring(0, 32) + '...' : (i.summary || 'N/A');
+                    let rowData = [i.key, tituloTruncado, i.assignee || 'N/A'];
                     if (currentMainTab === 'cancelados') rowData.push(inst);
                     rowData = rowData.concat([
                         i.priority, i.impacto || 'Baixo',

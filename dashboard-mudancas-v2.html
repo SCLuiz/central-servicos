@@ -1870,13 +1870,15 @@
                 if (sLower.includes('conclu')) monthsMap[key].concluidas++;
                 
                 const sumLower = (i.summary || '').toLowerCase();
-                const isReverted = sumLower.includes('rollback') || sumLower.includes('reverter') || i.causouIncidente === true;
+                const labels = i.labels || [];
+                const isReverted = sumLower.includes('rollback') || sumLower.includes('reverter') || i.causouIncidente === true || String(i.causouIncidente).toLowerCase() === 'sim';
                 if (isReverted) monthsMap[key].revertidas++;
                 
-                const catLower = (i.categoria || '').toLowerCase();
-                if (catLower === 'emergencial' || sumLower.includes('emergencial')) monthsMap[key].emerg++;
+                const catLower = (i.categoria || i.tipo || i.type || i.issuetype || '').toLowerCase();
+                const isEmerg = catLower.includes('emergencial') || sumLower.includes('emergencial') || labels.some(l => String(l).toLowerCase().includes('emergencial'));
+                if (isEmerg) monthsMap[key].emerg++;
                 
-                if (i.causouIncidente) monthsMap[key].causouInc++;
+                if (i.causouIncidente === true || String(i.causouIncidente).toLowerCase() === 'sim') monthsMap[key].causouInc++;
                 
                 if (i.tempo_aprovacao_cab) {
                     monthsMap[key].cabSec += i.tempo_aprovacao_cab;

@@ -1036,9 +1036,9 @@
                                 <th style="width: 200px;">Título do Incidente</th>
                                 <th>Time Solucionador</th>
                                 <th>Sistema Afetado</th>
+                                <th id="th-instituicao" style="width: 110px;">Instituição</th>
                                 <th style="width: 90px;">Prioridade</th>
                                 <th style="width: 90px;">Impacto</th>
-                                <th id="th-instituicao" style="width: 110px;">Instituição</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
@@ -1784,9 +1784,9 @@
                                 </div>
                             </div>
                         </td>
+                        ${currentMainTab === 'cancelados' ? `<td><span style="font-size: 11px; color: #475569; font-weight: 500;">${instituicao}</span></td>` : ''}
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td><span class="${impClass}">${impLabel}</span></td>
-                        ${currentMainTab === 'cancelados' ? `<td><span style="font-size: 11px; color: #475569; font-weight: 500;">${instituicao}</span></td>` : ''}
                         <td>${slaHtml}</td>
                         <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
@@ -1829,7 +1829,8 @@
                 let rowData = {
                     'Ticket': i.key,
                     'Time Solucionador': i.assignee,
-                    'Descrição': i.summary
+                    'Descrição': i.summary,
+                    'Sistema Afetado': i.sistema_afetado || '—'
                 };
 
                 if (currentMainTab === 'cancelados') {
@@ -1901,7 +1902,7 @@
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
 
-            let headRow = ['Ticket', 'Título', 'Time'];
+            let headRow = ['Ticket', 'Título', 'Time', 'Sistema'];
             if (currentMainTab === 'cancelados') headRow.push('Instituição');
             headRow = headRow.concat(['Prior.', 'Impacto', 'Criação', 'Fim Indisp.', 'Status']);
 
@@ -1917,7 +1918,7 @@
                     }
 
                     const tituloTruncado = i.summary && i.summary.length > 35 ? i.summary.substring(0, 32) + '...' : (i.summary || 'N/A');
-                    let rowData = [i.key, tituloTruncado, i.assignee || 'N/A'];
+                    let rowData = [i.key, tituloTruncado, i.assignee || 'N/A', (i.sistema_afetado ? i.sistema_afetado.substring(0, 15) : '—')];
                     if (currentMainTab === 'cancelados') rowData.push(inst);
                     rowData = rowData.concat([
                         i.priority, i.impacto || 'Baixo',

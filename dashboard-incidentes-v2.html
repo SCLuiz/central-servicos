@@ -1901,6 +1901,29 @@
                 tabAtivos.style.borderBottom = '3px solid transparent';
                 
                 if (mainGrid) mainGrid.style.display = 'none';
+                
+                // Força o reset dos filtros para garantir que todos os cancelados apareçam
+                currentFilter = 'all';
+                currentPriorityFilter = 'all';
+                currentComponentFilter = 'all';
+                
+                // Reset visual dos botões de período
+                const periodGroup = document.querySelectorAll('.sub-nav-buttons')[0];
+                if (periodGroup) {
+                    periodGroup.querySelectorAll('.sub-filter-btn').forEach(btn => btn.classList.remove('active'));
+                    const btnAll = Array.from(periodGroup.querySelectorAll('.sub-filter-btn')).find(b => b.textContent.includes('Todos'));
+                    if (btnAll) btnAll.classList.add('active');
+                }
+                
+                // Reset visual dos botões de prioridade
+                const priorityGroup = document.querySelectorAll('.sub-nav-buttons')[1];
+                if (priorityGroup) {
+                    priorityGroup.querySelectorAll('.sub-filter-btn').forEach(btn => btn.classList.remove('active'));
+                }
+                
+                // Reset visual do select de sistema
+                const compSelect = document.getElementById('componentFilterSelect');
+                if (compSelect) compSelect.value = 'all';
             }
             filterAndRender();
         }
@@ -1974,9 +1997,8 @@
 
             if (currentMainTab === 'cancelados') {
                 filtered = filtered.filter(i => i.status === 'Cancelado');
-            } else {
-                filtered = filtered.filter(i => i.status !== 'Cancelado');
             }
+            // Quando for 'ativos' (Todos os Tickets), não filtra nada por status, exibe todos.
 
             if (currentPriorityFilter !== 'all') {
                 filtered = filtered.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
@@ -2197,9 +2219,8 @@
             let compIncidentes = [...allIncidentes];
             if (currentMainTab === 'cancelados') {
                 compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado');
-            } else {
-                compIncidentes = compIncidentes.filter(i => i.status !== 'Cancelado');
             }
+            // Aba 'Todos' não filtra por status.
 
             if (currentPriorityFilter !== 'all') {
                 compIncidentes = compIncidentes.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);

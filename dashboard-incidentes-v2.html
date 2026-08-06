@@ -2503,14 +2503,14 @@
             const percCriticos = total > 0 ? ((criticos/total)*100).toFixed(0) : 0;
             document.getElementById('kpiBigCriticosSub').innerText = total > 0 ? `${100 - percCriticos}% não críticos` : '0% não críticos';
             
-            const mttrHours = mttrCount > 0 ? (mttrSec / mttrCount / 3600).toFixed(1) : 0;
-            document.getElementById('kpiBigMttr').innerText = mttrHours.toString().replace('.0', '') + 'h';
+            const mttrHours = mttrCount > 0 ? (mttrSec / mttrCount / 3600).toFixed(0) : 0;
+            document.getElementById('kpiBigMttr').innerText = mttrHours.toString() + 'h';
             
-            const mttaHours = mttaCount > 0 ? (mttaSec / mttaCount / 3600).toFixed(1) : 0;
-            document.getElementById('kpiBigMtta').innerText = mttaHours.toString().replace('.0', '') + 'h';
+            const mttaHours = mttaCount > 0 ? (mttaSec / mttaCount / 3600).toFixed(0) : 0;
+            document.getElementById('kpiBigMtta').innerText = mttaHours.toString() + 'h';
             
-            const mttf = total > 0 ? (30 / total).toFixed(1) : 30; // 30 days approx / total incidents
-            document.getElementById('kpiBigMttf').innerText = mttf.toString().replace('.0', '') + ' dias';
+            const mttf = total > 0 ? (30 / total).toFixed(0) : 30; // 30 days approx / total incidents
+            document.getElementById('kpiBigMttf').innerText = mttf.toString() + ' dias';
             
             document.getElementById('kpiBigRc').innerText = rc;
         }

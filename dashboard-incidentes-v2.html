@@ -849,22 +849,19 @@
                         </div>
                     </div>
 
-                    <!-- Widget 4: Sistemas Afetados (Uso) -->
+                    <!-- Widget 4: Sistemas Afetados (Gráfico) -->
                     <div class="chart-card">
-                        <h3 class="chart-title">Top Sistemas Afetados <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Qtd/Utilização)</span></h3>
-                        <div style="overflow-y: auto; flex-grow: 1;">
-                            <table class="card-table">
-                                <thead>
-                                    <tr>
-                                        <th>Sistema</th>
-                                        <th style="width: 50px;">Qtd</th>
-                                        <th style="width: 140px;">Proporção</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sistemasTableBody">
-                                    <!-- Preenchido via JS -->
-                                </tbody>
-                            </table>
+                        <h3 class="chart-title">Top Sistemas Afetados</h3>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="chartSistemas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Widget 6: Top 10 Instituições (Gráfico) -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Top 10 Instituições</h3>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="chartInstituicoes"></canvas>
                         </div>
                     </div>
                 </div>
@@ -1145,6 +1142,7 @@
                 statusCount: {},
                 responsaveisCount: {},
                 sistemasCount: {},
+                instituicoesCount: {},
                 
                 // TMA variables (IND-INC-004)
                 tmaSecondsTotal: 0,
@@ -1182,6 +1180,19 @@
 
                 if (i.sistema_afetado) {
                     stats.sistemasCount[i.sistema_afetado] = (stats.sistemasCount[i.sistema_afetado] || 0) + 1;
+                }
+
+                let instituicao = 'N/A';
+                if (i.summary && i.summary.includes('SysAid')) {
+                    const parts = i.summary.split(' - ');
+                    if (parts.length > 1) {
+                        instituicao = parts[parts.length - 1].trim();
+                    }
+                } else if (i.reporter) {
+                    instituicao = i.reporter;
+                }
+                if (instituicao && instituicao !== 'N/A') {
+                    stats.instituicoesCount[instituicao] = (stats.instituicoesCount[instituicao] || 0) + 1;
                 }
 
                 const p = (i.priority || '').toLowerCase();
@@ -1434,36 +1445,57 @@
                 });
             }
 
-            // Renderiza Sistemas Afetados (Widget 4) com barra de progresso horizontal
-            const sistemasTbody = document.getElementById('sistemasTableBody');
-            if (sistemasTbody) {
-                sistemasTbody.innerHTML = '';
-                const sortedSistemas = Object.entries(stats.sistemasCount)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 8); // Top 8 systems
+            // Renderiza Gráfico de Top Sistemas Afetados
+            const sortedSistemas = Object.entries(stats.sistemasCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            
+            if (chartSistemas) chartSistemas.destroy();
+            const ctxSistemas = document.getElementById('chartSistemas');
+            if (ctxSistemas) {
+                chartSistemas = new Chart(ctxSistemas, {
+                    type: 'bar',
+                    data: {
+                        labels: sortedSistemas.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        datasets: [{
+                            data: sortedSistemas.map(s => s[1]),
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // Renderiza Gráfico de Top 10 Instituições
+            const sortedInst = Object.entries(stats.instituicoesCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
                 
-                sortedSistemas.forEach(sys => {
-                    const count = sys[1];
-                    const pct = ((count / total) * 100).toFixed(1);
-                    
-                    let colorClass = 'bg-blue';
-                    if (count > total * 0.3) colorClass = 'bg-red';
-                    else if (count > total * 0.15) colorClass = 'bg-yellow';
-                    
-                    sistemasTbody.innerHTML += `
-                        <tr>
-                            <td style="font-weight: 600;">${sys[0]}</td>
-                            <td style="font-weight: 700; width: 50px;">${count}</td>
-                            <td style="width: 140px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="font-size: 11px; font-weight: 600; width: 32px; text-align: right;">${pct}%</span>
-                                    <div class="progress-bar-container" style="flex-grow: 1;">
-                                        <div class="progress-bar-fill ${colorClass}" style="width: ${pct}%"></div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
+            if (chartInstituicoes) chartInstituicoes.destroy();
+            const ctxInst = document.getElementById('chartInstituicoes');
+            if (ctxInst) {
+                chartInstituicoes = new Chart(ctxInst, {
+                    type: 'bar',
+                    data: {
+                        labels: sortedInst.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        datasets: [{
+                            data: sortedInst.map(s => s[1]),
+                            backgroundColor: '#10b981',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
                 });
             }
 
@@ -1532,7 +1564,7 @@
             updateTrendDashboards(incidentes);
         }
 
-        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartComparativo;
+        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartInstituicoes, chartComparativo;
         let comparisonMonths = [];
         let selectedComparisonMonths = new Set();
         let comparisonYears = [];

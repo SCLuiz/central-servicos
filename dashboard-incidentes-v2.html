@@ -772,7 +772,7 @@
 
         <div id="content" style="display: none;">
             
-            <div class="dashboard-grid">
+            <div id="mainGrid" class="dashboard-grid">
                 <!-- COLUNA 1: SLA e Status -->
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <!-- Widget 1: Conformidade de SLA -->
@@ -1879,6 +1879,7 @@
             currentMainTab = tabId;
             const tabAtivos = document.getElementById('tabAtivos');
             const tabCancelados = document.getElementById('tabCancelados');
+            const mainGrid = document.getElementById('mainGrid');
             
             if (tabId === 'ativos') {
                 tabAtivos.style.fontWeight = '700';
@@ -1888,6 +1889,8 @@
                 tabCancelados.style.fontWeight = '600';
                 tabCancelados.style.color = '#64748b';
                 tabCancelados.style.borderBottom = '3px solid transparent';
+                
+                if (mainGrid) mainGrid.style.display = 'grid';
             } else {
                 tabCancelados.style.fontWeight = '700';
                 tabCancelados.style.color = 'var(--of-magenta)';
@@ -1896,6 +1899,8 @@
                 tabAtivos.style.fontWeight = '600';
                 tabAtivos.style.color = '#64748b';
                 tabAtivos.style.borderBottom = '3px solid transparent';
+                
+                if (mainGrid) mainGrid.style.display = 'none';
             }
             filterAndRender();
         }

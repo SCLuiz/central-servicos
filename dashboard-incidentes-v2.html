@@ -1097,6 +1097,29 @@
                 }
 
                 allIncidentes = data.incidentes || [];
+                
+                // --- INÍCIO DOS OVERRIDES MANUAIS SOLICITADOS PELO USUÁRIO ---
+                allIncidentes.forEach(i => {
+                    if (i.key === 'OFBI-4933') {
+                        i.assignee = 'Arquitetura';
+                        i.priority = 'High';
+                        i.impacto = 'Alto';
+                    } else if (i.key === 'OFBI-4715') {
+                        i.assignee = 'INTEGRAÇÃO DIGITAL';
+                        i.priority = 'Highest';
+                        i.impacto = 'Crítico';
+                    } else if (i.key === 'OFBI-4710') {
+                        i.assignee = 'Arquitetura e Plataforma';
+                        i.priority = 'Medium';
+                        i.impacto = 'Médio';
+                    } else if (i.key === 'OFBI-4707') {
+                        i.assignee = 'Segurança';
+                    } else if (i.key === 'OFBI-4695') {
+                        i.assignee = 'Segurança';
+                    }
+                });
+                // --- FIM DOS OVERRIDES MANUAIS ---
+
                 initializeComparisonMonths(allIncidentes);
 
                 // Populate Component Dropdown dynamically

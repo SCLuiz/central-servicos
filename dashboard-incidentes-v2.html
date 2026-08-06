@@ -739,8 +739,15 @@
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('high', event)">Alta</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('medium', event)">Média</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('low', event)">Baixa</button>
-                    <button class="sub-filter-btn" onclick="applyPriorityFilter('cancelado', event)">Cancelados</button>
                 </div>
+            </div>
+            
+            <div class="sub-nav-divider"></div>
+            <div class="sub-nav-section">
+                <span class="sub-nav-label">Sistema:</span>
+                <select id="componentFilterSelect" class="sub-filter-btn" onchange="applyComponentFilter(this.value)" style="padding: 4px; min-width: 120px; outline: none; background: white; margin-top: -2px;">
+                    <option value="all">Todos</option>
+                </select>
             </div>
             
             <!-- Right aligned: Last updated -->
@@ -752,6 +759,11 @@
     </div>
 
     <div class="container">
+        
+        <div class="main-tabs" style="display: flex; gap: 20px; border-bottom: 2px solid #e2e8f0; margin-bottom: 25px; padding: 0 10px;">
+            <div id="tabAtivos" class="main-tab active" onclick="switchMainTab('ativos')" style="padding: 10px 20px; cursor: pointer; font-weight: 700; color: var(--of-magenta); border-bottom: 3px solid var(--of-magenta); margin-bottom: -2px; font-size: 14px; text-transform: uppercase; transition: all 0.2s;">Todos os Tickets</div>
+            <div id="tabCancelados" class="main-tab" onclick="switchMainTab('cancelados')" style="padding: 10px 20px; cursor: pointer; font-weight: 600; color: #64748b; border-bottom: 3px solid transparent; margin-bottom: -2px; font-size: 14px; text-transform: uppercase; transition: all 0.2s;">Tickets Cancelados</div>
+        </div>
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
@@ -1083,6 +1095,21 @@
 
                 allIncidentes = data.incidentes || [];
                 initializeComparisonMonths(allIncidentes);
+
+                // Populate Component Dropdown dynamically
+                const compSelect = document.getElementById('componentFilterSelect');
+                if (compSelect) {
+                    const uniqueComps = [...new Set(allIncidentes.map(i => i.sistema_afetado || 'N/A'))].sort();
+                    compSelect.innerHTML = '<option value="all">Todos</option>';
+                    uniqueComps.forEach(comp => {
+                        const opt = document.createElement('option');
+                        opt.value = comp;
+                        opt.textContent = comp;
+                        compSelect.appendChild(opt);
+                    });
+                    compSelect.value = currentComponentFilter;
+                }
+
                 filterAndRender();
 
                 document.getElementById('loading').style.display = 'none';
@@ -1840,6 +1867,38 @@
         let currentFilter = 'all';
         let customDateRange = null;
         let currentPriorityFilter = 'all';
+        let currentMainTab = 'ativos';
+        let currentComponentFilter = 'all';
+        
+        function applyComponentFilter(val) {
+            currentComponentFilter = val;
+            filterAndRender();
+        }
+        
+        function switchMainTab(tabId) {
+            currentMainTab = tabId;
+            const tabAtivos = document.getElementById('tabAtivos');
+            const tabCancelados = document.getElementById('tabCancelados');
+            
+            if (tabId === 'ativos') {
+                tabAtivos.style.fontWeight = '700';
+                tabAtivos.style.color = 'var(--of-magenta)';
+                tabAtivos.style.borderBottom = '3px solid var(--of-magenta)';
+                
+                tabCancelados.style.fontWeight = '600';
+                tabCancelados.style.color = '#64748b';
+                tabCancelados.style.borderBottom = '3px solid transparent';
+            } else {
+                tabCancelados.style.fontWeight = '700';
+                tabCancelados.style.color = 'var(--of-magenta)';
+                tabCancelados.style.borderBottom = '3px solid var(--of-magenta)';
+                
+                tabAtivos.style.fontWeight = '600';
+                tabAtivos.style.color = '#64748b';
+                tabAtivos.style.borderBottom = '3px solid transparent';
+            }
+            filterAndRender();
+        }
 
         function applyPriorityFilter(priority, ev) {
             currentPriorityFilter = priority;
@@ -1908,12 +1967,18 @@
                 }
             }
 
+            if (currentMainTab === 'cancelados') {
+                filtered = filtered.filter(i => i.status === 'Cancelado');
+            } else {
+                filtered = filtered.filter(i => i.status !== 'Cancelado');
+            }
+
             if (currentPriorityFilter !== 'all') {
-                if (currentPriorityFilter === 'cancelado') {
-                    filtered = filtered.filter(i => i.status === 'Cancelado');
-                } else {
-                    filtered = filtered.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
-                }
+                filtered = filtered.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
+            }
+
+            if (currentComponentFilter !== 'all') {
+                filtered = filtered.filter(i => (i.sistema_afetado || 'N/A') === currentComponentFilter);
             }
 
             currentFilteredData = filtered;
@@ -2125,12 +2190,14 @@
             if (!ctx) return;
             
             let compIncidentes = [...allIncidentes];
+            if (currentMainTab === 'cancelados') {
+                compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado');
+            } else {
+                compIncidentes = compIncidentes.filter(i => i.status !== 'Cancelado');
+            }
+
             if (currentPriorityFilter !== 'all') {
-                if (currentPriorityFilter === 'cancelado') {
-                    compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado');
-                } else {
-                    compIncidentes = compIncidentes.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
-                }
+                compIncidentes = compIncidentes.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
             }
             
             const stats = {};
@@ -2359,6 +2426,13 @@
             }
             
             loadData();
+            
+            // Auto-refresh a cada 5 minutos (300.000 ms)
+            setInterval(() => {
+                const refreshBtn = document.getElementById('ultimaAtualizacao');
+                if (refreshBtn) refreshBtn.textContent = 'Atualizando...';
+                loadData();
+            }, 300000);
         });
     </script>
 </body>

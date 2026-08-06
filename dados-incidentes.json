@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-06T03:39:45.644Z",
+  "ultima_atualizacao": "2026-08-06T03:44:28.315Z",
   "total": 163,
   "incidentes": [
     {
@@ -33,7 +33,7 @@
     {
       "key": "OFBI-4928",
       "summary": "Ticket SysAid #219497 - Ticket de teste interno (Grupo Data), sem não conformidade real - Open Finance Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:48.96-03:00",
       "updated": "2026-08-05T23:51:38.531-03:00",
@@ -61,7 +61,7 @@
     {
       "key": "OFBI-4927",
       "summary": "Ticket SysAid #219447 - Ausência de participação em agenda de War Room do Piloto de Jornada Otimizada - Banco do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:47.211-03:00",
       "updated": "2026-08-05T23:51:37.059-03:00",
@@ -89,7 +89,7 @@
     {
       "key": "OFBI-4926",
       "summary": "Ticket SysAid #219275 - Apontamento indevido no envio de reportes de Iniciação de Pagamento à PCM - Stone Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:45.617-03:00",
       "updated": "2026-08-05T15:01:02.549-03:00",
@@ -117,7 +117,7 @@
     {
       "key": "OFBI-4925",
       "summary": "Ticket SysAid #218786 - Não conformidade em cascata (Monitoramento e Gestão de Consequências, apuração jun/2026) decorrente dos tickets #197099 e #208602 já cancelados - Wise Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:43.725-03:00",
       "updated": "2026-08-05T15:01:01.734-03:00",
@@ -145,7 +145,7 @@
     {
       "key": "OFBI-4924",
       "summary": "Ticket SysAid #218779 - Abertura indevida por falha no preenchimento do campo Equipe de Atendimento - Raidiam Services",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:41.978-03:00",
       "updated": "2026-08-05T23:51:33.557-03:00",
@@ -173,7 +173,7 @@
     {
       "key": "OFBI-4923",
       "summary": "Ticket SysAid #218775 - Não conformidade (item 2.1.I - Tempo de resposta de APIs) já coberta por Plano de Adequação em andamento (#208498) - Cred System Sociedade de Crédito Direto",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:40.222-03:00",
       "updated": "2026-08-05T15:01:00.697-03:00",
@@ -201,7 +201,7 @@
     {
       "key": "OFBI-4922",
       "summary": "Ticket SysAid #218774 - Não conformidade (item 2.1.II - Disponibilidade de APIs) duplicada por erro de automação, já coberta pelo Plano de Adequação #159912 (vigente até mar/2027) - Caixa Econômica Federal",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:38.37-03:00",
       "updated": "2026-08-05T23:51:31.859-03:00",
@@ -229,7 +229,7 @@
     {
       "key": "OFBI-4921",
       "summary": "Ticket SysAid #218052 - Qualidade de dados - Reportes descartados na PCM (Portabilidade de Crédito, 06/07 a 12/07/2026) - Nu Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:36.499-03:00",
       "updated": "2026-08-05T16:30:44.862-03:00",
@@ -257,7 +257,7 @@
     {
       "key": "OFBI-4920",
       "summary": "Ticket SysAid #218050 - Qualidade de dados - Reportes descartados na PCM (Portabilidade de Crédito, 06/07 a 12/07/2026) - Mercado Pago",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:34.239-03:00",
       "updated": "2026-08-05T16:30:50.792-03:00",
@@ -285,7 +285,7 @@
     {
       "key": "OFBI-4919",
       "summary": "Ticket SysAid #216952 - Ticket de teste interno, sem não conformidade real - Open Finance Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:32.323-03:00",
       "updated": "2026-08-05T23:51:35.271-03:00",
@@ -313,7 +313,7 @@
     {
       "key": "OFBI-4918",
       "summary": "Ticket SysAid #216265 - Falha na execução da FVP Manual Restrita revertida por contestação procedente - PicPay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:30.393-03:00",
       "updated": "2026-08-05T14:50:42.176-03:00",
@@ -341,7 +341,7 @@
     {
       "key": "OFBI-4917",
       "summary": "Ticket SysAid #215664 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - SHPP Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:28.55-03:00",
       "updated": "2026-08-05T14:53:50.311-03:00",
@@ -369,7 +369,7 @@
     {
       "key": "OFBI-4916",
       "summary": "Ticket SysAid #215663 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - RecargaPay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:26.707-03:00",
       "updated": "2026-08-05T14:54:01.361-03:00",
@@ -397,7 +397,7 @@
     {
       "key": "OFBI-4915",
       "summary": "Ticket SysAid #215661 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - PicPay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:24.647-03:00",
       "updated": "2026-08-05T14:54:07.865-03:00",
@@ -425,7 +425,7 @@
     {
       "key": "OFBI-4914",
       "summary": "Ticket SysAid #215659 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - PagueVeloz",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:22.713-03:00",
       "updated": "2026-08-05T14:54:20.233-03:00",
@@ -453,7 +453,7 @@
     {
       "key": "OFBI-4913",
       "summary": "Ticket SysAid #215652 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - PagSeguro",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:20.981-03:00",
       "updated": "2026-08-05T14:54:27.107-03:00",
@@ -481,7 +481,7 @@
     {
       "key": "OFBI-4912",
       "summary": "Ticket SysAid #215651 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Nu Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:19.254-03:00",
       "updated": "2026-08-05T14:55:39.434-03:00",
@@ -509,7 +509,7 @@
     {
       "key": "OFBI-4911",
       "summary": "Ticket SysAid #215650 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Neon Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:17.331-03:00",
       "updated": "2026-08-05T14:56:01.126-03:00",
@@ -537,7 +537,7 @@
     {
       "key": "OFBI-4910",
       "summary": "Ticket SysAid #215648 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Mercado Pago",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:15.373-03:00",
       "updated": "2026-08-05T14:56:14.403-03:00",
@@ -565,7 +565,7 @@
     {
       "key": "OFBI-4909",
       "summary": "Ticket SysAid #215647 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Inipay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:13.442-03:00",
       "updated": "2026-08-05T14:56:21.434-03:00",
@@ -593,7 +593,7 @@
     {
       "key": "OFBI-4908",
       "summary": "Ticket SysAid #215646 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Finnet",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:11.697-03:00",
       "updated": "2026-08-05T14:56:29.433-03:00",
@@ -621,7 +621,7 @@
     {
       "key": "OFBI-4907",
       "summary": "Ticket SysAid #215645 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - ASA Sociedade de Crédito Direto",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:09.981-03:00",
       "updated": "2026-08-05T14:57:50.473-03:00",
@@ -649,7 +649,7 @@
     {
       "key": "OFBI-4906",
       "summary": "Ticket SysAid #215640 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Crefisa",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:08.07-03:00",
       "updated": "2026-08-05T14:58:22.789-03:00",
@@ -677,7 +677,7 @@
     {
       "key": "OFBI-4905",
       "summary": "Ticket SysAid #215639 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Confederação Nacional das Cooperativas Centrais Unicred",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:06.2-03:00",
       "updated": "2026-08-05T14:58:50.985-03:00",
@@ -705,7 +705,7 @@
     {
       "key": "OFBI-4904",
       "summary": "Ticket SysAid #215638 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Cielo",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:04.418-03:00",
       "updated": "2026-08-05T14:58:55.897-03:00",
@@ -733,7 +733,7 @@
     {
       "key": "OFBI-4903",
       "summary": "Ticket SysAid #215637 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Celcoin",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:02.563-03:00",
       "updated": "2026-08-05T14:59:25.51-03:00",
@@ -761,7 +761,7 @@
     {
       "key": "OFBI-4902",
       "summary": "Ticket SysAid #215635 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Belvo",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:48:00.773-03:00",
       "updated": "2026-08-05T16:21:29.984-03:00",
@@ -789,7 +789,7 @@
     {
       "key": "OFBI-4901",
       "summary": "Ticket SysAid #215634 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco XP",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:59.045-03:00",
       "updated": "2026-08-05T16:21:35.127-03:00",
@@ -817,7 +817,7 @@
     {
       "key": "OFBI-4900",
       "summary": "Ticket SysAid #215633 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Bco Sofisa",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:57.25-03:00",
       "updated": "2026-08-05T16:22:39.637-03:00",
@@ -845,7 +845,7 @@
     {
       "key": "OFBI-4899",
       "summary": "Ticket SysAid #215632 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco Santander",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:54.897-03:00",
       "updated": "2026-08-05T16:22:51.427-03:00",
@@ -873,7 +873,7 @@
     {
       "key": "OFBI-4898",
       "summary": "Ticket SysAid #215630 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco Mercantil do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:53.07-03:00",
       "updated": "2026-08-05T16:22:59.482-03:00",
@@ -901,7 +901,7 @@
     {
       "key": "OFBI-4897",
       "summary": "Ticket SysAid #215628 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco Guanabara",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:51.295-03:00",
       "updated": "2026-08-05T16:24:55.965-03:00",
@@ -929,7 +929,7 @@
     {
       "key": "OFBI-4896",
       "summary": "Ticket SysAid #215627 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco do Nordeste do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:49.772-03:00",
       "updated": "2026-08-05T16:25:07.28-03:00",
@@ -957,7 +957,7 @@
     {
       "key": "OFBI-4895",
       "summary": "Ticket SysAid #215626 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco do Estado do RS",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:48.323-03:00",
       "updated": "2026-08-05T16:25:12.976-03:00",
@@ -985,7 +985,7 @@
     {
       "key": "OFBI-4894",
       "summary": "Ticket SysAid #215625 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco Citibank",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:46.46-03:00",
       "updated": "2026-08-05T16:25:18.747-03:00",
@@ -1013,7 +1013,7 @@
     {
       "key": "OFBI-4893",
       "summary": "Ticket SysAid #215623 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco BMG",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:44.631-03:00",
       "updated": "2026-08-05T16:25:23.604-03:00",
@@ -1041,7 +1041,7 @@
     {
       "key": "OFBI-4892",
       "summary": "Ticket SysAid #215622 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco Inter",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:42.413-03:00",
       "updated": "2026-08-05T16:26:55.998-03:00",
@@ -1069,7 +1069,7 @@
     {
       "key": "OFBI-4891",
       "summary": "Ticket SysAid #215621 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:39.775-03:00",
       "updated": "2026-08-05T16:27:02.711-03:00",
@@ -1097,7 +1097,7 @@
     {
       "key": "OFBI-4890",
       "summary": "Ticket SysAid #215620 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco CSF",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:37.662-03:00",
       "updated": "2026-08-05T16:27:31.214-03:00",
@@ -1125,7 +1125,7 @@
     {
       "key": "OFBI-4889",
       "summary": "Ticket SysAid #215619 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - Banco BTG Pactual",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:35.873-03:00",
       "updated": "2026-08-05T16:27:37.364-03:00",
@@ -1153,7 +1153,7 @@
     {
       "key": "OFBI-4888",
       "summary": "Ticket SysAid #215618 - Qualidade de dados nos reportes de Consentimentos à PCM (27/06 a 03/07/2026) - 99Pay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:33.909-03:00",
       "updated": "2026-08-05T16:27:42.09-03:00",
@@ -1181,7 +1181,7 @@
     {
       "key": "OFBI-4887",
       "summary": "Ticket SysAid #215602 - Não conformidade no envio de reportes à PCM - Estados de Pagamentos (28/06 a 04/07/2026)",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:32.388-03:00",
       "updated": "2026-08-05T16:31:08.38-03:00",
@@ -1209,7 +1209,7 @@
     {
       "key": "OFBI-4886",
       "summary": "Ticket SysAid #215502 - Qualidade de dados - Reportes descartados na PCM (Dados de Pagamentos Fase 3, 29/06 a 05/07/2026)",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:29.853-03:00",
       "updated": "2026-08-05T16:31:14.759-03:00",
@@ -1237,7 +1237,7 @@
     {
       "key": "OFBI-4885",
       "summary": "Ticket SysAid #215178 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - Stone Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:27.512-03:00",
       "updated": "2026-08-05T16:31:22.452-03:00",
@@ -1265,7 +1265,7 @@
     {
       "key": "OFBI-4884",
       "summary": "Ticket SysAid #215176 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - Bco Safra",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:25.737-03:00",
       "updated": "2026-08-05T16:32:30.008-03:00",
@@ -1293,7 +1293,7 @@
     {
       "key": "OFBI-4883",
       "summary": "Ticket SysAid #215171 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - RecargaPay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:23.116-03:00",
       "updated": "2026-08-05T16:32:36.976-03:00",
@@ -1321,7 +1321,7 @@
     {
       "key": "OFBI-4882",
       "summary": "Ticket SysAid #215168 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - Gerencianet",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:21.12-03:00",
       "updated": "2026-08-05T16:32:55.913-03:00",
@@ -1349,7 +1349,7 @@
     {
       "key": "OFBI-4881",
       "summary": "Ticket SysAid #215005 - Não conformidade no envio de reportes de Dados Cadastrais e Transacionais (Fases 2 e 4b) à PCM - Bco do Nordeste do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:19.391-03:00",
       "updated": "2026-08-05T16:33:03.608-03:00",
@@ -1377,7 +1377,7 @@
     {
       "key": "OFBI-4880",
       "summary": "Ticket SysAid #214218 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - Bco do Nordeste do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:17.464-03:00",
       "updated": "2026-08-05T16:33:09.302-03:00",
@@ -1405,7 +1405,7 @@
     {
       "key": "OFBI-4879",
       "summary": "Ticket SysAid #213163 - Qualidade de dados - Reportes de Portabilidade de Crédito CPC à PCM (22/06 a 28/06/2026) - Mercado Pago",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:15.533-03:00",
       "updated": "2026-08-05T16:34:08.524-03:00",
@@ -1433,7 +1433,7 @@
     {
       "key": "OFBI-4878",
       "summary": "Ticket SysAid #213160 - Qualidade de dados - Reportes de Portabilidade de Crédito CPC à PCM (22/06 a 28/06/2026) - Banco Bradesco",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:13.462-03:00",
       "updated": "2026-08-05T16:34:24.328-03:00",
@@ -1461,7 +1461,7 @@
     {
       "key": "OFBI-4877",
       "summary": "Ticket SysAid #212511 - Não conformidade no envio de reportes de Iniciação de Pagamento à PCM - Bco Safra",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:11.572-03:00",
       "updated": "2026-08-05T16:34:30.587-03:00",
@@ -1489,7 +1489,7 @@
     {
       "key": "OFBI-4876",
       "summary": "Ticket SysAid #212410 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Santander",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:10.099-03:00",
       "updated": "2026-08-05T16:36:43.176-03:00",
@@ -1517,7 +1517,7 @@
     {
       "key": "OFBI-4875",
       "summary": "Ticket SysAid #212399 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Dock Tech",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:08.225-03:00",
       "updated": "2026-08-05T16:36:49.881-03:00",
@@ -1545,7 +1545,7 @@
     {
       "key": "OFBI-4874",
       "summary": "Ticket SysAid #212396 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Inter",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:05.572-03:00",
       "updated": "2026-08-05T16:36:56.705-03:00",
@@ -1573,7 +1573,7 @@
     {
       "key": "OFBI-4873",
       "summary": "Ticket SysAid #212393 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - SHPP Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:03.494-03:00",
       "updated": "2026-08-05T16:37:01.325-03:00",
@@ -1601,7 +1601,7 @@
     {
       "key": "OFBI-4872",
       "summary": "Ticket SysAid #212387 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Sicoob",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:47:01.641-03:00",
       "updated": "2026-08-05T16:37:08.797-03:00",
@@ -1629,7 +1629,7 @@
     {
       "key": "OFBI-4871",
       "summary": "Ticket SysAid #212386 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco do Estado do RS",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:59.801-03:00",
       "updated": "2026-08-05T16:38:46.155-03:00",
@@ -1657,7 +1657,7 @@
     {
       "key": "OFBI-4870",
       "summary": "Ticket SysAid #212377 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - PagSeguro",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:57.6-03:00",
       "updated": "2026-08-05T16:38:58.454-03:00",
@@ -1685,7 +1685,7 @@
     {
       "key": "OFBI-4869",
       "summary": "Ticket SysAid #212374 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - 99Pay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:55.303-03:00",
       "updated": "2026-08-05T16:39:06.797-03:00",
@@ -1713,7 +1713,7 @@
     {
       "key": "OFBI-4868",
       "summary": "Ticket SysAid #212372 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Safra",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:53.118-03:00",
       "updated": "2026-08-05T16:39:13.974-03:00",
@@ -1741,7 +1741,7 @@
     {
       "key": "OFBI-4867",
       "summary": "Ticket SysAid #212368 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco BV",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:51.168-03:00",
       "updated": "2026-08-05T16:39:18.9-03:00",
@@ -1769,7 +1769,7 @@
     {
       "key": "OFBI-4866",
       "summary": "Ticket SysAid #212360 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Cielo",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:49.451-03:00",
       "updated": "2026-08-05T16:40:23.252-03:00",
@@ -1797,7 +1797,7 @@
     {
       "key": "OFBI-4865",
       "summary": "Ticket SysAid #212355 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco BTG Pactual",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:47.019-03:00",
       "updated": "2026-08-05T16:40:29.63-03:00",
@@ -1825,7 +1825,7 @@
     {
       "key": "OFBI-4864",
       "summary": "Ticket SysAid #212353 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Neon Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:45.263-03:00",
       "updated": "2026-08-05T16:40:37.877-03:00",
@@ -1853,7 +1853,7 @@
     {
       "key": "OFBI-4863",
       "summary": "Ticket SysAid #212350 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco BV",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:43.176-03:00",
       "updated": "2026-08-05T16:40:43.292-03:00",
@@ -1881,7 +1881,7 @@
     {
       "key": "OFBI-4862",
       "summary": "Ticket SysAid #212344 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Mercado Pago",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:40.849-03:00",
       "updated": "2026-08-05T16:40:48.502-03:00",
@@ -1909,7 +1909,7 @@
     {
       "key": "OFBI-4861",
       "summary": "Ticket SysAid #212343 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - PicPay",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:38.921-03:00",
       "updated": "2026-08-05T16:41:42.418-03:00",
@@ -1937,7 +1937,7 @@
     {
       "key": "OFBI-4860",
       "summary": "Ticket SysAid #212337 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Cooperativo Sicredi",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:37.151-03:00",
       "updated": "2026-08-05T16:41:51.091-03:00",
@@ -1965,7 +1965,7 @@
     {
       "key": "OFBI-4859",
       "summary": "Ticket SysAid #212332 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco C6",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:35.337-03:00",
       "updated": "2026-08-05T16:42:18.074-03:00",
@@ -1993,7 +1993,7 @@
     {
       "key": "OFBI-4858",
       "summary": "Ticket SysAid #212329 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco BMG",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:33.426-03:00",
       "updated": "2026-08-05T16:42:23.196-03:00",
@@ -2021,7 +2021,7 @@
     {
       "key": "OFBI-4857",
       "summary": "Ticket SysAid #212324 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Sofisa",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:31.431-03:00",
       "updated": "2026-08-05T16:42:32.808-03:00",
@@ -2049,7 +2049,7 @@
     {
       "key": "OFBI-4856",
       "summary": "Ticket SysAid #212322 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Santander",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:29.778-03:00",
       "updated": "2026-08-05T23:25:25.641-03:00",
@@ -2077,7 +2077,7 @@
     {
       "key": "OFBI-4855",
       "summary": "Ticket SysAid #212305 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco XP",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:27.702-03:00",
       "updated": "2026-08-05T23:26:00.7-03:00",
@@ -2105,7 +2105,7 @@
     {
       "key": "OFBI-4854",
       "summary": "Ticket SysAid #212303 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Confederação Nacional das Cooperativas Centrais Unicred",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:25.87-03:00",
       "updated": "2026-08-05T23:26:30.356-03:00",
@@ -2133,7 +2133,7 @@
     {
       "key": "OFBI-4853",
       "summary": "Ticket SysAid #212301 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Itaú Unibanco",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:22.576-03:00",
       "updated": "2026-08-05T23:26:43.213-03:00",
@@ -2161,7 +2161,7 @@
     {
       "key": "OFBI-4852",
       "summary": "Ticket SysAid #212300 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Realize Crédito, Financiamento e Investimento",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:19.952-03:00",
       "updated": "2026-08-05T23:26:51.721-03:00",
@@ -2189,7 +2189,7 @@
     {
       "key": "OFBI-4851",
       "summary": "Ticket SysAid #212297 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:17.931-03:00",
       "updated": "2026-08-05T23:28:55.055-03:00",
@@ -2217,7 +2217,7 @@
     {
       "key": "OFBI-4850",
       "summary": "Ticket SysAid #212293 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Crefisa",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:15.338-03:00",
       "updated": "2026-08-05T23:28:58.317-03:00",
@@ -2245,7 +2245,7 @@
     {
       "key": "OFBI-4849",
       "summary": "Ticket SysAid #212290 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Stone Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:13.015-03:00",
       "updated": "2026-08-05T23:29:01.01-03:00",
@@ -2273,7 +2273,7 @@
     {
       "key": "OFBI-4848",
       "summary": "Ticket SysAid #212288 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Santander",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:11.345-03:00",
       "updated": "2026-08-05T23:29:03.744-03:00",
@@ -2301,7 +2301,7 @@
     {
       "key": "OFBI-4847",
       "summary": "Ticket SysAid #212287 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco CSF",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:09.493-03:00",
       "updated": "2026-08-05T23:29:07.082-03:00",
@@ -2329,7 +2329,7 @@
     {
       "key": "OFBI-4846",
       "summary": "Ticket SysAid #212286 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - PagueVeloz",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:06.478-03:00",
       "updated": "2026-08-05T23:31:14.544-03:00",
@@ -2357,7 +2357,7 @@
     {
       "key": "OFBI-4845",
       "summary": "Ticket SysAid #212284 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Caixa Econômica Federal",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:04.743-03:00",
       "updated": "2026-08-05T23:31:17.475-03:00",
@@ -2385,7 +2385,7 @@
     {
       "key": "OFBI-4844",
       "summary": "Ticket SysAid #212271 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Midway",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:02.06-03:00",
       "updated": "2026-08-05T23:31:20.522-03:00",
@@ -2413,7 +2413,7 @@
     {
       "key": "OFBI-4843",
       "summary": "Ticket SysAid #212268 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - Banco Mercantil do Brasil",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:46:00.272-03:00",
       "updated": "2026-08-05T23:31:23.754-03:00",
@@ -2441,7 +2441,7 @@
     {
       "key": "OFBI-4842",
       "summary": "Ticket SysAid #212262 - Inconsistências identificadas nos dados fornecidos pela API customers (MQD) - BRB - Banco de Brasília",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:58.224-03:00",
       "updated": "2026-08-05T23:31:26.824-03:00",
@@ -2469,7 +2469,7 @@
     {
       "key": "OFBI-4841",
       "summary": "Ticket SysAid #211437 - Abertura indevida de não conformidade (Monitoramento e Gestão de Consequências, apuração mai/2026) - Neon Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:56.209-03:00",
       "updated": "2026-08-05T14:50:46.853-03:00",
@@ -2497,7 +2497,7 @@
     {
       "key": "OFBI-4840",
       "summary": "Ticket SysAid #211436 - Apontamento improcedente de não conformidade com erro na data de prazo de SLA - Mercado Pago",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:53.538-03:00",
       "updated": "2026-08-05T14:51:42.336-03:00",
@@ -2525,7 +2525,7 @@
     {
       "key": "OFBI-4839",
       "summary": "Ticket SysAid #210745 - Qualidade de dados - Reportes de Portabilidade de Crédito CPC à PCM (15/06 a 21/06/2026) - Nu Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:51.899-03:00",
       "updated": "2026-08-05T16:34:39.338-03:00",
@@ -2553,7 +2553,7 @@
     {
       "key": "OFBI-4838",
       "summary": "Ticket SysAid #208602 - Ocorrência reiterada indevida (item 2.3 - Metas de prazo de atendimento) em cascata, decorrente dos tickets #197099, #164928 e #174086 já cancelados - Wise Brasil (inferido por referência cruzada)",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:49.978-03:00",
       "updated": "2026-08-05T14:51:50.492-03:00",
@@ -2581,7 +2581,7 @@
     {
       "key": "OFBI-4837",
       "summary": "Ticket SysAid #208470 - Não conformidade cancelada mediante autorização do BCB para dilação de prazo dos tickets de CPC - Nu Pagamentos",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:47.808-03:00",
       "updated": "2026-08-05T14:52:03.387-03:00",
@@ -2609,7 +2609,7 @@
     {
       "key": "OFBI-4836",
       "summary": "Ticket SysAid #208369 - Ocorrência reiterada indevida (item 2.2.IV - Retirada de versões antigas das APIs) já esclarecida no ticket #208124 - Banco XP",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:45.726-03:00",
       "updated": "2026-08-05T14:52:10.803-03:00",
@@ -2637,7 +2637,7 @@
     {
       "key": "OFBI-4835",
       "summary": "Ticket SysAid #208367 - Ocorrência reiterada indevida no item 2.2.I (Versões de APIs), sobreposta ao ticket já encerrado #208137 - Itaú Unibanco",
-      "status": "Cancelado",
+      "status": "Aberto",
       "priority": "low",
       "created": "2026-08-05T12:45:44.102-03:00",
       "updated": "2026-08-05T14:18:06.372-03:00",
@@ -2665,7 +2665,7 @@
     {
       "key": "OFBI-4834",
       "summary": "Ticket SysAid #208362 - Falso apontamento de ocorrência reiterada de desconformidade (item API de câmbio) decorrente da mesma divergência de painel já tratada no ticket #208114 - Banco Santander",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-05T12:45:42.232-03:00",
       "updated": "2026-08-05T18:40:01.404-03:00",
@@ -2693,7 +2693,7 @@
     {
       "key": "OFBI-4833",
       "summary": "Ticket SysAid #197099 - Não conformidade indevida em cascata (apuração abr/2026) decorrente de tickets originadores já cancelados (#164928, #174086, #155155, #155477) - Wise Brasil",
-      "status": "Cancelado",
+      "status": "Concluído com Sucesso",
       "priority": "low",
       "created": "2026-08-05T12:45:40.443-03:00",
       "updated": "2026-08-05T17:45:52.41-03:00",
@@ -2721,7 +2721,7 @@
     {
       "key": "OFBI-4832",
       "summary": "Ticket SysAid #173296 - Cancelamento de teste FVP Manual - Testes Restritos (Piloto JSR 2.2.0) em decorrência de waiver do BCB - Portobank",
-      "status": "Cancelado",
+      "status": "Concluído com Sucesso",
       "priority": "low",
       "created": "2026-08-05T12:45:38.12-03:00",
       "updated": "2026-08-05T13:07:20.684-03:00",
@@ -2749,7 +2749,7 @@
     {
       "key": "OFBI-4733",
       "summary": "Ticket SysAid #208160 - Abertura indevida de ticket de desconformidade por erro no envio/recebimento de reportes à PCM (apuração nov/2025 a mar/2026) - iFood Pago / Zoop",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-05T11:56:50.658-03:00",
       "updated": "2026-08-05T18:40:00.513-03:00",
@@ -2777,7 +2777,7 @@
     {
       "key": "OFBI-4732",
       "summary": "Ticket SysAid #208146 - Apontamento indevido de desconformidade (item 2.2.I - atraso na publicação da API enrollment, fev/2026) com erro no período de apuração - Cresol Confederação",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-05T11:42:23.479-03:00",
       "updated": "2026-08-05T18:39:58.846-03:00",
@@ -2805,7 +2805,7 @@
     {
       "key": "OFBI-4731",
       "summary": "Ticket SysAid #208142 - Apontamento indevido de desconformidade (item 2.2.I - Versões de APIs, fev/2026) com erro no período de apuração descrito no ticket - CloudWalk",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-05T11:28:44.492-03:00",
       "updated": "2026-08-05T18:39:57.043-03:00",
@@ -2833,7 +2833,7 @@
     {
       "key": "OFBI-4730",
       "summary": "Ticket SysAid #208127 - Apontamento indevido de desconformidade (item 2.2.I - Versões de APIs, divergência Diretório x Produtivo, fev/2026) - BANQI",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T18:01:57.896-03:00",
       "updated": "2026-08-05T18:39:55.466-03:00",
@@ -2861,7 +2861,7 @@
     {
       "key": "OFBI-4729",
       "summary": "ket SysAid #208114 - Apontamento indevido de desconformidade no painel Quicksight (item 2.2.I - Implementação de versões, mai/jun 2026) - Banco Santander",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T17:43:19.308-03:00",
       "updated": "2026-08-05T18:39:53.886-03:00",
@@ -2889,7 +2889,7 @@
     {
       "key": "OFBI-4728",
       "summary": "Ticket SysAid #207419 - Não conformidade indevida (apuração abril/2026) decorrente do mesmo erro de instabilidade da ferramenta AOF já identificado no ticket #181981 - Mercado Bitcoin",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T16:25:05.179-03:00",
       "updated": "2026-08-05T18:39:52.942-03:00",
@@ -2917,7 +2917,7 @@
     {
       "key": "OFBI-4726",
       "summary": "Ticket SysAid #187043 - Inconsistência no painel de monitoramento gerou falso apontamento de 2ª ocorrência reiterada (item 2.2.II - Versões de APIs) - Sicoob",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T15:35:41.428-03:00",
       "updated": "2026-08-05T18:39:52.071-03:00",
@@ -2945,7 +2945,7 @@
     {
       "key": "OFBI-4723",
       "summary": "Ticket SysAid #186944 - Falha no algoritmo do MQD gerou apontamentos indevidos de não conformidade (IQD - competência março/2026)",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T14:39:10.161-03:00",
       "updated": "2026-08-05T18:39:51.197-03:00",
@@ -2973,7 +2973,7 @@
     {
       "key": "OFBI-4722",
       "summary": "Ticket SysAid #186810 - Falha no algoritmo do MQD gerou apontamentos indevidos de não conformidade (IQD - competência março/2026)",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T14:08:39.22-03:00",
       "updated": "2026-08-05T18:39:49.556-03:00",
@@ -3001,7 +3001,7 @@
     {
       "key": "OFBI-4720",
       "summary": " Ticket SysAid #181981 - Mercado Bitcoin - Instabilidade na ferramenta FVP gerou notificação indevida de não conformidade.",
-      "status": "Cancelado",
+      "status": "Trabalho em andamento",
       "priority": "low",
       "created": "2026-08-04T13:29:00.823-03:00",
       "updated": "2026-08-05T18:40:03.135-03:00",

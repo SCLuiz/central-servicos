@@ -59,8 +59,8 @@ jobs:
           }
 
           incidentes = []
-          start_at = 0
           max_results = 100
+          next_page_token = None
 
           print('Buscando incidentes do Jira...')
           while True:
@@ -69,8 +69,9 @@ jobs:
                   'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate',
                              'customfield_10238', 'customfield_10248', 'customfield_10096'],
                   'maxResults': max_results,
-                  'startAt': start_at
               }
+              if next_page_token:
+                  payload['nextPageToken'] = next_page_token
 
               response = requests.post(
                   f'{JIRA_URL}/rest/api/3/search/jql',
@@ -149,9 +150,9 @@ jobs:
                       'sla_remaining': sla_remaining,
                   })
 
-              if data.get('isLast', True) or len(issues) < max_results:
+              next_page_token = data.get('nextPageToken')
+              if data.get('isLast', True) or not next_page_token:
                   break
-              start_at += max_results
 
           # ESCREVER O ARQUIVO FORA DO LOOP PARA GARANTIR QUE PEGA TUDO
           output = {

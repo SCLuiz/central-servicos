@@ -1037,7 +1037,7 @@
                                 <th>Sistema Afetado</th>
                                 <th style="width: 90px;">Prioridade</th>
                                 <th style="width: 90px;">Impacto</th>
-                                <th style="width: 110px;">Instituição</th>
+                                <th id="th-instituicao" style="width: 110px;">Instituição</th>
                                 <th style="width: 110px;">SLA</th>
                                 <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
@@ -1656,6 +1656,12 @@
         function renderTable(incidentes) {
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
+            
+            const thInstituicao = document.getElementById('th-instituicao');
+            if (thInstituicao) {
+                thInstituicao.style.display = currentMainTab === 'cancelados' ? '' : 'none';
+            }
+
             incidentes.forEach(i => {
                 // Lógica para extrair a Instituição (Para SysAid, fica no final do summary. Ex: "... - Banco Inter")
                 let instituicao = 'N/A';
@@ -1779,7 +1785,7 @@
                         </td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
                         <td><span class="${impClass}">${impLabel}</span></td>
-                        <td><span style="font-size: 11px; color: #475569; font-weight: 500;">${instituicao}</span></td>
+                        ${currentMainTab === 'cancelados' ? `<td><span style="font-size: 11px; color: #475569; font-weight: 500;">${instituicao}</span></td>` : ''}
                         <td>${slaHtml}</td>
                         <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
@@ -1805,16 +1811,31 @@
         function exportToExcel() {
             if (!currentFilteredData.length) { alert('Sem dados para exportar.'); return; }
             const rows = currentFilteredData.map(i => {
+                let instituicao = 'N/A';
+                if (isSysAidTicket(i)) {
+                    const parts = i.summary.split(' - ');
+                    if (parts.length > 1) {
+                        instituicao = parts[parts.length - 1].trim();
+                    }
+                } else if (i.reporter) {
+                    instituicao = i.reporter;
+                }
+
                 const isResolved = i.status && i.status.includes('Concluído');
                 const mttrSec = getIncidentMTTRSeconds(i);
-                // Valor em fração de dia para o Excel entender como tempo/duração (se resolvido)
                 const tempoResolucao = (isResolved && mttrSec > 0) ? (mttrSec / 86400) : '';
 
-                return {
+                let rowData = {
                     'Ticket': i.key,
                     'Time Solucionador': i.assignee,
-                    'Descrição': i.summary,
-                    'Instituição': instituicao,
+                    'Descrição': i.summary
+                };
+
+                if (currentMainTab === 'cancelados') {
+                    rowData['Instituição'] = instituicao;
+                }
+
+                Object.assign(rowData, {
                     'Prioridade': i.priority,
                     'Impacto': i.impacto || 'Baixo',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
@@ -1822,7 +1843,9 @@
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     'Tempo de Resolução': tempoResolucao
-                };
+                });
+
+                return rowData;
             });
             const ws = XLSX.utils.json_to_sheet(rows);
 
@@ -1876,8 +1899,13 @@
             doc.text(`Total: ${total}`, 14, 47);
             doc.text(`Resolvidos: ${concluido} (${total > 0 ? ((concluido/total)*100).toFixed(1) : 0}%)`, 60, 47);
             doc.text(`Abertos: ${aberto}`, 130, 47);
+
+            let headRow = ['Ticket', 'Time'];
+            if (currentMainTab === 'cancelados') headRow.push('Instituição');
+            headRow = headRow.concat(['Prior.', 'Impacto', 'Criação', 'Fim Indisp.', 'Status']);
+
             doc.autoTable({
-                head: [['Ticket', 'Time', 'Instituição', 'Prior.', 'Impacto', 'Criação', 'Fim Indisp.', 'Status']],
+                head: [headRow],
                 body: currentFilteredData.map(i => {
                     let inst = 'N/A';
                     if (isSysAidTicket(i)) {
@@ -1886,12 +1914,17 @@
                     } else if (i.reporter) {
                         inst = i.reporter;
                     }
-                    return [
-                        i.key, i.assignee || 'N/A', inst, i.priority, i.impacto || 'Baixo',
+
+                    let rowData = [i.key, i.assignee || 'N/A'];
+                    if (currentMainTab === 'cancelados') rowData.push(inst);
+                    rowData = rowData.concat([
+                        i.priority, i.impacto || 'Baixo',
                         new Date(i.created).toLocaleDateString('pt-BR'),
                         i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                         (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status
-                    ];
+                    ]);
+                    
+                    return rowData;
                 }),
                 startY: 55,
                 styles: { fontSize: 8 },

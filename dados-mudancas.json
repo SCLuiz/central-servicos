@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-08-06T15:39:41.438160",
-  "total": 38,
+  "ultima_atualizacao": "2026-08-06T23:05:35.188947",
+  "total": 40,
   "mudancas": [
+    {
+      "key": "OFBI-4937",
+      "summary": "GMUD - Microsoft Secure Score - Block executable files from running unless they meet a prevalence, age, or trusted list criterion",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-08-06T15:45:43.638-0300",
+      "updated": "2026-08-06T15:47:56.520-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4936",
+      "summary": "GMUD - Microsoft Secure Score - Block JavaScript or VBScript from launching downloaded executable content",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Marcio Paulo",
+      "created": "2026-08-06T15:09:47.574-0300",
+      "updated": "2026-08-06T19:43:45.813-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4706",
       "summary": "Microsoft Secure Score - Block Adobe Reader from creating child processes",
@@ -31,12 +57,12 @@
     {
       "key": "OFBI-4704",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-27T17:59:55.907-0300",
-      "updated": "2026-07-29T17:58:15.001-0300",
+      "updated": "2026-08-06T12:53:31.077-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -44,12 +70,12 @@
     {
       "key": "OFBI-4674",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-07-14T12:01:24.199-0300",
-      "updated": "2026-08-05T14:11:29.361-0300",
+      "updated": "2026-08-06T12:53:15.193-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

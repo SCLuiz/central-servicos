@@ -850,7 +850,7 @@
                     </div>
 
                     <!-- Widget 4: Sistemas Afetados (Gráfico) -->
-                    <div class="chart-card">
+                    <div class="chart-card" id="widget-sistemas">
                         <h3 class="chart-title">Top Sistemas Afetados</h3>
                         <div style="height: 250px; position: relative;">
                             <canvas id="chartSistemas"></canvas>
@@ -858,7 +858,7 @@
                     </div>
 
                     <!-- Widget 6: Top 10 Instituições (Gráfico) -->
-                    <div class="chart-card">
+                    <div class="chart-card" id="widget-instituicoes">
                         <h3 class="chart-title">Top 10 Instituições</h3>
                         <div style="height: 250px; position: relative;">
                             <canvas id="chartInstituicoes"></canvas>
@@ -2119,9 +2119,13 @@
 
             if (currentMainTab === 'cancelados') {
                 filtered = filtered.filter(i => isSysAidTicket(i));
+                const ws = document.getElementById('widget-sistemas'); if(ws) ws.style.display = 'block';
+                const wi = document.getElementById('widget-instituicoes'); if(wi) wi.style.display = 'block';
             } else {
                 // Aba 'Todos' -> exibe todos MENOS os de SysAid
                 filtered = filtered.filter(i => !isSysAidTicket(i));
+                const ws = document.getElementById('widget-sistemas'); if(ws) ws.style.display = 'none';
+                const wi = document.getElementById('widget-instituicoes'); if(wi) wi.style.display = 'none';
             }
 
             if (currentPriorityFilter !== 'all') {

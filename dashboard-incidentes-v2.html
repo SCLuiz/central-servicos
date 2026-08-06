@@ -2020,10 +2020,10 @@
             }
 
             if (currentMainTab === 'cancelados') {
-                filtered = filtered.filter(i => i.status === 'Cancelado' || isSysAidTicket(i));
+                filtered = filtered.filter(i => isSysAidTicket(i));
             } else {
-                // Aba 'Todos' -> exibe todos MENOS os de SysAid e MENOS os cancelados, para não poluírem a operação real
-                filtered = filtered.filter(i => !isSysAidTicket(i) && i.status !== 'Cancelado');
+                // Aba 'Todos' -> exibe todos MENOS os de SysAid
+                filtered = filtered.filter(i => !isSysAidTicket(i));
             }
 
             if (currentPriorityFilter !== 'all') {
@@ -2257,10 +2257,10 @@
             }
 
             if (currentMainTab === 'cancelados') {
-                compIncidentes = compIncidentes.filter(i => i.status === 'Cancelado' || isSysAid(i));
+                compIncidentes = compIncidentes.filter(i => isSysAid(i));
             } else {
-                // Aba 'Todos' -> exclui tickets SysAid e os Cancelados
-                compIncidentes = compIncidentes.filter(i => !isSysAid(i) && i.status !== 'Cancelado');
+                // Aba 'Todos' -> exclui tickets SysAid
+                compIncidentes = compIncidentes.filter(i => !isSysAid(i));
             }
 
             if (currentPriorityFilter !== 'all') {

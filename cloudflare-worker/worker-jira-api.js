@@ -20,6 +20,75 @@ function getCorsHeaders(request) {
   };
 }
 
+// Busca todas as Mudanças do Jira paginando via nextPageToken (evita truncar em 100)
+async function buscarMudancas(env) {
+  const auth = btoa(`${env.JIRA_EMAIL}:${env.JIRA_API_TOKEN}`);
+  const jql = 'project = OFBI AND type = "[System] Mudança" ORDER BY created DESC';
+  const fields = ['summary', 'status', 'created', 'updated', 'resolutiondate', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_10087', 'customfield_10088'];
+
+  let mudancas = [];
+  let nextPageToken = null;
+
+  while (true) {
+    const payload = { jql, fields, maxResults: 100 };
+    if (nextPageToken) payload.nextPageToken = nextPageToken;
+
+    const jiraResponse = await fetch(`${env.JIRA_URL}/rest/api/3/search/jql`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!jiraResponse.ok) {
+      const errorText = await jiraResponse.text();
+      const err = new Error('Failed to fetch from Jira');
+      err.status = jiraResponse.status;
+      err.details = errorText;
+      throw err;
+    }
+
+    const jiraData = await jiraResponse.json();
+    const issues = jiraData.issues || [];
+
+    mudancas = mudancas.concat(issues.map((issue) => {
+      const f = issue.fields || {};
+      const assignee = f.assignee || {};
+      const reporter = f.reporter || {};
+      const priority = f.priority || {};
+      const status = f.status || {};
+      return {
+        key: issue.key,
+        summary: f.summary || '',
+        status: status.name || '',
+        priority: priority.name || '',
+        assignee: assignee.displayName || 'Sem responsável',
+        reporter: reporter.displayName || '',
+        created: f.created || '',
+        updated: f.updated || '',
+        resolution_date: f.resolutiondate || null,
+        labels: f.labels || [],
+        causouIncidente: f.customfield_11073 || false,
+        inicio_planejado: f.customfield_10087 || null,
+        conclusao_planejada: f.customfield_10088 || null,
+      };
+    }));
+
+    nextPageToken = jiraData.nextPageToken;
+    if (jiraData.isLast !== false && !nextPageToken) break;
+    if (!nextPageToken) break;
+  }
+
+  return {
+    ultima_atualizacao: new Date().toISOString(),
+    total: mudancas.length,
+    mudancas,
+  };
+}
+
 export default {
   async fetch(request, env) {
     const corsHeaders = getCorsHeaders(request);
@@ -99,7 +168,27 @@ export default {
         });
       }
 
-      return new Response('Not found', { status: 404, headers: corsHeaders });
+      // --- ROTA 3 (padrão): MUDANÇAS DO JIRA (usada pelo dashboard-mudancas-v2.html) ---
+      try {
+        const response = await buscarMudancas(env);
+        return new Response(JSON.stringify(response), {
+          status: 200,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+          }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({
+          error: 'Failed to fetch from Jira',
+          status: err.status || 500,
+          details: err.details || err.message,
+        }), {
+          status: err.status || 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
 
     } catch (e) {
       return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: corsHeaders });

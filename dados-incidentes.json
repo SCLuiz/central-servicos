@@ -3089,7 +3089,7 @@
       "key": "OFBI-4707",
       "summary": "Tentativa de obtenção de informações sensíveis armazenadas em navegadores web - SAORI 12600180600",
       "status": "Concluído com Sucesso",
-      "priority": "low",
+      "priority": "Highest",
       "created": "2026-07-28T13:49:27.57-03:00",
       "updated": "2026-07-28T13:53:27.147-03:00",
       "resolutiondate": "2026-07-28T13:53:27.103-03:00",
@@ -3111,7 +3111,8 @@
       "reopened": false,
       "fcr": true,
       "gmuds_vinculadas": [],
-      "gmud_emergencial": false
+      "gmud_emergencial": false,
+      "impacto": "Alto"
     },
     {
       "key": "OFBI-4695",

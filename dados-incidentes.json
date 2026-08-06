@@ -6,7 +6,8 @@
       "key": "OFBI-4933",
       "summary": "Divergência entre os volumes de reportes diário e de 7 dias na Área de Gestão de Desconformidade 2.0",
       "status": "Aberto",
-      "priority": "low",
+      "priority": "High",
+      "impacto": "Alto",
       "created": "2026-08-05T18:09:55.444-03:00",
       "updated": "2026-08-05T18:10:11.24-03:00",
       "resolutiondate": null,
@@ -5191,3 +5192,4 @@
     }
   ]
 }
+

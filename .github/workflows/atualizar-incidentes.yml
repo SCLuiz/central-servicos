@@ -52,7 +52,7 @@ jobs:
           # Override manual de Time Solucionador (sobrepõe o assignee real do Jira)
           TIME_SOLUCIONADOR_OVERRIDE = {
               'OFBI-4933': 'Arquitetura',
-              'OFBI-4715': 'INTEGRAÇÃO DIGITAL',
+              'OFBI-4715': 'Integração Digital',
               'OFBI-4710': 'Arquitetura e Plataforma',
               'OFBI-4707': 'Segurança',
               'OFBI-4695': 'Segurança',

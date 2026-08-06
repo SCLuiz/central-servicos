@@ -1657,6 +1657,7 @@
             currentFilteredData = filtered;
             renderDashboard(filtered);
             updateComparisonChart();
+            updateTrendDashboards(filtered);
         }
 
         function formatMonthLabel(mKey) {
@@ -1846,6 +1847,76 @@
             
             renderComparisonSelector();
             updateComparisonChart();
+        }
+
+        let trendCharts = {};
+        function updateTrendDashboards(mudancas) {
+            const monthsMap = {};
+            mudancas.forEach(i => {
+                if(!i.created) return;
+                const d = new Date(i.created);
+                const key = `${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()}`;
+                if (!monthsMap[key]) {
+                    monthsMap[key] = {
+                        label: formatMonthLabel(key),
+                        dateObj: new Date(d.getFullYear(), d.getMonth(), 1),
+                        total: 0, concluidas: 0, revertidas: 0, emerg: 0, causouInc: 0,
+                        cabSec: 0, cabCount: 0
+                    };
+                }
+                monthsMap[key].total++;
+                
+                const sLower = (i.status || '').toLowerCase();
+                if (sLower.includes('conclu')) monthsMap[key].concluidas++;
+                
+                const sumLower = (i.summary || '').toLowerCase();
+                const isReverted = sumLower.includes('rollback') || sumLower.includes('reverter') || i.causouIncidente === true;
+                if (isReverted) monthsMap[key].revertidas++;
+                
+                const catLower = (i.categoria || '').toLowerCase();
+                if (catLower === 'emergencial' || sumLower.includes('emergencial')) monthsMap[key].emerg++;
+                
+                if (i.causouIncidente) monthsMap[key].causouInc++;
+                
+                if (i.tempo_aprovacao_cab) {
+                    monthsMap[key].cabSec += i.tempo_aprovacao_cab;
+                    monthsMap[key].cabCount++;
+                }
+            });
+
+            const sortedKeys = Object.keys(monthsMap).sort((a,b) => monthsMap[a].dateObj - monthsMap[b].dateObj).slice(-3);
+            
+            const labels = sortedKeys.map(k => monthsMap[k].label);
+            const dataTotal = sortedKeys.map(k => monthsMap[k].total);
+            const dataSucesso = sortedKeys.map(k => monthsMap[k].total > 0 ? Math.round(((monthsMap[k].concluidas - monthsMap[k].revertidas) / monthsMap[k].total) * 100) : 0);
+            const dataEmerg = sortedKeys.map(k => monthsMap[k].emerg);
+            const dataRev = sortedKeys.map(k => monthsMap[k].revertidas);
+            const dataInc = sortedKeys.map(k => monthsMap[k].causouInc);
+            const dataCab = sortedKeys.map(k => monthsMap[k].cabCount > 0 ? Math.round(monthsMap[k].cabSec / monthsMap[k].cabCount / 86400) : 0);
+
+            const getOpts = (title) => ({
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, datalabels: { display: false } },
+                scales: { y: { beginAtZero: true, title: { display: true, text: title, color: '#a0aec0', font: { size: 10 } }, grid: { borderDash: [5,5] } }, x: { grid: { display: false } } }
+            });
+
+            const render = (id, data, bg, title) => {
+                const ctx = document.getElementById(id);
+                if(!ctx) return;
+                if(trendCharts[id]) trendCharts[id].destroy();
+                trendCharts[id] = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels, datasets: [{ data, backgroundColor: bg, borderRadius: 4, barPercentage: 0.6 }] },
+                    options: getOpts(title)
+                });
+            };
+
+            render('chartTrendTotal', dataTotal, ['#63b3ed', '#3182ce', '#2b6cb0'], 'Qtd Mudanças');
+            render('chartTrendSucesso', dataSucesso, ['#68d391', '#38a169', '#2f855a'], 'Taxa (%)');
+            render('chartTrendEmerg', dataEmerg, ['#f6ad55', '#dd6b20', '#c05621'], 'Qtd Emergenciais');
+            render('chartTrendRev', dataRev, ['#fc8181', '#e53e3e', '#c53030'], 'Qtd Revertidas');
+            render('chartTrendInc', dataInc, ['#f6e05e', '#ecc94b', '#d69e2e'], 'Qtd Incidentes');
+            render('chartTrendCab', dataCab, ['#b794f4', '#805ad5', '#6b46c1'], 'Dias (Aprox)');
         }
 
         function updateComparisonChart() {

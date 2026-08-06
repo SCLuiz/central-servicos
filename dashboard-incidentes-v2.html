@@ -1748,12 +1748,7 @@
                             </div>
                         </td>
                         <td><span class="${prioClass}">${prioLabel}</span></td>
-                        <td>
-                            ${currentMainTab === 'cancelados' 
-                                ? `<span class="badge-success">BAIXO</span>` 
-                                : `<span style="font-size: 11px; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-weight: 500;">${i.impacto || '-'}</span>`
-                            }
-                        </td>
+                        <td><span class="${impClass}">${impLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>
@@ -1789,7 +1784,7 @@
                     'Time Solucionador': i.assignee,
                     'Descrição': i.summary,
                     'Prioridade': i.priority,
-                    'Impacto': currentMainTab === 'cancelados' ? 'BAIXO' : (i.impacto || '-'),
+                    'Impacto': i.impacto || 'Baixo',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                     'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
@@ -1852,7 +1847,7 @@
             doc.autoTable({
                 head: [['Ticket', 'Time Solucionador', 'Prioridade', 'Impacto', 'Criação', 'Início Indisp.', 'Fim Indisp.', 'Status', 'Descrição']],
                 body: currentFilteredData.map(i => [
-                    i.key, i.assignee || 'N/A', i.priority, currentMainTab === 'cancelados' ? 'BAIXO' : (i.impacto || '-'),
+                    i.key, i.assignee || 'N/A', i.priority, i.impacto || 'Baixo',
                     new Date(i.created).toLocaleDateString('pt-BR'),
                     i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleDateString('pt-BR') : '—',
                     i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleDateString('pt-BR') : '—',

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-07T13:24:11.797263",
+  "ultima_atualizacao": "2026-08-07T14:32:45.439039",
   "total": 231,
   "incidentes": [
     {
@@ -17,8 +17,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "10h 24m",
-      "sla_remaining": "5h 35m"
+      "sla_elapsed": "11h 32m",
+      "sla_remaining": "4h 27m"
     },
     {
       "key": "OFBI-4928",
@@ -33,10 +33,10 @@
       "updated": "2026-08-06T01:37:09.135-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:48.960-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 43m",
+      "sla_remaining": "-43m"
     },
     {
       "key": "OFBI-4927",
@@ -51,10 +51,10 @@
       "updated": "2026-08-06T01:37:06.632-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:47.211-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 43m",
+      "sla_remaining": "-43m"
     },
     {
       "key": "OFBI-4926",
@@ -69,10 +69,10 @@
       "updated": "2026-08-06T01:37:03.854-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:45.617-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 43m",
+      "sla_remaining": "-43m"
     },
     {
       "key": "OFBI-4925",
@@ -87,10 +87,10 @@
       "updated": "2026-08-06T01:37:00.780-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:43.725-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4924",
@@ -105,10 +105,10 @@
       "updated": "2026-08-06T01:36:57.974-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:41.978-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4923",
@@ -123,10 +123,10 @@
       "updated": "2026-08-06T01:36:55.436-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:40.222-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4922",
@@ -141,10 +141,10 @@
       "updated": "2026-08-06T01:36:52.140-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:38.370-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4921",
@@ -159,10 +159,10 @@
       "updated": "2026-08-06T01:36:49.041-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:36.499-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4920",
@@ -177,10 +177,10 @@
       "updated": "2026-08-06T01:36:46.686-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:34.239-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4919",
@@ -195,10 +195,10 @@
       "updated": "2026-08-06T01:36:43.775-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:32.323-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4918",
@@ -213,10 +213,10 @@
       "updated": "2026-08-06T01:36:40.959-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:30.393-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4917",
@@ -231,10 +231,10 @@
       "updated": "2026-08-06T01:36:36.819-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:28.550-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4916",
@@ -249,10 +249,10 @@
       "updated": "2026-08-06T01:36:32.640-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:26.707-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4915",
@@ -267,10 +267,10 @@
       "updated": "2026-08-06T01:36:28.978-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:24.647-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4914",
@@ -285,10 +285,10 @@
       "updated": "2026-08-06T01:35:57.200-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:22.713-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4913",
@@ -303,10 +303,10 @@
       "updated": "2026-08-06T01:35:54.814-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:20.981-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4912",
@@ -321,10 +321,10 @@
       "updated": "2026-08-06T01:35:52.361-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:19.254-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4911",
@@ -339,10 +339,10 @@
       "updated": "2026-08-06T01:35:49.815-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:17.331-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4910",
@@ -357,10 +357,10 @@
       "updated": "2026-08-06T01:35:43.995-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:15.373-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4909",
@@ -375,10 +375,10 @@
       "updated": "2026-08-06T01:35:28.931-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:13.442-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4908",
@@ -393,10 +393,10 @@
       "updated": "2026-08-06T01:35:14.577-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:11.697-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4907",
@@ -411,10 +411,10 @@
       "updated": "2026-08-06T01:35:10.209-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:09.981-0300",
-      "sla_elapsed": "15h 35m",
-      "sla_remaining": "24m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4906",
@@ -429,10 +429,10 @@
       "updated": "2026-08-06T01:35:07.619-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:08.070-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4905",
@@ -447,10 +447,10 @@
       "updated": "2026-08-06T01:35:05.105-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:06.200-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4904",
@@ -465,10 +465,10 @@
       "updated": "2026-08-06T01:35:02.723-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:04.418-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4903",
@@ -483,10 +483,10 @@
       "updated": "2026-08-06T01:34:59.922-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:02.563-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4902",
@@ -501,10 +501,10 @@
       "updated": "2026-08-06T01:34:57.187-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:48:00.773-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4901",
@@ -519,10 +519,10 @@
       "updated": "2026-08-06T01:34:54.474-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:59.045-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4900",
@@ -537,10 +537,10 @@
       "updated": "2026-08-06T01:34:51.575-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:57.250-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4899",
@@ -555,10 +555,10 @@
       "updated": "2026-08-06T01:34:48.907-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:54.897-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4898",
@@ -573,10 +573,10 @@
       "updated": "2026-08-06T01:34:46.484-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:53.070-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4897",
@@ -591,10 +591,10 @@
       "updated": "2026-08-06T01:34:43.825-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:51.295-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4896",
@@ -609,10 +609,10 @@
       "updated": "2026-08-06T01:34:39.727-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:49.772-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4895",
@@ -627,10 +627,10 @@
       "updated": "2026-08-06T01:34:37.176-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:48.323-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4894",
@@ -645,10 +645,10 @@
       "updated": "2026-08-06T01:34:34.376-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:46.460-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4893",
@@ -663,10 +663,10 @@
       "updated": "2026-08-06T01:34:31.506-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:44.631-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 44m",
+      "sla_remaining": "-44m"
     },
     {
       "key": "OFBI-4892",
@@ -681,10 +681,10 @@
       "updated": "2026-08-06T01:34:28.784-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:42.413-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4891",
@@ -699,10 +699,10 @@
       "updated": "2026-08-06T01:34:19.564-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:39.775-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4890",
@@ -717,10 +717,10 @@
       "updated": "2026-08-06T01:34:16.752-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:37.662-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4889",
@@ -735,10 +735,10 @@
       "updated": "2026-08-06T01:34:14.025-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:35.873-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4888",
@@ -753,10 +753,10 @@
       "updated": "2026-08-06T01:34:11.636-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:33.909-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4887",
@@ -771,10 +771,10 @@
       "updated": "2026-08-06T01:34:08.245-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:32.388-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4886",
@@ -789,10 +789,10 @@
       "updated": "2026-08-06T01:34:05.250-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:29.853-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4885",
@@ -807,10 +807,10 @@
       "updated": "2026-08-06T01:34:02.336-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:27.512-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4884",
@@ -825,10 +825,10 @@
       "updated": "2026-08-06T01:33:58.449-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:25.737-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4883",
@@ -843,10 +843,10 @@
       "updated": "2026-08-06T01:33:55.946-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:23.116-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4882",
@@ -861,10 +861,10 @@
       "updated": "2026-08-06T01:33:53.060-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:21.120-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4881",
@@ -879,10 +879,10 @@
       "updated": "2026-08-06T01:33:49.736-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:19.391-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4880",
@@ -897,10 +897,10 @@
       "updated": "2026-08-06T01:33:46.168-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:17.464-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4879",
@@ -915,10 +915,10 @@
       "updated": "2026-08-06T01:33:43.345-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:15.533-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4878",
@@ -933,10 +933,10 @@
       "updated": "2026-08-06T01:33:40.765-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:13.462-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4877",
@@ -951,10 +951,10 @@
       "updated": "2026-08-06T01:33:37.172-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:11.572-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4876",
@@ -969,10 +969,10 @@
       "updated": "2026-08-06T01:33:34.477-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:10.099-0300",
-      "sla_elapsed": "15h 36m",
-      "sla_remaining": "23m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4875",
@@ -987,10 +987,10 @@
       "updated": "2026-08-06T01:33:22.957-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:08.225-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4874",
@@ -1005,10 +1005,10 @@
       "updated": "2026-08-06T01:33:20.406-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:05.572-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4873",
@@ -1023,10 +1023,10 @@
       "updated": "2026-08-06T01:33:17.507-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:03.494-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4872",
@@ -1041,10 +1041,10 @@
       "updated": "2026-08-06T01:33:14.860-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:47:01.641-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4871",
@@ -1059,10 +1059,10 @@
       "updated": "2026-08-06T01:33:12.332-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:59.801-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4870",
@@ -1077,10 +1077,10 @@
       "updated": "2026-08-06T01:33:10.006-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:57.600-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4869",
@@ -1095,10 +1095,10 @@
       "updated": "2026-08-06T01:33:07.323-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:55.303-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4868",
@@ -1113,10 +1113,10 @@
       "updated": "2026-08-06T01:33:04.254-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:53.118-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4867",
@@ -1131,10 +1131,10 @@
       "updated": "2026-08-06T01:33:01.336-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:51.168-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4866",
@@ -1149,10 +1149,10 @@
       "updated": "2026-08-06T01:32:46.142-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:49.451-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4865",
@@ -1167,10 +1167,10 @@
       "updated": "2026-08-06T01:32:42.644-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:47.019-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4864",
@@ -1185,10 +1185,10 @@
       "updated": "2026-08-06T01:32:39.587-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:45.263-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 45m",
+      "sla_remaining": "-45m"
     },
     {
       "key": "OFBI-4863",
@@ -1203,10 +1203,10 @@
       "updated": "2026-08-06T01:32:34.283-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:43.176-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4862",
@@ -1221,10 +1221,10 @@
       "updated": "2026-08-06T01:32:30.061-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:40.849-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4861",
@@ -1239,10 +1239,10 @@
       "updated": "2026-08-06T01:32:23.099-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:38.921-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4860",
@@ -1257,10 +1257,10 @@
       "updated": "2026-08-06T01:32:18.402-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:37.151-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4859",
@@ -1275,10 +1275,10 @@
       "updated": "2026-08-06T01:32:15.548-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:35.337-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4858",
@@ -1293,10 +1293,10 @@
       "updated": "2026-08-06T01:32:13.266-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:33.426-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4857",
@@ -1311,10 +1311,10 @@
       "updated": "2026-08-06T01:32:10.617-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:31.431-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4856",
@@ -1329,10 +1329,10 @@
       "updated": "2026-08-06T01:32:07.929-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:29.778-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4855",
@@ -1347,10 +1347,10 @@
       "updated": "2026-08-06T01:32:05.435-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:27.702-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4854",
@@ -1365,10 +1365,10 @@
       "updated": "2026-08-06T01:32:01.994-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:25.870-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4853",
@@ -1383,10 +1383,10 @@
       "updated": "2026-08-06T01:31:59.110-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:22.576-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4852",
@@ -1401,10 +1401,10 @@
       "updated": "2026-08-06T01:31:56.359-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:19.952-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4851",
@@ -1419,10 +1419,10 @@
       "updated": "2026-08-06T01:31:53.418-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:17.931-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4850",
@@ -1437,10 +1437,10 @@
       "updated": "2026-08-06T01:31:49.737-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:15.338-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4849",
@@ -1455,10 +1455,10 @@
       "updated": "2026-08-06T01:31:38.578-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:13.015-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4848",
@@ -1473,10 +1473,10 @@
       "updated": "2026-08-06T01:31:33.220-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:11.345-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4847",
@@ -1491,10 +1491,10 @@
       "updated": "2026-08-06T01:31:30.772-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:09.493-0300",
-      "sla_elapsed": "15h 37m",
-      "sla_remaining": "22m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4846",
@@ -1509,10 +1509,10 @@
       "updated": "2026-08-06T01:31:27.950-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:06.478-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4845",
@@ -1527,10 +1527,10 @@
       "updated": "2026-08-06T01:31:25.367-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:04.743-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4844",
@@ -1545,10 +1545,10 @@
       "updated": "2026-08-06T01:31:22.451-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:02.060-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4843",
@@ -1563,10 +1563,10 @@
       "updated": "2026-08-06T01:31:19.801-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:46:00.272-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4842",
@@ -1581,10 +1581,10 @@
       "updated": "2026-08-06T01:31:16.409-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:58.224-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4841",
@@ -1599,10 +1599,10 @@
       "updated": "2026-08-06T01:30:30.499-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:56.209-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4840",
@@ -1617,10 +1617,10 @@
       "updated": "2026-08-06T01:30:24.415-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:53.538-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4839",
@@ -1635,10 +1635,10 @@
       "updated": "2026-08-06T01:30:21.376-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:51.899-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4838",
@@ -1653,10 +1653,10 @@
       "updated": "2026-08-06T01:30:18.613-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:49.978-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4837",
@@ -1671,10 +1671,10 @@
       "updated": "2026-08-06T01:30:15.294-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:47.808-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4836",
@@ -1689,10 +1689,10 @@
       "updated": "2026-08-06T01:30:12.300-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:45.726-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4835",
@@ -1707,10 +1707,10 @@
       "updated": "2026-08-06T01:30:05.985-0300",
       "resolutiondate": null,
       "labels": [],
-      "sla_breached": false,
+      "sla_breached": true,
       "sla_breach_time": "2026-08-07T10:45:44.102-0300",
-      "sla_elapsed": "15h 38m",
-      "sla_remaining": "21m"
+      "sla_elapsed": "16h 46m",
+      "sla_remaining": "-46m"
     },
     {
       "key": "OFBI-4834",
@@ -1979,8 +1979,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-07-31T10:12:47.050-0300",
-      "sla_elapsed": "61h 11m",
-      "sla_remaining": "-45h 11m"
+      "sla_elapsed": "62h 19m",
+      "sla_remaining": "-46h 19m"
     },
     {
       "key": "OFBI-4707",

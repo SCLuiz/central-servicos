@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-08T20:42:41.510807",
+  "ultima_atualizacao": "2026-08-08T21:13:15.716983",
   "total": 242,
   "incidentes": [
     {
@@ -12,7 +12,7 @@
       "assignee": "Marcos Santana",
       "reporter": "Luiz Santos",
       "created": "2026-08-08T17:26:11.291-0300",
-      "updated": "2026-08-08T17:26:11.465-0300",
+      "updated": "2026-08-08T17:52:10.112-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,

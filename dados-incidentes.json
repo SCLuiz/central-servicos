@@ -1,7 +1,25 @@
 {
-  "ultima_atualizacao": "2026-08-09T23:11:33.744761",
-  "total": 264,
+  "ultima_atualizacao": "2026-08-09T23:49:43.477018",
+  "total": 265,
   "incidentes": [
+    {
+      "key": "OFBI-4976",
+      "summary": "Zabbix: Worker de Incidentes (Cloudflare) fora do ar [Portal_GitHub]",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Luiz Santos",
+      "created": "2026-08-09T20:44:07.722-0300",
+      "updated": "2026-08-09T20:46:07.679-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-08-11T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h"
+    },
     {
       "key": "OFBI-4975",
       "summary": "Zabbix: Worker de Incidentes (Cloudflare) fora do ar [Portal_GitHub]",

@@ -1,7 +1,25 @@
 {
-  "ultima_atualizacao": "2026-08-10T21:10:55.535382",
-  "total": 283,
+  "ultima_atualizacao": "2026-08-10T22:00:05.210481",
+  "total": 284,
   "incidentes": [
+    {
+      "key": "OFBI-4996",
+      "summary": "Zabbix: GitHub API fora do ar ou inacessivel [Integracoes Externas - OFBI]",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Luiz Santos",
+      "created": "2026-08-10T18:56:09.586-0300",
+      "updated": "2026-08-10T18:57:10.998-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-08-12T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h"
+    },
     {
       "key": "OFBI-4995",
       "summary": "Zabbix: GitHub API fora do ar ou inacessivel [Integracoes Externas - OFBI]",

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-11T19:34:50.999248",
-  "total": 40,
+  "ultima_atualizacao": "2026-08-11T20:20:41.320190",
+  "total": 41,
   "mudancas": [
+    {
+      "key": "OFBI-5010",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Djair Silva",
+      "reporter": "Djair Silva",
+      "created": "2026-08-11T17:07:04.378-0300",
+      "updated": "2026-08-11T17:07:04.614-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5008",
       "summary": "Solicitação de Mudanças",

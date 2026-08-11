@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-11T14:39:00.256487",
-  "total": 39,
+  "ultima_atualizacao": "2026-08-11T15:35:59.172483",
+  "total": 40,
   "mudancas": [
+    {
+      "key": "OFBI-5008",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Marcus Couto",
+      "created": "2026-08-11T11:53:52.165-0300",
+      "updated": "2026-08-11T11:54:15.173-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-4937",
       "summary": "GMUD - Microsoft Secure Score - Block executable files from running unless they meet a prevalence, age, or trusted list criterion",

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-11T20:20:41.320190",
-  "total": 41,
+  "ultima_atualizacao": "2026-08-11T21:08:41.674273",
+  "total": 42,
   "mudancas": [
+    {
+      "key": "OFBI-5011",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Felipe Belisário",
+      "reporter": "Felipe Belisário",
+      "created": "2026-08-11T17:46:21.793-0300",
+      "updated": "2026-08-11T17:46:21.923-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5010",
       "summary": "Solicitação de Mudanças",
@@ -10,7 +23,7 @@
       "assignee": "Djair Silva",
       "reporter": "Djair Silva",
       "created": "2026-08-11T17:07:04.378-0300",
-      "updated": "2026-08-11T17:07:04.614-0300",
+      "updated": "2026-08-11T17:29:47.441-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

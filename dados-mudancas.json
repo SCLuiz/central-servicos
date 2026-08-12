@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-12T18:03:42.884627",
+  "ultima_atualizacao": "2026-08-12T19:14:57.341819",
   "total": 42,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Djair Silva",
       "created": "2026-08-11T17:07:04.378-0300",
-      "updated": "2026-08-12T14:49:24.395-0300",
+      "updated": "2026-08-12T15:09:18.180-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

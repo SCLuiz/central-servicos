@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-12T13:57:32.835994",
+  "ultima_atualizacao": "2026-08-12T14:59:03.571989",
   "total": 42,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Felipe Belisário",
       "created": "2026-08-11T17:46:21.793-0300",
-      "updated": "2026-08-12T10:50:06.747-0300",
+      "updated": "2026-08-12T11:36:02.489-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

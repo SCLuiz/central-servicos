@@ -7,19 +7,19 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "12/08/2026 15:09",
+    "date": "12/08/2026 18:33",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5010"
   },
   {
     "source": "Jira",
-    "key": "OFBI-5011",
-    "title": "OFBI-5011 - Solicitação de Mudanças",
+    "key": "OFBI-5008",
+    "title": "OFBI-5008 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "12/08/2026 11:36",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5011"
+    "date": "12/08/2026 18:30",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5008"
   },
   {
     "source": "Jira",
@@ -29,7 +29,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "12/08/2026 10:50",
+    "date": "12/08/2026 18:27",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4937"
   },
   {
@@ -40,18 +40,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "12/08/2026 10:50",
+    "date": "12/08/2026 18:25",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4936"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5008",
-    "title": "OFBI-5008 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "12/08/2026 10:50",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5008"
   }
 ]

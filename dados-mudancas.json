@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-12T17:06:15.130550",
+  "ultima_atualizacao": "2026-08-12T18:03:42.884627",
   "total": 42,
   "mudancas": [
     {
@@ -18,12 +18,12 @@
     {
       "key": "OFBI-5010",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Djair Silva",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Djair Silva",
       "created": "2026-08-11T17:07:04.378-0300",
-      "updated": "2026-08-11T17:29:47.441-0300",
+      "updated": "2026-08-12T14:49:24.395-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

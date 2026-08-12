@@ -1,14 +1,47 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-4937",
+    "title": "OFBI-4937 - GMUD - Microsoft Secure Score - Block executable files from running unless they meet a prevalence, age, or trusted list criterion",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "12/08/2026 10:50",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4937"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-4936",
+    "title": "OFBI-4936 - GMUD - Microsoft Secure Score - Block JavaScript or VBScript from launching downloaded executable content",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "12/08/2026 10:50",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4936"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5011",
     "title": "OFBI-5011 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
+    "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "11/08/2026 17:46",
+    "date": "12/08/2026 10:50",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5011"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5008",
+    "title": "OFBI-5008 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "12/08/2026 10:50",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5008"
   },
   {
     "source": "Jira",
@@ -20,38 +53,5 @@
     "status_dot": "dot-info",
     "date": "11/08/2026 17:29",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5010"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5008",
-    "title": "OFBI-5008 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "11/08/2026 11:54",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5008"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4936",
-    "title": "OFBI-4936 - GMUD - Microsoft Secure Score - Block JavaScript or VBScript from launching downloaded executable content",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "11/08/2026 09:23",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4936"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-4937",
-    "title": "OFBI-4937 - GMUD - Microsoft Secure Score - Block executable files from running unless they meet a prevalence, age, or trusted list criterion",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "11/08/2026 09:13",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-4937"
   }
 ]

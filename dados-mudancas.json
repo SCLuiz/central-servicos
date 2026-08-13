@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-13T17:07:57.550517",
-  "total": 44,
+  "ultima_atualizacao": "2026-08-13T18:04:52.443218",
+  "total": 45,
   "mudancas": [
+    {
+      "key": "OFBI-5029",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set LAN Manager authentication level to 'Send NTLMv2 response only. Refuse LM & NTLM'",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Marcio Paulo",
+      "reporter": "Guilherme Machado",
+      "created": "2026-08-13T14:35:44.009-0300",
+      "updated": "2026-08-13T14:37:48.523-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5028",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set default behavior for 'AutoRun' to 'Enabled: Do not execute any autorun commands'",

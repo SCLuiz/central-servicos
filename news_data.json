@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5025",
+    "title": "OFBI-5025 - Solicitação de Mudança - Microsoft Secure Score - Block Office communication application from creating child processes",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "13/08/2026 12:08",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5025"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-4937",
     "title": "OFBI-4937 - GMUD - Microsoft Secure Score - Block executable files from running unless they meet a prevalence, age, or trusted list criterion",
     "type_name": "Mudança",

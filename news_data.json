@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5029",
+    "title": "OFBI-5029 - Solicitação de Mudanças - Microsoft Secure Score - Set LAN Manager authentication level to 'Send NTLMv2 response only. Refuse LM & NTLM'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "13/08/2026 14:37",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5029"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5028",
     "title": "OFBI-5028 - Solicitação de Mudanças - Microsoft Secure Score - Set default behavior for 'AutoRun' to 'Enabled: Do not execute any autorun commands'",
     "type_name": "Mudança",

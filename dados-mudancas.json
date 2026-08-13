@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-13T13:58:38.371335",
-  "total": 42,
+  "ultima_atualizacao": "2026-08-13T15:07:06.780880",
+  "total": 43,
   "mudancas": [
+    {
+      "key": "OFBI-5025",
+      "summary": "Solicitação de Mudança - Microsoft Secure Score - Block Office communication application from creating child processes",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-08-13T12:01:56.613-0300",
+      "updated": "2026-08-13T12:06:16.867-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5011",
       "summary": "Solicitação de Mudanças",

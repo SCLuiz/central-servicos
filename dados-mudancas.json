@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-13T16:04:51.601093",
-  "total": 43,
+  "ultima_atualizacao": "2026-08-13T17:07:57.550517",
+  "total": 44,
   "mudancas": [
+    {
+      "key": "OFBI-5028",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set default behavior for 'AutoRun' to 'Enabled: Do not execute any autorun commands'",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Guilherme Machado",
+      "reporter": "Guilherme Machado",
+      "created": "2026-08-13T13:59:59.207-0300",
+      "updated": "2026-08-13T14:02:14.138-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5025",
       "summary": "Solicitação de Mudança - Microsoft Secure Score - Block Office communication application from creating child processes",

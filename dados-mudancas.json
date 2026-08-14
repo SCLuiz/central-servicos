@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-14T20:19:53.475536",
+  "ultima_atualizacao": "2026-08-14T20:50:40.022558",
   "total": 44,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-14T16:11:49.775-0300",
-      "updated": "2026-08-14T17:19:26.355-0300",
+      "updated": "2026-08-14T17:21:07.356-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"

@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-14T19:06:18.077822",
-  "total": 43,
+  "ultima_atualizacao": "2026-08-14T19:52:33.287388",
+  "total": 44,
   "mudancas": [
+    {
+      "key": "OFBI-5037",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Andressa Amaral",
+      "reporter": "Andressa Amaral",
+      "created": "2026-08-14T16:11:49.775-0300",
+      "updated": "2026-08-14T16:13:55.420-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-5029",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set LAN Manager authentication level to 'Send NTLMv2 response only. Refuse LM & NTLM'",

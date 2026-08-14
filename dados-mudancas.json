@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-14T14:19:40.390060",
+  "ultima_atualizacao": "2026-08-14T15:10:51.764592",
   "total": 43,
   "mudancas": [
     {
@@ -101,7 +101,7 @@
       "assignee": "Marcio Paulo",
       "reporter": "Marcio Paulo",
       "created": "2026-08-06T15:09:47.574-0300",
-      "updated": "2026-08-14T11:19:32.727-0300",
+      "updated": "2026-08-14T11:21:39.960-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

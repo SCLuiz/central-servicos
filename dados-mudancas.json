@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-08-17T11:58:37.973344",
-  "total": 44,
+  "ultima_atualizacao": "2026-08-17T12:52:50.404240",
+  "total": 43,
   "mudancas": [
     {
       "key": "OFBI-5037",
@@ -557,19 +557,6 @@
       "reporter": "Fabricio Lobo",
       "created": "2026-05-21T15:43:24.830-0300",
       "updated": "2026-05-27T12:44:24.148-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Emergencial"
-    },
-    {
-      "key": "OFBI-4506",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Marcos Santana",
-      "reporter": "Marcos Santana",
-      "created": "2026-05-13T10:30:27.328-0300",
-      "updated": "2026-05-19T09:41:46.268-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"

@@ -1,17 +1,6 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5037",
-    "title": "OFBI-5037 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "14/08/2026 17:21",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5037"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5008",
     "title": "OFBI-5008 - Solicitação de Mudanças",
     "type_name": "Mudança",

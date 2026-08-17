@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5039",
+    "title": "OFBI-5039 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "17/08/2026 14:53",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5039"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5008",
     "title": "OFBI-5008 - Solicitação de Mudanças",
     "type_name": "Mudança",

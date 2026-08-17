@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-08-17T15:27:29.648102",
+  "ultima_atualizacao": "2026-08-17T15:50:25.117634",
   "total": 43,
   "mudancas": [
     {
       "key": "OFBI-5037",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-14T16:11:49.775-0300",
-      "updated": "2026-08-14T17:21:07.356-0300",
+      "updated": "2026-08-17T12:27:47.058-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"

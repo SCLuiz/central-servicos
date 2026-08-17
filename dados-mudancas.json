@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-08-17T20:37:20.784019",
+  "ultima_atualizacao": "2026-08-17T20:59:51.929183",
   "total": 44,
   "mudancas": [
     {
       "key": "OFBI-5039",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-17T14:53:13.005-0300",
-      "updated": "2026-08-17T17:22:25.818-0300",
+      "updated": "2026-08-17T17:49:22.800-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": ""

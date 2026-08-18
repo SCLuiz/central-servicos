@@ -1,16 +1,29 @@
 {
-  "ultima_atualizacao": "2026-08-18T13:48:30.284935",
-  "total": 46,
+  "ultima_atualizacao": "2026-08-18T14:17:45.969424",
+  "total": 47,
   "mudancas": [
+    {
+      "key": "OFBI-5045",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Disable 'Allow Basic authentication' for WinRM Service",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Marcio Paulo",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-18T10:57:09.200-0300",
+      "updated": "2026-08-18T11:12:59.166-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5044",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Fabricio Lobo",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-08-18T09:21:43.354-0300",
+      "updated": "2026-08-18T11:12:38.772-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"
@@ -62,7 +75,7 @@
       "assignee": "Marcio Paulo",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T14:35:44.009-0300",
-      "updated": "2026-08-13T14:37:48.523-0300",
+      "updated": "2026-08-18T11:14:13.281-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

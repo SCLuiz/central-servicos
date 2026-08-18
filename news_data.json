@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5044",
+    "title": "OFBI-5044 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "18/08/2026 09:21",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5044"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5043",
+    "title": "OFBI-5043 - Solicitação de Mudança - Microsoft Secure Score - Block Win32 API calls from Office macros",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "18/08/2026 09:18",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5043"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5008",
     "title": "OFBI-5008 - Solicitação de Mudanças",
     "type_name": "Mudança",

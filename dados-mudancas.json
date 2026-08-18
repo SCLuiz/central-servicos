@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-08-18T11:59:39.104478",
-  "total": 44,
+  "ultima_atualizacao": "2026-08-18T13:00:14.388485",
+  "total": 46,
   "mudancas": [
+    {
+      "key": "OFBI-5044",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Fabricio Lobo",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-08-18T09:21:43.195-0300",
+      "updated": "2026-08-18T09:21:43.354-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Normal"
+    },
+    {
+      "key": "OFBI-5043",
+      "summary": "Solicitação de Mudança - Microsoft Secure Score - Block Win32 API calls from Office macros",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Marcio Paulo",
+      "reporter": "Guilherme Machado",
+      "created": "2026-08-18T09:14:49.651-0300",
+      "updated": "2026-08-18T09:18:18.830-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5039",
       "summary": "Solicitação de Mudanças",

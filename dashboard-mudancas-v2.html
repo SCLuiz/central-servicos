@@ -642,6 +642,18 @@
         }
         .field-edit-menu button:hover { background-color: #f1f5f9; }
 
+        .assignee-editable { cursor: pointer; border-bottom: 1px dashed transparent; }
+        .assignee-editable:hover { border-bottom: 1px dashed #94a3b8; }
+        .assignee-edit-input {
+            width: 100%;
+            min-width: 140px;
+            padding: 4px 6px;
+            border: 1px solid #e64040;
+            border-radius: 4px;
+            font-size: 11px;
+            outline: none;
+        }
+
         .category-emergencial { background-color: #e64040 !important; }
         .category-planejada { background-color: #329932 !important; }
         .category-normal { background-color: #329932 !important; }
@@ -1585,6 +1597,86 @@
             }
         }
 
+        function revertAssigneeCell(cell, originalHtml) {
+            if (cell && cell.isConnected && cell.dataset.editing === '1') {
+                cell.innerHTML = originalHtml;
+                delete cell.dataset.editing;
+            }
+        }
+
+        function openAssigneeEditor(event, issueKey) {
+            event.stopPropagation();
+            closeFieldEditMenu();
+
+            const cell = event.target.closest('td');
+            if (!cell || cell.dataset.editing === '1') return;
+            const originalHtml = cell.innerHTML;
+            const currentName = (event.target.textContent || '').trim();
+            cell.dataset.editing = '1';
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'assignee-edit-input';
+            input.value = currentName;
+            input.autocomplete = 'off';
+            input.placeholder = 'Digite o responsável...';
+
+            cell.innerHTML = '';
+            cell.appendChild(input);
+            input.focus();
+            input.select();
+
+            let submitted = false;
+            const save = () => {
+                if (submitted) return;
+                submitted = true;
+                const newValue = input.value.trim();
+                if (!newValue || newValue === currentName) {
+                    revertAssigneeCell(cell, originalHtml);
+                    return;
+                }
+                submitAssigneeUpdate(issueKey, newValue, cell, originalHtml);
+            };
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); save(); }
+                else if (e.key === 'Escape') { submitted = true; revertAssigneeCell(cell, originalHtml); }
+            });
+            input.addEventListener('blur', () => save());
+            input.addEventListener('click', (e) => e.stopPropagation());
+        }
+
+        async function submitAssigneeUpdate(issueKey, responsavel, cell, originalHtml) {
+            const token = localStorage.getItem('oauth_access_token');
+            if (!token) {
+                alert('Sessão expirada. Recarregue a página e faça login novamente.');
+                cell.innerHTML = originalHtml;
+                delete cell.dataset.editing;
+                return;
+            }
+            delete cell.dataset.editing;
+            cell.innerHTML = '<span style="color:#94a3b8; font-size:11px;">Salvando...</span>';
+            try {
+                const resp = await fetch(JIRA_UPDATE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ issueKey, field: 'responsavel_mudanca', value: responsavel })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok) {
+                    alert(`Erro ao atualizar ${issueKey}: ${data.error || 'Falha desconhecida'}`);
+                    cell.innerHTML = originalHtml;
+                    return;
+                }
+                const item = allMudancas.find(m => m.key === issueKey);
+                if (item) item.assignee = responsavel;
+                filterAndRender();
+            } catch (e) {
+                alert(`Erro de rede ao atualizar ${issueKey}: ${e.message}`);
+                cell.innerHTML = originalHtml;
+            }
+        }
+
         function renderTable(mudancas) {
             const tbody = document.getElementById('mudancasTableBody');
             tbody.innerHTML = '';
@@ -1629,7 +1721,7 @@
                         <td>${m.summary}</td>
                         <td><span class="${statusClass}" data-key="${m.key}" onclick="openApprovalEditor(event, '${m.key}')" title="Status Jira: ${m.status}${m.aprovacao_manual ? ' (aprovação ajustada manualmente)' : ''} — clique para ajustar" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
                         <td><span class="${catClass}">${catLabel}</span></td>
-                        <td>${m.assignee}</td>
+                        <td><span class="assignee-editable" data-key="${m.key}" onclick="openAssigneeEditor(event, '${m.key}')" title="Clique para alterar o responsável">${m.assignee}</span></td>
                         <td>${inicioVal}</td>
                         <td>${conclusaoVal}</td>
                         <td>${created}</td>

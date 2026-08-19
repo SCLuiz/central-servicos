@@ -1093,7 +1093,7 @@
                                 <th style="width: 110px;">SLA</th>
                                 <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
-                                <th>Início da Indisponibilidade</th>
+                                <th>Início do Incidente</th>
                                 <th>Fim da Indisponibilidade</th>
                                 <th style="width: 90px;">Status</th>
                             </tr>
@@ -2119,7 +2119,7 @@
                     'Prioridade': i.priority,
                     'Impacto': i.impacto || 'Baixo',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
-                    'Início da Indisponibilidade': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Início do Incidente': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     'Tempo de Resolução': tempoResolucao

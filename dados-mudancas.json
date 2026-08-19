@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-08-19T22:32:44.680861",
+  "ultima_atualizacao": "2026-08-19T22:54:16.881819",
   "total": 48,
   "mudancas": [
     {
       "key": "OFBI-5046",
-      "summary": "Solicitação de Mudanças",
+      "summary": " Atualização Cluster eks-pad20-prd ",
       "status": "Planejamento",
       "priority": "Low",
       "assignee": "Luiz Santos",
       "reporter": "Felipe Belisário",
       "created": "2026-08-18T11:35:26.990-0300",
-      "updated": "2026-08-19T15:03:14.578-0300",
+      "updated": "2026-08-19T19:45:58.429-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -30,13 +30,13 @@
     },
     {
       "key": "OFBI-5044",
-      "summary": "Solicitação de Mudanças",
+      "summary": "Implementação Release 2.6.0",
       "status": "Aguardando CAB",
       "priority": "Low",
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-08-19T15:02:07.637-0300",
+      "updated": "2026-08-19T19:47:45.275-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"
@@ -56,26 +56,26 @@
     },
     {
       "key": "OFBI-5039",
-      "summary": "Solicitação de Mudanças",
+      "summary": "Reprocessamento da Métrica 2.2 I - Marcos Regulatórios",
       "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-17T14:53:13.005-0300",
-      "updated": "2026-08-19T17:45:48.878-0300",
+      "updated": "2026-08-19T19:51:11.628-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"
     },
     {
       "key": "OFBI-5037",
-      "summary": "Solicitação de Mudanças",
+      "summary": " Correção inconsistência nos dados de conformidade da métrica 2.2 I impactando apuração regulatória, tickets de desconformidade e Painel de Desconformidades",
       "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-14T16:11:49.775-0300",
-      "updated": "2026-08-17T12:27:47.058-0300",
+      "updated": "2026-08-19T19:52:32.268-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"

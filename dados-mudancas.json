@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-19T16:16:04.965130",
+  "ultima_atualizacao": "2026-08-19T16:39:02.057704",
   "total": 48,
   "mudancas": [
     {
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-18T10:57:09.200-0300",
-      "updated": "2026-08-18T16:32:20.380-0300",
+      "updated": "2026-08-19T13:19:06.872-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -36,7 +36,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-08-18T11:29:47.680-0300",
+      "updated": "2026-08-19T13:19:00.259-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"
@@ -49,7 +49,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-18T09:14:49.651-0300",
-      "updated": "2026-08-18T16:32:23.197-0300",
+      "updated": "2026-08-19T13:18:53.102-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -88,7 +88,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T14:35:44.009-0300",
-      "updated": "2026-08-18T16:32:25.565-0300",
+      "updated": "2026-08-19T13:18:24.697-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -101,7 +101,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T13:59:59.207-0300",
-      "updated": "2026-08-18T16:32:28.422-0300",
+      "updated": "2026-08-19T13:18:31.593-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -114,7 +114,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T12:01:56.613-0300",
-      "updated": "2026-08-18T16:32:30.834-0300",
+      "updated": "2026-08-19T13:18:39.719-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

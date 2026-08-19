@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-19T17:54:38.691716",
+  "ultima_atualizacao": "2026-08-19T18:24:32.089088",
   "total": 48,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Planejamento",
       "priority": "Low",
-      "assignee": "Felipe Belisário",
+      "assignee": "Luiz Santos",
       "reporter": "Felipe Belisário",
       "created": "2026-08-18T11:35:26.990-0300",
-      "updated": "2026-08-18T11:35:27.142-0300",
+      "updated": "2026-08-19T15:03:14.578-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -36,7 +36,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-08-19T14:37:09.269-0300",
+      "updated": "2026-08-19T15:02:07.637-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

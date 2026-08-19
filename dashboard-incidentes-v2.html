@@ -623,6 +623,35 @@
         .sla-breached { background-color: #df4a4a !important; }
         .sla-ok { background-color: #3ba76a !important; }
 
+        .field-badge-editable { cursor: pointer; transition: box-shadow 0.15s ease, opacity 0.15s ease; }
+        .field-badge-editable:hover { opacity: 0.85; box-shadow: 0 0 0 2px rgba(30,41,59,0.25) inset; }
+        .field-badge-editable.saving { opacity: 0.5; cursor: wait; }
+
+        .field-edit-menu {
+            position: fixed;
+            z-index: 10000;
+            background: #ffffff;
+            border: 1px solid var(--of-border);
+            border-radius: 6px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+            padding: 6px;
+            min-width: 130px;
+        }
+        .field-edit-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 7px 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            border-radius: 4px;
+        }
+        .field-edit-menu button:hover { background-color: #f1f5f9; }
+
         /* Tooltip style */
         .description-hover {
             position: relative;
@@ -1723,6 +1752,89 @@
             });
         }
 
+        const JIRA_UPDATE_WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev/update-incident';
+
+        const PRIORITY_EDIT_OPTIONS = [
+            { label: 'Crítica', jiraValue: 'Highest' },
+            { label: 'Alta', jiraValue: 'High' },
+            { label: 'Média', jiraValue: 'Medium' },
+            { label: 'Baixa', jiraValue: 'Low' }
+        ];
+        // Campo "Impacto motor" no Jira não tem opção Crítico, só Alto/Médio/Baixo
+        const IMPACTO_EDIT_OPTIONS = [
+            { label: 'Alto', jiraValue: 'Alto' },
+            { label: 'Médio', jiraValue: 'Médio' },
+            { label: 'Baixo', jiraValue: 'Baixo' }
+        ];
+
+        function closeFieldEditMenu() {
+            const existing = document.getElementById('fieldEditMenu');
+            if (existing) existing.remove();
+        }
+
+        function openFieldEditor(event, issueKey, field) {
+            event.stopPropagation();
+            closeFieldEditMenu();
+
+            const options = field === 'priority' ? PRIORITY_EDIT_OPTIONS : IMPACTO_EDIT_OPTIONS;
+            const menu = document.createElement('div');
+            menu.id = 'fieldEditMenu';
+            menu.className = 'field-edit-menu';
+
+            const rect = event.target.getBoundingClientRect();
+            const menuWidth = 130;
+            let left = rect.left;
+            if (left + menuWidth > window.innerWidth) left = window.innerWidth - menuWidth - 10;
+            menu.style.top = `${rect.bottom + 4}px`;
+            menu.style.left = `${left}px`;
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt.label;
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    submitFieldUpdate(issueKey, field, opt.jiraValue, event.target);
+                };
+                menu.appendChild(btn);
+            });
+
+            document.body.appendChild(menu);
+            menu.addEventListener('click', (e) => e.stopPropagation());
+            setTimeout(() => window.addEventListener('click', closeFieldEditMenu, { once: true }), 0);
+        }
+
+        async function submitFieldUpdate(issueKey, field, jiraValue, badgeEl) {
+            closeFieldEditMenu();
+            const token = localStorage.getItem('oauth_access_token');
+            if (!token) {
+                alert('Sessão expirada. Recarregue a página e faça login novamente.');
+                return;
+            }
+            if (badgeEl) badgeEl.classList.add('saving');
+            try {
+                const resp = await fetch(JIRA_UPDATE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ issueKey, field, value: jiraValue })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok) {
+                    alert(`Erro ao atualizar ${issueKey}: ${data.error || 'Falha desconhecida'}`);
+                    if (badgeEl) badgeEl.classList.remove('saving');
+                    return;
+                }
+                const item = allIncidentes.find(i => i.key === issueKey);
+                if (item) {
+                    if (field === 'priority') item.priority = jiraValue.toLowerCase();
+                    else item.impacto = jiraValue;
+                }
+                filterAndRender();
+            } catch (e) {
+                alert(`Erro de rede ao atualizar ${issueKey}: ${e.message}`);
+                if (badgeEl) badgeEl.classList.remove('saving');
+            }
+        }
+
         function renderTable(incidentes) {
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
@@ -1859,8 +1971,8 @@
                             </div>
                         </td>
                         ${currentMainTab === 'cancelados' ? `<td><span style="font-size: 11px; color: #475569; font-weight: 500;">${instituicao}</span></td>` : ''}
-                        <td><span class="${prioClass}">${prioLabel}</span></td>
-                        <td><span class="${impClass}">${impLabel}</span></td>
+                        <td><span class="${prioClass} field-badge-editable" data-key="${i.key}" data-field="priority" onclick="openFieldEditor(event, '${i.key}', 'priority')" title="Clique para alterar a prioridade">${prioLabel}</span></td>
+                        <td><span class="${impClass} field-badge-editable" data-key="${i.key}" data-field="impacto" onclick="openFieldEditor(event, '${i.key}', 'impacto')" title="Clique para alterar o impacto">${impLabel}</span></td>
                         <td>${slaHtml}</td>
                         <td class="gmud-cell">${renderGmuds(i)}</td>
                         <td>${new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</td>

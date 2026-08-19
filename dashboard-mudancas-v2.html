@@ -1687,11 +1687,10 @@
         let customDateRange = null;
         let currentCategoryFilter = 'all';
 
-        // Fila 35 do Jira (JSM) mostra so mudancas nao-resolvidas por padrao. A tabela
-        // principal replica isso por padrao, mas com filtro ajustavel pelo usuario.
+        // Filtro de Status da tabela principal: todos marcados por padrao (mesmo padrao
+        // usado no dashboard de Incidentes), ajustavel pelo usuario quando quiser restringir.
         const STATUS_FILTER_OPTIONS = ['Aguardando CAB', 'Aguardando Implantação', 'Planejamento', 'Concluído com Sucesso', 'Concluído com Falha', 'Cancelado'];
-        const STATUS_FILTER_DEFAULT = ['Aguardando CAB', 'Aguardando Implantação', 'Planejamento'];
-        let selectedStatusFilters = new Set(STATUS_FILTER_DEFAULT);
+        let selectedStatusFilters = new Set(STATUS_FILTER_OPTIONS);
 
         function matchesStatusFilter(rawStatus) {
             const s = rawStatus || '';

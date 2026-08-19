@@ -1207,8 +1207,9 @@
             incidentes.forEach(i => {
                 const s = i.status || '';
                 if (s.includes('Aberto')) stats.aberto++;
+                else if (s.includes('Trabalho em andamento')) stats.aberto++;
                 else if (s.includes('Pendente')) stats.pendente++;
-                else if (s.includes('Concluído')) stats.concluido++;
+                else if (s.includes('Concluído') || s === 'Fechada') stats.concluido++;
                 else if (s.includes('Cancelado')) stats.cancelado++;
 
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
@@ -1596,8 +1597,8 @@
 
             renderCharts(stats, incidentes);
             renderTable(tableIncidentes || incidentes);
-            updateKpiDashboards(incidentes);
-            updateTrendDashboards(incidentes);
+            updateKpiDashboards(tableIncidentes || incidentes);
+            updateTrendDashboards(tableIncidentes || incidentes);
         }
 
         let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartInstituicoes, chartComparativo;
@@ -2258,9 +2259,10 @@
                 filtered = filtered.filter(i => (i.sistema_afetado || 'N/A') === currentComponentFilter);
             }
 
-            // Tabela "Todos os Incidentes": sem ruído automático do Zabbix (alinhado com a
-            // fila 31 do Jira/JSM), e respeitando o filtro de Status selecionado pelo usuário.
-            // KPIs/gráficos continuam usando o histórico completo (variável `filtered`).
+            // Tabela + Visão Geral + Comparativo de Histórico: sem ruído automático do Zabbix
+            // (alinhado com a fila 31 do Jira/JSM), e respeitando o filtro de Status selecionado.
+            // Só os gráficos internos de renderCharts (SLA, Distribuição, Top Times) continuam
+            // usando o histórico completo sem essas restrições (variável `filtered`).
             let tableData = filtered;
             if (currentMainTab === 'ativos') {
                 tableData = filtered.filter(i => {

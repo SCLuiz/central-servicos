@@ -1597,6 +1597,73 @@
             }
         }
 
+        const CATEGORIA_EDIT_OPTIONS = [
+            { label: 'Normal', jiraValue: 'normal' },
+            { label: 'Emergencial', jiraValue: 'emergencial' }
+        ];
+
+        function openCategoriaEditor(event, issueKey) {
+            event.stopPropagation();
+            closeFieldEditMenu();
+
+            const menu = document.createElement('div');
+            menu.id = 'fieldEditMenu';
+            menu.className = 'field-edit-menu';
+
+            const rect = event.target.getBoundingClientRect();
+            const menuWidth = 140;
+            let left = rect.left;
+            if (left + menuWidth > window.innerWidth) left = window.innerWidth - menuWidth - 10;
+            menu.style.top = `${rect.bottom + 4}px`;
+            menu.style.left = `${left}px`;
+
+            CATEGORIA_EDIT_OPTIONS.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt.label;
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    submitCategoriaUpdate(issueKey, opt.jiraValue, event.target);
+                };
+                menu.appendChild(btn);
+            });
+
+            document.body.appendChild(menu);
+            menu.addEventListener('click', (e) => e.stopPropagation());
+            setTimeout(() => window.addEventListener('click', closeFieldEditMenu, { once: true }), 0);
+        }
+
+        async function submitCategoriaUpdate(issueKey, value, badgeEl) {
+            closeFieldEditMenu();
+            const token = localStorage.getItem('oauth_access_token');
+            if (!token) {
+                alert('Sessão expirada. Recarregue a página e faça login novamente.');
+                return;
+            }
+            if (badgeEl) badgeEl.style.opacity = '0.5';
+            try {
+                const resp = await fetch(JIRA_UPDATE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ issueKey, field: 'categoria_mudanca', value })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok) {
+                    alert(`Erro ao atualizar ${issueKey}: ${data.error || 'Falha desconhecida'}`);
+                    if (badgeEl) badgeEl.style.opacity = '1';
+                    return;
+                }
+                const item = allMudancas.find(m => m.key === issueKey);
+                if (item) {
+                    item.categoria = value;
+                    item.categoria_manual = true;
+                }
+                filterAndRender();
+            } catch (e) {
+                alert(`Erro de rede ao atualizar ${issueKey}: ${e.message}`);
+                if (badgeEl) badgeEl.style.opacity = '1';
+            }
+        }
+
         function revertAssigneeCell(cell, originalHtml) {
             if (cell && cell.isConnected && cell.dataset.editing === '1') {
                 cell.innerHTML = originalHtml;
@@ -1720,7 +1787,7 @@
                         <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${m.key}</a></td>
                         <td>${m.summary}</td>
                         <td><span class="${statusClass}" data-key="${m.key}" onclick="openApprovalEditor(event, '${m.key}')" title="Status Jira: ${m.status}${m.aprovacao_manual ? ' (aprovação ajustada manualmente)' : ''} — clique para ajustar" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
-                        <td><span class="${catClass}">${catLabel}</span></td>
+                        <td><span class="${catClass} field-badge-editable" data-key="${m.key}" onclick="openCategoriaEditor(event, '${m.key}')" title="Categoria${m.categoria_manual ? ' (ajustada manualmente)' : ''} — clique para alterar">${catLabel}</span></td>
                         <td><span class="assignee-editable" data-key="${m.key}" onclick="openAssigneeEditor(event, '${m.key}')" title="Clique para alterar o responsável">${m.assignee}</span></td>
                         <td>${inicioVal}</td>
                         <td>${conclusaoVal}</td>

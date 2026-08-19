@@ -726,6 +726,17 @@
                 </div>
             </div>
             
+            <div class="sub-nav-divider"></div>
+            <div class="sub-nav-section">
+                <span class="sub-nav-label">Status:</span>
+                <div class="multiselect-container" id="statusFilterContainer" style="max-width: 220px; margin-bottom: 0;">
+                    <div class="multiselect-display" id="statusFilterDisplay" onclick="toggleStatusDropdown(event)" style="padding: 4px 10px; font-size: 11px;">Carregando...</div>
+                    <div class="multiselect-options" id="statusFilterOptions">
+                        <!-- Preenchido via JS -->
+                    </div>
+                </div>
+            </div>
+
             <!-- Right aligned: Last updated -->
             <div class="sub-nav-info">
                 <span class="info-badge-realtime" id="dataSourceBadge">Carregando...</span>
@@ -1147,7 +1158,7 @@
             return resultado;
         }
 
-        function renderDashboard(mudancas) {
+        function renderDashboard(mudancas, tableMudancas) {
             const stats = calculateStats(mudancas);
             const total = stats.total || 1;
 
@@ -1341,7 +1352,7 @@
             }
 
             renderCharts(stats, mudancas);
-            renderTable(mudancas);
+            renderTable(tableMudancas || mudancas);
         }
 
         let chartSuccessRate, chartStatus, chartTimeline, chartComparativo;
@@ -1581,6 +1592,93 @@
         let customDateRange = null;
         let currentCategoryFilter = 'all';
 
+        // Fila 35 do Jira (JSM) mostra so mudancas nao-resolvidas por padrao. A tabela
+        // principal replica isso por padrao, mas com filtro ajustavel pelo usuario.
+        const STATUS_FILTER_OPTIONS = ['Aguardando CAB', 'Aguardando Implantação', 'Planejamento', 'Concluído com Sucesso', 'Concluído com Falha', 'Cancelado'];
+        const STATUS_FILTER_DEFAULT = ['Aguardando CAB', 'Aguardando Implantação', 'Planejamento'];
+        let selectedStatusFilters = new Set(STATUS_FILTER_DEFAULT);
+
+        function matchesStatusFilter(rawStatus) {
+            const s = rawStatus || '';
+            if (STATUS_FILTER_OPTIONS.includes(s)) return selectedStatusFilters.has(s);
+            return true;
+        }
+
+        function toggleStatusDropdown(event) {
+            event.stopPropagation();
+            const container = document.getElementById('statusFilterContainer');
+            if (container) container.classList.toggle('open');
+        }
+
+        function renderStatusFilterSelector() {
+            const optionsContainer = document.getElementById('statusFilterOptions');
+            const displayEl = document.getElementById('statusFilterDisplay');
+            if (!optionsContainer || !displayEl) return;
+
+            optionsContainer.innerHTML = '';
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'multiselect-actions';
+
+            const btnAll = document.createElement('button');
+            btnAll.className = 'multiselect-action-btn';
+            btnAll.textContent = 'Todos';
+            btnAll.onclick = (e) => { e.stopPropagation(); selectAllStatusFilters(true); };
+
+            const btnNone = document.createElement('button');
+            btnNone.className = 'multiselect-action-btn';
+            btnNone.textContent = 'Limpar';
+            btnNone.onclick = (e) => { e.stopPropagation(); selectAllStatusFilters(false); };
+
+            actionsDiv.appendChild(btnAll);
+            actionsDiv.appendChild(btnNone);
+            optionsContainer.appendChild(actionsDiv);
+
+            STATUS_FILTER_OPTIONS.forEach(st => {
+                const isActive = selectedStatusFilters.has(st);
+                const label = document.createElement('label');
+                label.className = 'multiselect-option';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = isActive;
+                checkbox.onchange = (e) => { e.stopPropagation(); toggleStatusFilterItem(st); };
+
+                const span = document.createElement('span');
+                span.textContent = st;
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+                optionsContainer.appendChild(label);
+            });
+
+            const activeCount = selectedStatusFilters.size;
+            const totalCount = STATUS_FILTER_OPTIONS.length;
+            if (activeCount === totalCount) {
+                displayEl.textContent = 'Todos os Status';
+            } else if (activeCount === 0) {
+                displayEl.textContent = 'Nenhum Status Selecionado';
+            } else {
+                displayEl.textContent = `${activeCount} Status Selecionados`;
+            }
+        }
+
+        function toggleStatusFilterItem(status) {
+            if (selectedStatusFilters.has(status)) {
+                selectedStatusFilters.delete(status);
+            } else {
+                selectedStatusFilters.add(status);
+            }
+            renderStatusFilterSelector();
+            filterAndRender();
+        }
+
+        function selectAllStatusFilters(select) {
+            selectedStatusFilters = select ? new Set(STATUS_FILTER_OPTIONS) : new Set();
+            renderStatusFilterSelector();
+            filterAndRender();
+        }
+
         function applyCategoryFilter(category, ev) {
             currentCategoryFilter = category;
             const catGroup = document.querySelectorAll('.sub-nav-buttons')[1];
@@ -1654,8 +1752,13 @@
                 }
             }
 
-            currentFilteredData = filtered;
-            renderDashboard(filtered);
+            // Tabela principal: aplica o filtro de Status (alinhado por padrao com a fila 35
+            // do Jira, que so mostra mudancas nao-resolvidas). KPIs/graficos continuam usando
+            // o historico completo (variavel `filtered`).
+            const tableData = filtered.filter(m => matchesStatusFilter(m.status));
+
+            currentFilteredData = tableData;
+            renderDashboard(filtered, tableData);
             updateComparisonChart();
             updateTrendDashboards(filtered);
         }
@@ -2048,13 +2151,21 @@
             window.addEventListener('click', () => {
                 const container = document.getElementById('multiselectContainer');
                 if (container) container.classList.remove('open');
+                const statusContainer = document.getElementById('statusFilterContainer');
+                if (statusContainer) statusContainer.classList.remove('open');
             });
-            
+
             const optionsEl = document.getElementById('multiselectOptions');
             if (optionsEl) {
                 optionsEl.addEventListener('click', (e) => e.stopPropagation());
             }
-            
+            const statusOptionsEl = document.getElementById('statusFilterOptions');
+            if (statusOptionsEl) {
+                statusOptionsEl.addEventListener('click', (e) => e.stopPropagation());
+            }
+
+            renderStatusFilterSelector();
+
             loadData();
         });
     </script>

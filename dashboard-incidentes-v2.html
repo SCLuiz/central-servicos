@@ -749,7 +749,18 @@
                     <option value="all">Todos</option>
                 </select>
             </div>
-            
+
+            <div class="sub-nav-divider"></div>
+            <div class="sub-nav-section">
+                <span class="sub-nav-label">Status:</span>
+                <div class="multiselect-container" id="statusFilterContainer" style="max-width: 220px; margin-bottom: 0;">
+                    <div class="multiselect-display" id="statusFilterDisplay" onclick="toggleStatusDropdown(event)" style="padding: 4px 10px; font-size: 11px;">Todos os Status</div>
+                    <div class="multiselect-options" id="statusFilterOptions">
+                        <!-- Preenchido via JS -->
+                    </div>
+                </div>
+            </div>
+
             <!-- Right aligned: Last updated -->
             <div class="sub-nav-info">
                 <span class="info-dot"></span>
@@ -2004,12 +2015,99 @@
         let currentPriorityFilter = 'all';
         let currentMainTab = 'ativos';
         let currentComponentFilter = 'all';
-        
+
+        const STATUS_FILTER_OPTIONS = ['Aberto', 'Trabalho em andamento', 'Resolvido', 'Cancelado'];
+        let selectedStatusFilters = new Set(STATUS_FILTER_OPTIONS);
+
+        function matchesStatusFilter(rawStatus) {
+            const s = rawStatus || '';
+            if (s.includes('Cancelado')) return selectedStatusFilters.has('Cancelado');
+            if (s.includes('Concluído')) return selectedStatusFilters.has('Resolvido');
+            if (s.includes('Trabalho em andamento')) return selectedStatusFilters.has('Trabalho em andamento');
+            if (s.includes('Aberto')) return selectedStatusFilters.has('Aberto');
+            return true;
+        }
+
+        function toggleStatusDropdown(event) {
+            event.stopPropagation();
+            const container = document.getElementById('statusFilterContainer');
+            if (container) container.classList.toggle('open');
+        }
+
+        function renderStatusFilterSelector() {
+            const optionsContainer = document.getElementById('statusFilterOptions');
+            const displayEl = document.getElementById('statusFilterDisplay');
+            if (!optionsContainer || !displayEl) return;
+
+            optionsContainer.innerHTML = '';
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'multiselect-actions';
+
+            const btnAll = document.createElement('button');
+            btnAll.className = 'multiselect-action-btn';
+            btnAll.textContent = 'Todos';
+            btnAll.onclick = (e) => { e.stopPropagation(); selectAllStatusFilters(true); };
+
+            const btnNone = document.createElement('button');
+            btnNone.className = 'multiselect-action-btn';
+            btnNone.textContent = 'Limpar';
+            btnNone.onclick = (e) => { e.stopPropagation(); selectAllStatusFilters(false); };
+
+            actionsDiv.appendChild(btnAll);
+            actionsDiv.appendChild(btnNone);
+            optionsContainer.appendChild(actionsDiv);
+
+            STATUS_FILTER_OPTIONS.forEach(st => {
+                const isActive = selectedStatusFilters.has(st);
+                const label = document.createElement('label');
+                label.className = 'multiselect-option';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = isActive;
+                checkbox.onchange = (e) => { e.stopPropagation(); toggleStatusFilterItem(st); };
+
+                const span = document.createElement('span');
+                span.textContent = st;
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+                optionsContainer.appendChild(label);
+            });
+
+            const activeCount = selectedStatusFilters.size;
+            const totalCount = STATUS_FILTER_OPTIONS.length;
+            if (activeCount === totalCount) {
+                displayEl.textContent = 'Todos os Status';
+            } else if (activeCount === 0) {
+                displayEl.textContent = 'Nenhum Status Selecionado';
+            } else {
+                displayEl.textContent = `${activeCount} Status Selecionados`;
+            }
+        }
+
+        function toggleStatusFilterItem(status) {
+            if (selectedStatusFilters.has(status)) {
+                selectedStatusFilters.delete(status);
+            } else {
+                selectedStatusFilters.add(status);
+            }
+            renderStatusFilterSelector();
+            filterAndRender();
+        }
+
+        function selectAllStatusFilters(select) {
+            selectedStatusFilters = select ? new Set(STATUS_FILTER_OPTIONS) : new Set();
+            renderStatusFilterSelector();
+            filterAndRender();
+        }
+
         function applyComponentFilter(val) {
             currentComponentFilter = val;
             filterAndRender();
         }
-        
+
         function switchMainTab(tabId) {
             currentMainTab = tabId;
             const tabAtivos = document.getElementById('tabAtivos');
@@ -2159,16 +2257,14 @@
                 filtered = filtered.filter(i => (i.sistema_afetado || 'N/A') === currentComponentFilter);
             }
 
-            // Tabela "Todos os Incidentes": alinhada com a fila 31 do Jira (JSM) -
-            // só incidentes não-resolvidos e sem ruído automático do Zabbix.
+            // Tabela "Todos os Incidentes": sem ruído automático do Zabbix (alinhado com a
+            // fila 31 do Jira/JSM), e respeitando o filtro de Status selecionado pelo usuário.
             // KPIs/gráficos continuam usando o histórico completo (variável `filtered`).
             let tableData = filtered;
             if (currentMainTab === 'ativos') {
                 tableData = filtered.filter(i => {
-                    const s = i.status || '';
                     const isZabbix = (i.summary || '').includes('Zabbix');
-                    const isResolved = s.includes('Concluído') || s.includes('Cancelado');
-                    return !isZabbix && !isResolved;
+                    return !isZabbix && matchesStatusFilter(i.status);
                 });
             }
 
@@ -2622,14 +2718,24 @@
                 if (container) {
                     container.classList.remove('open');
                 }
+                const statusContainer = document.getElementById('statusFilterContainer');
+                if (statusContainer) {
+                    statusContainer.classList.remove('open');
+                }
             });
-            
+
             // Impede fechamento ao clicar dentro das opções do dropdown
             const optionsEl = document.getElementById('multiselectOptions');
             if (optionsEl) {
                 optionsEl.addEventListener('click', (e) => e.stopPropagation());
             }
-            
+            const statusOptionsEl = document.getElementById('statusFilterOptions');
+            if (statusOptionsEl) {
+                statusOptionsEl.addEventListener('click', (e) => e.stopPropagation());
+            }
+
+            renderStatusFilterSelector();
+
             loadData();
             
             // Auto-refresh a cada 5 minutos (300.000 ms)

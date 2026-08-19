@@ -1094,7 +1094,7 @@
                                 <th>GMUDs</th>
                                 <th>Criação do Ticket</th>
                                 <th>Início do Incidente</th>
-                                <th>Fim da Indisponibilidade</th>
+                                <th>Fim do Incidente</th>
                                 <th style="width: 90px;">Status</th>
                             </tr>
                         </thead>
@@ -2120,7 +2120,7 @@
                     'Impacto': i.impacto || 'Baixo',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                     'Início do Incidente': i.inicio_indisponibilidade ? new Date(i.inicio_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
-                    'Fim da Indisponibilidade': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Fim do Incidente': i.fim_indisponibilidade ? new Date(i.fim_indisponibilidade).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     'Tempo de Resolução': tempoResolucao
                 });

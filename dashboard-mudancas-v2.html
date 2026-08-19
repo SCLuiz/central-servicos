@@ -611,6 +611,37 @@
         .status-pendente { background-color: #e64040 !important; }
         .status-cancelado { background-color: #e64040 !important; }
 
+        .aprovacao-green { background-color: #329932 !important; }
+        .aprovacao-red { background-color: #e64040 !important; }
+        .aprovacao-yellow { background-color: #d97706 !important; }
+
+        .field-badge-editable { cursor: pointer; transition: box-shadow 0.15s ease, opacity 0.15s ease; }
+        .field-badge-editable:hover { opacity: 0.85; box-shadow: 0 0 0 2px rgba(30,41,59,0.25) inset; }
+        .field-edit-menu {
+            position: fixed;
+            z-index: 10000;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+            padding: 6px;
+            min-width: 160px;
+        }
+        .field-edit-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 7px 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            border-radius: 4px;
+        }
+        .field-edit-menu button:hover { background-color: #f1f5f9; }
+
         .category-emergencial { background-color: #e64040 !important; }
         .category-planejada { background-color: #329932 !important; }
         .category-normal { background-color: #329932 !important; }
@@ -1479,6 +1510,81 @@
             });
         }
 
+        const JIRA_UPDATE_WORKER_URL = 'https://jira-api-proxy.luiz-santos.workers.dev/update-incident';
+
+        const APPROVAL_EDIT_OPTIONS = [
+            { label: '✔ Aprovado', jiraValue: 'green' },
+            { label: '✗ Reprovado / Cancelado', jiraValue: 'red' },
+            { label: '⏳ Pendente', jiraValue: 'yellow' }
+        ];
+
+        function closeFieldEditMenu() {
+            const existing = document.getElementById('fieldEditMenu');
+            if (existing) existing.remove();
+        }
+
+        function openApprovalEditor(event, issueKey) {
+            event.stopPropagation();
+            closeFieldEditMenu();
+
+            const menu = document.createElement('div');
+            menu.id = 'fieldEditMenu';
+            menu.className = 'field-edit-menu';
+
+            const rect = event.target.getBoundingClientRect();
+            const menuWidth = 160;
+            let left = rect.left;
+            if (left + menuWidth > window.innerWidth) left = window.innerWidth - menuWidth - 10;
+            menu.style.top = `${rect.bottom + 4}px`;
+            menu.style.left = `${left}px`;
+
+            APPROVAL_EDIT_OPTIONS.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt.label;
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    submitApprovalUpdate(issueKey, opt.jiraValue, event.target);
+                };
+                menu.appendChild(btn);
+            });
+
+            document.body.appendChild(menu);
+            menu.addEventListener('click', (e) => e.stopPropagation());
+            setTimeout(() => window.addEventListener('click', closeFieldEditMenu, { once: true }), 0);
+        }
+
+        async function submitApprovalUpdate(issueKey, value, badgeEl) {
+            closeFieldEditMenu();
+            const token = localStorage.getItem('oauth_access_token');
+            if (!token) {
+                alert('Sessão expirada. Recarregue a página e faça login novamente.');
+                return;
+            }
+            if (badgeEl) badgeEl.style.opacity = '0.5';
+            try {
+                const resp = await fetch(JIRA_UPDATE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ issueKey, field: 'aprovacao_cab', value })
+                });
+                const data = await resp.json().catch(() => ({}));
+                if (!resp.ok) {
+                    alert(`Erro ao atualizar ${issueKey}: ${data.error || 'Falha desconhecida'}`);
+                    if (badgeEl) badgeEl.style.opacity = '1';
+                    return;
+                }
+                const item = allMudancas.find(m => m.key === issueKey);
+                if (item) {
+                    item.aprovacao = value;
+                    item.aprovacao_manual = true;
+                }
+                filterAndRender();
+            } catch (e) {
+                alert(`Erro de rede ao atualizar ${issueKey}: ${e.message}`);
+                if (badgeEl) badgeEl.style.opacity = '1';
+            }
+        }
+
         function renderTable(mudancas) {
             const tbody = document.getElementById('mudancasTableBody');
             tbody.innerHTML = '';
@@ -1487,29 +1593,18 @@
                 const created = m.created ? new Date(m.created).toLocaleDateString('pt-BR') : '—';
                 const url = `${JIRA_URL}/browse/${m.key}`;
 
-                let statusClass = 'status-badge ';
-                const s = m.status || '';
+                // Indicador de aprovacao (CAB): vem do Jira por padrao (verde=concluido,
+                // vermelho=cancelado/falha, amarelo=qualquer outro status pendente), mas pode
+                // ser sobrescrito manualmente clicando (ex: CAB aprovou hoje mas o Jira ainda
+                // nao foi formalizado).
+                const aprovacao = m.aprovacao || 'yellow';
+                let statusClass = 'status-badge field-badge-editable ';
                 let statusIcon = '';
-                if (s.includes('Concluído')) {
-                    statusClass += 'status-concluido';
-                    statusIcon = '✔';
-                }
-                else if (s.includes('Planejamento')) {
-                    statusClass += 'status-aberto';
-                    statusIcon = 'X';
-                }
-                else if (s.includes('Aguardando')) {
-                    statusClass += 'status-pendente';
-                    statusIcon = 'X';
-                }
-                else if (s.includes('Cancelado') || s.includes('Rejeitado') || s.includes('Falha') || m.causouIncidente) {
-                    statusClass += 'status-cancelado';
-                    statusIcon = 'X';
-                } else {
-                    statusIcon = '-';
-                }
+                if (aprovacao === 'green') { statusClass += 'aprovacao-green'; statusIcon = '✔'; }
+                else if (aprovacao === 'red') { statusClass += 'aprovacao-red'; statusIcon = '✗'; }
+                else { statusClass += 'aprovacao-yellow'; statusIcon = '⏳'; }
 
-                let rowClass = statusIcon === 'X' ? 'row-failed' : '';
+                let rowClass = aprovacao === 'red' ? 'row-failed' : '';
 
                 const cat = (m.categoria || '').toLowerCase();
                 let catClass = 'category-badge ';
@@ -1532,7 +1627,7 @@
                     <tr class="${rowClass}">
                         <td><a href="${url}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${m.key}</a></td>
                         <td>${m.summary}</td>
-                        <td><span class="${statusClass}" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
+                        <td><span class="${statusClass}" data-key="${m.key}" onclick="openApprovalEditor(event, '${m.key}')" title="Status Jira: ${m.status}${m.aprovacao_manual ? ' (aprovação ajustada manualmente)' : ''} — clique para ajustar" style="padding: 4px 10px; border-radius: 4px; font-weight: bold; min-width: auto;">${statusIcon}</span></td>
                         <td><span class="${catClass}">${catLabel}</span></td>
                         <td>${m.assignee}</td>
                         <td>${inicioVal}</td>

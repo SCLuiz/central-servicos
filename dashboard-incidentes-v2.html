@@ -2022,7 +2022,8 @@
         function matchesStatusFilter(rawStatus) {
             const s = rawStatus || '';
             if (s.includes('Cancelado')) return selectedStatusFilters.has('Cancelado');
-            if (s.includes('Concluído')) return selectedStatusFilters.has('Resolvido');
+            // "Fechada" é tratada como sinônimo de "Concluído com Sucesso" (ambas = Resolvido)
+            if (s.includes('Concluído') || s === 'Fechada') return selectedStatusFilters.has('Resolvido');
             if (s.includes('Trabalho em andamento')) return selectedStatusFilters.has('Trabalho em andamento');
             if (s.includes('Aberto')) return selectedStatusFilters.has('Aberto');
             return true;

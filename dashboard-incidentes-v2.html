@@ -1300,7 +1300,7 @@
             return stats;
         }
 
-        function renderDashboard(incidentes) {
+        function renderDashboard(incidentes, tableIncidentes) {
             const stats = calculateStats(incidentes);
             const total = stats.total || 1;
 
@@ -1584,7 +1584,7 @@
             }
 
             renderCharts(stats, incidentes);
-            renderTable(incidentes);
+            renderTable(tableIncidentes || incidentes);
             updateKpiDashboards(incidentes);
             updateTrendDashboards(incidentes);
         }
@@ -2159,8 +2159,21 @@
                 filtered = filtered.filter(i => (i.sistema_afetado || 'N/A') === currentComponentFilter);
             }
 
-            currentFilteredData = filtered;
-            renderDashboard(filtered);
+            // Tabela "Todos os Incidentes": alinhada com a fila 31 do Jira (JSM) -
+            // só incidentes não-resolvidos e sem ruído automático do Zabbix.
+            // KPIs/gráficos continuam usando o histórico completo (variável `filtered`).
+            let tableData = filtered;
+            if (currentMainTab === 'ativos') {
+                tableData = filtered.filter(i => {
+                    const s = i.status || '';
+                    const isZabbix = (i.summary || '').includes('Zabbix');
+                    const isResolved = s.includes('Concluído') || s.includes('Cancelado');
+                    return !isZabbix && !isResolved;
+                });
+            }
+
+            currentFilteredData = tableData;
+            renderDashboard(filtered, tableData);
             updateComparisonChart();
         }
 

@@ -1521,7 +1521,7 @@
             while (currentDate <= endDate) {
                 const mk = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;
                 allMonths.push(mk);
-                monthlyData[mk] = { created: 0, resolved: 0, cancelled: 0 };
+                monthlyData[mk] = { created: 0, resolved: 0, cancelled: 0, emergencial: 0 };
                 currentDate.setMonth(currentDate.getMonth() + 1);
             }
 
@@ -1535,6 +1535,9 @@
                     } else if (m.status && m.status.includes('Cancelado')) {
                         monthlyData[ck].cancelled++;
                     }
+                    if ((m.categoria || '').toLowerCase() === 'emergencial') {
+                        monthlyData[ck].emergencial++;
+                    }
                 }
             });
 
@@ -1547,7 +1550,8 @@
                     datasets: [
                         { label: 'Criação', data: sortedMonths.map(m => monthlyData[m]?.created || 0), backgroundColor: '#3b82f6', borderRadius: 4 },
                         { label: 'Concluído', data: sortedMonths.map(m => monthlyData[m]?.resolved || 0), backgroundColor: '#10b981', borderRadius: 4 },
-                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), backgroundColor: '#ef4444', borderRadius: 4 }
+                        { label: 'Cancelado', data: sortedMonths.map(m => monthlyData[m]?.cancelled || 0), backgroundColor: '#ef4444', borderRadius: 4 },
+                        { label: 'Emergencial', data: sortedMonths.map(m => monthlyData[m]?.emergencial || 0), backgroundColor: '#f59e0b', borderRadius: 4 }
                     ]
                 },
                 options: {

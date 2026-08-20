@@ -1396,6 +1396,47 @@
 
             renderCharts(stats, mudancas);
             renderTable(tableMudancas || mudancas);
+            updateKpiDashboardsMudancas(tableMudancas || mudancas);
+        }
+
+        // Painel "Visão Geral das Mudanças" (big numbers) - nunca era preenchido, os elementos
+        // ficavam parados no "0" hardcoded do HTML porque nenhuma funcao escrevia neles.
+        function updateKpiDashboardsMudancas(mudancas) {
+            const total = mudancas.length;
+            let concluidas = 0, revertidas = 0, emergenciais = 0, incidentesCausados = 0;
+            let cabDiasTotal = 0, cabCount = 0;
+
+            mudancas.forEach(m => {
+                const sLower = (m.status || '').toLowerCase();
+                if (sLower.includes('conclu')) concluidas++;
+
+                const sumLower = (m.summary || '').toLowerCase();
+                const isReverted = sumLower.includes('rollback') || sumLower.includes('reverter') || m.causouIncidente === true;
+                if (isReverted) revertidas++;
+
+                if ((m.categoria || '').toLowerCase() === 'emergencial') emergenciais++;
+
+                if (m.causouIncidente === true) incidentesCausados++;
+
+                // Mesma formula usada no Indicadores de Performance: criacao ate resolucao.
+                if (m.created && m.resolution_date) {
+                    const diffDays = (new Date(m.resolution_date) - new Date(m.created)) / (1000 * 60 * 60 * 24);
+                    if (diffDays >= 0) { cabDiasTotal += diffDays; cabCount++; }
+                }
+            });
+
+            const taxaSucesso = concluidas > 0 ? Math.round(((concluidas - revertidas) / concluidas) * 100) : 0;
+            const emergPerc = total > 0 ? Math.round((emergenciais / total) * 100) : 0;
+            const mediaCab = cabCount > 0 ? (cabDiasTotal / cabCount).toFixed(1) : '0';
+
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            set('kpiBigTotalMud', total);
+            set('kpiBigSucesso', taxaSucesso + '%');
+            set('kpiBigEmerg', emergenciais);
+            set('kpiBigEmergSub', emergPerc + '% emergenciais');
+            set('kpiBigRevertidas', revertidas);
+            set('kpiBigIncidentes', incidentesCausados);
+            set('kpiBigPrazo', mediaCab + ' dias');
         }
 
         let chartSuccessRate, chartStatus, chartTimeline, chartComparativo;
@@ -2235,10 +2276,15 @@
                 if (isEmerg) monthsMap[key].emerg++;
                 
                 if (i.causouIncidente === true || String(i.causouIncidente).toLowerCase() === 'sim') monthsMap[key].causouInc++;
-                
-                if (i.tempo_aprovacao_cab) {
-                    monthsMap[key].cabSec += i.tempo_aprovacao_cab;
-                    monthsMap[key].cabCount++;
+
+                // Mesma formula do Indicadores de Performance: criacao ate resolucao, em dias.
+                // (campo "tempo_aprovacao_cab" nunca existiu nos dados vindos do worker)
+                if (i.created && i.resolution_date) {
+                    const diffDays = (new Date(i.resolution_date) - new Date(i.created)) / (1000 * 60 * 60 * 24);
+                    if (diffDays >= 0) {
+                        monthsMap[key].cabSec += diffDays;
+                        monthsMap[key].cabCount++;
+                    }
                 }
             });
 
@@ -2250,7 +2296,7 @@
             const dataEmerg = sortedKeys.map(k => monthsMap[k].emerg);
             const dataRev = sortedKeys.map(k => monthsMap[k].revertidas);
             const dataInc = sortedKeys.map(k => monthsMap[k].causouInc);
-            const dataCab = sortedKeys.map(k => monthsMap[k].cabCount > 0 ? Math.round(monthsMap[k].cabSec / monthsMap[k].cabCount / 86400) : 0);
+            const dataCab = sortedKeys.map(k => monthsMap[k].cabCount > 0 ? Math.round(monthsMap[k].cabSec / monthsMap[k].cabCount) : 0);
 
             const getOpts = (title) => ({
                 responsive: true, maintainAspectRatio: false,

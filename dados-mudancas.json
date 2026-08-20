@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-20T14:30:54.703911",
+  "ultima_atualizacao": "2026-08-20T15:07:19.381394",
   "total": 48,
   "mudancas": [
     {
@@ -88,7 +88,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T14:35:44.009-0300",
-      "updated": "2026-08-19T19:16:52.150-0300",
+      "updated": "2026-08-20T11:40:16.005-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -101,7 +101,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-13T13:59:59.207-0300",
-      "updated": "2026-08-19T19:15:23.679-0300",
+      "updated": "2026-08-20T11:40:00.668-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

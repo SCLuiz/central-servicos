@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-20T16:14:47.452655",
-  "total": 48,
+  "ultima_atualizacao": "2026-08-20T16:52:42.137213",
+  "total": 49,
   "mudancas": [
+    {
+      "key": "OFBI-5053",
+      "summary": "Solicitação de Mudanças- Microsoft Secure Score - Disable JavaScript on Adobe DC",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-20T13:25:07.266-0300",
+      "updated": "2026-08-20T13:28:50.090-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5046",
       "summary": " Atualização Cluster eks-pad20-prd ",

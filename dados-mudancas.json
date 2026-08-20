@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-20T19:04:02.393851",
+  "ultima_atualizacao": "2026-08-20T19:38:55.075909",
   "total": 49,
   "mudancas": [
     {
@@ -36,7 +36,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-18T10:57:09.200-0300",
-      "updated": "2026-08-19T19:19:10.741-0300",
+      "updated": "2026-08-20T16:11:14.504-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

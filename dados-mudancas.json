@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-21T12:32:03.563905",
-  "total": 49,
+  "ultima_atualizacao": "2026-08-21T13:28:13.251135",
+  "total": 50,
   "mudancas": [
+    {
+      "key": "OFBI-5054",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Disable NTLM authentication for Windows workstations",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-21T09:41:50.376-0300",
+      "updated": "2026-08-21T09:49:34.361-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5053",
       "summary": "Solicitação de Mudanças- Microsoft Secure Score - Disable JavaScript on Adobe DC",

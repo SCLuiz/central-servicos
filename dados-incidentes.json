@@ -1,7 +1,25 @@
 {
-  "ultima_atualizacao": "2026-08-21T22:19:00.846026",
-  "total": 203,
+  "ultima_atualizacao": "2026-08-21T22:47:02.425725",
+  "total": 204,
   "incidentes": [
+    {
+      "key": "OFBI-5058",
+      "summary": "Chamadas com status PAIRED_INCONSISTENT sendo contabilizadas em duplicidade na aba de reporte de informações na Área de Gestão de Desconformidades 2.0",
+      "sistema_afetado": "AWS",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Rafael Anjos",
+      "created": "2026-08-21T19:29:58.595-0300",
+      "updated": "2026-08-21T19:30:09.568-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-08-25T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h"
+    },
     {
       "key": "OFBI-5057",
       "summary": "Problemas na aplicação de filtro de data na aba de tempo de resposta da Área de Gestão de Desconformidades 2.0",

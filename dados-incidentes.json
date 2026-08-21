@@ -1,7 +1,25 @@
 {
-  "ultima_atualizacao": "2026-08-21T21:51:24.122956",
-  "total": 202,
+  "ultima_atualizacao": "2026-08-21T22:19:00.846026",
+  "total": 203,
   "incidentes": [
+    {
+      "key": "OFBI-5057",
+      "summary": "Problemas na aplicação de filtro de data na aba de tempo de resposta da Área de Gestão de Desconformidades 2.0",
+      "sistema_afetado": "AWS",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Rafael Anjos",
+      "created": "2026-08-21T19:00:24.774-0300",
+      "updated": "2026-08-21T19:00:38.488-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-08-25T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h"
+    },
     {
       "key": "OFBI-5056",
       "summary": "Duplicação de registros na PCM",

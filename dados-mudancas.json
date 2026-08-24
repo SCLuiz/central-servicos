@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-08-24T16:06:22.134057",
+  "ultima_atualizacao": "2026-08-24T16:51:53.120995",
   "total": 51,
   "mudancas": [
     {
       "key": "OFBI-5059",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Gabriel Zorzi",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Gabriel Zorzi",
       "created": "2026-08-24T12:39:54.429-0300",
-      "updated": "2026-08-24T12:39:54.632-0300",
+      "updated": "2026-08-24T13:46:23.112-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

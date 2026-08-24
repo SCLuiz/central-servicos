@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-24T17:19:36.969232",
-  "total": 51,
+  "ultima_atualizacao": "2026-08-24T17:51:30.446596",
+  "total": 52,
   "mudancas": [
+    {
+      "key": "OFBI-5060",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Block outbound network connections from Microsoft HTML Application Host (mshta.exe)",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-24T14:27:29.818-0300",
+      "updated": "2026-08-24T14:29:08.020-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5059",
       "summary": "Solicitação de Mudanças",

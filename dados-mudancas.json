@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-24T15:33:25.891586",
-  "total": 50,
+  "ultima_atualizacao": "2026-08-24T16:06:22.134057",
+  "total": 51,
   "mudancas": [
+    {
+      "key": "OFBI-5059",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Gabriel Zorzi",
+      "reporter": "Gabriel Zorzi",
+      "created": "2026-08-24T12:39:54.429-0300",
+      "updated": "2026-08-24T12:39:54.632-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5054",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Disable NTLM authentication for Windows workstations",

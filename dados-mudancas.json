@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T13:15:00.393673",
+  "ultima_atualizacao": "2026-08-25T14:06:19.475321",
   "total": 53,
   "mudancas": [
     {
@@ -200,12 +200,12 @@
     {
       "key": "OFBI-5010",
       "summary": "Upgrade de control plane Kubernetes em produção (eks-pcm-prd-v2)",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Djair Silva",
       "reporter": "Djair Silva",
       "created": "2026-08-11T17:07:04.378-0300",
-      "updated": "2026-08-20T15:49:06.806-0300",
+      "updated": "2026-08-25T10:29:40.653-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

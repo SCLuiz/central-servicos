@@ -1,28 +1,6 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5008",
-    "title": "OFBI-5008 - Mudança do SMTP relay do OFFICE 365 para  AWS SES",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 14:45",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5008"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5046",
-    "title": "OFBI-5046 -  Atualização Cluster eks-pad20-prd ",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 13:59",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5046"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5069",
     "title": "OFBI-5069 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -108,5 +86,27 @@
     "status_dot": "dot-info",
     "date": "25/08/2026 12:00",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5053",
+    "title": "OFBI-5053 - Microsoft Secure Score - Desabilitar JavaScript no Adobe DC",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 12:00",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5053"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5060",
+    "title": "OFBI-5060 - Microsoft Secure Score - Bloquear conexões de rede de saída do Microsoft HTML Application Host (mshta.exe)",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 11:55",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5060"
   }
 ]

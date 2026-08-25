@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T18:51:11.422253",
+  "ultima_atualizacao": "2026-08-25T19:19:42.806928",
   "total": 57,
   "mudancas": [
     {
@@ -148,12 +148,12 @@
     {
       "key": "OFBI-5046",
       "summary": " Atualização Cluster eks-pad20-prd ",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Felipe Belisário",
       "reporter": "Felipe Belisário",
       "created": "2026-08-18T11:35:26.990-0300",
-      "updated": "2026-08-25T15:51:09.133-0300",
+      "updated": "2026-08-25T15:51:16.943-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -291,12 +291,12 @@
     {
       "key": "OFBI-5008",
       "summary": "Mudança do SMTP relay do OFFICE 365 para  AWS SES",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Marcus Couto",
       "reporter": "Marcus Couto",
       "created": "2026-08-11T11:53:52.165-0300",
-      "updated": "2026-08-25T14:45:35.997-0300",
+      "updated": "2026-08-25T15:51:52.538-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T16:20:44.405515",
+  "ultima_atualizacao": "2026-08-25T17:01:13.100750",
   "total": 57,
   "mudancas": [
     {
@@ -148,12 +148,12 @@
     {
       "key": "OFBI-5046",
       "summary": " Atualização Cluster eks-pad20-prd ",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Felipe Belisário",
       "created": "2026-08-18T11:35:26.990-0300",
-      "updated": "2026-08-25T11:59:08.636-0300",
+      "updated": "2026-08-25T13:59:55.401-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

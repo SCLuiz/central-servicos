@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T17:38:32.519326",
+  "ultima_atualizacao": "2026-08-25T18:02:03.022082",
   "total": 57,
   "mudancas": [
     {
@@ -296,7 +296,7 @@
       "assignee": "Marcus Couto",
       "reporter": "Marcus Couto",
       "created": "2026-08-11T11:53:52.165-0300",
-      "updated": "2026-08-19T19:57:27.605-0300",
+      "updated": "2026-08-25T14:45:35.997-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

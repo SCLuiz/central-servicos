@@ -1,25 +1,14 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5066",
-    "title": "OFBI-5066 - Solicitação de Mudanças - Grupos dinâmicos Entra ID",
+    "key": "OFBI-5068",
+    "title": "OFBI-5068 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "25/08/2026 11:41",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5066"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5060",
-    "title": "OFBI-5060 - Solicitação de Mudanças - Microsoft Secure Score - Block outbound network connections from Microsoft HTML Application Host (mshta.exe)",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 11:29",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5060"
+    "date": "25/08/2026 12:28",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5068"
   },
   {
     "source": "Jira",
@@ -29,30 +18,8 @@
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "25/08/2026 11:29",
+    "date": "25/08/2026 12:26",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5065"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5054",
-    "title": "OFBI-5054 - Solicitação de Mudanças - Microsoft Secure Score - Disable NTLM authentication for Windows workstations",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 11:22",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5053",
-    "title": "OFBI-5053 - Solicitação de Mudanças- Microsoft Secure Score - Disable JavaScript on Adobe DC",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 11:22",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5053"
   },
   {
     "source": "Jira",
@@ -62,7 +29,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "25/08/2026 11:18",
+    "date": "25/08/2026 12:26",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5064"
   },
   {
@@ -73,7 +40,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "25/08/2026 11:15",
+    "date": "25/08/2026 12:25",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5061"
   },
   {
@@ -84,29 +51,62 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "24/08/2026 13:46",
+    "date": "25/08/2026 12:24",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
   },
   {
     "source": "Jira",
-    "key": "OFBI-5045",
-    "title": "OFBI-5045 - Desabilitar a opção “Permitir autenticação básica” para o serviço WinRM",
+    "key": "OFBI-5067",
+    "title": "OFBI-5067 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "20/08/2026 16:11",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5045"
+    "date": "25/08/2026 12:03",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5067"
   },
   {
     "source": "Jira",
-    "key": "OFBI-5043",
-    "title": "OFBI-5043 - Bloquear chamadas à API Win32 provenientes de macros do Office",
+    "key": "OFBI-5054",
+    "title": "OFBI-5054 - Microsoft Secure Score - Desabilitar a autenticação NTLM para estações de trabalho Windows",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "20/08/2026 15:10",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5043"
+    "date": "25/08/2026 12:00",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5053",
+    "title": "OFBI-5053 - Microsoft Secure Score - Desabilitar JavaScript no Adobe DC",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 12:00",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5053"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5046",
+    "title": "OFBI-5046 -  Atualização Cluster eks-pad20-prd ",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 11:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5046"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5060",
+    "title": "OFBI-5060 - Microsoft Secure Score - Bloquear conexões de rede de saída do Microsoft HTML Application Host (mshta.exe)",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 11:55",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5060"
   }
 ]

@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-08-25T14:59:45.071752",
-  "total": 58,
+  "ultima_atualizacao": "2026-08-25T15:50:44.903930",
+  "total": 56,
   "mudancas": [
     {
       "key": "OFBI-5068",
@@ -10,7 +10,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:54:51.315-0300",
-      "updated": "2026-08-25T11:55:10.158-0300",
+      "updated": "2026-08-25T12:28:25.919-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Gabriel Zorzi",
       "created": "2026-08-25T11:50:17.374-0300",
-      "updated": "2026-08-25T11:52:12.157-0300",
+      "updated": "2026-08-25T12:03:29.611-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:28:17.130-0300",
-      "updated": "2026-08-25T11:29:04.555-0300",
+      "updated": "2026-08-25T12:26:45.885-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -62,7 +62,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:17:42.169-0300",
-      "updated": "2026-08-25T11:18:25.153-0300",
+      "updated": "2026-08-25T12:26:29.384-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -75,7 +75,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-25T09:26:17.471-0300",
-      "updated": "2026-08-25T11:52:26.303-0300",
+      "updated": "2026-08-25T12:25:39.024-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -98,10 +98,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Luiz Santos",
       "reporter": "Gabriel Zorzi",
       "created": "2026-08-24T12:39:54.429-0300",
-      "updated": "2026-08-25T11:52:39.625-0300",
+      "updated": "2026-08-25T12:24:54.436-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -114,7 +114,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-21T09:41:50.376-0300",
-      "updated": "2026-08-25T11:55:09.025-0300",
+      "updated": "2026-08-25T12:00:58.027-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -127,7 +127,7 @@
       "assignee": "Guilherme Machado",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-20T13:25:07.266-0300",
-      "updated": "2026-08-25T11:54:04.264-0300",
+      "updated": "2026-08-25T12:00:50.638-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -729,32 +729,6 @@
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"
-    },
-    {
-      "key": "OFBI-4521",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Fabricio Lobo",
-      "reporter": "Fabricio Lobo",
-      "created": "2026-05-21T15:45:39.657-0300",
-      "updated": "2026-05-27T12:44:54.386-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Emergencial"
-    },
-    {
-      "key": "OFBI-4520",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Fabricio Lobo",
-      "reporter": "Fabricio Lobo",
-      "created": "2026-05-21T15:43:24.830-0300",
-      "updated": "2026-05-27T12:44:24.148-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Emergencial"
     }
   ]
 }

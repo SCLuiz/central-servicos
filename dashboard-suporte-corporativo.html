@@ -578,6 +578,10 @@
         }
         .main-table th:first-child { border-top-left-radius: 8px; }
         .main-table th:last-child { border-top-right-radius: 8px; }
+        .sortable-th { cursor: pointer; user-select: none; transition: background-color 0.15s ease; }
+        .sortable-th:hover { background-color: #1a545c; }
+        .sortable-th .sort-indicator { display: inline-block; margin-left: 4px; font-size: 9px; opacity: 0.5; }
+        .sortable-th.sort-active .sort-indicator { opacity: 1; }
         .main-table th:nth-child(2), .main-table td:nth-child(2) {
             text-align: left;
         }
@@ -1082,14 +1086,14 @@
                     <table class="main-table">
                         <thead>
                             <tr>
-                                <th style="width: 80px;">Ticket</th>
-                                <th style="width: 300px; text-align: center;">Título da Solicitação</th>
-                                <th>Responsável</th>
-                                <th>Tipo de Solicitação</th>
-                                <th style="width: 90px;">Prioridade</th>
-                                <th style="width: 110px;">SLA</th>
-                                <th>Criação do Ticket</th>
-                                <th style="width: 90px;">Status</th>
+                                <th style="width: 80px;" class="sortable-th" onclick="sortByColumn('key')">Ticket<span class="sort-indicator" data-field="key"></span></th>
+                                <th style="width: 300px; text-align: center;" class="sortable-th" onclick="sortByColumn('summary')">Título da Solicitação<span class="sort-indicator" data-field="summary"></span></th>
+                                <th class="sortable-th" onclick="sortByColumn('assignee')">Responsável<span class="sort-indicator" data-field="assignee"></span></th>
+                                <th class="sortable-th" onclick="sortByColumn('tipo_solicitacao')">Tipo de Solicitação<span class="sort-indicator" data-field="tipo_solicitacao"></span></th>
+                                <th style="width: 90px;" class="sortable-th" onclick="sortByColumn('priority')">Prioridade<span class="sort-indicator" data-field="priority"></span></th>
+                                <th style="width: 110px;" class="sortable-th" onclick="sortByColumn('mttr_seconds')">SLA<span class="sort-indicator" data-field="mttr_seconds"></span></th>
+                                <th class="sortable-th" onclick="sortByColumn('created')">Criação do Ticket<span class="sort-indicator" data-field="created"></span></th>
+                                <th style="width: 90px;" class="sortable-th" onclick="sortByColumn('status')">Status<span class="sort-indicator" data-field="status"></span></th>
                             </tr>
                         </thead>
                         <tbody id="incidentesTableBody"></tbody>
@@ -1885,11 +1889,58 @@
             }
         }
 
+        let sortField = null;
+        let sortDirection = 'asc';
+
+        function sortByColumn(field) {
+            if (sortField === field) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortField = field;
+                sortDirection = 'asc';
+            }
+            document.querySelectorAll('.sortable-th').forEach(th => th.classList.remove('sort-active'));
+            document.querySelectorAll('.sort-indicator').forEach(el => el.textContent = '');
+            const activeIndicator = document.querySelector(`.sort-indicator[data-field="${field}"]`);
+            if (activeIndicator) {
+                activeIndicator.textContent = sortDirection === 'asc' ? '▲' : '▼';
+                activeIndicator.closest('.sortable-th').classList.add('sort-active');
+            }
+            renderTable(lastRenderedTableData);
+        }
+
+        function applySorting(rows) {
+            if (!sortField) return rows;
+            const numericFields = ['mttr_seconds'];
+            const dateFields = ['created'];
+            const sorted = [...rows].sort((a, b) => {
+                let va = a[sortField];
+                let vb = b[sortField];
+                if (numericFields.includes(sortField)) {
+                    va = va || 0; vb = vb || 0;
+                } else if (dateFields.includes(sortField)) {
+                    va = va ? new Date(va).getTime() : 0;
+                    vb = vb ? new Date(vb).getTime() : 0;
+                } else {
+                    va = (va || '').toString().toLowerCase();
+                    vb = (vb || '').toString().toLowerCase();
+                }
+                if (va < vb) return sortDirection === 'asc' ? -1 : 1;
+                if (va > vb) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+            return sorted;
+        }
+
+        let lastRenderedTableData = [];
+
         function renderTable(incidentes) {
+            lastRenderedTableData = incidentes;
+            const sortedIncidentes = applySorting(incidentes);
             const tbody = document.getElementById('incidentesTableBody');
             tbody.innerHTML = '';
 
-            incidentes.forEach(i => {
+            sortedIncidentes.forEach(i => {
                 const url = `${JIRA_URL}/browse/${i.key}`;
 
                 let statusClass = 'status-badge ';

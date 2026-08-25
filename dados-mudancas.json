@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T11:47:33.035398",
+  "ultima_atualizacao": "2026-08-25T12:17:12.707789",
   "total": 52,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-24T14:27:29.818-0300",
-      "updated": "2026-08-24T14:29:08.020-0300",
+      "updated": "2026-08-25T08:49:40.254-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -36,7 +36,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-21T09:41:50.376-0300",
-      "updated": "2026-08-21T09:49:34.361-0300",
+      "updated": "2026-08-25T08:54:51.749-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -49,7 +49,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-20T13:25:07.266-0300",
-      "updated": "2026-08-20T13:28:50.090-0300",
+      "updated": "2026-08-25T08:48:36.500-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

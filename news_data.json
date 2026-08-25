@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5061",
+    "title": "OFBI-5061 - Solicitação de Mudanças - Microsoft Secure Score -  Disable 'Enumerate administrator accounts on elevation'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 09:27",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5061"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5054",
+    "title": "OFBI-5054 - Solicitação de Mudanças - Microsoft Secure Score - Disable NTLM authentication for Windows workstations",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "25/08/2026 08:54",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5060",
     "title": "OFBI-5060 - Solicitação de Mudanças - Microsoft Secure Score - Block outbound network connections from Microsoft HTML Application Host (mshta.exe)",
     "type_name": "Mudança",
@@ -31,17 +53,6 @@
     "status_dot": "dot-info",
     "date": "24/08/2026 13:46",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5054",
-    "title": "OFBI-5054 - Solicitação de Mudanças - Microsoft Secure Score - Disable NTLM authentication for Windows workstations",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "21/08/2026 09:49",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
   },
   {
     "source": "Jira",
@@ -97,16 +108,5 @@
     "status_dot": "dot-info",
     "date": "20/08/2026 11:40",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5028"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5025",
-    "title": "OFBI-5025 - Bloquear aplicativos de comunicação do Office de criar processos filhos",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "20/08/2026 09:06",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5025"
   }
 ]

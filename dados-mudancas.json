@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T19:19:42.806928",
+  "ultima_atualizacao": "2026-08-25T19:50:02.537747",
   "total": 57,
   "mudancas": [
     {
@@ -82,13 +82,13 @@
     },
     {
       "key": "OFBI-5061",
-      "summary": "Solicitação de Mudanças - Microsoft Secure Score -  Disable 'Enumerate administrator accounts on elevation'",
+      "summary": "Microsoft Secure Score - Desabilitar \"Enumerar contas de administrador na elevação\"",
       "status": "Aguardando CAB",
       "priority": "Low",
       "assignee": "Guilherme Machado",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-25T09:26:17.471-0300",
-      "updated": "2026-08-25T12:25:39.024-0300",
+      "updated": "2026-08-25T16:31:34.058-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

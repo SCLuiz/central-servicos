@@ -67,17 +67,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5010",
-    "title": "OFBI-5010 - Upgrade de control plane Kubernetes em produção (eks-pcm-prd-v2)",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "20/08/2026 15:49",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5010"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5043",
     "title": "OFBI-5043 - Bloquear chamadas à API Win32 provenientes de macros do Office",
     "type_name": "Mudança",
@@ -108,5 +97,16 @@
     "status_dot": "dot-info",
     "date": "20/08/2026 11:40",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5028"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5025",
+    "title": "OFBI-5025 - Bloquear aplicativos de comunicação do Office de criar processos filhos",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "20/08/2026 09:06",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5025"
   }
 ]

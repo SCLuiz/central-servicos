@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-25T20:11:33.767158",
+  "ultima_atualizacao": "2026-08-25T20:45:21.369060",
   "total": 57,
   "mudancas": [
     {
@@ -46,10 +46,10 @@
       "summary": "Solicitação de Mudanças - Grupos dinâmicos Entra ID",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Guilherme Machado",
+      "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-25T11:33:16.849-0300",
-      "updated": "2026-08-25T11:52:18.667-0300",
+      "updated": "2026-08-25T17:38:23.602-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

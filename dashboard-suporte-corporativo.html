@@ -1114,6 +1114,37 @@
             return false;
         }
 
+        // MTTF real: tempo medio entre o fim de um ticket e o inicio do proximo (gaps de "uptime").
+        // Extraido pra funcao global pra ser reaproveitado em calculateStats, updateKpiDashboards
+        // e updateTrendDashboards (antes cada um tinha sua propria formula, e duas delas eram
+        // placeholders falsos tipo "30 / total").
+        function calculateMTTFSeconds(list) {
+            const failures = list
+                .map(i => {
+                    const startStr = i.inicio_indisponibilidade || i.created;
+                    const endStr = i.fim_indisponibilidade || i.resolutiondate || i.updated;
+                    if (!startStr) return null;
+                    return {
+                        start: new Date(startStr),
+                        end: endStr ? new Date(endStr) : new Date(startStr)
+                    };
+                })
+                .filter(f => f !== null && !isNaN(f.start.getTime()) && !isNaN(f.end.getTime()))
+                .sort((a, b) => a.start - b.start);
+
+            if (failures.length <= 1) return 0;
+            let totalUptimeMs = 0;
+            let count = 0;
+            for (let idx = 1; idx < failures.length; idx++) {
+                const uptime = failures[idx].start - failures[idx - 1].end;
+                if (uptime > 0) {
+                    totalUptimeMs += uptime;
+                    count++;
+                }
+            }
+            return count > 0 ? (totalUptimeMs / count) / 1000 : 0;
+        }
+
         function getIncidentMTTRSeconds(i) {
             if (i.inicio_indisponibilidade && i.fim_indisponibilidade) {
                 const start = new Date(i.inicio_indisponibilidade);
@@ -1288,37 +1319,8 @@
                 if (i.gmud_emergencial) stats.gmudEmergencialCount++;
             });
 
-            // MTTF calculation
-            stats.mttfSeconds = 0;
-            const failures = incidentes
-                .map(i => {
-                    const startStr = i.inicio_indisponibilidade || i.created;
-                    const endStr = i.fim_indisponibilidade || i.resolutiondate || i.updated;
-                    if (!startStr) return null;
-                    return {
-                        start: new Date(startStr),
-                        end: endStr ? new Date(endStr) : new Date(startStr)
-                    };
-                })
-                .filter(f => f !== null && !isNaN(f.start.getTime()) && !isNaN(f.end.getTime()))
-                .sort((a, b) => a.start - b.start);
-
-            if (failures.length > 1) {
-                let totalUptimeMs = 0;
-                let count = 0;
-                for (let idx = 1; idx < failures.length; idx++) {
-                    const prev = failures[idx - 1];
-                    const curr = failures[idx];
-                    const uptime = curr.start - prev.end;
-                    if (uptime > 0) {
-                        totalUptimeMs += uptime;
-                        count++;
-                    }
-                }
-                if (count > 0) {
-                    stats.mttfSeconds = (totalUptimeMs / count) / 1000;
-                }
-            }
+            // MTTF calculation (logica compartilhada em calculateMTTFSeconds)
+            stats.mttfSeconds = calculateMTTFSeconds(incidentes);
 
             return stats;
         }
@@ -2605,25 +2607,6 @@
             if (!ctx) return;
             
             let compIncidentes = [...allTickets];
-            
-            function isSysAid(i) {
-                if (i.summary && i.summary.includes('SysAid')) return true;
-                if (i.key) {
-                    const match = i.key.match(/OFBI-(\d+)/);
-                    if (match) {
-                        const num = parseInt(match[1], 10);
-                        if (num >= 4720 && num <= 4928) return true;
-                    }
-                }
-                return false;
-            }
-
-            if (currentMainTab === 'cancelados') {
-                compIncidentes = compIncidentes.filter(i => isSysAid(i));
-            } else {
-                // Aba 'Todos' -> exclui tickets SysAid
-                compIncidentes = compIncidentes.filter(i => !isSysAid(i));
-            }
 
             if (currentPriorityFilter !== 'all') {
                 compIncidentes = compIncidentes.filter(i => (i.priority || '').toLowerCase() === currentPriorityFilter);
@@ -2773,7 +2756,8 @@
             const mttaHours = mttaCount > 0 ? (mttaSec / mttaCount / 3600).toFixed(0) : 0;
             document.getElementById('kpiBigMtta').innerText = mttaHours.toString() + 'h';
             
-            const mttf = total > 0 ? (30 / total).toFixed(0) : 30; // 30 days approx / total incidents
+            const mttfSecondsReal = calculateMTTFSeconds(incidentes);
+            const mttf = mttfSecondsReal > 0 ? Math.round(mttfSecondsReal / 86400) : 0;
             document.getElementById('kpiBigMttf').innerText = mttf.toString() + ' dias';
             
             document.getElementById('kpiBigRc').innerText = rc;
@@ -2791,10 +2775,12 @@
                         dateObj: new Date(d.getFullYear(), d.getMonth(), 1),
                         total: 0, criticos: 0,
                         mttrSec: 0, mttrCount: 0,
-                        mttaSec: 0, mttaCount: 0, rc: 0
+                        mttaSec: 0, mttaCount: 0, rc: 0,
+                        items: []
                     };
                 }
                 monthsMap[key].total++;
+                monthsMap[key].items.push(i);
                 const p = (i.priority || '').toLowerCase();
                 if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
                     monthsMap[key].criticos++;
@@ -2811,7 +2797,10 @@
             const dataCriticos = sortedKeys.map(k => monthsMap[k].criticos);
             const dataMttr = sortedKeys.map(k => monthsMap[k].mttrCount > 0 ? Math.round(monthsMap[k].mttrSec / monthsMap[k].mttrCount / 3600) : 0);
             const dataMtta = sortedKeys.map(k => monthsMap[k].mttaCount > 0 ? Math.round(monthsMap[k].mttaSec / monthsMap[k].mttaCount / 3600) : 0);
-            const dataMttf = sortedKeys.map(k => monthsMap[k].total > 0 ? Math.round(30 / monthsMap[k].total) : 30);
+            const dataMttf = sortedKeys.map(k => {
+                const sec = calculateMTTFSeconds(monthsMap[k].items);
+                return sec > 0 ? Math.round(sec / 86400) : 0;
+            });
             const dataRc = sortedKeys.map(k => monthsMap[k].rc);
 
             const getOpts = (title) => ({

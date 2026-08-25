@@ -1,7 +1,25 @@
 {
-  "ultima_atualizacao": "2026-08-25T21:33:46.220635",
-  "total": 208,
+  "ultima_atualizacao": "2026-08-25T21:48:53.666776",
+  "total": 209,
   "incidentes": [
+    {
+      "key": "OFBI-5075",
+      "summary": "Zabbix: GitHub API fora do ar ou inacessivel [Integracoes Externas - OFBI]",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Luiz Santos",
+      "created": "2026-08-25T18:46:10.636-0300",
+      "updated": "2026-08-25T18:47:11.244-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-08-27T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h"
+    },
     {
       "key": "OFBI-5073",
       "summary": "Zabbix: Jira fora do ar ou inacessivel [Portal_GitHub]",

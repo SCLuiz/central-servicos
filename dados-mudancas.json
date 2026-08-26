@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-08-26T14:25:40.116425",
-  "total": 56,
+  "ultima_atualizacao": "2026-08-26T15:58:36.600749",
+  "total": 57,
   "mudancas": [
+    {
+      "key": "OFBI-5079",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-08-26T12:50:52.339-0300",
+      "updated": "2026-08-26T12:51:10.443-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5076",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set 'Enforce password history' to '24 or more password(s)'",
@@ -192,7 +205,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-08-19T19:47:45.275-0300",
+      "updated": "2026-08-26T12:45:35.991-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

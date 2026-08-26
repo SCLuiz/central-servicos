@@ -1,14 +1,36 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5059",
+    "title": "OFBI-5059 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "26/08/2026 09:56",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5069",
     "title": "OFBI-5069 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "25/08/2026 18:22",
+    "date": "26/08/2026 09:55",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5069"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5076",
+    "title": "OFBI-5076 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Enforce password history' to '24 or more password(s)'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "26/08/2026 09:38",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
   },
   {
     "source": "Jira",
@@ -67,17 +89,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5059",
-    "title": "OFBI-5059 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 12:24",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5067",
     "title": "OFBI-5067 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -97,16 +108,5 @@
     "status_dot": "dot-info",
     "date": "25/08/2026 12:00",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5053",
-    "title": "OFBI-5053 - Microsoft Secure Score - Desabilitar JavaScript no Adobe DC",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "25/08/2026 12:00",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5053"
   }
 ]

@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-08-26T02:08:24.230186",
-  "total": 57,
+  "ultima_atualizacao": "2026-08-26T03:16:02.341620",
+  "total": 56,
   "mudancas": [
     {
       "key": "OFBI-5069",
@@ -713,19 +713,6 @@
       "reporter": "Fabricio Lobo",
       "created": "2026-05-26T15:18:16.454-0300",
       "updated": "2026-06-08T16:02:43.261-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4524",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Guilherme Machado",
-      "reporter": "Guilherme Machado",
-      "created": "2026-05-26T10:10:01.695-0300",
-      "updated": "2026-05-27T23:47:51.453-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

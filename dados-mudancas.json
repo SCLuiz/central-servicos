@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-26T13:41:15.533299",
+  "ultima_atualizacao": "2026-08-26T14:25:40.116425",
   "total": 56,
   "mudancas": [
     {
@@ -62,7 +62,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Guilherme Machado",
       "created": "2026-08-25T11:33:16.849-0300",
-      "updated": "2026-08-26T10:26:46.842-0300",
+      "updated": "2026-08-26T11:13:39.126-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

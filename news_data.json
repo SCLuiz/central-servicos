@@ -1,13 +1,35 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5067",
+    "title": "OFBI-5067 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "27/08/2026 16:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5067"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5059",
+    "title": "OFBI-5059 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "27/08/2026 16:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5061",
     "title": "OFBI-5061 - Desabilitar \"Enumerar contas de administrador na elevação\"",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "26/08/2026 18:39",
+    "date": "27/08/2026 14:37",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5061"
   },
   {
@@ -18,7 +40,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "26/08/2026 18:38",
+    "date": "27/08/2026 13:34",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5060"
   },
   {
@@ -29,7 +51,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "26/08/2026 18:38",
+    "date": "27/08/2026 10:36",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
   },
   {
@@ -40,7 +62,7 @@
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "26/08/2026 18:36",
+    "date": "27/08/2026 09:23",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5053"
   },
   {
@@ -86,27 +108,5 @@
     "status_dot": "dot-info",
     "date": "26/08/2026 10:11",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5068"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5064",
-    "title": "OFBI-5064 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "26/08/2026 10:10",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5064"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5065",
-    "title": "OFBI-5065 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "26/08/2026 10:08",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5065"
   }
 ]

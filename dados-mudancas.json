@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-27T19:20:11.939388",
+  "ultima_atualizacao": "2026-08-27T20:42:15.556575",
   "total": 57,
   "mudancas": [
     {
@@ -57,12 +57,12 @@
     {
       "key": "OFBI-5067",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Gabriel Zorzi",
       "reporter": "Gabriel Zorzi",
       "created": "2026-08-25T11:50:17.374-0300",
-      "updated": "2026-08-26T10:02:18.850-0300",
+      "updated": "2026-08-27T16:59:47.470-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -135,12 +135,12 @@
     {
       "key": "OFBI-5059",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Gabriel Zorzi",
       "reporter": "Gabriel Zorzi",
       "created": "2026-08-24T12:39:54.429-0300",
-      "updated": "2026-08-26T10:00:23.133-0300",
+      "updated": "2026-08-27T16:59:19.503-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

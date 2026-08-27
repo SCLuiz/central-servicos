@@ -177,7 +177,8 @@
         var view = document.getElementById('view');
         var fns = {
             dashboard: renderDashboard, tendencia: renderTendencia, simulador: renderSimulador,
-            dados: renderDados, servicos: renderServicos, alertas: renderAlertas, config: renderConfig
+            dados: renderDados, servicos: renderServicos, alertas: renderAlertas,
+            metodologia: renderMetodologia, config: renderConfig
         };
         view.innerHTML = (fns[state.tab] || renderDashboard)();
         document.querySelectorAll('.tab').forEach(function (t) {
@@ -252,6 +253,7 @@
                 (delta !== null ? '<div class="delta ' + (delta >= 0 ? 'up' : 'down') + '">' + (delta >= 0 ? '▲' : '▼') + ' ' + fmt(Math.abs(delta), 1) + ' pts vs. ' + fmtPeriod(prev) + ' (' + fmt(prevResult.finalScore, 1) + ')</div>' : '<div class="delta muted">Sem período anterior para comparar</div>')) +
             '<div class="hero-sub">Bruto: ' + fmt(result.grossScore, 1) + ' &nbsp;·&nbsp; Penalidades: -' + fmt(result.penaltiesTotal, 1) + ' &nbsp;·&nbsp; Completude de dados: ' + fmt(result.dataCompleteness, 0) + '%</div>' +
             calcBtn +
+            ' <button class="info-link" data-action="goto-metodologia" style="margin-left:8px">ℹ️ Como esse número é calculado?</button>' +
             '</div></div>' +
             '<h3 class="section-title">Pilares</h3>' +
             '<div class="pillars-grid">' + pillarsHtml + '</div>' +
@@ -558,6 +560,76 @@
         return '<h3 class="section-title">Alertas</h3>' + (items ? '<div class="alerts-list">' + items + '</div>' : '<p class="muted">Nenhum alerta registrado.</p>');
     }
 
+    // ------------------------------------------------------- metodologia
+    function directionLabel(dir) { return dir === 'higher' ? 'Quanto MAIOR, melhor' : 'Quanto MENOR, melhor'; }
+    function directionFormula(dir) {
+        return dir === 'higher'
+            ? 'Score = (Valor Atual ÷ Meta) × 100'
+            : 'Score = (Meta ÷ Valor Atual) × 100 &nbsp;·&nbsp; valor = 0 → Score 100';
+    }
+
+    function renderMetodologia() {
+        var pillarRows = db.pillars.filter(function (p) { return p.active; }).map(function (p) {
+            return '<tr><td>' + escapeHtml(p.name) + '</td><td>' + fmt(p.weight, 0) + '%</td>' +
+                '<td>' + db.kpis.filter(function (k) { return k.pillarId === p.id && k.active; }).length + ' KPI(s) ativo(s)</td></tr>';
+        }).join('');
+
+        var kpiSections = db.pillars.filter(function (p) { return p.active; }).map(function (pillar) {
+            var rows = db.kpis.filter(function (k) { return k.pillarId === pillar.id && k.active; }).map(function (k) {
+                return '<tr><td>' + escapeHtml(k.name) + '</td><td>' + directionLabel(k.direction) + '</td>' +
+                    '<td>' + fmt(k.target, 2) + ' ' + escapeHtml(k.unit) + '</td><td>' + fmt(k.weightInPillar, 0) + '%</td></tr>';
+            }).join('');
+            return '<h4 class="section-title">' + escapeHtml(pillar.name) + ' <span class="muted">(peso ' + fmt(pillar.weight, 0) + '% do Score Geral)</span></h4>' +
+                '<div class="formula-box">' + directionFormula('higher') + ' <span class="muted" style="color:#B3BAC5">— KPIs que sobem</span><br>' + directionFormula('lower') + ' <span class="muted" style="color:#B3BAC5">— KPIs que descem</span></div>' +
+                '<table class="data-table"><thead><tr><th>KPI</th><th>Direção</th><th>Meta</th><th>Peso no pilar</th></tr></thead><tbody>' + rows + '</tbody></table>';
+        }).join('');
+
+        var penaltyRows = db.penalty_rules.filter(function (r) { return r.active; }).map(function (r) {
+            return '<tr><td>' + escapeHtml(r.name) + '</td><td>' + escapeHtml(r.description) + '</td><td><b>-' + fmt(r.points, 0) + ' pts</b></td></tr>';
+        }).join('');
+
+        var legend = (db.classification_ranges || []).map(function (r) {
+            return '<div class="legend-chip"><span class="legend-dot" style="background:' + r.color + '"></span>' + escapeHtml(r.label) + ' (' + fmt(r.min, 0) + '–' + fmt(r.max, 0) + ')</div>';
+        }).join('');
+
+        var critRows = db.criticality_weights.map(function (c) {
+            return '<tr><td>' + c.level + ' — ' + escapeHtml(c.label) + '</td><td>×' + fmt(c.multiplier, 1) + '</td></tr>';
+        }).join('');
+
+        return '<h3 class="section-title">Como o Score de Operações é calculado</h3>' +
+            '<p class="muted">Esta página é gerada automaticamente a partir da configuração atual do sistema — se pesos, metas ou penalidades mudarem em Configurações, esta explicação muda junto.</p>' +
+
+            '<h4 class="section-title">1. Fórmula geral</h4>' +
+            '<div class="formula-box">' +
+            'SCORE FINAL &nbsp;=&nbsp; <b>SCORE GERAL BRUTO</b> &nbsp;−&nbsp; <b>PENALIDADES ATIVAS</b><br>' +
+            '<span class="muted" style="color:#B3BAC5">(sempre limitado entre 0 e 100 — nunca fica negativo nem passa de 100)</span>' +
+            '</div>' +
+
+            '<h4 class="section-title">2. Score Geral Bruto = soma ponderada dos Pilares</h4>' +
+            '<div class="formula-box">SCORE GERAL BRUTO = Σ ( Score do Pilar × Peso do Pilar )</div>' +
+            '<table class="data-table"><thead><tr><th>Pilar</th><th>Peso no Score Geral</th><th>Composição</th></tr></thead><tbody>' + pillarRows + '</tbody></table>' +
+            '<div class="method-note">Se um pilar não tiver nenhum dado lançado no período, ele é excluído do cálculo (não conta como 0) e o restante é reponderado proporcionalmente — por isso o dashboard mostra "Completude de dados".</div>' +
+
+            '<h4 class="section-title">3. Score do Pilar = soma ponderada dos KPIs daquele pilar</h4>' +
+            '<div class="formula-box">SCORE DO PILAR = Σ ( Score do KPI × Peso do KPI no Pilar )</div>' +
+
+            '<h4 class="section-title">4. Normalização de cada KPI (transforma o valor real em um score de 0 a 100)</h4>' +
+            kpiSections +
+
+            '<h4 class="section-title">5. Penalidades ativas (descontadas do Score Bruto)</h4>' +
+            (penaltyRows ? '<table class="data-table"><thead><tr><th>Regra</th><th>Condição</th><th>Desconto</th></tr></thead><tbody>' + penaltyRows + '</tbody></table>' : '<p class="muted">Nenhuma penalidade ativa configurada.</p>') +
+
+            '<h4 class="section-title">6. Classificação final</h4>' +
+            '<div class="legend-strip">' + legend + '</div>' +
+
+            '<h4 class="section-title">7. Score por Serviço, ponderado por criticidade</h4>' +
+            '<p class="muted">Cada serviço tem seu próprio Score (mesma fórmula acima, usando só os dados daquele serviço). O "Score da Operação ponderado por criticidade" (aba Serviços) é a média dos scores de todos os serviços, dando mais peso aos mais críticos:</p>' +
+            '<table class="data-table"><thead><tr><th>Criticidade</th><th>Multiplicador</th></tr></thead><tbody>' + critRows + '</tbody></table>' +
+
+            '<h4 class="section-title">8. Rastreabilidade</h4>' +
+            '<p class="muted">Todo cálculo salvo (botão "Calcular Agora", ou automaticamente após um novo dado/importação/alteração de configuração) grava um snapshot completo — valor, meta, peso e score de cada KPI usado — acessível depois em Configurações → Auditoria e no histórico de Tendência. Nada é recalculado silenciosamente sem deixar rastro.</p>';
+    }
+
     // ----------------------------------------------------------- config
     function renderConfig() {
         var tabs = [
@@ -729,6 +801,7 @@
         var action = target.dataset.action;
 
         if (action === 'open-pillar') { openPillarModal(target.dataset.pillarId); return; }
+        if (action === 'goto-metodologia') { state.tab = 'metodologia'; render(); return; }
         if (action === 'close-modal') { document.getElementById('pillarModal').classList.remove('open'); return; }
         if (action === 'calc-now') {
             var result = runCalculation(currentPeriod(), state.serviceId);

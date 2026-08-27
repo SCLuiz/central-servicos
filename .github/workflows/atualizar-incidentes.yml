@@ -165,71 +165,11 @@ jobs:
               json.dump(output, f, ensure_ascii=False, indent=2)
 
           print(f'✓ {len(incidentes)} incidentes exportados para dados-incidentes.json')
-
-          # --- Operations Health Score: KPIs reais do pilar Incidentes ---
-          # Recalculado a partir da mesma lista já buscada acima, sem chamadas extras ao Jira.
-          RESOLVED_STATUSES = {'Concluído com Sucesso'}
-          EXCLUDED_FROM_OPEN = {'Concluído com Sucesso', 'Cancelado'}
-          CRITICAL_PRIORITIES = {'Highest', 'Crítico', 'Critical'}
-
-          period = datetime.now().strftime('%Y-%m')
-
-          def parse_dt(s):
-              if not s:
-                  return None
-              try:
-                  return datetime.fromisoformat(s.replace('Z', '+00:00'))
-              except ValueError:
-                  return None
-
-          created_this_month = 0
-          resolved_durations_h = []
-          open_critical = 0
-          sla_total = 0
-          sla_ok = 0
-
-          for inc in incidentes:
-              created_dt = parse_dt(inc['created'])
-              if created_dt and created_dt.strftime('%Y-%m') == period:
-                  created_this_month += 1
-
-              if inc['status'] in RESOLVED_STATUSES:
-                  resolved_dt = parse_dt(inc['resolutiondate'])
-                  if created_dt and resolved_dt and resolved_dt.strftime('%Y-%m') == period:
-                      resolved_durations_h.append((resolved_dt - created_dt).total_seconds() / 3600)
-
-              if inc['status'] not in EXCLUDED_FROM_OPEN and inc['priority'] in CRITICAL_PRIORITIES:
-                  open_critical += 1
-
-              if inc.get('sla_breach_time') is not None or inc.get('sla_elapsed') is not None:
-                  sla_total += 1
-                  if not inc.get('sla_breached'):
-                      sla_ok += 1
-
-          mttr_h = round(sum(resolved_durations_h) / len(resolved_durations_h), 2) if resolved_durations_h else None
-          sla_pct = round(sla_ok / sla_total * 100, 2) if sla_total else None
-
-          score_data = {
-              'periodo': period,
-              'gerado_em': datetime.now().isoformat(),
-              'fonte': 'Jira OFBI (projeto real, incidentes)',
-              'kpis': {
-                  'mttr': {'value': mttr_h, 'unit': 'horas', 'amostra': len(resolved_durations_h)},
-                  'incidentes_criticos': {'value': open_critical, 'unit': 'qtd', 'amostra': open_critical},
-                  'sla_cumprido': {'value': sla_pct, 'unit': '%', 'amostra': sla_total},
-                  'volume_incidentes': {'value': created_this_month, 'unit': 'qtd', 'amostra': created_this_month},
-              }
-          }
-
-          with open('score-jira-data.json', 'w', encoding='utf-8') as f:
-              json.dump(score_data, f, ensure_ascii=False, indent=2)
-
-          print(f'✓ score-jira-data.json atualizado: {score_data["kpis"]}')
           EOF
 
       - name: Commit e Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add dados-incidentes.json score-jira-data.json
+          git add dados-incidentes.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar dados do dashboard de incidentes [skip ci]" && git pull --rebase && git push)

@@ -1,0 +1,220 @@
+name: Atualizar Dados Reais do Operations Health Score
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar-score:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Calcular KPIs reais a partir do Jira (OFBI)
+        env:
+          JIRA_URL: ${{ secrets.JIRA_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: |
+          python << 'EOF'
+          import requests
+          from requests.auth import HTTPBasicAuth
+          import json
+          import os
+          from datetime import datetime
+
+          JIRA_URL = os.environ['JIRA_URL']
+          JIRA_EMAIL = os.environ['JIRA_EMAIL']
+          JIRA_API_TOKEN = os.environ['JIRA_API_TOKEN']
+
+          auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
+          headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+          period = datetime.now().strftime('%Y-%m')
+
+          def parse_dt(s):
+              if not s:
+                  return None
+              try:
+                  return datetime.fromisoformat(s.replace('Z', '+00:00'))
+              except ValueError:
+                  return None
+
+          def search_all(jql, fields):
+              issues = []
+              next_page_token = None
+              while True:
+                  payload = {'jql': jql, 'fields': fields, 'maxResults': 100}
+                  if next_page_token:
+                      payload['nextPageToken'] = next_page_token
+                  r = requests.post(f'{JIRA_URL}/rest/api/3/search/jql', auth=auth, headers=headers, json=payload, timeout=30)
+                  if r.status_code != 200:
+                      print(f'✗ Erro {r.status_code} na JQL: {jql}')
+                      print(r.text)
+                      exit(1)
+                  data = r.json()
+                  issues.extend(data.get('issues', []))
+                  next_page_token = data.get('nextPageToken')
+                  if data.get('isLast', True) or not next_page_token:
+                      break
+              return issues
+
+          kpis = {}
+
+          # ---------------------------------------------------------------
+          # Pilar Incidentes + SLA e SLO
+          # ---------------------------------------------------------------
+          RESOLVED_INCIDENT_STATUSES = {'Concluído com Sucesso'}
+          EXCLUDED_FROM_OPEN_INCIDENT = {'Concluído com Sucesso', 'Cancelado'}
+          CRITICAL_PRIORITIES = {'Highest', 'Crítico', 'Critical'}
+
+          incident_issues = search_all(
+              'project = OFBI AND issuetype = "[System] Incidente" AND created >= startOfMonth()',
+              ['status', 'priority', 'created', 'resolutiondate', 'customfield_10096']
+          )
+
+          created_this_month = 0
+          resolved_durations_h = []
+          open_critical = 0
+          sla_total = 0
+          sla_ok = 0
+
+          for issue in incident_issues:
+              f = issue.get('fields', {})
+              status = (f.get('status') or {}).get('name', '')
+              priority = (f.get('priority') or {}).get('name', '')
+              created_dt = parse_dt(f.get('created'))
+              resolved_dt = parse_dt(f.get('resolutiondate'))
+
+              if created_dt and created_dt.strftime('%Y-%m') == period:
+                  created_this_month += 1
+
+              if status in RESOLVED_INCIDENT_STATUSES and created_dt and resolved_dt and resolved_dt.strftime('%Y-%m') == period:
+                  resolved_durations_h.append((resolved_dt - created_dt).total_seconds() / 3600)
+
+              if status not in EXCLUDED_FROM_OPEN_INCIDENT and priority in CRITICAL_PRIORITIES:
+                  open_critical += 1
+
+              sla = f.get('customfield_10096') or {}
+              has_sla, breached = False, False
+              if sla.get('ongoingCycle'):
+                  has_sla, breached = True, bool(sla['ongoingCycle'].get('breached'))
+              elif sla.get('completedCycles'):
+                  has_sla, breached = True, bool(sla['completedCycles'][-1].get('breached'))
+              if has_sla:
+                  sla_total += 1
+                  if not breached:
+                      sla_ok += 1
+
+          kpis['mttr'] = {
+              'value': round(sum(resolved_durations_h) / len(resolved_durations_h), 2) if resolved_durations_h else None,
+              'unit': 'horas', 'amostra': len(resolved_durations_h)
+          }
+          kpis['incidentes_criticos'] = {'value': open_critical, 'unit': 'qtd', 'amostra': open_critical}
+          kpis['volume_incidentes'] = {'value': created_this_month, 'unit': 'qtd', 'amostra': created_this_month}
+          kpis['sla_cumprido'] = {
+              'value': round(sla_ok / sla_total * 100, 2) if sla_total else None,
+              'unit': '%', 'amostra': sla_total
+          }
+
+          # ---------------------------------------------------------------
+          # Pilar Mudanças e GMUD
+          # ---------------------------------------------------------------
+          CONCLUDED_CHANGE_STATUSES = {'Concluído com Sucesso', 'Cancelado'}
+          SUCCESS_CHANGE_STATUS = 'Concluído com Sucesso'
+
+          change_issues = search_all(
+              'project = OFBI AND issuetype = "[System] Mudança" AND created >= startOfMonth()',
+              ['status', 'created', 'customfield_11106', 'customfield_11073']
+          )
+
+          total_changes = 0
+          concluded_changes = 0
+          successful_changes = 0
+          emergency_changes = 0
+          changes_causing_incidents = 0
+
+          for issue in change_issues:
+              f = issue.get('fields', {})
+              status = (f.get('status') or {}).get('name', '')
+              categoria = (f.get('customfield_11106') or {}).get('value', '')
+              causou_incidente = bool(f.get('customfield_11073'))
+
+              total_changes += 1
+              if status in CONCLUDED_CHANGE_STATUSES:
+                  concluded_changes += 1
+                  if status == SUCCESS_CHANGE_STATUS:
+                      successful_changes += 1
+              if categoria == 'Emergencial':
+                  emergency_changes += 1
+              if causou_incidente:
+                  changes_causing_incidents += 1
+
+          kpis['sucesso_mudancas'] = {
+              'value': round(successful_changes / concluded_changes * 100, 2) if concluded_changes else None,
+              'unit': '%', 'amostra': concluded_changes
+          }
+          kpis['mudancas_emergenciais'] = {
+              'value': round(emergency_changes / total_changes * 100, 2) if total_changes else None,
+              'unit': '%', 'amostra': total_changes
+          }
+          kpis['mudancas_geraram_incidentes'] = {'value': changes_causing_incidents, 'unit': 'qtd', 'amostra': total_changes}
+          # Não existe um campo confiável de "rollback" distinto de Cancelado neste projeto —
+          # taxa_rollback continua como dado de exemplo até que essa informação seja rastreada no Jira.
+
+          # ---------------------------------------------------------------
+          # Pilar Melhoria Contínua (parcial)
+          # ---------------------------------------------------------------
+          problem_issues = search_all(
+              'project = OFBI AND issuetype = "[System] Problema"',
+              ['status', 'resolutiondate']
+          )
+          resolved_problems_this_month = 0
+          for issue in problem_issues:
+              f = issue.get('fields', {})
+              resolved_dt = parse_dt(f.get('resolutiondate'))
+              if resolved_dt and resolved_dt.strftime('%Y-%m') == period:
+                  resolved_problems_this_month += 1
+
+          kpis['problemas_recorrentes_eliminados'] = {
+              'value': resolved_problems_this_month, 'unit': 'qtd', 'amostra': len(problem_issues)
+          }
+          # Ações Corretivas no Prazo e Riscos Mitigados não têm fonte confiável no Jira
+          # deste projeto ainda — continuam como dado de exemplo.
+
+          score_data = {
+              'periodo': period,
+              'gerado_em': datetime.now().isoformat(),
+              'fonte': 'Jira OFBI (projeto real): incidentes, mudanças e problemas',
+              'kpis': kpis
+          }
+
+          with open('score-jira-data.json', 'w', encoding='utf-8') as f:
+              json.dump(score_data, f, ensure_ascii=False, indent=2)
+
+          print('✓ score-jira-data.json atualizado:')
+          print(json.dumps(kpis, ensure_ascii=False, indent=2))
+          EOF
+
+      - name: Commit e Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add score-jira-data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar dados reais do Operations Health Score [skip ci]" && git pull --rebase && git push)

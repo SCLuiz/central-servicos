@@ -1,7 +1,7 @@
 {
   "periodo": "2026-08",
-  "gerado_em": "2026-08-27T19:20:14.788336",
-  "fonte": "Jira OFBI (projeto real, incidentes)",
+  "gerado_em": "2026-08-27T19:27:24.278200",
+  "fonte": "Jira OFBI (projeto real): incidentes, mudanças e problemas",
   "kpis": {
     "mttr": {
       "value": 114.14,
@@ -9,19 +9,39 @@
       "amostra": 7
     },
     "incidentes_criticos": {
-      "value": 1,
+      "value": 0,
       "unit": "qtd",
-      "amostra": 1
-    },
-    "sla_cumprido": {
-      "value": 34.34,
-      "unit": "%",
-      "amostra": 166
+      "amostra": 0
     },
     "volume_incidentes": {
       "value": 89,
       "unit": "qtd",
       "amostra": 89
+    },
+    "sla_cumprido": {
+      "value": 8.99,
+      "unit": "%",
+      "amostra": 89
+    },
+    "sucesso_mudancas": {
+      "value": 92.31,
+      "unit": "%",
+      "amostra": 13
+    },
+    "mudancas_emergenciais": {
+      "value": 7.41,
+      "unit": "%",
+      "amostra": 27
+    },
+    "mudancas_geraram_incidentes": {
+      "value": 0,
+      "unit": "qtd",
+      "amostra": 27
+    },
+    "problemas_recorrentes_eliminados": {
+      "value": 0,
+      "unit": "qtd",
+      "amostra": 7
     }
   }
 }

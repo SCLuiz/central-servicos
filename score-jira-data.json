@@ -1,0 +1,27 @@
+{
+  "periodo": "2026-08",
+  "gerado_em": "2026-08-27T19:20:14.788336",
+  "fonte": "Jira OFBI (projeto real, incidentes)",
+  "kpis": {
+    "mttr": {
+      "value": 114.14,
+      "unit": "horas",
+      "amostra": 7
+    },
+    "incidentes_criticos": {
+      "value": 1,
+      "unit": "qtd",
+      "amostra": 1
+    },
+    "sla_cumprido": {
+      "value": 34.34,
+      "unit": "%",
+      "amostra": 166
+    },
+    "volume_incidentes": {
+      "value": 89,
+      "unit": "qtd",
+      "amostra": 89
+    }
+  }
+}

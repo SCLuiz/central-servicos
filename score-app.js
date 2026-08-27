@@ -68,6 +68,18 @@
         toast._t = setTimeout(function () { el.className = 'toast'; }, 3200);
     }
     function persist() { S.save(db); }
+    function sourceLabel(s) {
+        return { seed: '📝 exemplo', manual: '✍️ manual', import: '📄 CSV importado', integration: '🔗 Jira (real)' }[s] || s;
+    }
+    function latestValueEntry(kpiId, period, serviceId) {
+        var found = null;
+        db.kpi_values.forEach(function (v) {
+            if (v.kpiId !== kpiId || v.period !== period) return;
+            var match = serviceId ? v.serviceId === serviceId : !v.serviceId;
+            if (match) found = v;
+        });
+        return found;
+    }
 
     // ------------------------------------------------------ engine wiring
     function buildCalcParams(period, serviceId, overrides, simSignals) {
@@ -267,11 +279,15 @@
     }
 
     function renderPillarModal(result) {
+        var period = currentPeriod();
         return '<div class="modal" id="pillarModal"><div class="modal-box"><button class="modal-close" data-action="close-modal">×</button><div id="pillarModalBody"></div></div></div>' +
             '<script id="pillarData" type="application/json">' + JSON.stringify(result.pillarResults.map(function (p) {
                 return {
                     id: p.pillar.id, name: p.pillar.name, weight: p.pillar.weight, score: p.score,
-                    kpis: p.kpiBreakdown.map(function (kb) { return { name: kb.kpi.name, value: kb.value, target: kb.kpi.target, unit: kb.kpi.unit, direction: kb.kpi.direction, weight: kb.kpi.weightInPillar, score: kb.score }; })
+                    kpis: p.kpiBreakdown.map(function (kb) {
+                        var entry = latestValueEntry(kb.kpi.id, period, state.serviceId);
+                        return { name: kb.kpi.name, value: kb.value, target: kb.kpi.target, unit: kb.kpi.unit, direction: kb.kpi.direction, weight: kb.kpi.weightInPillar, score: kb.score, source: entry ? entry.source : null };
+                    })
                 };
             })) + '</\script>';
     }
@@ -285,11 +301,12 @@
                 '<td>' + (k.value === null ? '—' : fmt(k.value, 2) + ' ' + escapeHtml(k.unit)) + '</td>' +
                 '<td>' + fmt(k.target, 2) + ' ' + escapeHtml(k.unit) + '</td>' +
                 '<td>' + fmt(k.weight, 0) + '%</td>' +
-                '<td><b>' + (k.score === null ? '—' : fmt(k.score, 1)) + '</b></td></tr>';
+                '<td><b>' + (k.score === null ? '—' : fmt(k.score, 1)) + '</b></td>' +
+                '<td>' + (k.source ? sourceLabel(k.source) : '<span class="muted">sem dado</span>') + '</td></tr>';
         }).join('');
         document.getElementById('pillarModalBody').innerHTML =
             '<h3>' + escapeHtml(p.name) + ' — Score ' + (p.score === null ? '—' : fmt(p.score, 1)) + ' (peso ' + fmt(p.weight, 0) + '% do geral)</h3>' +
-            '<table class="data-table"><thead><tr><th>KPI</th><th>Direção</th><th>Valor Atual</th><th>Meta</th><th>Peso no pilar</th><th>Score</th></tr></thead><tbody>' + rows + '</tbody></table>';
+            '<table class="data-table"><thead><tr><th>KPI</th><th>Direção</th><th>Valor Atual</th><th>Meta</th><th>Peso no pilar</th><th>Score</th><th>Origem</th></tr></thead><tbody>' + rows + '</tbody></table>';
         document.getElementById('pillarModal').classList.add('open');
     }
 
@@ -393,7 +410,7 @@
         var recent = db.kpi_values.slice(-15).reverse().map(function (v) {
             var kpi = kpiById(v.kpiId) || {};
             return '<tr><td>' + fmtPeriod(v.period) + '</td><td>' + escapeHtml(kpi.name) + '</td><td>' + fmt(v.value, 2) + ' ' + escapeHtml(kpi.unit) + '</td>' +
-                '<td>' + escapeHtml(v.serviceId ? (serviceById(v.serviceId) || {}).name : 'Geral') + '</td><td>' + escapeHtml(v.source) + '</td></tr>';
+                '<td>' + escapeHtml(v.serviceId ? (serviceById(v.serviceId) || {}).name : 'Geral') + '</td><td>' + sourceLabel(v.source) + '</td></tr>';
         }).join('');
 
         var sig = null;
@@ -945,6 +962,41 @@
             items.map(function (h) { return '<tr><td>' + fmt(h.weight, 0) + '%</td><td>' + new Date(h.changedAt).toLocaleString('pt-BR') + '</td><td>' + escapeHtml(h.changedBy) + '</td></tr>'; }).join('') + '</tbody></table>';
     }
 
+    function syncJiraIntegration() {
+        fetch('score-jira-data.json?t=' + Date.now())
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+                if (!data || !data.kpis) return;
+                var period = data.periodo;
+                var keyToId = {};
+                db.kpis.forEach(function (k) { keyToId[k.key] = k.id; });
+                var changed = false;
+                Object.keys(data.kpis).forEach(function (key) {
+                    var kpiId = keyToId[key];
+                    var entry = data.kpis[key];
+                    if (!kpiId || entry.value === null || entry.value === undefined) return;
+                    db.kpi_values = db.kpi_values.filter(function (v) {
+                        return !(v.kpiId === kpiId && v.period === period && !v.serviceId && v.source === 'integration');
+                    });
+                    db.kpi_values.push({
+                        id: S.uid('kv'), kpiId: kpiId, period: period, periodType: 'monthly', value: entry.value, serviceId: null,
+                        observation: 'Sincronizado automaticamente do Jira (' + (data.fonte || 'OFBI') + ')' + (entry.amostra !== undefined ? ' · amostra: ' + entry.amostra : ''),
+                        source: 'integration', createdAt: S.nowIso(), createdBy: 'Integração Jira'
+                    });
+                    changed = true;
+                });
+                if (changed) {
+                    db.integrations.forEach(function (i) { if (i.type === 'jira') { i.lastSync = data.gerado_em; i.status = 'synced'; } });
+                    S.audit(db, 'integrations', 'int_jira', 'auto_sync', null, { period: period, kpis: Object.keys(data.kpis) });
+                    persist();
+                    autoRecalculate(period, null);
+                    render();
+                    toast('Dados reais do Jira sincronizados (' + fmtPeriod(period) + ').');
+                }
+            })
+            .catch(function () { /* offline, CORS local (file://) ou arquivo ainda não gerado: mantém os dados que já existem */ });
+    }
+
     function downloadExport() {
         var blob = new Blob([S.exportJson()], { type: 'application/json' });
         var url = URL.createObjectURL(blob);
@@ -992,6 +1044,7 @@
             if (e.target.id === 'penaltyForm') return submitPenaltyForm(e.target);
         });
         render();
+        syncJiraIntegration();
     }
 
     function submitManualForm(form) {

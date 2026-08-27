@@ -180,7 +180,7 @@
         Object.keys(months).forEach(function (period) {
             var values = months[period];
             Object.keys(values).forEach(function (key) {
-                if (keyToKpiId[key]) addValue(db, keyToKpiId[key], period, values[key], null, '', 'manual');
+                if (keyToKpiId[key]) addValue(db, keyToKpiId[key], period, values[key], null, '', 'seed');
             });
         });
 
@@ -198,7 +198,7 @@
         Object.keys(perService).forEach(function (serviceId) {
             var values = perService[serviceId];
             Object.keys(values).forEach(function (key) {
-                if (keyToKpiId[key]) addValue(db, keyToKpiId[key], '2026-08', values[key], serviceId, '', 'manual');
+                if (keyToKpiId[key]) addValue(db, keyToKpiId[key], '2026-08', values[key], serviceId, '', 'seed');
             });
         });
 

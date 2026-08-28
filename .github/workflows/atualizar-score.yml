@@ -198,10 +198,56 @@ jobs:
           # Ações Corretivas no Prazo e Riscos Mitigados não têm fonte confiável no Jira
           # deste projeto ainda — continuam como dado de exemplo.
 
+          # ---------------------------------------------------------------
+          # Pilar Service Desk (projeto HELP)
+          # ---------------------------------------------------------------
+          help_issues = search_all(
+              'project = HELP AND created >= startOfMonth()',
+              ['created', 'resolutiondate', 'customfield_10096', 'customfield_10097']
+          )
+
+          resolution_durations_h = []
+          res_sla_total, res_sla_ok = 0, 0
+          resp_sla_total, resp_sla_ok = 0, 0
+
+          for issue in help_issues:
+              f = issue.get('fields', {})
+              created_dt = parse_dt(f.get('created'))
+              resolved_dt = parse_dt(f.get('resolutiondate'))
+              if created_dt and resolved_dt:
+                  resolution_durations_h.append((resolved_dt - created_dt).total_seconds() / 3600)
+
+              sla_res = f.get('customfield_10096') or {}
+              cc_res = sla_res.get('completedCycles') or []
+              if cc_res:
+                  res_sla_total += 1
+                  if not cc_res[-1].get('breached'):
+                      res_sla_ok += 1
+
+              sla_resp = f.get('customfield_10097') or {}
+              cc_resp = sla_resp.get('completedCycles') or []
+              if cc_resp:
+                  resp_sla_total += 1
+                  if not cc_resp[-1].get('breached'):
+                      resp_sla_ok += 1
+
+          kpis['tma_service_desk'] = {
+              'value': round(sum(resolution_durations_h) / len(resolution_durations_h), 2) if resolution_durations_h else None,
+              'unit': 'horas', 'amostra': len(resolution_durations_h)
+          }
+          kpis['sla_resolucao_sd'] = {
+              'value': round(res_sla_ok / res_sla_total * 100, 2) if res_sla_total else None,
+              'unit': '%', 'amostra': res_sla_total
+          }
+          kpis['sla_primeira_resposta_sd'] = {
+              'value': round(resp_sla_ok / resp_sla_total * 100, 2) if resp_sla_total else None,
+              'unit': '%', 'amostra': resp_sla_total
+          }
+
           score_data = {
               'periodo': period,
               'gerado_em': datetime.now().isoformat(),
-              'fonte': 'Jira OFBI (projeto real): incidentes, mudanças e problemas',
+              'fonte': 'Jira OFBI + HELP (projeto real): incidentes, mudanças, problemas e service desk',
               'kpis': kpis
           }
 

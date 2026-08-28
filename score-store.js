@@ -63,12 +63,13 @@
                 { id: 'u_viewer', name: 'Visualizador', role: 'VISUALIZADOR' }
             ],
             pillars: [
-                { id: 'p_incidentes', key: 'incidentes', name: 'Incidentes', weight: 25, active: true, order: 1 },
-                { id: 'p_sla', key: 'sla_slo', name: 'SLA e SLO', weight: 20, active: true, order: 2 },
-                { id: 'p_disp', key: 'disponibilidade', name: 'Disponibilidade', weight: 20, active: true, order: 3 },
-                { id: 'p_mud', key: 'mudancas', name: 'Mudanças e GMUD', weight: 15, active: true, order: 4 },
-                { id: 'p_obs', key: 'observabilidade', name: 'Observabilidade', weight: 10, active: true, order: 5 },
-                { id: 'p_mel', key: 'melhoria_continua', name: 'Melhoria Contínua', weight: 10, active: true, order: 6 }
+                { id: 'p_incidentes', key: 'incidentes', name: 'Incidentes', weight: 20, active: true, order: 1 },
+                { id: 'p_sla', key: 'sla_slo', name: 'SLA e SLO', weight: 18, active: true, order: 2 },
+                { id: 'p_disp', key: 'disponibilidade', name: 'Disponibilidade', weight: 18, active: true, order: 3 },
+                { id: 'p_mud', key: 'mudancas', name: 'Mudanças e GMUD', weight: 13, active: true, order: 4 },
+                { id: 'p_obs', key: 'observabilidade', name: 'Observabilidade', weight: 8, active: true, order: 5 },
+                { id: 'p_mel', key: 'melhoria_continua', name: 'Melhoria Contínua', weight: 8, active: true, order: 6 },
+                { id: 'p_sd', key: 'service_desk', name: 'Service Desk', weight: 15, active: true, order: 7 }
             ],
             pillar_weight_history: [],
             kpis: [
@@ -95,7 +96,11 @@
 
                 { id: 'k_prob_eliminados', pillarId: 'p_mel', key: 'problemas_recorrentes_eliminados', name: 'Problemas Recorrentes Eliminados', direction: 'higher', unit: 'qtd', target: 5, weightInPillar: 35, active: true, period: 'monthly' },
                 { id: 'k_acoes_prazo', pillarId: 'p_mel', key: 'acoes_corretivas_prazo', name: 'Ações Corretivas Concluídas no Prazo', direction: 'higher', unit: '%', target: 90, weightInPillar: 40, active: true, period: 'monthly' },
-                { id: 'k_riscos_mitigados', pillarId: 'p_mel', key: 'riscos_mitigados', name: 'Riscos Mitigados', direction: 'higher', unit: 'qtd', target: 3, weightInPillar: 25, active: true, period: 'monthly' }
+                { id: 'k_riscos_mitigados', pillarId: 'p_mel', key: 'riscos_mitigados', name: 'Riscos Mitigados', direction: 'higher', unit: 'qtd', target: 3, weightInPillar: 25, active: true, period: 'monthly' },
+
+                { id: 'k_tma_sd', pillarId: 'p_sd', key: 'tma_service_desk', name: 'TMA — Tempo Médio de Atendimento', direction: 'lower', unit: 'horas', target: 24, weightInPillar: 35, active: true, period: 'monthly' },
+                { id: 'k_sla_resolucao_sd', pillarId: 'p_sd', key: 'sla_resolucao_sd', name: '% SLA de Resolução Cumprido', direction: 'higher', unit: '%', target: 95, weightInPillar: 35, active: true, period: 'monthly' },
+                { id: 'k_sla_resposta_sd', pillarId: 'p_sd', key: 'sla_primeira_resposta_sd', name: '% SLA de Primeira Resposta Cumprido', direction: 'higher', unit: '%', target: 90, weightInPillar: 30, active: true, period: 'monthly' }
             ],
             kpi_targets_history: [],
             kpi_values: [],
@@ -154,7 +159,8 @@
                 disponibilidade_servicos: 99.1, indisponibilidades_criticas: 1,
                 sucesso_mudancas: 90, taxa_rollback: 8, mudancas_emergenciais: 14, mudancas_geraram_incidentes: 3,
                 cobertura_monitoramento: 75, servicos_com_alertas: 78, alertas_acionaveis: 65,
-                problemas_recorrentes_eliminados: 2, acoes_corretivas_prazo: 80, riscos_mitigados: 1
+                problemas_recorrentes_eliminados: 2, acoes_corretivas_prazo: 80, riscos_mitigados: 1,
+                tma_service_desk: 30, sla_resolucao_sd: 90, sla_primeira_resposta_sd: 80
             },
             '2026-07': {
                 mttr: 5.5, mtta: 38, incidentes_criticos: 1, incidentes_recorrentes: 7,
@@ -162,7 +168,8 @@
                 disponibilidade_servicos: 99.4, indisponibilidades_criticas: 0,
                 sucesso_mudancas: 93, taxa_rollback: 6, mudancas_emergenciais: 11, mudancas_geraram_incidentes: 2,
                 cobertura_monitoramento: 82, servicos_com_alertas: 85, alertas_acionaveis: 72,
-                problemas_recorrentes_eliminados: 3, acoes_corretivas_prazo: 86, riscos_mitigados: 2
+                problemas_recorrentes_eliminados: 3, acoes_corretivas_prazo: 86, riscos_mitigados: 2,
+                tma_service_desk: 24, sla_resolucao_sd: 95, sla_primeira_resposta_sd: 85
             },
             '2026-08': {
                 mttr: 4.5, mtta: 28, incidentes_criticos: 0, incidentes_recorrentes: 4.5,
@@ -170,7 +177,8 @@
                 disponibilidade_servicos: 99.7, indisponibilidades_criticas: 0,
                 sucesso_mudancas: 95, taxa_rollback: 4, mudancas_emergenciais: 9, mudancas_geraram_incidentes: 1,
                 cobertura_monitoramento: 88, servicos_com_alertas: 90, alertas_acionaveis: 79,
-                problemas_recorrentes_eliminados: 4, acoes_corretivas_prazo: 91, riscos_mitigados: 3
+                problemas_recorrentes_eliminados: 4, acoes_corretivas_prazo: 91, riscos_mitigados: 3,
+                tma_service_desk: 20, sla_resolucao_sd: 96, sla_primeira_resposta_sd: 88
             }
         };
 

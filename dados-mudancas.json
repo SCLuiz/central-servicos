@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-27T20:42:15.556575",
+  "ultima_atualizacao": "2026-08-28T04:29:35.108622",
   "total": 57,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-26T12:50:52.339-0300",
-      "updated": "2026-08-26T12:51:10.443-0300",
+      "updated": "2026-08-27T18:59:17.840-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -23,7 +23,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-26T09:34:54.118-0300",
-      "updated": "2026-08-26T09:38:33.075-0300",
+      "updated": "2026-08-27T18:56:09.872-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -31,12 +31,12 @@
     {
       "key": "OFBI-5069",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Felipe Belisário",
+      "assignee": "Luiz Santos",
       "reporter": "Felipe Belisário",
       "created": "2026-08-25T13:15:38.261-0300",
-      "updated": "2026-08-26T09:55:45.327-0300",
+      "updated": "2026-08-27T19:40:06.833-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -44,12 +44,12 @@
     {
       "key": "OFBI-5068",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Santos",
+      "assignee": "Luiz Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:54:51.315-0300",
-      "updated": "2026-08-26T10:11:14.774-0300",
+      "updated": "2026-08-27T19:40:08.703-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -70,12 +70,12 @@
     {
       "key": "OFBI-5066",
       "summary": "Grupos dinâmicos para MFA no Entra ID",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Guilherme Machado",
       "reporter": "Guilherme Machado",
       "created": "2026-08-25T11:33:16.849-0300",
-      "updated": "2026-08-26T17:26:56.527-0300",
+      "updated": "2026-08-27T18:54:36.035-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"
@@ -83,12 +83,12 @@
     {
       "key": "OFBI-5065",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Santos",
+      "assignee": "Luiz Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:28:17.130-0300",
-      "updated": "2026-08-26T10:08:29.322-0300",
+      "updated": "2026-08-27T19:40:12.226-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -96,12 +96,12 @@
     {
       "key": "OFBI-5064",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Higor Santos",
+      "assignee": "Luiz Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:17:42.169-0300",
-      "updated": "2026-08-26T10:10:32.988-0300",
+      "updated": "2026-08-27T19:40:14.221-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -109,12 +109,12 @@
     {
       "key": "OFBI-5061",
       "summary": "Desabilitar \"Enumerar contas de administrador na elevação\"",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Marcio Paulo",
+      "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-25T09:26:17.471-0300",
-      "updated": "2026-08-27T14:37:42.957-0300",
+      "updated": "2026-08-27T18:52:16.857-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -122,12 +122,12 @@
     {
       "key": "OFBI-5060",
       "summary": "Bloquear conexões de rede de saída do Microsoft HTML Application Host (mshta.exe)",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Marcio Paulo",
+      "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-24T14:27:29.818-0300",
-      "updated": "2026-08-27T13:34:41.644-0300",
+      "updated": "2026-08-27T18:51:19.915-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -148,12 +148,12 @@
     {
       "key": "OFBI-5054",
       "summary": "Desabilitar a autenticação NTLM para estações de trabalho Windows",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Marcio Paulo",
+      "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-21T09:41:50.376-0300",
-      "updated": "2026-08-27T10:36:48.907-0300",
+      "updated": "2026-08-27T18:49:53.764-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -161,12 +161,12 @@
     {
       "key": "OFBI-5053",
       "summary": "Desabilitar JavaScript no Adobe DC",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Marcio Paulo",
+      "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-20T13:25:07.266-0300",
-      "updated": "2026-08-27T09:23:30.937-0300",
+      "updated": "2026-08-27T18:49:11.687-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

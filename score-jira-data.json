@@ -1,6 +1,6 @@
 {
   "periodo": "2026-08",
-  "gerado_em": "2026-08-27T19:27:24.278200",
+  "gerado_em": "2026-08-28T03:39:25.968757",
   "fonte": "Jira OFBI (projeto real): incidentes, mudanças e problemas",
   "kpis": {
     "mttr": {
@@ -14,14 +14,14 @@
       "amostra": 0
     },
     "volume_incidentes": {
-      "value": 89,
+      "value": 90,
       "unit": "qtd",
-      "amostra": 89
+      "amostra": 90
     },
     "sla_cumprido": {
-      "value": 8.99,
+      "value": 10.0,
       "unit": "%",
-      "amostra": 89
+      "amostra": 90
     },
     "sucesso_mudancas": {
       "value": 92.31,

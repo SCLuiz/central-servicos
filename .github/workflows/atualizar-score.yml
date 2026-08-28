@@ -38,7 +38,7 @@ jobs:
           from requests.auth import HTTPBasicAuth
           import json
           import os
-          from datetime import datetime
+          from datetime import datetime, timezone
 
           JIRA_URL = os.environ['JIRA_URL']
           JIRA_EMAIL = os.environ['JIRA_EMAIL']
@@ -46,7 +46,8 @@ jobs:
 
           auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
           headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-          period = datetime.now().strftime('%Y-%m')
+          now_utc = datetime.now(timezone.utc)
+          period = now_utc.strftime('%Y-%m')
 
           def parse_dt(s):
               if not s:
@@ -55,6 +56,9 @@ jobs:
                   return datetime.fromisoformat(s.replace('Z', '+00:00'))
               except ValueError:
                   return None
+
+          def status_category_key(status_field):
+              return ((status_field or {}).get('statusCategory') or {}).get('key', '')
 
           def search_all(jql, fields):
               issues = []
@@ -80,8 +84,10 @@ jobs:
           # ---------------------------------------------------------------
           # Pilar Incidentes + SLA e SLO
           # ---------------------------------------------------------------
-          RESOLVED_INCIDENT_STATUSES = {'Concluído com Sucesso'}
-          EXCLUDED_FROM_OPEN_INCIDENT = {'Concluído com Sucesso', 'Cancelado'}
+          # "Sucesso" continua sendo o nome literal do status (não tem como generalizar isso),
+          # mas "está concluído" e "ainda está aberto" agora usam statusCategory.key ('done' /
+          # 'new' / 'indeterminate'), que não quebra se alguém renomear um status no workflow do Jira.
+          SUCCESS_INCIDENT_STATUS = 'Concluído com Sucesso'
           CRITICAL_PRIORITIES = {'Highest', 'Crítico', 'Critical'}
 
           incident_issues = search_all(
@@ -98,6 +104,7 @@ jobs:
           for issue in incident_issues:
               f = issue.get('fields', {})
               status = (f.get('status') or {}).get('name', '')
+              status_cat = status_category_key(f.get('status'))
               priority = (f.get('priority') or {}).get('name', '')
               created_dt = parse_dt(f.get('created'))
               resolved_dt = parse_dt(f.get('resolutiondate'))
@@ -105,10 +112,10 @@ jobs:
               if created_dt and created_dt.strftime('%Y-%m') == period:
                   created_this_month += 1
 
-              if status in RESOLVED_INCIDENT_STATUSES and created_dt and resolved_dt and resolved_dt.strftime('%Y-%m') == period:
+              if status == SUCCESS_INCIDENT_STATUS and created_dt and resolved_dt and resolved_dt.strftime('%Y-%m') == period:
                   resolved_durations_h.append((resolved_dt - created_dt).total_seconds() / 3600)
 
-              if status not in EXCLUDED_FROM_OPEN_INCIDENT and priority in CRITICAL_PRIORITIES:
+              if status_cat != 'done' and priority in CRITICAL_PRIORITIES:
                   open_critical += 1
 
               sla = f.get('customfield_10096') or {}
@@ -136,7 +143,6 @@ jobs:
           # ---------------------------------------------------------------
           # Pilar Mudanças e GMUD
           # ---------------------------------------------------------------
-          CONCLUDED_CHANGE_STATUSES = {'Concluído com Sucesso', 'Cancelado'}
           SUCCESS_CHANGE_STATUS = 'Concluído com Sucesso'
 
           change_issues = search_all(
@@ -153,11 +159,12 @@ jobs:
           for issue in change_issues:
               f = issue.get('fields', {})
               status = (f.get('status') or {}).get('name', '')
+              status_cat = status_category_key(f.get('status'))
               categoria = (f.get('customfield_11106') or {}).get('value', '')
               causou_incidente = bool(f.get('customfield_11073'))
 
               total_changes += 1
-              if status in CONCLUDED_CHANGE_STATUSES:
+              if status_cat == 'done':
                   concluded_changes += 1
                   if status == SUCCESS_CHANGE_STATUS:
                       successful_changes += 1
@@ -246,7 +253,7 @@ jobs:
 
           score_data = {
               'periodo': period,
-              'gerado_em': datetime.now().isoformat(),
+              'gerado_em': now_utc.isoformat(),
               'fonte': 'Jira OFBI + HELP (projeto real): incidentes, mudanças, problemas e service desk',
               'kpis': kpis
           }

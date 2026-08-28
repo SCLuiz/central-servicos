@@ -1,0 +1,63 @@
+{
+  "version": "2026-08-28T19:25:27.496Z",
+  "revisadoPor": null,
+  "revisadoEm": null,
+  "pillars": [
+    { "id": "p_incidentes", "key": "incidentes", "name": "Incidentes", "weight": 20, "active": true, "order": 1 },
+    { "id": "p_sla", "key": "sla_slo", "name": "SLA e SLO", "weight": 18, "active": true, "order": 2 },
+    { "id": "p_disp", "key": "disponibilidade", "name": "Disponibilidade", "weight": 18, "active": true, "order": 3 },
+    { "id": "p_mud", "key": "mudancas", "name": "Mudanças e GMUD", "weight": 13, "active": true, "order": 4 },
+    { "id": "p_obs", "key": "observabilidade", "name": "Observabilidade", "weight": 8, "active": true, "order": 5 },
+    { "id": "p_mel", "key": "melhoria_continua", "name": "Melhoria Contínua", "weight": 8, "active": true, "order": 6 },
+    { "id": "p_sd", "key": "service_desk", "name": "Service Desk", "weight": 15, "active": true, "order": 7 }
+  ],
+  "kpis": [
+    { "id": "k_mttr", "pillarId": "p_incidentes", "key": "mttr", "name": "MTTR — Mean Time To Resolve", "direction": "lower", "unit": "horas", "target": 4, "weightInPillar": 40, "active": true, "period": "monthly" },
+    { "id": "k_mtta", "pillarId": "p_incidentes", "key": "mtta", "name": "MTTA — Mean Time To Acknowledge", "direction": "lower", "unit": "minutos", "target": 30, "weightInPillar": 20, "active": true, "period": "monthly" },
+    { "id": "k_inc_criticos", "pillarId": "p_incidentes", "key": "incidentes_criticos", "name": "Quantidade de Incidentes Críticos", "direction": "lower", "unit": "qtd", "target": 0, "weightInPillar": 25, "active": true, "period": "monthly" },
+    { "id": "k_inc_recorrentes", "pillarId": "p_incidentes", "key": "incidentes_recorrentes", "name": "Taxa de Incidentes Recorrentes", "direction": "lower", "unit": "%", "target": 5, "weightInPillar": 15, "active": true, "period": "monthly" },
+    { "id": "k_inc_volume", "pillarId": "p_incidentes", "key": "volume_incidentes", "name": "Volume de Incidentes", "direction": "lower", "unit": "qtd", "target": 50, "weightInPillar": 0, "active": false, "period": "monthly" },
+
+    { "id": "k_sla", "pillarId": "p_sla", "key": "sla_cumprido", "name": "Percentual de SLA Cumprido", "direction": "higher", "unit": "%", "target": 95, "weightInPillar": 60, "active": true, "period": "monthly" },
+    { "id": "k_slo", "pillarId": "p_sla", "key": "slo_cumprido", "name": "Percentual de SLO Cumprido", "direction": "higher", "unit": "%", "target": 95, "weightInPillar": 40, "active": true, "period": "monthly" },
+
+    { "id": "k_disp", "pillarId": "p_disp", "key": "disponibilidade_servicos", "name": "Disponibilidade dos Serviços", "direction": "higher", "unit": "%", "target": 99.5, "weightInPillar": 70, "active": true, "period": "monthly" },
+    { "id": "k_indisp_criticas", "pillarId": "p_disp", "key": "indisponibilidades_criticas", "name": "Quantidade de Indisponibilidades Críticas", "direction": "lower", "unit": "qtd", "target": 0, "weightInPillar": 30, "active": true, "period": "monthly" },
+
+    { "id": "k_sucesso_mud", "pillarId": "p_mud", "key": "sucesso_mudancas", "name": "Taxa de Sucesso das Mudanças", "direction": "higher", "unit": "%", "target": 95, "weightInPillar": 40, "active": true, "period": "monthly" },
+    { "id": "k_rollback", "pillarId": "p_mud", "key": "taxa_rollback", "name": "Taxa de Rollback", "direction": "lower", "unit": "%", "target": 5, "weightInPillar": 25, "active": true, "period": "monthly" },
+    { "id": "k_mud_emerg", "pillarId": "p_mud", "key": "mudancas_emergenciais", "name": "Percentual de Mudanças Emergenciais", "direction": "lower", "unit": "%", "target": 10, "weightInPillar": 15, "active": true, "period": "monthly" },
+    { "id": "k_mud_incid", "pillarId": "p_mud", "key": "mudancas_geraram_incidentes", "name": "Mudanças que Geraram Incidentes", "direction": "lower", "unit": "qtd", "target": 2, "weightInPillar": 20, "active": true, "period": "monthly" },
+
+    { "id": "k_cobertura", "pillarId": "p_obs", "key": "cobertura_monitoramento", "name": "Cobertura de Monitoramento", "direction": "higher", "unit": "%", "target": 90, "weightInPillar": 40, "active": true, "period": "monthly" },
+    { "id": "k_serv_alertas", "pillarId": "p_obs", "key": "servicos_com_alertas", "name": "Percentual de Serviços com Alertas Configurados", "direction": "higher", "unit": "%", "target": 90, "weightInPillar": 35, "active": true, "period": "monthly" },
+    { "id": "k_alertas_acion", "pillarId": "p_obs", "key": "alertas_acionaveis", "name": "Taxa de Alertas Acionáveis", "direction": "higher", "unit": "%", "target": 80, "weightInPillar": 25, "active": true, "period": "monthly" },
+
+    { "id": "k_prob_eliminados", "pillarId": "p_mel", "key": "problemas_recorrentes_eliminados", "name": "Problemas Recorrentes Eliminados", "direction": "higher", "unit": "qtd", "target": 5, "weightInPillar": 35, "active": true, "period": "monthly" },
+    { "id": "k_acoes_prazo", "pillarId": "p_mel", "key": "acoes_corretivas_prazo", "name": "Ações Corretivas Concluídas no Prazo", "direction": "higher", "unit": "%", "target": 90, "weightInPillar": 40, "active": true, "period": "monthly" },
+    { "id": "k_riscos_mitigados", "pillarId": "p_mel", "key": "riscos_mitigados", "name": "Riscos Mitigados", "direction": "higher", "unit": "qtd", "target": 3, "weightInPillar": 25, "active": true, "period": "monthly" },
+
+    { "id": "k_tma_sd", "pillarId": "p_sd", "key": "tma_service_desk", "name": "TMA — Tempo Médio de Atendimento", "direction": "lower", "unit": "horas", "target": 24, "weightInPillar": 35, "active": true, "period": "monthly" },
+    { "id": "k_sla_resolucao_sd", "pillarId": "p_sd", "key": "sla_resolucao_sd", "name": "% SLA de Resolução Cumprido", "direction": "higher", "unit": "%", "target": 95, "weightInPillar": 35, "active": true, "period": "monthly" },
+    { "id": "k_sla_resposta_sd", "pillarId": "p_sd", "key": "sla_primeira_resposta_sd", "name": "% SLA de Primeira Resposta Cumprido", "direction": "higher", "unit": "%", "target": 90, "weightInPillar": 30, "active": true, "period": "monthly" }
+  ],
+  "penalty_rules": [
+    { "id": "pr_p1", "name": "Incidente P1 Ativo", "description": "Existe pelo menos um incidente P1 em status aberto ou em andamento.", "type": "p1_incident_active", "points": 20, "priority": 1, "active": true, "params": {} },
+    { "id": "pr_indisp", "name": "Indisponibilidade Crítica", "description": "Existe indisponibilidade de serviço crítico.", "type": "critical_unavailability", "points": 15, "priority": 2, "active": true, "params": {} },
+    { "id": "pr_sla", "name": "Violação Crítica de SLA", "description": "Percentual de SLA abaixo de 80%.", "type": "sla_below_threshold", "points": 10, "priority": 3, "active": true, "params": { "kpiKey": "sla_cumprido", "threshold": 80 } },
+    { "id": "pr_mud", "name": "Mudança Crítica com Falha", "description": "Uma mudança crítica gerou indisponibilidade.", "type": "change_critical_failure", "points": 10, "priority": 4, "active": true, "params": {} }
+  ],
+  "classification_ranges": [
+    { "id": "excelente", "min": 90, "max": 100, "label": "EXCELENTE", "color": "#00875A" },
+    { "id": "saudavel", "min": 80, "max": 89.99, "label": "SAUDÁVEL", "color": "#36B37E" },
+    { "id": "atencao", "min": 70, "max": 79.99, "label": "ATENÇÃO", "color": "#FFAB00" },
+    { "id": "risco", "min": 60, "max": 69.99, "label": "RISCO OPERACIONAL", "color": "#FF5630" },
+    { "id": "critico", "min": 0, "max": 59.99, "label": "CRÍTICO", "color": "#DE350B" }
+  ],
+  "criticality_weights": [
+    { "level": "P1", "label": "Crítico", "multiplier": 1.5 },
+    { "level": "P2", "label": "Alto", "multiplier": 1.2 },
+    { "level": "P3", "label": "Médio", "multiplier": 1.0 },
+    { "level": "P4", "label": "Baixo", "multiplier": 0.7 }
+  ]
+}

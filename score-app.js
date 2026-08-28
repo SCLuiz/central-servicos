@@ -229,6 +229,17 @@
         var weightBanner = !result.weightsValid ?
             '<div class="banner banner-error">⚠️ A soma dos pesos não está em 100% (pilares: ' + fmt(result.pillarWeightSum, 2) + '%). O cálculo não pode ser publicado até corrigir em Configurações → Pilares/KPIs.</div>' : '';
 
+        var staleBanner = '';
+        var jiraInteg = db.integrations.filter(function (i) { return i.type === 'jira'; })[0];
+        if (jiraInteg && jiraInteg.lastSync) {
+            var hoursSinceSync = (Date.now() - new Date(jiraInteg.lastSync).getTime()) / 3600000;
+            if (hoursSinceSync > 2) {
+                staleBanner = '<div class="banner banner-error">⏱ Dados reais do Jira desatualizados há ' + fmt(hoursSinceSync, 1) +
+                    'h (última sincronização: ' + new Date(jiraInteg.lastSync).toLocaleString('pt-BR') +
+                    '). O workflow <code>atualizar-score.yml</code> pode estar falhando — verifique no GitHub Actions.</div>';
+            }
+        }
+
         var pillarsHtml = result.pillarResults.map(function (p) {
             var score = p.score === null ? '—' : fmt(p.score, 1);
             var cInfo = p.score === null ? { color: '#97A0AF' } : E.classify(p.score, db.classification_ranges);
@@ -254,7 +265,7 @@
             : '';
 
         return '' +
-            weightBanner +
+            weightBanner + staleBanner +
             '<div class="hero">' +
             '<div class="gauge" style="--pct:' + (noData ? 0 : Math.max(0, Math.min(100, result.finalScore))) + ';--gcolor:' + cls.color + '">' +
             '<div class="gauge-inner"><div class="gauge-score">' + (noData ? '—' : fmt(result.finalScore, 1)) + '</div><div class="gauge-max">/ 100</div></div></div>' +
@@ -286,7 +297,11 @@
                     id: p.pillar.id, name: p.pillar.name, weight: p.pillar.weight, score: p.score,
                     kpis: p.kpiBreakdown.map(function (kb) {
                         var entry = latestValueEntry(kb.kpi.id, period, state.serviceId);
-                        return { name: kb.kpi.name, value: kb.value, target: kb.kpi.target, unit: kb.kpi.unit, direction: kb.kpi.direction, weight: kb.kpi.weightInPillar, score: kb.score, source: entry ? entry.source : null };
+                        return {
+                            name: kb.kpi.name, value: kb.value, target: kb.kpi.target, unit: kb.kpi.unit, direction: kb.kpi.direction,
+                            weight: kb.kpi.weightInPillar, score: kb.score, source: entry ? entry.source : null,
+                            sampleSize: entry ? entry.sampleSize : null
+                        };
                     })
                 };
             })) + '</\script>';
@@ -296,13 +311,16 @@
         var raw = JSON.parse(document.getElementById('pillarData').textContent);
         var p = raw.filter(function (x) { return x.id === pillarId; })[0];
         if (!p) return;
+        var LOW_SAMPLE = 10;
         var rows = p.kpis.map(function (k) {
+            var lowSample = k.sampleSize !== null && k.sampleSize !== undefined && k.sampleSize > 0 && k.sampleSize < LOW_SAMPLE;
             return '<tr><td>' + escapeHtml(k.name) + '</td><td>' + (k.direction === 'higher' ? '↑ maior melhor' : '↓ menor melhor') + '</td>' +
                 '<td>' + (k.value === null ? '—' : fmt(k.value, 2) + ' ' + escapeHtml(k.unit)) + '</td>' +
                 '<td>' + fmt(k.target, 2) + ' ' + escapeHtml(k.unit) + '</td>' +
                 '<td>' + fmt(k.weight, 0) + '%</td>' +
                 '<td><b>' + (k.score === null ? '—' : fmt(k.score, 1)) + '</b></td>' +
-                '<td>' + (k.source ? sourceLabel(k.source) : '<span class="muted">sem dado</span>') + '</td></tr>';
+                '<td>' + (k.source ? sourceLabel(k.source) : '<span class="muted">sem dado</span>') +
+                (lowSample ? '<br><span class="pill-note">⚠ poucos registros (' + k.sampleSize + ')</span>' : '') + '</td></tr>';
         }).join('');
         document.getElementById('pillarModalBody').innerHTML =
             '<h3>' + escapeHtml(p.name) + ' — Score ' + (p.score === null ? '—' : fmt(p.score, 1)) + ' (peso ' + fmt(p.weight, 0) + '% do geral)</h3>' +
@@ -613,8 +631,13 @@
             return '<tr><td>' + c.level + ' — ' + escapeHtml(c.label) + '</td><td>×' + fmt(c.multiplier, 1) + '</td></tr>';
         }).join('');
 
+        var reviewNote = db.meta.configRevisadoPor
+            ? '<div class="method-note">✓ Configuração revisada por ' + escapeHtml(db.meta.configRevisadoPor) + ' em ' + new Date(db.meta.configRevisadoEm).toLocaleString('pt-BR') + '.</div>'
+            : '<div class="banner banner-error">⚠️ Pesos e metas abaixo ainda não foram formalmente revisados pelo Comitê de Operações — são pontos de partida (ver Configurações → Backup).</div>';
+
         return '<h3 class="section-title">Como o Score de Operações é calculado</h3>' +
             '<p class="muted">Esta página é gerada automaticamente a partir da configuração atual do sistema — se pesos, metas ou penalidades mudarem em Configurações, esta explicação muda junto.</p>' +
+            reviewNote +
 
             '<h4 class="section-title">1. Fórmula geral</h4>' +
             '<div class="formula-box">' +
@@ -781,7 +804,21 @@
     }
 
     function renderConfigBackup() {
-        return '<p class="muted">Todos os dados ficam salvos no navegador (localStorage). Exporte periodicamente para não perder o histórico.</p>' +
+        var reviewed = !!db.meta.configRevisadoPor;
+        var reviewBanner = reviewed
+            ? '<div class="banner banner-info">✓ Configuração revisada por <b>' + escapeHtml(db.meta.configRevisadoPor) + '</b> em ' + new Date(db.meta.configRevisadoEm).toLocaleString('pt-BR') + '.</div>'
+            : '<div class="banner banner-error">⚠️ Esta configuração (pesos, metas, penalidades) ainda não foi formalmente revisada por ninguém além de quem a definiu. Os valores são pontos de partida, não aprovação do Comitê de Operações.</div>';
+
+        return reviewBanner +
+            '<h4 class="section-title">Configuração Compartilhada</h4>' +
+            '<p class="muted">Pesos, metas, penalidades e classificação ficam salvos no seu navegador (localStorage) até serem exportados aqui. ' +
+            'Enquanto o arquivo <code>score-config.json</code> do repositório não for atualizado, <b>outras pessoas continuam vendo a versão anterior</b> — ' +
+            'suas edições no Config só valem oficialmente depois de exportar e commitar este arquivo.</p>' +
+            '<button class="btn btn-primary" data-action="export-shared-config">Exportar Configuração Compartilhada (score-config.json)</button> ' +
+            (canEdit() ? '<button class="btn btn-secondary" data-action="mark-config-reviewed">Marcar como revisado</button>' : '') +
+
+            '<h4 class="section-title">Backup completo (todos os dados)</h4>' +
+            '<p class="muted">Inclui valores de KPI, histórico de cálculos, alertas e auditoria — não só a configuração.</p>' +
             '<button class="btn btn-secondary" data-action="export-json">Exportar JSON</button> ' +
             '<label class="btn btn-secondary" style="cursor:pointer">Importar JSON<input type="file" id="importJsonFile" accept=".json" style="display:none"></label> ' +
             (canEdit() ? '<button class="btn btn-link" data-action="reset-seed">Restaurar dados de exemplo</button>' : '');
@@ -853,6 +890,8 @@
         if (action === 'show-pillar-history') { showPillarHistory(target.dataset.id); return; }
         if (action === 'run-tests') { runTests(); return; }
         if (action === 'export-json') { downloadExport(); return; }
+        if (action === 'export-shared-config') { downloadSharedConfig(); return; }
+        if (action === 'mark-config-reviewed') { markConfigReviewed(); return; }
         if (action === 'reset-seed') {
             if (!confirm('Isso substitui todos os dados atuais pelos dados de exemplo. Continuar?')) return;
             db = S.resetToSeed(); render(); toast('Dados de exemplo restaurados.');
@@ -962,6 +1001,20 @@
             items.map(function (h) { return '<tr><td>' + fmt(h.weight, 0) + '%</td><td>' + new Date(h.changedAt).toLocaleString('pt-BR') + '</td><td>' + escapeHtml(h.changedBy) + '</td></tr>'; }).join('') + '</tbody></table>';
     }
 
+    function syncSharedConfig() {
+        return fetch('score-config.json?t=' + Date.now())
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (config) {
+                if (!config || !config.version) return;
+                if (config.version === db.meta.configSyncedVersion) return; // já sincronizado, não sobrescreve edições locais não exportadas
+                S.applySharedConfig(db, config);
+                persist();
+                render();
+                toast('Configuração compartilhada sincronizada (versão ' + new Date(config.version).toLocaleString('pt-BR') + ').');
+            })
+            .catch(function () { /* offline ou score-config.json ainda não existe: mantém config local */ });
+    }
+
     function syncJiraIntegration() {
         fetch('score-jira-data.json?t=' + Date.now())
             .then(function (r) { return r.ok ? r.json() : null; })
@@ -981,7 +1034,8 @@
                     db.kpi_values.push({
                         id: S.uid('kv'), kpiId: kpiId, period: period, periodType: 'monthly', value: entry.value, serviceId: null,
                         observation: 'Sincronizado automaticamente do Jira (' + (data.fonte || 'OFBI') + ')' + (entry.amostra !== undefined ? ' · amostra: ' + entry.amostra : ''),
-                        source: 'integration', createdAt: S.nowIso(), createdBy: 'Integração Jira'
+                        source: 'integration', sampleSize: entry.amostra !== undefined ? entry.amostra : null,
+                        createdAt: S.nowIso(), createdBy: 'Integração Jira'
                     });
                     changed = true;
                 });
@@ -995,6 +1049,30 @@
                 }
             })
             .catch(function () { /* offline, CORS local (file://) ou arquivo ainda não gerado: mantém os dados que já existem */ });
+    }
+
+    function downloadSharedConfig() {
+        var config = S.buildSharedConfig(db);
+        db.meta.configSyncedVersion = config.version; // este navegador já está "sincronizado" com o que acabou de exportar
+        persist();
+        var blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'score-config.json';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast('Baixado. Substitua score-config.json na raiz do repositório e faça commit para tornar oficial para todos.');
+    }
+
+    function markConfigReviewed() {
+        var name = prompt('Nome de quem está revisando esta configuração:', (db.meta.currentUser || {}).name || '');
+        if (!name) return;
+        db.meta.configRevisadoPor = name;
+        db.meta.configRevisadoEm = S.nowIso();
+        S.audit(db, 'config', null, 'mark_reviewed', null, { revisadoPor: name });
+        persist();
+        toast('Marcado como revisado. Exporte a Configuração Compartilhada para tornar isso visível para todos.');
+        render();
     }
 
     function downloadExport() {
@@ -1044,7 +1122,7 @@
             if (e.target.id === 'penaltyForm') return submitPenaltyForm(e.target);
         });
         render();
-        syncJiraIntegration();
+        syncSharedConfig().then(syncJiraIntegration);
     }
 
     function submitManualForm(form) {

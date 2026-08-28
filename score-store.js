@@ -54,7 +54,8 @@
             meta: {
                 version: 1, orgName: 'Open Finance Brasil', createdAt: nowIso(), updatedAt: nowIso(),
                 currentUser: { id: 'u_admin', name: 'Luiz Santos', role: 'ADMINISTRADOR' },
-                settings: { calcFrequency: 'monthly', autoRecalc: true, defaultPeriodType: 'monthly' }
+                settings: { calcFrequency: 'monthly', autoRecalc: true, defaultPeriodType: 'monthly' },
+                configSyncedVersion: null, configRevisadoPor: null, configRevisadoEm: null
             },
             users: [
                 { id: 'u_admin', name: 'Luiz Santos', role: 'ADMINISTRADOR' },
@@ -229,6 +230,39 @@
         return JSON.stringify(getDb(), null, 2);
     }
 
+    // ---------------------------------------------------------------------
+    // Configuração compartilhada (score-config.json) — ver score-config.json
+    // e Kraken/Projetos/Operations Health Score.md no Obsidian para o porquê:
+    // pesos/metas/penalidades ficavam só no localStorage de cada navegador,
+    // então cada pessoa via um Score diferente. Este arquivo é a fonte de
+    // verdade compartilhada; localStorage vira só um cache local dela.
+    // ---------------------------------------------------------------------
+    function buildSharedConfig(db) {
+        return {
+            version: nowIso(),
+            revisadoPor: db.meta.configRevisadoPor || null,
+            revisadoEm: db.meta.configRevisadoEm || null,
+            pillars: db.pillars,
+            kpis: db.kpis,
+            penalty_rules: db.penalty_rules,
+            classification_ranges: db.classification_ranges,
+            criticality_weights: db.criticality_weights
+        };
+    }
+
+    function applySharedConfig(db, config) {
+        if (!config || !config.version) return db;
+        db.pillars = config.pillars || db.pillars;
+        db.kpis = config.kpis || db.kpis;
+        db.penalty_rules = config.penalty_rules || db.penalty_rules;
+        db.classification_ranges = config.classification_ranges || db.classification_ranges;
+        db.criticality_weights = config.criticality_weights || db.criticality_weights;
+        db.meta.configSyncedVersion = config.version;
+        db.meta.configRevisadoPor = config.revisadoPor || null;
+        db.meta.configRevisadoEm = config.revisadoEm || null;
+        return db;
+    }
+
     function importJson(text) {
         var db = JSON.parse(text);
         if (!db || !db.meta || !db.pillars) throw new Error('Arquivo não corresponde ao formato do banco de Score.');
@@ -241,6 +275,7 @@
         uid: uid, nowIso: nowIso,
         getDb: getDb, save: save, seedDb: seedDb, resetToSeed: resetToSeed,
         audit: audit, pushAlert: pushAlert,
-        exportJson: exportJson, importJson: importJson
+        exportJson: exportJson, importJson: importJson,
+        buildSharedConfig: buildSharedConfig, applySharedConfig: applySharedConfig
     };
 })(window);

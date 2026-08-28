@@ -1,7 +1,33 @@
 {
-  "ultima_atualizacao": "2026-08-28T04:29:35.108622",
-  "total": 57,
+  "ultima_atualizacao": "2026-08-28T15:34:36.441181",
+  "total": 59,
   "mudancas": [
+    {
+      "key": "OFBI-5095",
+      "summary": "Solicitação de Mudanças - Enable 'Hide Option to Enable or Disable Updates'",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-28T11:47:15.145-0300",
+      "updated": "2026-08-28T11:48:34.952-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-5092",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Enable 'Block third party cookies'",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-08-28T11:07:11.741-0300",
+      "updated": "2026-08-28T11:09:28.653-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5079",
       "summary": "Solicitação de Mudanças",

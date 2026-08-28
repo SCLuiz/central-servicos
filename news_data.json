@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5095",
+    "title": "OFBI-5095 - Solicitação de Mudanças - Enable 'Hide Option to Enable or Disable Updates'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "28/08/2026 11:48",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5092",
+    "title": "OFBI-5092 - Solicitação de Mudanças - Microsoft Secure Score - Enable 'Block third party cookies'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "28/08/2026 11:09",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5064",
     "title": "OFBI-5064 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -86,27 +108,5 @@
     "status_dot": "dot-info",
     "date": "27/08/2026 18:52",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5061"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5060",
-    "title": "OFBI-5060 - Bloquear conexões de rede de saída do Microsoft HTML Application Host (mshta.exe)",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 18:51",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5060"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5054",
-    "title": "OFBI-5054 - Desabilitar a autenticação NTLM para estações de trabalho Windows",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 18:49",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5054"
   }
 ]

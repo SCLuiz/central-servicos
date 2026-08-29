@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-08-28T19:29:25.322412",
+  "ultima_atualizacao": "2026-08-29T00:46:25.118521",
   "total": 59,
   "mudancas": [
     {
@@ -33,10 +33,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-26T12:50:52.339-0300",
-      "updated": "2026-08-27T18:59:17.840-0300",
+      "updated": "2026-08-28T17:07:41.609-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -109,12 +109,12 @@
     {
       "key": "OFBI-5065",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:28:17.130-0300",
-      "updated": "2026-08-27T19:40:12.226-0300",
+      "updated": "2026-08-28T17:07:25.029-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -122,12 +122,12 @@
     {
       "key": "OFBI-5064",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-08-25T11:17:42.169-0300",
-      "updated": "2026-08-27T19:40:14.221-0300",
+      "updated": "2026-08-28T17:07:12.012-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

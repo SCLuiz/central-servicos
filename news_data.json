@@ -1,6 +1,83 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5068",
+    "title": "OFBI-5068 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:27",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5068"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5065",
+    "title": "OFBI-5065 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:22",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5065"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5069",
+    "title": "OFBI-5069 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:03",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5069"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5095",
+    "title": "OFBI-5095 - Solicitação de Mudanças - Ocultar a opção de ativar ou desativar atualizações",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:01",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5092",
+    "title": "OFBI-5092 - Microsoft Secure Score - Bloquear cookies de terceiros",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:01",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5076",
+    "title": "OFBI-5076 - Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 12:01",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5106",
+    "title": "OFBI-5106 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "01/09/2026 11:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5079",
     "title": "OFBI-5079 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -12,101 +89,24 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5065",
-    "title": "OFBI-5065 - Solicitação de Mudanças",
+    "key": "OFBI-5067",
+    "title": "OFBI-5067 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "28/08/2026 17:07",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5065"
+    "date": "27/08/2026 16:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5067"
   },
   {
     "source": "Jira",
-    "key": "OFBI-5064",
-    "title": "OFBI-5064 - Solicitação de Mudanças",
+    "key": "OFBI-5059",
+    "title": "OFBI-5059 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "28/08/2026 17:07",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5064"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5095",
-    "title": "OFBI-5095 - Solicitação de Mudanças - Enable 'Hide Option to Enable or Disable Updates'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "28/08/2026 11:48",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5092",
-    "title": "OFBI-5092 - Solicitação de Mudanças - Microsoft Secure Score - Enable 'Block third party cookies'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "28/08/2026 11:09",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5068",
-    "title": "OFBI-5068 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 19:40",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5068"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5069",
-    "title": "OFBI-5069 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 19:40",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5069"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5076",
-    "title": "OFBI-5076 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Enforce password history' to '24 or more password(s)'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 18:56",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5066",
-    "title": "OFBI-5066 - Grupos dinâmicos para MFA no Entra ID",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 18:54",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5066"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5061",
-    "title": "OFBI-5061 - Desabilitar \"Enumerar contas de administrador na elevação\"",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "27/08/2026 18:52",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5061"
+    "date": "27/08/2026 16:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5059"
   }
 ]

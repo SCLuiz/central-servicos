@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-01T18:07:49.633366",
+  "ultima_atualizacao": "2026-09-01T20:59:40.981639",
   "total": 60,
   "mudancas": [
     {
@@ -10,7 +10,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-01T11:58:53.554-0300",
-      "updated": "2026-09-01T11:59:15.663-0300",
+      "updated": "2026-09-01T17:58:58.591-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -70,12 +70,12 @@
     {
       "key": "OFBI-5069",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Felipe Belisário",
       "reporter": "Felipe Belisário",
       "created": "2026-08-25T13:15:38.261-0300",
-      "updated": "2026-09-01T12:03:32.170-0300",
+      "updated": "2026-09-01T17:49:03.369-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -239,12 +239,12 @@
     {
       "key": "OFBI-5044",
       "summary": "Implementação Release 2.6.0",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-18T09:21:43.195-0300",
-      "updated": "2026-09-01T13:25:21.357-0300",
+      "updated": "2026-09-01T17:49:40.084-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

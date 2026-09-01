@@ -1,25 +1,14 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5044",
-    "title": "OFBI-5044 - Implementação Release 2.6.0",
+    "key": "OFBI-5106",
+    "title": "OFBI-5106 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
+    "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "01/09/2026 13:25",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5044"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5069",
-    "title": "OFBI-5069 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 12:03",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5069"
+    "date": "01/09/2026 17:58",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
   },
   {
     "source": "Jira",
@@ -53,17 +42,6 @@
     "status_dot": "dot-info",
     "date": "01/09/2026 12:01",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5106",
-    "title": "OFBI-5106 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 11:59",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
   },
   {
     "source": "Jira",

@@ -1,6 +1,61 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5076",
+    "title": "OFBI-5076 - Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 13:59",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5122",
+    "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 13:37",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5121",
+    "title": "OFBI-5121 - Solicitação de Mudanças-  Microsoft Secure Score - Disable the local storage of passwords and credentials",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 11:57",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5121"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5120",
+    "title": "OFBI-5120 - Solicitação de Mudanças -  Microsoft Secure Score -Disable 'Allow Basic authentication' for WinRM Client",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 11:08",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5120"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5119",
+    "title": "OFBI-5119 - Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 10:31",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5106",
     "title": "OFBI-5106 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -31,27 +86,5 @@
     "status_dot": "dot-info",
     "date": "01/09/2026 12:01",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5076",
-    "title": "OFBI-5076 - Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 12:01",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5079",
-    "title": "OFBI-5079 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "28/08/2026 17:07",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5079"
   }
 ]

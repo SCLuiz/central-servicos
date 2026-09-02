@@ -1,7 +1,46 @@
 {
-  "ultima_atualizacao": "2026-09-02T14:00:18.758611",
-  "total": 61,
+  "ultima_atualizacao": "2026-09-02T17:50:09.758275",
+  "total": 64,
   "mudancas": [
+    {
+      "key": "OFBI-5122",
+      "summary": "Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-02T13:36:10.350-0300",
+      "updated": "2026-09-02T13:37:23.382-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-5121",
+      "summary": "Solicitação de Mudanças-  Microsoft Secure Score - Disable the local storage of passwords and credentials",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-02T11:53:50.511-0300",
+      "updated": "2026-09-02T11:57:36.036-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-5120",
+      "summary": "Solicitação de Mudanças -  Microsoft Secure Score -Disable 'Allow Basic authentication' for WinRM Client",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-02T11:06:52.988-0300",
+      "updated": "2026-09-02T11:08:27.986-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5119",
       "summary": "Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
@@ -57,12 +96,12 @@
     {
       "key": "OFBI-5079",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Cancelado",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-08-26T12:50:52.339-0300",
-      "updated": "2026-08-28T17:07:41.609-0300",
+      "updated": "2026-09-02T13:58:23.431-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -75,7 +114,7 @@
       "assignee": "Marcos Santana",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-26T09:34:54.118-0300",
-      "updated": "2026-09-01T12:01:27.615-0300",
+      "updated": "2026-09-02T13:59:24.222-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

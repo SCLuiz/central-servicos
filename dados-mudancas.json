@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "2026-09-02T09:54:41.859876",
-  "total": 60,
+  "ultima_atualizacao": "2026-09-02T14:00:18.758611",
+  "total": 61,
   "mudancas": [
+    {
+      "key": "OFBI-5119",
+      "summary": "Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-02T10:29:25.677-0300",
+      "updated": "2026-09-02T10:31:49.708-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5106",
       "summary": "Solicitação de Mudanças",

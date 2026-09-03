@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-03T16:38:32.330194",
+  "ultima_atualizacao": "2026-09-03T16:44:46.832060",
   "total": 65,
   "mudancas": [
     {
@@ -94,7 +94,7 @@
       "assignee": "Marcos Santana",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-28T11:47:15.145-0300",
-      "updated": "2026-09-03T13:36:34.567-0300",
+      "updated": "2026-09-03T13:39:14.695-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

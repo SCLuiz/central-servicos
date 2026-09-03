@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-09-03T19:56:21.735315",
+  "ultima_atualizacao": "2026-09-03T22:17:44.539233",
   "total": 66,
   "mudancas": [
     {
       "key": "OFBI-5134",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Jonas Alexandre",
+      "assignee": "Adolfo Kawiatkowski Neto",
       "reporter": "Jonas Alexandre",
       "created": "2026-09-03T15:24:55.950-0300",
-      "updated": "2026-09-03T15:34:32.004-0300",
+      "updated": "2026-09-03T17:33:19.020-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

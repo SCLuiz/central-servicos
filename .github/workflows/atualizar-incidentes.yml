@@ -40,6 +40,14 @@ jobs:
           import os
           from datetime import datetime
 
+          def parse_dt(s):
+              if not s:
+                  return None
+              try:
+                  return datetime.fromisoformat(s)
+              except ValueError:
+                  return None
+
           JIRA_URL = os.environ['JIRA_URL']
           JIRA_EMAIL = os.environ['JIRA_EMAIL']
           JIRA_API_TOKEN = os.environ['JIRA_API_TOKEN']
@@ -68,6 +76,7 @@ jobs:
                   'jql': jql,
                   'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'resolutiondate',
                              'customfield_10238', 'customfield_10248', 'customfield_10096'],
+                  'expand': 'changelog',
                   'maxResults': max_results,
               }
               if next_page_token:
@@ -131,6 +140,28 @@ jobs:
                           et = last.get('elapsedTime') or {}
                           sla_elapsed = et.get('friendly')
 
+                  # MTTA: tempo da criacao ate a primeira mudanca de status (primeiro
+                  # sinal de que alguem comecou a tratar o incidente). O SLA nativo do
+                  # Jira "Tempo ate a primeira resposta" nunca e iniciado neste workflow
+                  # (completedCycles sempre vazio, inclusive em tickets ja resolvidos),
+                  # entao usamos o changelog como fonte real de dado.
+                  tma_seconds = None
+                  created_dt = parse_dt(fields.get('created'))
+                  histories = (issue.get('changelog') or {}).get('histories', [])
+                  status_changes = []
+                  for h in histories:
+                      h_dt = parse_dt(h.get('created'))
+                      if not h_dt:
+                          continue
+                      for it in h.get('items', []):
+                          if it.get('field') == 'status':
+                              status_changes.append(h_dt)
+                              break
+                  if created_dt and status_changes:
+                      first_change = min(status_changes)
+                      if first_change >= created_dt:
+                          tma_seconds = (first_change - created_dt).total_seconds()
+
                   incidentes.append({
                       'key': key,
                       'summary': fields.get('summary', ''),
@@ -148,6 +179,7 @@ jobs:
                       'sla_breach_time': sla_breach_time,
                       'sla_elapsed': sla_elapsed,
                       'sla_remaining': sla_remaining,
+                      'tma_seconds': tma_seconds,
                   })
 
               next_page_token = data.get('nextPageToken')

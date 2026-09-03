@@ -1,6 +1,39 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5092",
+    "title": "OFBI-5092 - Microsoft Secure Score - Bloquear cookies de terceiros",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "03/09/2026 10:42",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5095",
+    "title": "OFBI-5095 - Solicitação de Mudanças - Ocultar a opção de ativar ou desativar atualizações",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "03/09/2026 09:36",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5106",
+    "title": "OFBI-5106 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "03/09/2026 09:35",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5076",
     "title": "OFBI-5076 - Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
     "type_name": "Mudança",
@@ -53,38 +86,5 @@
     "status_dot": "dot-info",
     "date": "02/09/2026 10:31",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5106",
-    "title": "OFBI-5106 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 17:58",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5095",
-    "title": "OFBI-5095 - Solicitação de Mudanças - Ocultar a opção de ativar ou desativar atualizações",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 12:01",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5092",
-    "title": "OFBI-5092 - Microsoft Secure Score - Bloquear cookies de terceiros",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "01/09/2026 12:01",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
   }
 ]

@@ -64,7 +64,7 @@ jobs:
           while True:
               payload = {
                   'jql': jql,
-                  'fields': ['summary', 'status', 'created', 'updated', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_11106'],
+                  'fields': ['summary', 'status', 'created', 'updated', 'resolutiondate', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_11106'],
                   'maxResults': max_results
               }
               if next_page_token:
@@ -118,6 +118,7 @@ jobs:
                       'reporter': reporter.get('displayName', '') if reporter else '',
                       'created': fields.get('created', ''),
                       'updated': fields.get('updated', ''),
+                      'resolution_date': fields.get('resolutiondate', None),
                       'labels': fields.get('labels', []),
                       'causouIncidente': fields.get('customfield_11073', False),
                       'categoria': categoria_value,

@@ -2439,7 +2439,6 @@
             }
 
             function isSysAidTicket(i) {
-                if (i.summary && i.summary.includes('SysAid')) return true;
                 if (i.key) {
                     const match = i.key.match(/OFBI-(\d+)/);
                     if (match) {

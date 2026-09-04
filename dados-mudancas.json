@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-04T13:23:31.096987",
+  "ultima_atualizacao": "2026-09-04T16:54:32.194533",
   "total": 66,
   "mudancas": [
     {
@@ -7,10 +7,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Andressa Amaral",
       "reporter": "Jonas Alexandre",
       "created": "2026-09-03T15:24:55.950-0300",
-      "updated": "2026-09-03T17:33:19.020-0300",
+      "updated": "2026-09-04T11:56:57.521-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-04T19:15:10.463064",
-  "total": 66,
+  "ultima_atualizacao": "2026-09-04T21:31:59.675694",
+  "total": 67,
   "mudancas": [
+    {
+      "key": "OFBI-5145",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Adolfo Kawiatkowski Neto",
+      "reporter": "Thomas Rabelo",
+      "created": "2026-09-04T16:40:46.224-0300",
+      "updated": "2026-09-04T17:44:05.815-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-5134",
       "summary": "Solicitação de Mudanças",
@@ -91,10 +105,10 @@
       "summary": "Solicitação de Mudanças",
       "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Adolfo Kawiatkowski Neto",
+      "assignee": "Luiz Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-01T11:58:53.554-0300",
-      "updated": "2026-09-04T15:55:57.782-0300",
+      "updated": "2026-09-04T17:45:28.018-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

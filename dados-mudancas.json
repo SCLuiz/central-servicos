@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-04T21:31:59.675694",
+  "ultima_atualizacao": "2026-09-04T23:13:52.037017",
   "total": 67,
   "mudancas": [
     {
@@ -24,7 +24,7 @@
       "assignee": "Jonas Alexandre",
       "reporter": "Jonas Alexandre",
       "created": "2026-09-03T15:24:55.950-0300",
-      "updated": "2026-09-04T14:57:57.855-0300",
+      "updated": "2026-09-04T18:50:50.350-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

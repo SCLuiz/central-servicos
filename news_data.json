@@ -1,13 +1,24 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5122",
+    "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "04/09/2026 14:58",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5134",
     "title": "OFBI-5134 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "04/09/2026 11:44",
+    "date": "04/09/2026 14:57",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5134"
   },
   {
@@ -64,17 +75,6 @@
     "status_dot": "dot-info",
     "date": "02/09/2026 13:59",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5122",
-    "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "02/09/2026 13:37",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
   },
   {
     "source": "Jira",

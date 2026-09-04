@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5134",
+    "title": "OFBI-5134 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "04/09/2026 18:50",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5134"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5106",
     "title": "OFBI-5106 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -31,17 +42,6 @@
     "status_dot": "dot-info",
     "date": "04/09/2026 14:58",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5134",
-    "title": "OFBI-5134 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "04/09/2026 14:57",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5134"
   },
   {
     "source": "Jira",

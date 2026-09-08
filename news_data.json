@@ -1,25 +1,47 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5134",
-    "title": "OFBI-5134 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "04/09/2026 18:50",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5134"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5106",
     "title": "OFBI-5106 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "08/09/2026 12:01",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5095",
+    "title": "OFBI-5095 - Solicitação de Mudanças - Ocultar a opção de ativar ou desativar atualizações",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "08/09/2026 11:48",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5092",
+    "title": "OFBI-5092 - Microsoft Secure Score - Bloquear cookies de terceiros",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "08/09/2026 11:47",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5130",
+    "title": "OFBI-5130 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
     "status_name": "Aguardando CAB",
     "status_dot": "dot-info",
-    "date": "04/09/2026 17:45",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5106"
+    "date": "08/09/2026 11:40",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5130"
   },
   {
     "source": "Jira",
@@ -27,9 +49,9 @@
     "title": "OFBI-5145 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "04/09/2026 17:44",
+    "date": "08/09/2026 11:40",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5145"
   },
   {
@@ -42,50 +64,6 @@
     "status_dot": "dot-info",
     "date": "04/09/2026 14:58",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5130",
-    "title": "OFBI-5130 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "03/09/2026 16:17",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5130"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5095",
-    "title": "OFBI-5095 - Solicitação de Mudanças - Ocultar a opção de ativar ou desativar atualizações",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "03/09/2026 13:39",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5095"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5092",
-    "title": "OFBI-5092 - Microsoft Secure Score - Bloquear cookies de terceiros",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "03/09/2026 10:42",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5092"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5076",
-    "title": "OFBI-5076 - Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "02/09/2026 13:59",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5076"
   },
   {
     "source": "Jira",
@@ -108,5 +86,16 @@
     "status_dot": "dot-info",
     "date": "02/09/2026 11:08",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5120"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5119",
+    "title": "OFBI-5119 - Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/09/2026 10:31",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
   }
 ]

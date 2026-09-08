@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-08T09:00:08.362445",
+  "ultima_atualizacao": "2026-09-08T13:29:12.340321",
   "total": 66,
   "mudancas": [
     {
@@ -159,13 +159,13 @@
     {
       "key": "OFBI-5076",
       "summary": "Microsoft Secure Score - Aplicação de Política de Histórico de Senhas",
-      "status": "Aguardando CAB",
+      "status": "Cancelado",
       "priority": "Low",
       "assignee": "Marcos Santana",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-08-26T09:34:54.118-0300",
-      "updated": "2026-09-02T13:59:24.222-0300",
-      "resolution_date": null,
+      "updated": "2026-09-08T09:12:48.020-0300",
+      "resolution_date": "2026-09-08T09:12:47.994-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

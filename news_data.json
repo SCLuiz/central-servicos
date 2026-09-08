@@ -1,6 +1,28 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5119",
+    "title": "OFBI-5119 - Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "08/09/2026 16:06",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5145",
+    "title": "OFBI-5145 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "08/09/2026 13:46",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5145"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5106",
     "title": "OFBI-5106 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -45,17 +67,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5145",
-    "title": "OFBI-5145 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "08/09/2026 11:40",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5145"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5122",
     "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
     "type_name": "Mudança",
@@ -86,16 +97,5 @@
     "status_dot": "dot-info",
     "date": "02/09/2026 11:08",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5120"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5119",
-    "title": "OFBI-5119 - Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "02/09/2026 10:31",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
   }
 ]

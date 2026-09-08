@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-08T17:22:42.792101",
+  "ultima_atualizacao": "2026-09-08T19:58:50.049429",
   "total": 66,
   "mudancas": [
     {
@@ -52,7 +52,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-02T13:36:10.350-0300",
-      "updated": "2026-09-04T14:58:43.109-0300",
+      "updated": "2026-09-08T16:50:10.711-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -94,7 +94,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-02T10:29:25.677-0300",
-      "updated": "2026-09-02T10:31:49.708-0300",
+      "updated": "2026-09-08T16:54:15.110-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

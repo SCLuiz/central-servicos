@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-09T19:56:08.191430",
-  "total": 68,
+  "ultima_atualizacao": "2026-09-09T22:15:41.433462",
+  "total": 69,
   "mudancas": [
+    {
+      "key": "OFBI-5167",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-09-09T17:20:07.554-0300",
+      "updated": "2026-09-09T18:08:59.305-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-5160",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Set 'Interactive logon: Machine inactivity limit' to '1-900 seconds'",

@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-09T21:46:08.525977",
+  "ultima_atualizacao": "2026-09-09T23:33:16.801900",
   "total": 225,
   "incidentes": [
     {
@@ -12,7 +12,7 @@
       "assignee": "Andressa Amaral",
       "reporter": "Paloma Silva",
       "created": "2026-09-08T13:43:00.185-0300",
-      "updated": "2026-09-09T09:01:09.003-0300",
+      "updated": "2026-09-09T20:28:04.874-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,

@@ -5,9 +5,9 @@
     "title": "OFBI-5167 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "09/09/2026 18:08",
+    "date": "10/09/2026 11:49",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5167"
   },
   {
@@ -16,21 +16,10 @@
     "title": "OFBI-5120 - Solicitação de Mudanças -  Microsoft Secure Score -Disable 'Allow Basic authentication' for WinRM Client",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
+    "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "09/09/2026 14:49",
+    "date": "10/09/2026 10:37",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5120"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5130",
-    "title": "OFBI-5130 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "09/09/2026 14:48",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5130"
   },
   {
     "source": "Jira",

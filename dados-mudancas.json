@@ -1,17 +1,17 @@
 {
-  "ultima_atualizacao": "2026-09-11T11:36:07.523679",
+  "ultima_atualizacao": "2026-09-11T15:10:20.721585",
   "total": 69,
   "mudancas": [
     {
       "key": "OFBI-5167",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-09T17:20:07.554-0300",
-      "updated": "2026-09-10T17:38:09.413-0300",
-      "resolution_date": null,
+      "updated": "2026-09-11T09:31:53.404-0300",
+      "resolution_date": "2026-09-11T09:31:53.382-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"
@@ -117,13 +117,13 @@
     {
       "key": "OFBI-5120",
       "summary": "Solicitação de Mudanças -  Microsoft Secure Score -Disable 'Allow Basic authentication' for WinRM Client",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-02T11:06:52.988-0300",
-      "updated": "2026-09-10T10:37:08.075-0300",
-      "resolution_date": null,
+      "updated": "2026-09-11T09:32:10.393-0300",
+      "resolution_date": "2026-09-11T09:32:10.373-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Normal"

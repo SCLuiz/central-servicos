@@ -1,7 +1,26 @@
 {
-  "ultima_atualizacao": "2026-09-11T23:20:40.962919",
-  "total": 229,
+  "ultima_atualizacao": "2026-09-12T01:19:28.019361",
+  "total": 230,
   "incidentes": [
+    {
+      "key": "OFBI-5177",
+      "summary": "Métrica 2.2.I - Reprocessamento dos Marcos Regulatórios de APIs de Dados Abertos em decorrência de correção de enquadramento regulatório de instituições",
+      "sistema_afetado": "AWS",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Paola Arcanjo",
+      "created": "2026-09-11T20:31:24.515-0300",
+      "updated": "2026-09-11T20:44:54.197-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-15T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5176",
       "summary": "Métrica 2.2.I - Correção dos dados do Painel de Desconformidades 2.0 decorrente das evidências identificadas no incidente OFBI-5096",

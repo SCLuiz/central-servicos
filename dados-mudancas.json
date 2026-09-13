@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-09-13T14:15:24.174839",
-  "total": 69,
+  "ultima_atualizacao": "2026-09-13T17:25:45.585846",
+  "total": 68,
   "mudancas": [
     {
       "key": "OFBI-5167",
@@ -950,20 +950,6 @@
       "created": "2026-06-08T16:04:37.025-0300",
       "updated": "2026-06-15T16:16:25.090-0300",
       "resolution_date": "2026-06-15T16:16:25.084-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4551",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "priority": "Low",
-      "assignee": "Fabricio Lobo",
-      "reporter": "Fabricio Lobo",
-      "created": "2026-06-08T16:01:46.756-0300",
-      "updated": "2026-06-15T13:32:13.781-0300",
-      "resolution_date": "2026-06-15T13:32:13.763-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

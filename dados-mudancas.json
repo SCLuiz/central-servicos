@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-09-13T17:25:45.585846",
-  "total": 68,
+  "ultima_atualizacao": "2026-09-13T19:37:38.459910",
+  "total": 65,
   "mudancas": [
     {
       "key": "OFBI-5167",
@@ -908,48 +908,6 @@
       "created": "2026-06-12T09:57:36.515-0300",
       "updated": "2026-07-01T15:09:39.675-0300",
       "resolution_date": "2026-07-01T15:09:39.666-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4558",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Higor Santos",
-      "reporter": "Higor Santos",
-      "created": "2026-06-09T19:03:40.153-0300",
-      "updated": "2026-06-15T14:58:51.526-0300",
-      "resolution_date": "2026-06-15T14:58:51.522-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Emergencial"
-    },
-    {
-      "key": "OFBI-4554",
-      "summary": "Solicitação de Mudanças",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Higor Santos",
-      "reporter": "Higor Santos",
-      "created": "2026-06-09T11:59:16.555-0300",
-      "updated": "2026-06-15T15:01:04.580-0300",
-      "resolution_date": "2026-06-15T15:01:04.547-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4552",
-      "summary": "Solicitação de Mudanças",
-      "status": "Cancelado",
-      "priority": "Low",
-      "assignee": "Fabricio Lobo",
-      "reporter": "Fabricio Lobo",
-      "created": "2026-06-08T16:04:37.025-0300",
-      "updated": "2026-06-15T16:16:25.090-0300",
-      "resolution_date": "2026-06-15T16:16:25.084-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

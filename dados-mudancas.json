@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-14T13:40:14.396297",
-  "total": 66,
+  "ultima_atualizacao": "2026-09-14T18:52:02.315347",
+  "total": 67,
   "mudancas": [
+    {
+      "key": "OFBI-5184",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Andressa Amaral",
+      "reporter": "Andressa Amaral",
+      "created": "2026-09-14T14:45:49.041-0300",
+      "updated": "2026-09-14T15:15:51.904-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-5180",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",

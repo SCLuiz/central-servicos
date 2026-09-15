@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-15T14:58:57.728872",
-  "total": 69,
+  "ultima_atualizacao": "2026-09-15T18:50:02.800979",
+  "total": 70,
   "mudancas": [
+    {
+      "key": "OFBI-5187",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-15T14:24:06.216-0300",
+      "updated": "2026-09-15T14:25:02.492-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5186",
       "summary": "Solicitação de Mudanças",

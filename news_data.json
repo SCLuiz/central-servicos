@@ -1,6 +1,39 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5160",
+    "title": "OFBI-5160 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Interactive logon: Machine inactivity limit' to '1-900 seconds'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "15/09/2026 19:11",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5160"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5180",
+    "title": "OFBI-5180 - Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "15/09/2026 19:11",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5180"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5158",
+    "title": "OFBI-5158 - Solicitação de Mudanças - Microsoft Secure Score - Disable Anonymous Enumeration of Shares and SAM Accounts",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "15/09/2026 19:06",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5158"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5187",
     "title": "OFBI-5187 - Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",
     "type_name": "Mudança",
@@ -20,17 +53,6 @@
     "status_dot": "dot-info",
     "date": "15/09/2026 11:58",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5186"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5180",
-    "title": "OFBI-5180 - Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "15/09/2026 11:45",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5180"
   },
   {
     "source": "Jira",
@@ -56,17 +78,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5160",
-    "title": "OFBI-5160 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Interactive logon: Machine inactivity limit' to '1-900 seconds'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "09/09/2026 11:23",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5160"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5122",
     "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
     "type_name": "Mudança",
@@ -75,17 +86,6 @@
     "status_dot": "dot-info",
     "date": "09/09/2026 10:45",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5158",
-    "title": "OFBI-5158 - Solicitação de Mudanças - Microsoft Secure Score - Disable Anonymous Enumeration of Shares and SAM Accounts",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "09/09/2026 09:52",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5158"
   },
   {
     "source": "Jira",

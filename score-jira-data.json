@@ -1,17 +1,17 @@
 {
   "periodo": "2026-09",
-  "gerado_em": "2026-09-15T15:34:45.063198+00:00",
+  "gerado_em": "2026-09-15T19:13:19.693806+00:00",
   "fonte": "Jira OFBI + HELP (projeto real): incidentes, mudanças, problemas e service desk",
   "kpis": {
     "mttr": {
-      "value": 84.37,
+      "value": 117.93,
       "unit": "horas",
-      "amostra": 5
+      "amostra": 6
     },
     "incidentes_criticos": {
-      "value": 0,
+      "value": 1,
       "unit": "qtd",
-      "amostra": 0
+      "amostra": 1
     },
     "volume_incidentes": {
       "value": 15,
@@ -19,7 +19,7 @@
       "amostra": 15
     },
     "sla_cumprido": {
-      "value": 26.67,
+      "value": 13.33,
       "unit": "%",
       "amostra": 15
     },
@@ -29,14 +29,14 @@
       "amostra": 6
     },
     "mudancas_emergenciais": {
-      "value": 26.67,
+      "value": 25.0,
       "unit": "%",
-      "amostra": 15
+      "amostra": 16
     },
     "mudancas_geraram_incidentes": {
       "value": 0,
       "unit": "qtd",
-      "amostra": 15
+      "amostra": 16
     },
     "problemas_recorrentes_eliminados": {
       "value": 1,
@@ -44,19 +44,19 @@
       "amostra": 7
     },
     "tma_service_desk": {
-      "value": 21.5,
+      "value": 20.07,
       "unit": "horas",
-      "amostra": 29
+      "amostra": 33
     },
     "sla_resolucao_sd": {
       "value": 100.0,
       "unit": "%",
-      "amostra": 29
+      "amostra": 33
     },
     "sla_primeira_resposta_sd": {
-      "value": 82.76,
+      "value": 84.85,
       "unit": "%",
-      "amostra": 29
+      "amostra": 33
     }
   }
 }

@@ -1,7 +1,35 @@
 {
-  "ultima_atualizacao": "2026-09-15T10:09:40.589184",
-  "total": 67,
+  "ultima_atualizacao": "2026-09-15T14:58:57.728872",
+  "total": 69,
   "mudancas": [
+    {
+      "key": "OFBI-5186",
+      "summary": "Solicitação de Mudanças",
+      "status": "Aguardando CAB",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Fabricio Lobo",
+      "created": "2026-09-15T11:58:16.191-0300",
+      "updated": "2026-09-15T11:58:21.828-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-5185",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-09-15T10:09:08.741-0300",
+      "updated": "2026-09-15T10:09:54.068-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5184",
       "summary": "Solicitação de Mudanças",
@@ -24,7 +52,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-14T09:10:57.471-0300",
-      "updated": "2026-09-14T09:13:25.410-0300",
+      "updated": "2026-09-15T11:45:55.057-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

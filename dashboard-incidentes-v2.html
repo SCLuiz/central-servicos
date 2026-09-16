@@ -1219,6 +1219,27 @@
                 });
                 // --- FIM DOS OVERRIDES MANUAIS ---
 
+                // Consolida variações do mesmo nome (maiúscula/minúscula, espaços extras -
+                // ex.: "AWS" e "aws ") num único rótulo canônico ANTES de alimentar o filtro
+                // de Sistema Afetado, os gráficos e as contagens - assim tudo trata como o
+                // mesmo item em vez de criar entradas duplicadas por causa de digitação.
+                function consolidarPorNome(lista, campo) {
+                    const canonico = {};
+                    lista.forEach(item => {
+                        const raw = (item[campo] || '').trim();
+                        if (!raw) return;
+                        const chave = raw.toLowerCase();
+                        if (!canonico[chave]) canonico[chave] = raw;
+                    });
+                    lista.forEach(item => {
+                        const raw = (item[campo] || '').trim();
+                        if (!raw) return;
+                        item[campo] = canonico[raw.toLowerCase()];
+                    });
+                }
+                consolidarPorNome(allIncidentes, 'sistema_afetado');
+                consolidarPorNome(allIncidentes, 'assignee');
+
                 initializeComparisonMonths(allIncidentes);
 
                 // Populate Component Dropdown dynamically

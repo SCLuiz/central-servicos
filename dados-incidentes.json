@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-16T06:18:40.602166",
+  "ultima_atualizacao": "2026-09-16T11:51:09.895566",
   "total": 231,
   "incidentes": [
     {
@@ -126,7 +126,7 @@
       "assignee": "Gabriel Zorzi",
       "reporter": "Paloma Silva",
       "created": "2026-09-08T13:43:00.185-0300",
-      "updated": "2026-09-11T11:00:06.802-0300",
+      "updated": "2026-09-16T08:41:26.795-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,

@@ -1589,19 +1589,13 @@
                 });
             }
 
-            // Rampa sequencial azul (claro->escuro) para codificar magnitude por cor.
-            // t=0 -> valor mais baixo do conjunto exibido, t=1 -> valor mais alto.
-            // Clampado em 0.15 no mínimo pra barra mais clara não ficar sem contraste.
-            const _seqBlueRamp = ['#cde2fb', '#b7d3f6', '#9ec5f4', '#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#256abf', '#1c5cab', '#184f95', '#104281', '#0d366b'];
-            function colorByQuantity(sortedArr) {
-                const values = sortedArr.map(s => s[1]);
-                const min = Math.min(...values), max = Math.max(...values);
-                return values.map(v => {
-                    const raw = max === min ? 1 : (v - min) / (max - min);
-                    const t = Math.max(0.15, raw);
-                    const idx = Math.round(t * (_seqBlueRamp.length - 1));
-                    return _seqBlueRamp[idx];
-                });
+            // Paleta categórica fixa (identidade) — cada item (sistema ou time) recebe
+            // sempre a mesma cor, na ordem validada para pares adjacentes de barras.
+            // Do 9º item em diante usa cinza neutro em vez de inventar uma 9ª cor.
+            const _catPalette = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#4a3aa7', '#e34948'];
+            const _catMuted = '#cbd5e1';
+            function colorByCategory(sortedArr) {
+                return sortedArr.map((_, i) => _catPalette[i] || _catMuted);
             }
 
             // Renderiza Gráfico "Incidentes por Sistema Afetado" (painel Visão Geral,
@@ -1616,7 +1610,7 @@
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedSistemas.map(s => s[1]),
-                            backgroundColor: colorByQuantity(sortedSistemas),
+                            backgroundColor: colorByCategory(sortedSistemas),
                             borderRadius: 4,
                             maxBarThickness: 48
                         }]
@@ -1651,7 +1645,7 @@
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedResponsaveis.map(s => s[1]),
-                            backgroundColor: colorByQuantity(sortedResponsaveis),
+                            backgroundColor: colorByCategory(sortedResponsaveis),
                             borderRadius: 4,
                             maxBarThickness: 48
                         }]

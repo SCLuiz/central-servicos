@@ -1600,25 +1600,36 @@
                 return sortedArr.map((_, i) => _catPalette[i] || _catMuted);
             }
 
-            // Time Solucionador: precisa vir calculado primeiro, porque o gráfico de
-            // Sistema Afetado abaixo usa a MESMA cor de cada time (correlação visual
-            // entre os dois gráficos sem precisar mesclá-los num só).
-            const sortedResponsaveis = Object.entries(stats.responsaveisCount)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
-            const responsaveisColors = colorByCategory(sortedResponsaveis);
+            // Ranking de times e cruzamento sistema x time são calculados sobre o
+            // HISTÓRICO COMPLETO (allIncidentes), não sobre o filtro ativo — assim a
+            // cor de cada time e o "time predominante" de cada sistema ficam estáveis
+            // independente do período selecionado na tela. As quantidades exibidas nas
+            // barras continuam respeitando o filtro normalmente (usam sortedSistemas/
+            // stats, que já vêm do conjunto filtrado).
+            const fullResponsaveisCount = {};
+            allIncidentes.forEach(i => {
+                const t = i.assignee || 'Sem responsável';
+                fullResponsaveisCount[t] = (fullResponsaveisCount[t] || 0) + 1;
+            });
+            const sortedResponsaveisFull = Object.entries(fullResponsaveisCount).sort((a, b) => b[1] - a[1]);
             const teamColorMap = {};
-            sortedResponsaveis.forEach((r, i) => { teamColorMap[r[0]] = responsaveisColors[i]; });
+            colorByCategory(sortedResponsaveisFull).forEach((cor, i) => { teamColorMap[sortedResponsaveisFull[i][0]] = cor; });
 
-            // Cruzamento sistema x time (sobre os incidentes já filtrados) para achar
-            // o time que mais atende cada sistema exibido.
             const crosstabSisTime = {};
-            incidentes.forEach(i => {
+            allIncidentes.forEach(i => {
                 const sis = i.sistema_afetado || 'N/A';
                 const time = i.assignee || 'Sem responsável';
                 if (!crosstabSisTime[sis]) crosstabSisTime[sis] = {};
                 crosstabSisTime[sis][time] = (crosstabSisTime[sis][time] || 0) + 1;
             });
+
+            // Gráfico de Time Solucionador: quantidade exibida respeita o filtro ativo
+            // (top 10 por volume filtrado), mas a cor de cada time vem do teamColorMap
+            // acima (estável, baseado no histórico completo).
+            const sortedResponsaveis = Object.entries(stats.responsaveisCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            const responsaveisColors = sortedResponsaveis.map(r => teamColorMap[r[0]] || _catMuted);
             function dominantTeam(sistema) {
                 const porTime = crosstabSisTime[sistema] || {};
                 const entries = Object.entries(porTime).sort((a, b) => b[1] - a[1]);

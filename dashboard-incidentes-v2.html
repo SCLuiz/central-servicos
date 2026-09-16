@@ -1568,6 +1568,21 @@
                 });
             }
 
+            // Rampa sequencial azul (claro->escuro) para codificar magnitude por cor.
+            // t=0 -> valor mais baixo do conjunto exibido, t=1 -> valor mais alto.
+            // Clampado em 0.15 no mínimo pra barra mais clara não ficar sem contraste.
+            const _seqBlueRamp = ['#cde2fb', '#b7d3f6', '#9ec5f4', '#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#256abf', '#1c5cab', '#184f95', '#104281', '#0d366b'];
+            function colorByQuantity(sortedArr) {
+                const values = sortedArr.map(s => s[1]);
+                const min = Math.min(...values), max = Math.max(...values);
+                return values.map(v => {
+                    const raw = max === min ? 1 : (v - min) / (max - min);
+                    const t = Math.max(0.15, raw);
+                    const idx = Math.round(t * (_seqBlueRamp.length - 1));
+                    return _seqBlueRamp[idx];
+                });
+            }
+
             // Renderiza Gráfico "Incidentes por Sistema Afetado" (painel Visão Geral,
             // sempre visível — reaproveita os mesmos dados de sortedSistemas acima)
             if (chartSistemasVisaoGeral) chartSistemasVisaoGeral.destroy();
@@ -1580,21 +1595,20 @@
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedSistemas.map(s => s[1]),
-                            backgroundColor: '#3b82f6',
+                            backgroundColor: colorByQuantity(sortedSistemas),
                             borderRadius: 4,
-                            maxBarThickness: 32
+                            maxBarThickness: 48
                         }]
                     },
                     options: {
-                        indexAxis: 'y',
                         responsive: true, maintainAspectRatio: false,
                         plugins: {
                             legend: { display: false },
                             tooltip: { callbacks: { title: (items) => sortedSistemas[items[0].dataIndex][0] } }
                         },
                         scales: {
-                            x: { beginAtZero: true, ticks: { precision: 0 } },
-                            y: { grid: { display: false } }
+                            y: { beginAtZero: true, ticks: { precision: 0 } },
+                            x: { grid: { display: false } }
                         }
                     }
                 });
@@ -1616,21 +1630,20 @@
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedResponsaveis.map(s => s[1]),
-                            backgroundColor: '#3b82f6',
+                            backgroundColor: colorByQuantity(sortedResponsaveis),
                             borderRadius: 4,
-                            maxBarThickness: 32
+                            maxBarThickness: 48
                         }]
                     },
                     options: {
-                        indexAxis: 'y',
                         responsive: true, maintainAspectRatio: false,
                         plugins: {
                             legend: { display: false },
                             tooltip: { callbacks: { title: (items) => sortedResponsaveis[items[0].dataIndex][0] } }
                         },
                         scales: {
-                            x: { beginAtZero: true, ticks: { precision: 0 } },
-                            y: { grid: { display: false } }
+                            y: { beginAtZero: true, ticks: { precision: 0 } },
+                            x: { grid: { display: false } }
                         }
                     }
                 });

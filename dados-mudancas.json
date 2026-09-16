@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-16T12:12:59.248723",
+  "ultima_atualizacao": "2026-09-16T16:58:14.335096",
   "total": 70,
   "mudancas": [
     {
@@ -38,7 +38,7 @@
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-15T10:09:08.741-0300",
-      "updated": "2026-09-15T10:09:54.068-0300",
+      "updated": "2026-09-16T13:49:06.197-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -66,7 +66,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-14T09:10:57.471-0300",
-      "updated": "2026-09-15T19:11:22.709-0300",
+      "updated": "2026-09-16T12:07:44.282-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -108,7 +108,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-09T09:48:02.677-0300",
-      "updated": "2026-09-15T19:06:49.220-0300",
+      "updated": "2026-09-16T12:04:03.524-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

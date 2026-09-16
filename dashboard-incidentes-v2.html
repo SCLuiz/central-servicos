@@ -1010,11 +1010,19 @@
                 </div>
             </div>
 
-            <!-- Painel Consolidado por Sistema Afetado -->
-            <div class="table-card" style="margin-bottom: 25px;">
-                <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Sistema Afetado</h2>
-                <div style="height: 280px; position: relative;">
-                    <canvas id="chartSistemasVisaoGeral"></canvas>
+            <!-- Painéis Consolidados por Sistema Afetado e Time Solucionador -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px;">
+                <div class="table-card" style="margin-bottom: 0;">
+                    <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Sistema Afetado</h2>
+                    <div style="height: 280px; position: relative;">
+                        <canvas id="chartSistemasVisaoGeral"></canvas>
+                    </div>
+                </div>
+                <div class="table-card" style="margin-bottom: 0;">
+                    <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Time Solucionador</h2>
+                    <div style="height: 280px; position: relative;">
+                        <canvas id="chartTimeSolucionador"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -1592,6 +1600,42 @@
                 });
             }
 
+            // Renderiza Gráfico "Incidentes por Time Solucionador" (ao lado do gráfico
+            // de Sistema Afetado, mesmo dado usado na tabela de Responsáveis abaixo)
+            const sortedResponsaveis = Object.entries(stats.responsaveisCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            if (chartTimeSolucionador) chartTimeSolucionador.destroy();
+            const ctxTimeSolucionador = document.getElementById('chartTimeSolucionador');
+            if (ctxTimeSolucionador) {
+                chartTimeSolucionador = new Chart(ctxTimeSolucionador, {
+                    type: 'bar',
+                    data: {
+                        labels: sortedResponsaveis.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        datasets: [{
+                            label: 'Incidentes',
+                            data: sortedResponsaveis.map(s => s[1]),
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 4,
+                            maxBarThickness: 32
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { title: (items) => sortedResponsaveis[items[0].dataIndex][0] } }
+                        },
+                        scales: {
+                            x: { beginAtZero: true, ticks: { precision: 0 } },
+                            y: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
             // Renderiza Gráfico de Top 10 Instituições
             const sortedInst = Object.entries(stats.instituicoesCount)
                 .sort((a, b) => b[1] - a[1])
@@ -1684,7 +1728,7 @@
             updateTrendDashboards(tableIncidentes || incidentes);
         }
 
-        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartSistemasVisaoGeral, chartInstituicoes, chartComparativo;
+        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartSistemasVisaoGeral, chartTimeSolucionador, chartInstituicoes, chartComparativo;
         let comparisonMonths = [];
         let selectedComparisonMonths = new Set();
         let comparisonYears = [];

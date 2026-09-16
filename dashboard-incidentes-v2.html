@@ -1638,6 +1638,29 @@
             const sistemaDominantTeams = sortedSistemas.map(s => dominantTeam(s[0]));
             const sistemaColors = sistemaDominantTeams.map(t => teamColorMap[t] || _catMuted);
 
+            // Quebra rótulos longos em até 2 linhas em vez de cortar com "..." —
+            // o nome completo continua disponível pro tooltip via sortedX[i][0].
+            function wrapLabel(str, maxLen, maxLines) {
+                maxLen = maxLen || 16; maxLines = maxLines || 2;
+                if (!str) return str;
+                const words = str.split(' ');
+                const lines = [];
+                let current = '';
+                words.forEach(w => {
+                    const test = current ? current + ' ' + w : w;
+                    if (test.length > maxLen && current && lines.length < maxLines - 1) {
+                        lines.push(current);
+                        current = w;
+                    } else {
+                        current = test;
+                    }
+                });
+                lines.push(current);
+                const last = lines[lines.length - 1];
+                if (last.length > maxLen) lines[lines.length - 1] = last.substring(0, maxLen - 1) + '…';
+                return lines;
+            }
+
             // Renderiza Gráfico "Incidentes por Sistema Afetado" (cor = time que mais
             // atende aquele sistema, usando a mesma cor do gráfico de Time abaixo)
             if (chartSistemasVisaoGeral) chartSistemasVisaoGeral.destroy();
@@ -1646,13 +1669,15 @@
                 chartSistemasVisaoGeral = new Chart(ctxSistemasVisaoGeral, {
                     type: 'bar',
                     data: {
-                        labels: sortedSistemas.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        labels: sortedSistemas.map(s => wrapLabel(s[0])),
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedSistemas.map(s => s[1]),
                             backgroundColor: sistemaColors,
                             borderRadius: 4,
-                            maxBarThickness: 48
+                            maxBarThickness: 90,
+                            categoryPercentage: 0.6,
+                            barPercentage: 0.9
                         }]
                     },
                     options: {
@@ -1694,13 +1719,15 @@
                 chartTimeSolucionador = new Chart(ctxTimeSolucionador, {
                     type: 'bar',
                     data: {
-                        labels: sortedResponsaveis.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        labels: sortedResponsaveis.map(s => wrapLabel(s[0])),
                         datasets: [{
                             label: 'Incidentes',
                             data: sortedResponsaveis.map(s => s[1]),
                             backgroundColor: responsaveisColors,
                             borderRadius: 4,
-                            maxBarThickness: 48
+                            maxBarThickness: 90,
+                            categoryPercentage: 0.6,
+                            barPercentage: 0.9
                         }]
                     },
                     options: {

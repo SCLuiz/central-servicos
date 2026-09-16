@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-16T16:58:14.335096",
+  "ultima_atualizacao": "2026-09-16T19:53:51.505924",
   "total": 70,
   "mudancas": [
     {
@@ -19,12 +19,12 @@
     {
       "key": "OFBI-5186",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Aguardando Implantação",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-09-15T11:58:16.191-0300",
-      "updated": "2026-09-15T11:58:21.828-0300",
+      "updated": "2026-09-16T15:54:23.416-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -33,12 +33,12 @@
     {
       "key": "OFBI-5185",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-15T10:09:08.741-0300",
-      "updated": "2026-09-16T13:49:06.197-0300",
+      "updated": "2026-09-16T15:54:29.564-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -47,13 +47,13 @@
     {
       "key": "OFBI-5184",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando CAB",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Luiz Santos",
+      "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-09-14T14:45:49.041-0300",
-      "updated": "2026-09-14T18:54:26.524-0300",
-      "resolution_date": null,
+      "updated": "2026-09-16T15:45:15.095-0300",
+      "resolution_date": "2026-09-16T15:45:15.088-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Emergencial"

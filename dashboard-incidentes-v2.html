@@ -1010,6 +1010,14 @@
                 </div>
             </div>
 
+            <!-- Painel Consolidado por Sistema Afetado -->
+            <div class="table-card" style="margin-bottom: 25px;">
+                <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Sistema Afetado</h2>
+                <div style="height: 280px; position: relative;">
+                    <canvas id="chartSistemasVisaoGeral"></canvas>
+                </div>
+            </div>
+
             <!-- Painel Comparativo de KPIs (Histórico de 3 Meses) -->
             <div class="table-card" style="margin-bottom: 25px;">
                 <h2 class="table-title" style="margin-bottom: 15px;">Comparativo de Histórico (Últimos 3 Meses)</h2>
@@ -1552,6 +1560,38 @@
                 });
             }
 
+            // Renderiza Gráfico "Incidentes por Sistema Afetado" (painel Visão Geral,
+            // sempre visível — reaproveita os mesmos dados de sortedSistemas acima)
+            if (chartSistemasVisaoGeral) chartSistemasVisaoGeral.destroy();
+            const ctxSistemasVisaoGeral = document.getElementById('chartSistemasVisaoGeral');
+            if (ctxSistemasVisaoGeral) {
+                chartSistemasVisaoGeral = new Chart(ctxSistemasVisaoGeral, {
+                    type: 'bar',
+                    data: {
+                        labels: sortedSistemas.map(s => s[0].length > 25 ? s[0].substring(0, 22) + '...' : s[0]),
+                        datasets: [{
+                            label: 'Incidentes',
+                            data: sortedSistemas.map(s => s[1]),
+                            backgroundColor: '#3b82f6',
+                            borderRadius: 4,
+                            maxBarThickness: 32
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { title: (items) => sortedSistemas[items[0].dataIndex][0] } }
+                        },
+                        scales: {
+                            x: { beginAtZero: true, ticks: { precision: 0 } },
+                            y: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
             // Renderiza Gráfico de Top 10 Instituições
             const sortedInst = Object.entries(stats.instituicoesCount)
                 .sort((a, b) => b[1] - a[1])
@@ -1644,7 +1684,7 @@
             updateTrendDashboards(tableIncidentes || incidentes);
         }
 
-        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartInstituicoes, chartComparativo;
+        let chartStatus, chartResponsaveis, chartTimeline, chartSla, chartSistemas, chartSistemasVisaoGeral, chartInstituicoes, chartComparativo;
         let comparisonMonths = [];
         let selectedComparisonMonths = new Set();
         let comparisonYears = [];

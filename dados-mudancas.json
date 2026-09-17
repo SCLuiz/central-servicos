@@ -1,7 +1,35 @@
 {
-  "ultima_atualizacao": "2026-09-17T15:05:30.629602",
-  "total": 71,
+  "ultima_atualizacao": "2026-09-17T18:44:28.323639",
+  "total": 73,
   "mudancas": [
+    {
+      "key": "OFBI-5196",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Denise Pontes",
+      "reporter": "Denise Pontes",
+      "created": "2026-09-17T15:00:20.364-0300",
+      "updated": "2026-09-17T15:00:20.513-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
+    {
+      "key": "OFBI-5195",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Restrict anonymous users from joining meetings",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-17T13:44:19.650-0300",
+      "updated": "2026-09-17T13:45:42.427-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5193",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",

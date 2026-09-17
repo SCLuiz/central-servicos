@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5193",
+    "title": "OFBI-5193 - Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "17/09/2026 11:27",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5193"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5185",
     "title": "OFBI-5185 - Solicitação de Mudanças",
     "type_name": "Mudança",

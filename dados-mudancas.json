@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-17T13:11:00.035724",
-  "total": 70,
+  "ultima_atualizacao": "2026-09-17T15:05:30.629602",
+  "total": 71,
   "mudancas": [
+    {
+      "key": "OFBI-5193",
+      "summary": "Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Bruna Cavalcanti",
+      "reporter": "Bruna Cavalcanti",
+      "created": "2026-09-17T11:25:56.951-0300",
+      "updated": "2026-09-17T11:27:49.976-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5187",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",

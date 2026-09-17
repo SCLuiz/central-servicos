@@ -1014,11 +1014,9 @@
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px;">
                 <div class="table-card" style="margin-bottom: 0;">
                     <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Sistema Afetado</h2>
-                    <p style="margin: -10px 0 10px 0; font-size: 11px; color: #94a3b8;">Cor = time solucionador que mais atende cada sistema (mesma cor do gráfico ao lado)</p>
                     <div style="height: 280px; position: relative;">
                         <canvas id="chartSistemasVisaoGeral"></canvas>
                     </div>
-                    <div id="sistemaAfetadoLegend" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; font-size: 11px; color: #475569;"></div>
                 </div>
                 <div class="table-card" style="margin-bottom: 0;">
                     <h2 class="table-title" style="margin-bottom: 15px;">Incidentes por Time Solucionador</h2>
@@ -1697,19 +1695,6 @@
                         }
                     }
                 });
-            }
-
-            // Legenda customizada abaixo do gráfico de Sistema Afetado, explicando
-            // a que time cada cor corresponde (mesmas cores do gráfico de Time abaixo)
-            const sistemaLegendEl = document.getElementById('sistemaAfetadoLegend');
-            if (sistemaLegendEl) {
-                const timesUsados = [...new Set(sistemaDominantTeams.filter(Boolean))];
-                sistemaLegendEl.innerHTML = timesUsados.map(t => `
-                    <span style="display:inline-flex;align-items:center;gap:5px;">
-                        <span style="width:10px;height:10px;border-radius:2px;background:${teamColorMap[t] || _catMuted};display:inline-block;"></span>
-                        ${t}
-                    </span>
-                `).join('');
             }
 
             // Renderiza Gráfico "Incidentes por Time Solucionador"

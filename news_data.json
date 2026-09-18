@@ -1,13 +1,24 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5205",
+    "title": "OFBI-5205 - Métrica 2.2.IV - Regra interna de processamento dos logs da Raidiam usada no cálculo da ",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "18/09/2026 17:58",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5205"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5196",
     "title": "OFBI-5196 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "18/09/2026 11:42",
+    "date": "18/09/2026 16:41",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5196"
   },
   {
@@ -97,16 +108,5 @@
     "status_dot": "dot-info",
     "date": "15/09/2026 14:25",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5187"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5122",
-    "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "09/09/2026 10:45",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
   }
 ]

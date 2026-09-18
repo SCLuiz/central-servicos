@@ -1179,7 +1179,9 @@
 
         async function loadData() {
             try {
-                const response = await fetch('https://jira-incidentes-proxy.luiz-santos.workers.dev?days=365&t=' + Date.now());
+                // Sem "days" fixo: usa o default do worker (3650 dias / todo o historico
+                // real do OFBI), para o filtro "Todos" do periodo realmente trazer tudo.
+                const response = await fetch('https://jira-incidentes-proxy.luiz-santos.workers.dev?t=' + Date.now());
                 if (!response.ok) throw new Error('Erro ao carregar dados');
                 let data = await response.json();
 

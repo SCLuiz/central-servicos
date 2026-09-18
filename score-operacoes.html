@@ -570,7 +570,14 @@
                     const mttrEl = document.getElementById('mttr-value');
                     const mttrTrend = document.getElementById('mttr-trend');
                     
-                    mttrEl.textContent = mttrHoras + 'h';
+                    if (mttrHoras >= 24) {
+                        const dias = Math.floor(mttrHoras / 24);
+                        const horasRestantes = mttrHoras % 24;
+                        mttrEl.textContent = `${dias}d ${horasRestantes}h`;
+                    } else {
+                        mttrEl.textContent = mttrHoras + 'h';
+                    }
+                    
                     mttrEl.style.color = "var(--ds-text)";
                     
                     if (mttrHoras <= 4) {

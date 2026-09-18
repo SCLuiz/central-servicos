@@ -294,9 +294,10 @@
             
             <!-- SUB METRICS DO CSAT -->
             <div id="csat-sub-metrics" style="display: none; margin-top: 10px; font-size: 12px; color: var(--ds-text-subtle); padding-left: 10px; border-left: 2px solid var(--ds-border);">
-                <div style="margin-bottom: 8px;">
+                <div style="margin-bottom: 12px;">
                     <strong>Total de Avaliações:</strong> <span id="csat-total">0</span>
                 </div>
+                <div id="csat-breakdown-container"></div>
             </div>
         </div>
 
@@ -399,6 +400,24 @@
                     
                     document.getElementById('csat-sub-metrics').style.display = 'block';
                     document.getElementById('csat-total').textContent = csatData.total_ratings;
+                    
+                    if(csatData.breakdown) {
+                        let breakdownHtml = '';
+                        for(let i = 5; i >= 1; i--) {
+                            const count = csatData.breakdown[i] || 0;
+                            const pct = csatData.total_ratings > 0 ? (count / csatData.total_ratings) * 100 : 0;
+                            const color = i >= 4 ? '#36B37E' : (i >= 3 ? '#FFAB00' : '#DE350B');
+                            breakdownHtml += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 11px;">
+                                <span style="width: 30px; font-weight: bold;">${i} ⭐</span>
+                                <div class="progress-bar" style="height: 6px; flex-grow: 1; margin: 0 10px; background: rgba(9, 30, 66, 0.08);">
+                                    <div class="progress-fill" style="background: ${color}; width: 0%; transition: width 1s ease;" data-width="${pct}"></div>
+                                </div>
+                                <span style="width: 20px; text-align: right; color: var(--ds-text);">${count}</span>
+                            </div>`;
+                        }
+                        document.getElementById('csat-breakdown-container').innerHTML = breakdownHtml;
+                    }
                 }
                 
                 // Calcula uma nota global puxando os reais e o resto mockado

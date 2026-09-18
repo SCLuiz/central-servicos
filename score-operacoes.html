@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <script src="auth-guard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operations Health Score - Central de Serviços</title>
-    <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -28,200 +25,228 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg,
-                rgba(255, 20, 147, 0.55) 0%, rgba(255, 105, 180, 0.50) 25%,
-                rgba(255, 182, 193, 0.45) 50%, rgba(255, 215, 0, 0.50) 75%, rgba(255, 165, 0, 0.55) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            background: var(--ds-surface-overlay);
             color: var(--ds-text);
             line-height: 1.5;
-            padding: 12px;
+            padding: 20px;
             min-height: 100vh;
         }
 
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        .container { max-width: 1400px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         .header {
-            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-magenta) 65%, var(--of-yellow) 65%, var(--of-yellow) 100%);
+            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-yellow) 100%);
             border-radius: 12px;
             padding: 28px 24px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 20px rgba(216, 27, 96, 0.25);
+            margin-bottom: 24px;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(221, 36, 155, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .header h1 { color: #fff; font-size: 30px; font-weight: 800; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
-        .header p { color: rgba(255,255,255,0.95); font-size: 14px; margin-top: 4px; }
-        .header .back { display: inline-block; margin-top: 12px; color: #fff; background: rgba(255,255,255,0.22); backdrop-filter: blur(6px); padding: 6px 14px; border-radius: 20px; font-size: 13px; text-decoration: none; font-weight: 500; }
-        .header .back:hover { background: rgba(255,255,255,0.32); }
-
-        .card { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 20px; margin-bottom: 16px; }
-
-        #tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-        .tab { border: none; background: var(--ds-surface-overlay); color: var(--ds-text-subtle); padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13.5px; cursor: pointer; transition: all .15s; }
-        .tab:hover { background: #EBECF0; }
-        .tab.active { background: linear-gradient(135deg, var(--of-magenta), var(--of-yellow)); color: #fff; }
-
-        #roleBar { display:flex; justify-content: space-between; align-items:center; gap:10px; flex-wrap: wrap; margin-bottom: 4px; }
-        #roleBadge { background: var(--ds-blue-subtle); color: var(--ds-blue); font-weight: 700; font-size: 11px; padding: 3px 10px; border-radius: 12px; letter-spacing: .3px; }
-
-        #filters { display: flex; gap: 16px; flex-wrap: wrap; margin: 10px 0 4px; }
-        #filters label, .filters-row label { font-size: 12px; color: var(--ds-text-subtle); display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
-        #filters select, .filters-row select { padding: 7px 10px; border: 1px solid var(--ds-border); border-radius: 6px; font-size: 13px; font-family: inherit; }
-
-        .section-title { font-size: 16px; font-weight: 700; margin: 22px 0 10px; color: var(--ds-text); }
-        .muted { color: var(--ds-text-subtle); font-size: 13px; }
-        .ok-text { color: var(--ok); font-weight: 600; }
-        .err-text { color: var(--err); font-weight: 600; }
-        .up { color: var(--ok); }
-        .down { color: var(--err); }
-
-        .banner { padding: 12px 16px; border-radius: 8px; font-size: 13.5px; margin-bottom: 14px; }
-        .banner-error { background: #FFEBE6; color: #BF2600; border: 1px solid #FFBDAD; }
-        .banner-info { background: #DEEBFF; color: #0747A6; border: 1px solid #B3D4FF; }
-
-        .btn { padding: 9px 16px; border: none; border-radius: 6px; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit; }
-        .btn-primary { background: linear-gradient(135deg, var(--of-magenta), var(--of-yellow)); color: #fff; }
-        .btn-secondary { background: var(--ds-surface-overlay); color: var(--ds-text); margin: 4px 6px 4px 0; }
-        .btn-link { background: none; color: var(--ds-blue); text-decoration: underline; padding: 4px 0; font-size: 12.5px; }
-
-        /* Hero */
-        .hero { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; padding: 10px 4px 4px; }
-        .gauge { width: 170px; height: 170px; border-radius: 50%; background: conic-gradient(var(--gcolor) calc(var(--pct) * 1%), #E4E7EC 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .gauge-inner { width: 132px; height: 132px; border-radius: 50%; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 0 0 1px var(--ds-border); }
-        .gauge-score { font-size: 34px; font-weight: 800; }
-        .gauge-max { font-size: 12px; color: var(--ds-text-subtle); }
-        .hero-info { flex: 1; min-width: 260px; }
-        .status-pill { display: inline-block; color: #fff; font-weight: 700; font-size: 12px; padding: 4px 12px; border-radius: 14px; margin-bottom: 8px; }
-        .hero-info h2 { font-size: 19px; margin-bottom: 6px; }
-        .delta { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-        .hero-sub { font-size: 12.5px; color: var(--ds-text-subtle); margin-bottom: 10px; }
-
-        /* Pillars */
-        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .pillar-card { background: var(--ds-surface-overlay); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform .15s; }
-        .pillar-card:hover { transform: translateY(-3px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
-        .pillar-card-top { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--ds-text-subtle); margin-bottom: 6px; }
-        .pillar-name { font-weight: 700; color: var(--ds-text); font-size: 13px; }
-        .pillar-score { font-size: 28px; font-weight: 800; }
-        .pill-note { font-size: 10.5px; color: var(--warn); margin-top: 4px; }
-
-        /* Factors */
-        .factors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .factors-col h4 { font-size: 13px; margin-bottom: 8px; }
-        .factor-list { list-style: none; }
-        .factor { display: flex; justify-content: space-between; padding: 8px 10px; border-radius: 6px; font-size: 12.5px; margin-bottom: 6px; }
-        .factor.neg { background: #FFEBE6; color: #BF2600; }
-        .factor.pos { background: #E3FCEF; color: #006644; }
-
-        /* Modal */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(9,30,66,0.54); z-index: 50; align-items: center; justify-content: center; }
-        .modal.open { display: flex; }
-        .modal-box { background: #fff; border-radius: 12px; padding: 24px; max-width: 720px; width: 92%; max-height: 82vh; overflow: auto; position: relative; }
-        .modal-close { position: absolute; top: 12px; right: 16px; border: none; background: none; font-size: 22px; cursor: pointer; color: var(--ds-text-subtle); }
-
-        /* Tables */
-        .data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 8px; }
-        .data-table th { text-align: left; background: var(--ds-surface-overlay); padding: 8px 10px; font-weight: 700; color: var(--ds-text-subtle); }
-        .data-table td { padding: 7px 10px; border-bottom: 1px solid var(--ds-border); }
-
-        /* Forms */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 14px; align-items: end; }
-        .form-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; color: var(--ds-text-subtle); }
-        .form-grid label.wide { grid-column: 1 / -1; }
-        .form-grid input, .form-grid select, .form-grid textarea { padding: 8px 10px; border: 1px solid var(--ds-border); border-radius: 6px; font-size: 13px; font-family: inherit; }
-        .check { flex-direction: row !important; align-items: center; gap: 6px !important; font-weight: 500 !important; }
-
-        .chart-box { background: var(--ds-surface-overlay); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
-
-        .sim-summary { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
-        .sim-box { background: var(--ds-surface-overlay); border-radius: 8px; padding: 10px 16px; text-align: center; }
-        .sim-box span { display: block; font-size: 11px; color: var(--ds-text-subtle); }
-        .sim-box b { font-size: 20px; }
-        .sim-signals { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
-
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }
-        .service-card2 { background: var(--ds-surface-overlay); border-radius: 10px; padding: 14px; }
-        .service-card2-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .service-score { font-size: 26px; font-weight: 800; }
-        .crit-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; color: #fff; }
-        .crit-P1 { background: var(--err); } .crit-P2 { background: var(--warn); } .crit-P3 { background: var(--ds-blue); } .crit-P4 { background: #6B778C; }
-
-        .alerts-list { display: flex; flex-direction: column; gap: 8px; }
-        .alert-item { border-radius: 8px; padding: 10px 14px; font-size: 13px; }
-        .sev-critical { background: #FFEBE6; border-left: 4px solid var(--err); }
-        .sev-warning { background: #FFFAE6; border-left: 4px solid var(--warn); }
-        .sev-info { background: #DEEBFF; border-left: 4px solid var(--ds-blue); }
-        .alert-meta { font-size: 11px; color: var(--ds-text-subtle); margin-top: 3px; }
-
-        .subtabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 16px; }
-        .subtab { border: 1px solid var(--ds-border); background: #fff; padding: 6px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--ds-text-subtle); }
-        .subtab.active { background: var(--ds-blue); color: #fff; border-color: var(--ds-blue); }
-
-        .integ-card { border: 1px solid var(--ds-border); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
-        .status-tag { font-size: 10.5px; background: var(--ds-surface-overlay); padding: 2px 8px; border-radius: 10px; color: var(--ds-text-subtle); }
-        .integ-result { font-size: 12.5px; margin-top: 8px; }
-
-        .formula-box { background: #172B4D; color: #fff; border-radius: 10px; padding: 16px 20px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 13.5px; line-height: 1.8; margin-bottom: 14px; overflow-x: auto; }
-        .formula-box b { color: #FFD700; }
-        .legend-strip { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-        .legend-chip { display: flex; align-items: center; gap: 7px; background: var(--ds-surface-overlay); padding: 6px 12px; border-radius: 16px; font-size: 12.5px; font-weight: 600; }
-        .legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
-        .method-note { background: var(--ds-blue-subtle); color: #0747A6; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; margin: 10px 0 18px; }
-        .info-link { background: none; border: none; color: var(--ds-blue); font-size: 12.5px; font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0; margin-top: 6px; }
-
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #172B4D; color: #fff; padding: 12px 18px; border-radius: 8px; font-size: 13px; opacity: 0; transform: translateY(10px); transition: all .25s; z-index: 100; }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.error { background: var(--err); }
-
-        @media (max-width: 700px) {
-            .factors-grid { grid-template-columns: 1fr; }
-            .hero { flex-direction: column; align-items: flex-start; }
+        
+        .header-content h1 { font-size: 28px; font-weight: 800; }
+        .header-content p { opacity: 0.9; margin-top: 5px; }
+        
+        .main-score-container {
+            background: var(--ds-surface);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
+
+        .gauge-wrapper { width: 300px; height: 150px; position: relative; margin-bottom: 10px; }
+        .score-value {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--ds-text);
+        }
+        
+        .status-badge {
+            background: var(--ds-blue-subtle);
+            color: var(--ds-blue);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .pillar-card {
+            background: var(--ds-surface);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--ds-border);
+            transition: transform 0.2s;
+        }
+        
+        .pillar-card:hover { transform: translateY(-3px); }
+
+        .pillar-card.p1 { border-color: #36B37E; } /* Verde - Atendimento */
+        .pillar-card.p2 { border-color: #0052CC; } /* Azul - Estabilidade */
+        .pillar-card.p3 { border-color: #FFAB00; } /* Laranja - Governança */
+        .pillar-card.p4 { border-color: #6554C0; } /* Roxo - Resiliência */
+
+        .pillar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--ds-border); padding-bottom: 10px; }
+        .pillar-title { font-weight: 700; font-size: 16px; }
+        .pillar-score { font-size: 20px; font-weight: 800; }
+
+        .metric { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+        .metric span:last-child { font-weight: 600; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--ds-surface-overlay);
+            border-radius: 3px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        .progress-fill { height: 100%; border-radius: 3px; }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📊 Operations Health Score</h1>
-            <p>Score de Saúde das Operações de TI — cálculo automatizado por pilares, KPIs, pesos e penalidades.</p>
-            <a href="operacoes-ti.html" class="back">← Voltar para Operações de TI</a>
+
+<div class="container">
+    <div class="header">
+        <div class="header-content">
+            <h1>IT Ops Health Score</h1>
+            <p>Maturidade e Saúde das Operações de Tecnologia - Open Finance Brasil</p>
         </div>
-
-        <div class="card">
-            <div id="roleBar">
-                <div id="tabs">
-                    <button class="tab" data-tab="dashboard">Dashboard</button>
-                    <button class="tab" data-tab="tendencia">Tendência</button>
-                    <button class="tab" data-tab="simulador">Simulador</button>
-                    <button class="tab" data-tab="dados">Entrada de Dados</button>
-                    <button class="tab" data-tab="servicos">Serviços</button>
-                    <button class="tab" data-tab="alertas">Alertas</button>
-                    <button class="tab" data-tab="metodologia">Como é Calculado</button>
-                    <button class="tab" data-tab="config">Configurações</button>
-                </div>
-                <span id="roleBadge"></span>
-            </div>
-            <div id="filters"></div>
-        </div>
-
-        <div class="card" id="view"></div>
-
-        <p class="muted" style="text-align:center;padding:10px 0 20px">
-            Dados salvos localmente no navegador (localStorage) · Motor de cálculo 100% client-side ·
-            Autenticação real de múltiplos usuários não está disponível neste hospedagem estática — o seletor de perfil acima é uma simulação de nível de acesso na interface.
-        </p>
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px;">← Voltar</a>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div class="main-score-container">
+        <h2 style="margin-bottom: 10px; color: var(--ds-text-subtle);">Score Global da Operação</h2>
+        <div class="gauge-wrapper">
+            <canvas id="mainScoreChart"></canvas>
+            <div class="score-value" id="totalScoreText">76%</div>
+        </div>
+        <div class="status-badge" id="statusBadge">OPERAÇÃO GERENCIADA</div>
+    </div>
 
-    <script src="score-engine.js"></script>
-    <script src="score-store.js"></script>
-    <script src="score-integrations.js"></script>
-    <script src="score-tests.js"></script>
-    <script src="score-app.js"></script>
+    <div class="pillars-grid">
+        <!-- Pilar 1 -->
+        <div class="pillar-card p1">
+            <div class="pillar-header">
+                <div class="pillar-title">Atendimento (SD)</div>
+                <div class="pillar-score" style="color: #36B37E;">85%</div>
+            </div>
+            <div class="metric"><span>SLA de Resolução</span> <span>92%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 92%; background: #36B37E;"></div></div>
+            <br>
+            <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8/5.0</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 96%; background: #36B37E;"></div></div>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="pillar-card p2">
+            <div class="pillar-header">
+                <div class="pillar-title">Observabilidade</div>
+                <div class="pillar-score" style="color: #0052CC;">70%</div>
+            </div>
+            <div class="metric"><span>Uptime Sistemas Críticos</span> <span>99.9%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: #0052CC;"></div></div>
+            <br>
+            <div class="metric"><span>Monitoramento (Zabbix)</span> <span>60%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: #FFAB00;"></div></div>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="pillar-card p3">
+            <div class="pillar-header">
+                <div class="pillar-title">Governança (GMUD)</div>
+                <div class="pillar-score" style="color: #FFAB00;">80%</div>
+            </div>
+            <div class="metric"><span>Taxa de Sucesso GMUD</span> <span>95%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 95%; background: #36B37E;"></div></div>
+            <br>
+            <div class="metric"><span>Mudanças Emergenciais</span> <span>15%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #FFAB00;"></div></div>
+        </div>
+
+        <!-- Pilar 4 -->
+        <div class="pillar-card p4">
+            <div class="pillar-header">
+                <div class="pillar-title">Automação & Cloud</div>
+                <div class="pillar-score" style="color: #6554C0;">68%</div>
+            </div>
+            <div class="metric"><span>Tickets Automatizados</span> <span>30%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 30%; background: #DE350B;"></div></div>
+            <br>
+            <div class="metric"><span>Gestão Patching/Vulnerabilidades</span> <span>85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #36B37E;"></div></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Inicialização do Gráfico de Velocímetro (Gauge)
+    const ctx = document.getElementById('mainScoreChart').getContext('2d');
+    const score = 76; // Valor Base Mockado (Pode ser atualizado via fetch pro Jira Worker)
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [score, 100 - score],
+                backgroundColor: [
+                    score >= 80 ? '#36B37E' : (score >= 60 ? '#FFAB00' : '#DE350B'),
+                    '#DFE1E6'
+                ],
+                borderWidth: 0,
+                circumference: 180,
+                rotation: 270,
+                cutout: '75%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { tooltip: { enabled: false }, legend: { display: false } }
+        }
+    });
+
+    // Lógica para atualizar a badge de status dinamicamente
+    const badge = document.getElementById('statusBadge');
+    if(score >= 80) {
+        badge.textContent = "OPERAÇÃO OTIMIZADA";
+        badge.style.backgroundColor = "#E3FCEF";
+        badge.style.color = "#006644";
+    } else if(score >= 60) {
+        badge.textContent = "OPERAÇÃO GERENCIADA";
+        badge.style.backgroundColor = "#FFFAE6";
+        badge.style.color = "#FF8B00";
+    } else {
+        badge.textContent = "OPERAÇÃO REATIVA";
+        badge.style.backgroundColor = "#FFEBE6";
+        badge.style.color = "#BF2600";
+    }
+
+    // Integração futura: 
+    // fetch('https://oauth-token-exchange.luiz-santos.workers.dev')
+    //   .then(res => res.json())
+    //   .then(data => { ... atualizar os gráficos com dados reais das GMUDs e Incidentes ... })
+
+</script>
 </body>
-
 </html>

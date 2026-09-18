@@ -573,7 +573,7 @@
                     if (mttrHoras >= 24) {
                         const dias = Math.floor(mttrHoras / 24);
                         const horasRestantes = mttrHoras % 24;
-                        mttrEl.textContent = `${dias}d ${horasRestantes}h`;
+                        mttrEl.innerHTML = `${mttrHoras}h <span style="font-size: 11px; font-weight: normal; color: var(--ds-text-subtle);">(${dias}d ${horasRestantes}h)</span>`;
                     } else {
                         mttrEl.textContent = mttrHoras + 'h';
                     }

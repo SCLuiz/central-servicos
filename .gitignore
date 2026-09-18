@@ -1,5 +1,8 @@
-
-
 # Dados gerados automaticamente — nao commitar manualmente
 users_data.json
 hr_data.json
+
+# Segredos locais — nunca commitar
+.env
+.env.local
+.env.*.local

@@ -15,8 +15,8 @@
             --ds-border: #DFE1E6;
             --ds-blue: #0052CC;
             --ds-blue-subtle: #DEEBFF;
-            --of-magenta: #DD249B;
-            --of-yellow: #f7c20f;
+            --of-teal: #085A6E;
+            --of-cream: #FDE093;
             --ok: #00875A;
             --warn: #FFAB00;
             --err: #DE350B;
@@ -36,12 +36,13 @@
         .container { max-width: 1200px; margin: 0 auto; }
 
         .header {
-            background: linear-gradient(135deg, var(--of-magenta) 0%, var(--of-yellow) 100%);
+            background: var(--of-teal);
+            border-right: 20px solid var(--of-cream);
             border-radius: 12px;
             padding: 28px 24px;
             margin-bottom: 24px;
             color: #fff;
-            box-shadow: 0 4px 20px rgba(221, 36, 155, 0.2);
+            box-shadow: 0 4px 20px rgba(8, 90, 110, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -132,7 +133,7 @@
             <h1>IT Ops Health Score</h1>
             <p>Maturidade e Saúde das Operações de Tecnologia - Open Finance Brasil</p>
         </div>
-        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px;">← Voltar</a>
+        <a href="index.html" style="color: var(--of-teal); text-decoration: none; font-weight: 700; background: var(--of-cream); padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">← Voltar</a>
     </div>
 
     <div class="main-score-container">

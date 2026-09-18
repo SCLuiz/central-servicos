@@ -54,7 +54,9 @@ jobs:
           }
 
           # JQL para buscar mudanças dos últimos 90 dias com tipos variados
-          jql = 'project = OFBI AND type in ("[System] Mudança", "Mudança", "Change") AND (created >= -90d OR updated >= -90d) ORDER BY created DESC'
+          # "AND level is EMPTY" exclui GMUDs com Nivel de Seguranca (Issue Security
+          # Level) definido - elas nao devem vazar pro dashboard publico.
+          jql = 'project = OFBI AND type in ("[System] Mudança", "Mudança", "Change") AND (created >= -90d OR updated >= -90d) AND level is EMPTY ORDER BY created DESC'
 
           mudancas = []
           max_results = 100

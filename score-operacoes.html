@@ -182,6 +182,43 @@
         /* FOOTER */
         .footer { text-align: center; padding: 20px; color: var(--ds-text-subtle); font-size: 14px; border-top: 1px solid var(--ds-border); margin-top: 20px; }
 
+        /* TOOLTIP */
+        .tooltip-container { position: relative; display: inline-flex; align-items: center; gap: 5px; cursor: help; }
+        .info-icon { font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
+        .tooltip-container:hover .info-icon { opacity: 1; }
+        .tooltip-text {
+            visibility: hidden;
+            width: 240px;
+            background-color: var(--ds-text);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 10;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--ds-text) transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
         @media (max-width: 768px) {
             .main-score-card { flex-direction: column; text-align: center; gap: 30px; }
             .header { flex-direction: column; text-align: center; gap: 20px; padding: 25px 20px; border-right: none; border-bottom: 10px solid var(--of-cream); }
@@ -216,7 +253,16 @@
                 </div>
                 <div class="pillar-score" style="color: var(--of-teal);">85%</div>
             </div>
-            <div class="metric"><span>SLA de Resolução</span> <span id="sla-resolucao-value">...%</span></div>
+            <div class="metric">
+                <span class="tooltip-container">
+                    SLA de Resolução <span class="info-icon">ℹ️</span>
+                    <span class="tooltip-text">
+                        <strong>Origem:</strong> Jira (HELP)<br>
+                        <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o limite do "Tempo de resolução".
+                    </span>
+                </span>
+                <span id="sla-resolucao-value">...%</span>
+            </div>
             <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
             
             <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8</span></div>

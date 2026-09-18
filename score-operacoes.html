@@ -193,16 +193,12 @@
         <a href="index.html" class="btn-voltar">← Voltar para Central</a>
     </div>
 
-    <div class="main-score-card">
-        <div class="score-info">
-            <h2>Índice Global da Operação</h2>
-            <p>Este índice reflete a saúde geral da TI, calculado a partir de uma média ponderada dos nossos 4 pilares operacionais (Atendimento, Observabilidade, Governança e Automação).</p>
-            <div class="status-badge" id="statusBadge">Carregando...</div>
-        </div>
+    <div class="main-score-card" style="flex-direction: column; gap: 20px;">
         <div class="gauge-wrapper">
             <canvas id="mainScoreChart"></canvas>
             <div class="score-value" id="totalScoreText">76<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span></div>
         </div>
+        <div class="status-badge" id="statusBadge" style="margin-top: 10px;">Carregando...</div>
     </div>
 
     <div class="pillars-grid">

@@ -68,20 +68,25 @@
         .header-content p { color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 300; }
         
         .btn-voltar {
-            color: var(--of-teal);
+            color: var(--of-cream);
             text-decoration: none;
-            font-weight: 700;
-            background: var(--of-cream);
-            padding: 10px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(253, 224, 147, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
             z-index: 1;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        .btn-voltar:hover { transform: translateY(-2px); background: var(--of-cream-hover); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        .btn-voltar:hover { 
+            background: rgba(253, 224, 147, 0.15); 
+            border-color: var(--of-cream);
+            transform: translateX(-4px); 
+        }
 
         /* MAIN SCORE SECTION */
         .main-score-card {

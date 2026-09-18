@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-09-18T20:53:31.973656",
+  "ultima_atualizacao": "2026-09-18T21:03:57.910325",
   "total": 74,
   "mudancas": [
     {
       "key": "OFBI-5205",
       "summary": "Métrica 2.2.IV - Regra interna de processamento dos logs da Raidiam usada no cálculo da ",
-      "status": "Planejamento",
+      "status": "Aguardando Implantação",
       "priority": "Low",
       "assignee": "Denise Pontes",
       "reporter": "Denise Pontes",
       "created": "2026-09-18T17:44:58.801-0300",
-      "updated": "2026-09-18T17:47:33.135-0300",
+      "updated": "2026-09-18T17:58:18.521-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

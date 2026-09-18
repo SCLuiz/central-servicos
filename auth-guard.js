@@ -16,8 +16,17 @@
          'userName','userEmail','userAvatar','authMethod'].forEach(function(k) {
             localStorage.removeItem(k);
         });
+        
         var base = window.location.pathname.replace(/\/[^\/]*$/, '/');
-        window.location.replace(base + 'login.html');
+        // Pega apenas o nome do arquivo atual (ex: 'score-operacoes.html')
+        var currentPage = window.location.pathname.split('/').pop() + window.location.search;
+        
+        // Se já estiver na página de login, não passa parametro
+        if (currentPage.includes('login.html')) {
+            window.location.replace(base + 'login.html');
+        } else {
+            window.location.replace(base + 'login.html?returnTo=' + encodeURIComponent(currentPage));
+        }
     }
 
     // 1. Sem token ou expirado → redireciona imediatamente

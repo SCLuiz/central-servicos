@@ -4,10 +4,11 @@ window.addEventListener('DOMContentLoaded', () => {
                        sessionStorage.getItem('isAuthenticated') === 'true';
 
     if (isLoggedIn) {
-        // Já está logado, redirecionar
+        // Já está logado, redirecionar para a página solicitada ou index
         mostrarStatus('✅ Você já está autenticado! Redirecionando...', 'success');
+        const returnUrl = new URLSearchParams(window.location.search).get('returnTo') || 'index.html';
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = returnUrl;
         }, 1000);
     }
 });
@@ -15,6 +16,13 @@ window.addEventListener('DOMContentLoaded', () => {
 // Fazer login com OAuth 2.0 (usuários do Jira)
 function fazerLogin(event) {
     event.preventDefault();
+
+    // Capturar parâmetro returnTo da URL, se existir, para lembrar a página original
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnTo = urlParams.get('returnTo');
+    if (returnTo) {
+        sessionStorage.setItem('returnTo', returnTo);
+    }
 
     // Gerar state para segurança (CSRF protection)
     const state = generateRandomString(32);

@@ -93,8 +93,8 @@
                 document.getElementById('status').textContent = '✅ Autenticado!';
                 document.getElementById('message').textContent = 'Bem-vindo(a), ' + userInfo.displayName + '! Redirecionando...';
 
-                const returnUrl = sessionStorage.getItem('returnTo') || 'index.html';
-                sessionStorage.removeItem('returnTo'); // Limpa após usar
+                const returnUrl = localStorage.getItem('returnTo') || 'index.html';
+                localStorage.removeItem('returnTo'); // Limpa após usar
 
                 setTimeout(() => {
                     window.location.href = returnUrl;

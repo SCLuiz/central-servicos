@@ -257,14 +257,28 @@
                     <div class="of-tooltip-box">
                         <strong>Origem:</strong> Jira (HELP)<br>
                         <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o "Tempo de resolução".
-                        <div id="sla-math-details" style="margin-top: 8px; font-size: 11px; color: #b3bac5; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1);">
-                            Sincronizando com Jira...
-                        </div>
                     </div>
                 </div>
                 <span id="sla-resolucao-value">...%</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
+            
+            <!-- SUB METRICS DO SLA -->
+            <div id="sla-sub-metrics" style="display: none; margin-top: 10px; margin-bottom: 20px; font-size: 12px; color: var(--ds-text-subtle); padding-left: 10px; border-left: 2px solid var(--ds-border);">
+                <div style="margin-bottom: 8px;">
+                    <strong>Base Analisada:</strong> <span id="sla-total">0</span> chamados
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <span>No prazo (Met) ✅</span> <span id="sla-met">0</span>
+                </div>
+                <div class="progress-bar" style="height: 6px; margin-bottom: 10px; background: rgba(54, 179, 126, 0.2);"><div class="progress-fill" id="sla-met-bar" style="background: #36B37E; width: 0%; transition: width 1s ease;"></div></div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <span>Estourados (Breached) ❌</span> <span id="sla-breached">0</span>
+                </div>
+                <div class="progress-bar" style="height: 6px; margin-bottom: 5px; background: rgba(222, 53, 11, 0.2);"><div class="progress-fill" id="sla-breached-bar" style="background: #DE350B; width: 0%; transition: width 1s ease;"></div></div>
+            </div>
             
             <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8</span></div>
             <div class="progress-bar"><div class="progress-fill" data-width="96" style="background: var(--of-teal);"></div></div>
@@ -341,12 +355,19 @@
                 const slaProgress = document.getElementById('sla-resolucao-progress');
                 slaProgress.setAttribute('data-width', slaMetrica);
                 
-                // Atualiza o Tooltip com a Matemática
-                document.getElementById('sla-math-details').innerHTML = `
-                    <strong>Base Analisada:</strong> ${metrics.total_resolved} chamados<br>
-                    <strong>No prazo (Met):</strong> ${metrics.met} ✅<br>
-                    <strong>Estourados (Breached):</strong> ${metrics.breached} ❌
-                `;
+                // Renderiza os sub-itens
+                document.getElementById('sla-sub-metrics').style.display = 'block';
+                document.getElementById('sla-total').textContent = metrics.total_resolved;
+                document.getElementById('sla-met').textContent = metrics.met;
+                document.getElementById('sla-breached').textContent = metrics.breached;
+                
+                // Anima as sub-barras
+                setTimeout(() => {
+                    const pctMet = metrics.total_resolved > 0 ? (metrics.met / metrics.total_resolved) * 100 : 0;
+                    const pctBreached = metrics.total_resolved > 0 ? (metrics.breached / metrics.total_resolved) * 100 : 0;
+                    document.getElementById('sla-met-bar').style.width = pctMet + '%';
+                    document.getElementById('sla-breached-bar').style.width = pctBreached + '%';
+                }, 400);
                 
                 // Calcula uma nota global básica puxando o peso do SLA
                 // (Para simplificar, vamos assumir o restante constante e atualizar a nota principal dinamicamente)

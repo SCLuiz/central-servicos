@@ -181,43 +181,41 @@
         /* FOOTER */
         .footer { text-align: center; padding: 20px; color: var(--ds-text-subtle); font-size: 14px; border-top: 1px solid var(--ds-border); margin-top: 20px; }
 
-        /* TOOLTIP */
+        /* TOOLTIP V2 */
         .tooltip-container { position: relative; display: inline-flex; align-items: center; gap: 5px; cursor: help; }
         .info-icon { font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
         .tooltip-container:hover .info-icon { opacity: 1; }
-        .tooltip-text {
-            visibility: hidden;
-            width: 260px;
-            background-color: var(--ds-text);
-            color: #ffffff !important;
+        
+        .of-tooltip-box {
+            display: none;
+            width: 250px;
+            background: #172B4D;
+            color: #FFFFFF !important;
             text-align: left;
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 12px;
             position: absolute;
-            z-index: 9999;
-            bottom: 150%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 13px;
-            font-weight: 400;
+            z-index: 99999;
+            bottom: 25px;
+            left: -10px;
+            font-size: 12px;
             line-height: 1.5;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            pointer-events: none;
-            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
-        .tooltip-text::after {
+        .of-tooltip-box::after {
             content: "";
             position: absolute;
             top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
+            left: 20px;
+            border-width: 6px;
             border-style: solid;
-            border-color: var(--ds-text) transparent transparent transparent;
+            border-color: #172B4D transparent transparent transparent;
         }
-        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+        .tooltip-container:hover .of-tooltip-box {
+            display: block;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
             .main-score-card { flex-direction: column; text-align: center; gap: 30px; }
@@ -254,13 +252,13 @@
                 <div class="pillar-score" style="color: var(--of-teal);">85%</div>
             </div>
             <div class="metric">
-                <span class="tooltip-container">
+                <div class="tooltip-container">
                     SLA de Resolução <span class="info-icon">ℹ️</span>
-                    <span class="tooltip-text">
+                    <div class="of-tooltip-box">
                         <strong>Origem:</strong> Jira (HELP)<br>
                         <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o limite do "Tempo de resolução".
-                    </span>
-                </span>
+                    </div>
+                </div>
                 <span id="sla-resolucao-value">...%</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>

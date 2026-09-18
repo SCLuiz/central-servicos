@@ -307,13 +307,32 @@
                 <div class="pillar-title-wrap">
                     <div class="pillar-title">Observabilidade</div>
                 </div>
-                <div class="pillar-score" style="color: #0052CC;">70%</div>
+                <div class="pillar-score" style="color: #DE350B;">0%</div>
             </div>
-            <div class="metric"><span>Uptime Sistemas</span> <span>99.9%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="100" style="background: #0052CC;"></div></div>
             
-            <div class="metric"><span>Monitoramento Ativo</span> <span>60%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="60" style="background: #FFAB00;"></div></div>
+            <div class="metric">
+                <div class="tooltip-container">
+                    Uptime Sistemas <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>Origem:</strong> Sem telemetria<br>
+                        <strong>Critério:</strong> Disponibilidade dos sistemas. Métrica zerada devido à ausência de dados ou monitoramento ativo no momento.
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #0052CC;"></div></div>
+            
+            <div class="metric">
+                <div class="tooltip-container">
+                    Monitoramento Ativo <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>Origem:</strong> Sem telemetria<br>
+                        <strong>Critério:</strong> Cobertura de alertas de infraestrutura. Métrica zerada devido à ausência de dados ou monitoramento ativo no momento.
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
 
         <!-- Pilar 3 -->
@@ -421,7 +440,8 @@
                 
                 // Calcula uma nota global puxando os reais e o resto mockado
                 // Fórmula: (SLA + (CSAT/5*100) + Uptime + GMUD) / 4
-                const scoreGlobalCalculado = Math.round((slaMetrica + ((csatMetrica/5)*100) + 80 + 68) / 4);
+                // Uptime fixado em 0% por ausência de dados de telemetria
+                const scoreGlobalCalculado = Math.round((slaMetrica + ((csatMetrica/5)*100) + 0 + 68) / 4);
                 atualizarGraficoGlobal(scoreGlobalCalculado);
                 
             }

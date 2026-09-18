@@ -216,8 +216,8 @@
                 </div>
                 <div class="pillar-score" style="color: var(--of-teal);">85%</div>
             </div>
-            <div class="metric"><span>SLA de Resolução</span> <span>92%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="92" style="background: var(--of-teal);"></div></div>
+            <div class="metric"><span>SLA de Resolução</span> <span id="sla-resolucao-value">...%</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
             
             <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8</span></div>
             <div class="progress-bar"><div class="progress-fill" data-width="96" style="background: var(--of-teal);"></div></div>
@@ -279,7 +279,26 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+        const workerUrl = 'https://jira-api-proxy.luiz-santos.workers.dev/it-ops-score';
+        
+        let slaMetrica = 85; // Default/Mock de fallback
+        
+        try {
+            const response = await fetch(workerUrl);
+            if (response.ok) {
+                const data = await response.json();
+                slaMetrica = data.metrics.sla_resolucao.value;
+                document.getElementById('sla-resolucao-value').textContent = slaMetrica + '%';
+                const slaProgress = document.getElementById('sla-resolucao-progress');
+                slaProgress.setAttribute('data-width', slaMetrica);
+                // Calcula uma nota global básica puxando o peso do SLA
+                // (Para simplificar, vamos assumir o restante constante e atualizar a nota principal dinamicamente)
+            }
+        } catch (error) {
+            console.error('Erro ao buscar SLAs do Jira:', error);
+        }
+
         // Animação das barras de progresso
         setTimeout(() => {
             document.querySelectorAll('.progress-fill').forEach(bar => {
@@ -288,8 +307,10 @@
         }, 300);
 
         // Renderização do Gráfico Principal
+        // Exemplo: 76 fixo para o resto + peso dinâmico do SLA
         const ctx = document.getElementById('mainScoreChart').getContext('2d');
-        const score = 76; // Mockado
+        const score = Math.round((slaMetrica + 70 + 80 + 68) / 4); 
+        document.getElementById('totalScoreText').innerHTML = score + '<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span>';
 
         // Cores baseadas no score
         let mainColor = '';

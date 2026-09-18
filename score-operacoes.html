@@ -390,6 +390,16 @@
             </div>
             
             <div class="metric-box">
+                <div class="metric-title">Volume de Incidentes</div>
+                <div class="metric-stats">
+                    <span class="current-value" id="incidentes-volume" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: 0</span>
+                    <span class="trend" id="incidentes-trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
+            </div>
+            
+            <div class="metric-box">
                 <div class="metric-title">Serviços com DR Testado</div>
                 <div class="metric-stats">
                     <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
@@ -519,7 +529,7 @@
                     }
                 }
                 
-                // === ATUALIZA MTTR (PILAR 1) ===
+                // === ATUALIZA MTTR E INCIDENTES ===
                 if (data.metrics.incidentes) {
                     const mttrHoras = data.metrics.incidentes.mttr_horas;
                     const mttrEl = document.getElementById('mttr-value');
@@ -534,6 +544,16 @@
                     } else {
                         mttrTrend.textContent = "↓";
                         mttrTrend.style.color = "#DE350B";
+                    }
+
+                    // Volume de incidentes
+                    const volEl = document.getElementById('incidentes-volume');
+                    const volTrend = document.getElementById('incidentes-trend');
+                    if(volEl) {
+                        volEl.textContent = data.metrics.incidentes.total;
+                        volEl.style.color = "var(--ds-text)";
+                        volTrend.textContent = "↓";
+                        volTrend.style.color = "#DE350B"; // Como temos incidentes, é ruim
                     }
                 }
 

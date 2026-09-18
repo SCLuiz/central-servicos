@@ -405,16 +405,18 @@
                         let breakdownHtml = '';
                         for(let i = 5; i >= 1; i--) {
                             const count = csatData.breakdown[i] || 0;
-                            const pct = csatData.total_ratings > 0 ? (count / csatData.total_ratings) * 100 : 0;
-                            const color = i >= 4 ? '#36B37E' : (i >= 3 ? '#FFAB00' : '#DE350B');
-                            breakdownHtml += `
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 11px;">
-                                <span style="width: 30px; font-weight: bold;">${i} ⭐</span>
-                                <div class="progress-bar" style="height: 6px; flex-grow: 1; margin: 0 10px; background: rgba(9, 30, 66, 0.08);">
-                                    <div class="progress-fill" style="background: ${color}; width: 0%; transition: width 1s ease;" data-width="${pct}"></div>
-                                </div>
-                                <span style="width: 20px; text-align: right; color: var(--ds-text);">${count}</span>
-                            </div>`;
+                            if (count > 0) {
+                                const pct = csatData.total_ratings > 0 ? (count / csatData.total_ratings) * 100 : 0;
+                                const color = i >= 4 ? '#36B37E' : (i >= 3 ? '#FFAB00' : '#DE350B');
+                                breakdownHtml += `
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 11px;">
+                                    <span style="width: 30px; font-weight: bold;">${i} ⭐</span>
+                                    <div class="progress-bar" style="height: 6px; flex-grow: 1; margin: 0 10px; background: rgba(9, 30, 66, 0.08);">
+                                        <div class="progress-fill" style="background: ${color}; width: 0%; transition: width 1s ease;" data-width="${pct}"></div>
+                                    </div>
+                                    <span style="width: 20px; text-align: right; color: var(--ds-text);">${count}</span>
+                                </div>`;
+                            }
                         }
                         document.getElementById('csat-breakdown-container').innerHTML = breakdownHtml;
                     }

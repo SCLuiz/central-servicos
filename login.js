@@ -21,7 +21,7 @@ function fazerLogin(event) {
     const urlParams = new URLSearchParams(window.location.search);
     const returnTo = urlParams.get('returnTo');
     if (returnTo) {
-        sessionStorage.setItem('returnTo', returnTo);
+        localStorage.setItem('returnTo', returnTo);
     }
 
     // Gerar state para segurança (CSRF protection)

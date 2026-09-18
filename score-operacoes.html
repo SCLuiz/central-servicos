@@ -162,6 +162,12 @@
 
         .metric { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--ds-text-subtle); }
         .metric span:last-child { font-weight: 700; color: var(--ds-text); }
+        .metric-box { margin-bottom: 15px; }
+        .metric-title { font-size: 13px; color: var(--ds-text-subtle); margin-bottom: 4px; font-weight: 500; }
+        .metric-stats { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+        .current-value { font-weight: 600; font-size: 15px; color: var(--ds-text); }
+        .meta-value { font-size: 11px; color: var(--ds-text-subtle); background: var(--ds-background); padding: 3px 6px; border-radius: 4px; border: 1px solid var(--ds-border); }
+        .trend { font-weight: bold; font-size: 14px; width: 15px; text-align: center; }
         
         .progress-bar {
             width: 100%;
@@ -243,165 +249,183 @@
     </div>
 
     <div class="pillars-grid">
-        <!-- Pilar 1 -->
+        
+        <!-- Domínio 1: Atendimento & Serviços -->
         <div class="pillar-card p1">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">Suporte Técnico</div>
+                    <div class="pillar-title">1. Atendimento & Serviços</div>
                 </div>
-                <div class="pillar-score" style="color: var(--of-teal);">85%</div>
+                <div class="pillar-score" style="color: var(--of-teal); font-size: 20px;">0%</div>
             </div>
-            <div class="metric">
-                <div class="tooltip-container">
-                    SLA de Resolução <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>Origem:</strong> Jira (HELP)<br>
-                        <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o "Tempo de resolução".
+            
+            <div class="metric-box">
+                <div class="metric-title">
+                    <div class="tooltip-container">
+                        SLA de Resolução <span class="info-icon">ℹ️</span>
+                        <div class="of-tooltip-box"><strong>Origem:</strong> Jira (HELP)<br>Porcentagem de incidentes e solicitações dentro do prazo.</div>
                     </div>
                 </div>
-                <span id="sla-resolucao-value">...%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
-            
-            <!-- SUB METRICS DO SLA -->
-            <div id="sla-sub-metrics" style="display: none; margin-top: 10px; margin-bottom: 20px; font-size: 12px; color: var(--ds-text-subtle); padding-left: 10px; border-left: 2px solid var(--ds-border);">
-                <div style="margin-bottom: 8px;">
-                    <strong>Base Analisada:</strong> <span id="sla-total">0</span> chamados
+                <div class="metric-stats">
+                    <span class="current-value" id="sla-resolucao-value">...</span>
+                    <span class="meta-value">Meta: 90%</span>
+                    <span class="trend down" style="color:#DE350B">↓</span>
                 </div>
-                
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>No prazo</span> <span id="sla-met">0</span>
+                <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
+                <div id="sla-sub-metrics" style="display: none; margin-top: -10px; margin-bottom: 15px; font-size: 11px; color: var(--ds-text-subtle);">
+                    Base: <span id="sla-total">0</span> | No Prazo: <span id="sla-met">0</span> | Estourados: <span id="sla-breached">0</span>
                 </div>
-                <div class="progress-bar" style="height: 6px; margin-bottom: 10px; background: rgba(54, 179, 126, 0.2);"><div class="progress-fill" id="sla-met-bar" style="background: #36B37E; width: 0%; transition: width 1s ease;"></div></div>
-                
-                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                    <span>Estourados</span> <span id="sla-breached">0</span>
-                </div>
-                <div class="progress-bar" style="height: 6px; margin-bottom: 5px; background: rgba(222, 53, 11, 0.2);"><div class="progress-fill" id="sla-breached-bar" style="background: #DE350B; width: 0%; transition: width 1s ease;"></div></div>
             </div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    CSAT (Satisfação) <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>Origem:</strong> Jira (HELP)<br>
-                        <strong>Critério:</strong> Média histórica das notas de satisfação (1 a 5 estrelas) dadas pelos usuários após o fechamento dos chamados.
+            <div class="metric-box">
+                <div class="metric-title">
+                    <div class="tooltip-container">
+                        CSAT (Satisfação) <span class="info-icon">ℹ️</span>
+                        <div class="of-tooltip-box"><strong>Origem:</strong> Jira (HELP)<br>Satisfação do usuário com o atendimento (escala de 1 a 5).</div>
                     </div>
                 </div>
-                <span id="csat-value">...</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="csat-progress" data-width="0" style="background: var(--of-teal);"></div></div>
-            
-            <!-- SUB METRICS DO CSAT -->
-            <div id="csat-sub-metrics" style="display: none; margin-top: 10px; font-size: 12px; color: var(--ds-text-subtle); padding-left: 10px; border-left: 2px solid var(--ds-border);">
-                <div style="margin-bottom: 12px;">
-                    <strong>Total de Avaliações:</strong> <span id="csat-total">0</span>
+                <div class="metric-stats">
+                    <span class="current-value" id="csat-value">...</span>
+                    <span class="meta-value">Meta: 4.8</span>
+                    <span class="trend up" style="color:#36B37E">↑</span>
                 </div>
-                <div id="csat-breakdown-container"></div>
+                <div class="progress-bar"><div class="progress-fill" id="csat-progress" data-width="0" style="background: var(--of-teal);"></div></div>
+                <div id="csat-sub-metrics" style="display: none; margin-top: -10px; margin-bottom: 15px; font-size: 11px; color: var(--ds-text-subtle);">
+                    Total Avaliações: <span id="csat-total">0</span>
+                    <div id="csat-breakdown-container" style="margin-top: 5px;"></div>
+                </div>
+            </div>
+            
+            <div class="metric-box">
+                <div class="metric-title">MTTR (Tempo Médio de Reparo)</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: < 4h</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
             </div>
         </div>
 
-        <!-- Pilar 2 -->
+        <!-- Domínio 2: Confiabilidade & Observabilidade -->
         <div class="pillar-card p2">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">Observabilidade</div>
+                    <div class="pillar-title">2. Observabilidade</div>
                 </div>
-                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle); font-size: 20px;">N/D</div>
             </div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Uptime Sistemas <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Porcentagem de tempo em que a infraestrutura e os sistemas críticos permaneceram 100% disponíveis e operacionais no mês.<br>
-                        <strong>Origem atual:</strong> Sem ferramenta de telemetria mapeada. Métrica zerada temporariamente.
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">Disponibilidade (Uptime)</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: 99.9%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #0052CC;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #0052CC;"></div></div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Monitoramento Ativo <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Porcentagem dos ativos e servidores da TI que possuem alarmes configurados para notificar a equipe automaticamente em caso de falhas.<br>
-                        <strong>Origem atual:</strong> Sem ferramenta de telemetria mapeada. Métrica zerada temporariamente.
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">Cobertura de Monitoramento</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: 100%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #0052CC;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
 
-        <!-- Pilar 3 -->
+        <!-- Domínio 3: Governança & Controle -->
         <div class="pillar-card p3">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">Governança</div>
+                    <div class="pillar-title">3. Governança</div>
                 </div>
-                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle); font-size: 20px;">N/D</div>
             </div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Sucesso GMUD <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Taxa de mudanças e deploys executados com sucesso em produção sem causar incidentes ou necessidade de rollback.<br>
-                        <strong>Origem atual:</strong> Aguardando sincronização com Jira (Mudanças).
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">Sucesso GMUD</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: ≥ 95%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Saúde do CMDB <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Porcentagem de ativos (servidores, sistemas, redes) mapeados corretamente no Banco de Dados de Configuração com dono definido.<br>
-                        <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">Saúde do CMDB</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: ≥ 90%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
 
-        <!-- Pilar 4 -->
+        <!-- Domínio 4: Resiliência & Continuidade -->
         <div class="pillar-card p4">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">Continuidade</div>
+                    <div class="pillar-title">4. Resiliência</div>
                 </div>
-                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle); font-size: 20px;">N/D</div>
             </div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Gestão de Incidentes <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Eficiência no volume e Tempo Médio de Recuperação (MTTR) no tratamento de indisponibilidades críticas do ambiente.<br>
-                        <strong>Origem atual:</strong> Aguardando sincronização com Jira (Incidentes).
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">Serviços com DR Testado</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: 100%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
             
-            <div class="metric">
-                <div class="tooltip-container">
-                    Gestão de Problemas <span class="info-icon">ℹ️</span>
-                    <div class="of-tooltip-box">
-                        <strong>O que é:</strong> Porcentagem de incidentes críticos que tiveram sua Causa-Raiz investigada e tratada de forma definitiva para evitar recorrências.<br>
-                        <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
-                    </div>
+            <div class="metric-box">
+                <div class="metric-title">RTO (Recovery Time)</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: < 8h</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <span style="color: var(--ds-text-subtle);">N/D</span>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
         </div>
+
+        <!-- Domínio 5: Melhoria Contínua & Agilidade -->
+        <div class="pillar-card p5">
+            <div class="pillar-header">
+                <div class="pillar-title-wrap">
+                    <div class="pillar-title">5. Melhoria Contínua</div>
+                </div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle); font-size: 20px;">N/D</div>
+            </div>
+            
+            <div class="metric-box">
+                <div class="metric-title">Automações Entregues</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: ≥ 5/mês</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #36B37E;"></div></div>
+            </div>
+            
+            <div class="metric-box">
+                <div class="metric-title">Redução de Incidentes</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: -10%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #36B37E;"></div></div>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 30px 20px;">
@@ -483,6 +507,7 @@
                 
                 // Calcula a maturidade focando apenas nos dados reais disponíveis (N/D é ignorado)
                 const pilar1Performance = (slaMetrica + ((csatMetrica/5)*100)) / 2;
+                document.querySelector('.p1 .pillar-score').textContent = Math.round(pilar1Performance) + '%';
                 
                 // Média de performance apenas dos pilares avaliados
                 const avgPerformance = pilar1Performance; // Pilares 2, 3 e 4 são N/D

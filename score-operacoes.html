@@ -172,17 +172,31 @@
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: var(--ds-surface-overlay);
+            background-color: var(--ds-border);
             border-radius: 4px;
-            margin-bottom: 20px;
             overflow: hidden;
+            margin-bottom: 20px;
         }
-        .progress-fill { 
-            height: 100%; 
-            border-radius: 4px; 
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0;
             transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-            width: 0%; /* Inicia em 0 para a animação */
         }
+
+        /* PAINÉIS DE AÇÃO (RISCO E MELHORIAS) */
+        .action-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .action-card { background: #FFFFFF; border-radius: 8px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 4px solid var(--ds-border); }
+        .action-card.risks { border-left-color: #DE350B; }
+        .action-card.improvements { border-left-color: #36B37E; }
+        .action-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .action-title.risks { color: #DE350B; }
+        .action-title.improvements { color: #006644; }
+        .action-list { list-style: none; padding: 0; margin: 0; }
+        .action-list li { padding: 10px 0; border-bottom: 1px solid var(--ds-border); font-size: 14px; color: var(--ds-text); display: flex; gap: 8px; }
+        .action-list li:last-child { border-bottom: none; }
+        .action-list.risks li::before { content: '•'; font-weight: bold; color: #DE350B; font-size: 18px; line-height: 14px; }
+        .action-list.improvements li::before { content: '→'; font-weight: bold; color: #36B37E; font-size: 16px; line-height: 14px; }
 
         /* FOOTER */
         .footer { text-align: center; padding: 20px; color: var(--ds-text-subtle); font-size: 14px; border-top: 1px solid var(--ds-border); margin-top: 20px; }
@@ -426,6 +440,25 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="action-panels">
+        <div class="action-card risks">
+            <div class="action-title risks">🔴 RISCOS CRÍTICOS</div>
+            <ul class="action-list risks">
+                <li>4 serviços críticos operando sem telemetria ou monitoramento ativo mapeado.</li>
+                <li>3 sistemas centrais sem plano formal de continuidade (DR) validado no semestre.</li>
+                <li>5 incidentes graves recentes encerrados sem o tratamento oficial de Causa-Raiz (RCA).</li>
+            </ul>
+        </div>
+        <div class="action-card improvements">
+            <div class="action-title improvements">🎯 PRÓXIMAS MELHORIAS (Rumo ao Nível 3)</div>
+            <ul class="action-list improvements">
+                <li>Implantar telemetria e fluxos de alertas na infraestrutura e APIs críticas.</li>
+                <li>Estruturar prática de Problem Management para evitar incidentes repetitivos.</li>
+                <li>Atualizar e mapear responsabilidades de 30% da base órfã apontada no CMDB atual.</li>
+            </ul>
+        </div>
     </div>
 
     <div class="footer" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 30px 20px;">

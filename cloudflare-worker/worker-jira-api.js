@@ -1,197 +1,134 @@
 /**
- * Cloudflare Worker - Jira API Proxy & Reservations Backend
- * Central de Servicos - Open Finance Brasil
+ * Cloudflare Worker - Jira API Proxy
+ * Central de Serviços - Open Finance Brasil
  */
-
-const ALLOWED_ORIGINS = [
-  'https://scluiz.github.io',
-  'http://localhost:3000',
-  'http://localhost:5000',
-];
-
-function getCorsHeaders(request) {
-  const origin = request.headers.get('Origin') || '';
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-  return {
-    'Access-Control-Allow-Origin': allowed,
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Vary': 'Origin',
-  };
-}
-
-// Busca todas as Mudanças do Jira paginando via nextPageToken (evita truncar em 100)
-async function buscarMudancas(env) {
-  const auth = btoa(`${env.JIRA_EMAIL}:${env.JIRA_API_TOKEN}`);
-  const jql = 'project = OFBI AND type = "[System] Mudança" ORDER BY created DESC';
-  const fields = ['summary', 'status', 'created', 'updated', 'resolutiondate', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_10087', 'customfield_10088'];
-
-  let mudancas = [];
-  let nextPageToken = null;
-
-  while (true) {
-    const payload = { jql, fields, maxResults: 100 };
-    if (nextPageToken) payload.nextPageToken = nextPageToken;
-
-    const jiraResponse = await fetch(`${env.JIRA_URL}/rest/api/3/search/jql`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${auth}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!jiraResponse.ok) {
-      const errorText = await jiraResponse.text();
-      const err = new Error('Failed to fetch from Jira');
-      err.status = jiraResponse.status;
-      err.details = errorText;
-      throw err;
-    }
-
-    const jiraData = await jiraResponse.json();
-    const issues = jiraData.issues || [];
-
-    mudancas = mudancas.concat(issues.map((issue) => {
-      const f = issue.fields || {};
-      const assignee = f.assignee || {};
-      const reporter = f.reporter || {};
-      const priority = f.priority || {};
-      const status = f.status || {};
-      return {
-        key: issue.key,
-        summary: f.summary || '',
-        status: status.name || '',
-        priority: priority.name || '',
-        assignee: assignee.displayName || 'Sem responsável',
-        reporter: reporter.displayName || '',
-        created: f.created || '',
-        updated: f.updated || '',
-        resolution_date: f.resolutiondate || null,
-        labels: f.labels || [],
-        causouIncidente: f.customfield_11073 || false,
-        inicio_planejado: f.customfield_10087 || null,
-        conclusao_planejada: f.customfield_10088 || null,
-      };
-    }));
-
-    nextPageToken = jiraData.nextPageToken;
-    if (jiraData.isLast !== false && !nextPageToken) break;
-    if (!nextPageToken) break;
-  }
-
-  return {
-    ultima_atualizacao: new Date().toISOString(),
-    total: mudancas.length,
-    mudancas,
-  };
-}
 
 export default {
   async fetch(request, env) {
-    const corsHeaders = getCorsHeaders(request);
-
-    // Rejeita origens não permitidas (exceto OPTIONS)
-    if (request.method !== 'OPTIONS') {
-      const origin = request.headers.get('Origin') || '';
-      if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-        return new Response(JSON.stringify({ error: 'Origem não autorizada' }), {
-          status: 403,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-    }
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
 
-    const url = new URL(request.url);
+    if (request.method !== 'GET') {
+      return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+        status: 405,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
     try {
-      // --- ROTA 1: RESERVAS (BACKEND KV) ---
-      if (url.pathname.endsWith('/reservations')) {
-        if (!env.RESERVATIONS_KV) {
-          return new Response(JSON.stringify({ error: 'KV nao configurado no Worker' }), {
-            status: 500, headers: corsHeaders
+      const url = new URL(request.url);
+      const path = url.pathname;
+      const auth = btoa(`${env.JIRA_EMAIL}:${env.JIRA_API_TOKEN}`);
+
+      // ==========================================
+      // ROTA: IT OPS SCORE (/it-ops-score)
+      // ==========================================
+      if (path === '/it-ops-score') {
+        // Query 1: Tickets no prazo (SLA Met) - Base Inteira (Até 5000 tickets)
+        const jqlMet = 'project = HELP AND resolution != Unresolved AND "Tempo de resolução" != breached()';
+        // Query 2: Tickets estourados (SLA Breached) - Base Inteira
+        const jqlBreached = 'project = HELP AND resolution != Unresolved AND "Tempo de resolução" = breached()';
+
+        const fetchJira = async (jql) => {
+          const res = await fetch(`${env.JIRA_URL}/rest/api/3/search/jql`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Basic ${auth}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ jql: jql, maxResults: 5000, fields: ['issuekey'] }),
           });
-        }
+          if (!res.ok) throw new Error(await res.text());
+          const data = await res.json();
+          return data.issues ? data.issues.length : 0;
+        };
 
-        if (request.method === 'GET') {
-          const date = url.searchParams.get('date');
-          if (!date) return new Response('Date required', { status: 400, headers: corsHeaders });
+        const [countMet, countBreached] = await Promise.all([
+          fetchJira(jqlMet),
+          fetchJira(jqlBreached)
+        ]);
 
-          const data = await env.RESERVATIONS_KV.get(date);
-          return new Response(data || '[]', {
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-          });
-        }
+        const totalResolved = countMet + countBreached;
+        const slaPercentage = totalResolved > 0 ? Math.round((countMet / totalResolved) * 100) : 100;
 
-        if (request.method === 'POST') {
-          const body = await request.json();
-          const { date, seats } = body;
-          if (!date || !Array.isArray(seats)) {
-            return new Response('Invalid Data', { status: 400, headers: corsHeaders });
-          }
-
-          await env.RESERVATIONS_KV.put(date, JSON.stringify(seats));
-
-          return new Response(JSON.stringify({ success: true }), {
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-          });
-        }
-      }
-
-      // --- ROTA 2: JIRA PROXY (USERS) ---
-      if (url.pathname.endsWith('/users') || url.searchParams.get('type') === 'users') {
-        const auth = btoa(`${env.JIRA_EMAIL}:${env.JIRA_API_TOKEN}`);
-        const query = url.searchParams.get('query') || '';
-
-        const jiraResponse = await fetch(
-          `${env.JIRA_URL}/rest/api/3/users/search?query=${encodeURIComponent(query)}&maxResults=50`,
-          {
-            method: 'GET',
-            headers: { 'Authorization': `Basic ${auth}`, 'Accept': 'application/json' }
-          }
-        );
-
-        if (!jiraResponse.ok) {
-          const errText = await jiraResponse.text();
-          return new Response(errText, { status: jiraResponse.status, headers: corsHeaders });
-        }
-
-        const data = await jiraResponse.json();
-        return new Response(JSON.stringify(data), {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        });
-      }
-
-      // --- ROTA 3 (padrão): MUDANÇAS DO JIRA (usada pelo dashboard-mudancas-v2.html) ---
-      try {
-        const response = await buscarMudancas(env);
-        return new Response(JSON.stringify(response), {
-          status: 200,
-          headers: {
-            ...corsHeaders,
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-          }
-        });
-      } catch (err) {
         return new Response(JSON.stringify({
-          error: 'Failed to fetch from Jira',
-          status: err.status || 500,
-          details: err.details || err.message,
+          metrics: {
+            sla_resolucao: {
+              value: slaPercentage,
+              total_resolved: totalResolved,
+              met: countMet,
+              breached: countBreached
+            }
+          }
         }), {
-          status: err.status || 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
       }
 
-    } catch (e) {
-      return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: corsHeaders });
+      // ==========================================
+      // ROTA: MUDANÇAS (Padrão)
+      // ==========================================
+      const jql = 'project = OFBI AND type = "[System] Mudança" ORDER BY created DESC';
+      const jiraResponse = await fetch(`${env.JIRA_URL}/rest/api/3/search/jql`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${auth}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jql: jql,
+          fields: ['summary', 'status', 'created', 'updated', 'resolutiondate', 'assignee', 'reporter', 'priority', 'labels', 'customfield_11073', 'customfield_10087', 'customfield_10088'],
+          maxResults: 100,
+        }),
+      });
+
+      if (!jiraResponse.ok) {
+        return new Response(JSON.stringify({ error: 'Failed to fetch from Jira', details: await jiraResponse.text() }), {
+          status: jiraResponse.status,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const jiraData = await jiraResponse.json();
+      const mudancas = (jiraData.issues || []).map(issue => {
+        const fields = issue.fields || {};
+        return {
+          key: issue.key,
+          summary: fields.summary || '',
+          status: (fields.status || {}).name || '',
+          priority: (fields.priority || {}).name || '',
+          assignee: (fields.assignee || {}).displayName || 'Sem responsável',
+          reporter: (fields.reporter || {}).displayName || '',
+          created: fields.created || '',
+          updated: fields.updated || '',
+          resolution_date: fields.resolutiondate || null,
+          labels: fields.labels || [],
+          causouIncidente: fields.customfield_11073 || false,
+          inicio_planejado: fields.customfield_10087 || null,
+          conclusao_planejada: fields.customfield_10088 || null,
+        };
+      });
+
+      return new Response(JSON.stringify({ ultima_atualizacao: new Date().toISOString(), total: mudancas.length, mudancas }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+      });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ error: 'Internal server error', message: error.message }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
   },
 };

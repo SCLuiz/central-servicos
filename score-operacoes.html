@@ -341,28 +341,66 @@
                 <div class="pillar-title-wrap">
                     <div class="pillar-title">Governança</div>
                 </div>
-                <div class="pillar-score" style="color: #FFAB00;">80%</div>
+                <div class="pillar-score" style="color: #DE350B;">0%</div>
             </div>
-            <div class="metric"><span>Sucesso GMUD</span> <span>95%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="95" style="background: var(--ok);"></div></div>
             
-            <div class="metric"><span>Mudanças Emergenciais</span> <span>15%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85" style="background: #FFAB00;"></div></div>
+            <div class="metric">
+                <div class="tooltip-container">
+                    Sucesso GMUD <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>O que é:</strong> Taxa de mudanças e deploys executados com sucesso em produção sem causar incidentes ou necessidade de rollback.<br>
+                        <strong>Origem atual:</strong> Aguardando sincronização com Jira (Mudanças).
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
+            
+            <div class="metric">
+                <div class="tooltip-container">
+                    Saúde do CMDB <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>O que é:</strong> Porcentagem de ativos (servidores, sistemas, redes) mapeados corretamente no Banco de Dados de Configuração com dono definido.<br>
+                        <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
 
         <!-- Pilar 4 -->
         <div class="pillar-card p4">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">Automação</div>
+                    <div class="pillar-title">Continuidade</div>
                 </div>
-                <div class="pillar-score" style="color: #6554C0;">68%</div>
+                <div class="pillar-score" style="color: #DE350B;">0%</div>
             </div>
-            <div class="metric"><span>Tickets Automatizados</span> <span>30%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="30" style="background: var(--err);"></div></div>
             
-            <div class="metric"><span>Gestão de Patching</span> <span>85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="85" style="background: var(--ok);"></div></div>
+            <div class="metric">
+                <div class="tooltip-container">
+                    Gestão de Incidentes <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>O que é:</strong> Eficiência no volume e Tempo Médio de Recuperação (MTTR) no tratamento de indisponibilidades críticas do ambiente.<br>
+                        <strong>Origem atual:</strong> Aguardando sincronização com Jira (Incidentes).
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
+            
+            <div class="metric">
+                <div class="tooltip-container">
+                    Gestão de Problemas <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>O que é:</strong> Porcentagem de incidentes críticos que tiveram sua Causa-Raiz investigada e tratada de forma definitiva para evitar recorrências.<br>
+                        <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
+                    </div>
+                </div>
+                <span>0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
         </div>
     </div>
 
@@ -439,9 +477,13 @@
                 }
                 
                 // Calcula uma nota global puxando os reais e o resto mockado
-                // Fórmula: (SLA + (CSAT/5*100) + Uptime + GMUD) / 4
-                // Uptime fixado em 0% por ausência de dados de telemetria
-                const scoreGlobalCalculado = Math.round((slaMetrica + ((csatMetrica/5)*100) + 0 + 68) / 4);
+                // Pilar 1: Média de SLA e CSAT
+                const pilar1 = (slaMetrica + ((csatMetrica/5)*100)) / 2;
+                const pilar2 = 0; // Observabilidade (Zerado)
+                const pilar3 = 0; // Governança (Zerado)
+                const pilar4 = 0; // Continuidade (Zerado)
+                
+                const scoreGlobalCalculado = Math.round((pilar1 + pilar2 + pilar3 + pilar4) / 4);
                 atualizarGraficoGlobal(scoreGlobalCalculado);
                 
             }

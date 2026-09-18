@@ -307,7 +307,7 @@
                 <div class="pillar-title-wrap">
                     <div class="pillar-title">Observabilidade</div>
                 </div>
-                <div class="pillar-score" style="color: #DE350B;">0%</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
             </div>
             
             <div class="metric">
@@ -318,7 +318,7 @@
                         <strong>Origem atual:</strong> Sem ferramenta de telemetria mapeada. Métrica zerada temporariamente.
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #0052CC;"></div></div>
             
@@ -330,7 +330,7 @@
                         <strong>Origem atual:</strong> Sem ferramenta de telemetria mapeada. Métrica zerada temporariamente.
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
@@ -341,7 +341,7 @@
                 <div class="pillar-title-wrap">
                     <div class="pillar-title">Governança</div>
                 </div>
-                <div class="pillar-score" style="color: #DE350B;">0%</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
             </div>
             
             <div class="metric">
@@ -352,7 +352,7 @@
                         <strong>Origem atual:</strong> Aguardando sincronização com Jira (Mudanças).
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
             
@@ -364,7 +364,7 @@
                         <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #FFAB00;"></div></div>
         </div>
@@ -375,7 +375,7 @@
                 <div class="pillar-title-wrap">
                     <div class="pillar-title">Continuidade</div>
                 </div>
-                <div class="pillar-score" style="color: #DE350B;">0%</div>
+                <div class="pillar-score" style="color: var(--ds-text-subtle);">N/D</div>
             </div>
             
             <div class="metric">
@@ -386,7 +386,7 @@
                         <strong>Origem atual:</strong> Aguardando sincronização com Jira (Incidentes).
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
             
@@ -398,7 +398,7 @@
                         <strong>Origem atual:</strong> Processo em estruturação. Métrica zerada temporariamente.
                     </div>
                 </div>
-                <span>0%</span>
+                <span style="color: var(--ds-text-subtle);">N/D</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" data-width="0" style="background: #6554C0;"></div></div>
         </div>
@@ -453,7 +453,12 @@
                     document.getElementById('csat-progress').setAttribute('data-width', csatPct);
                     
                     document.getElementById('csat-sub-metrics').style.display = 'block';
-                    document.getElementById('csat-total').textContent = csatData.total_ratings;
+                    
+                    if (csatData.total_ratings < 10) {
+                        document.getElementById('csat-total').innerHTML = csatData.total_ratings + ' <span style="color: #FFAB00; font-weight: bold; margin-left: 5px;">⚠️ Baixa Amostra</span>';
+                    } else {
+                        document.getElementById('csat-total').textContent = csatData.total_ratings;
+                    }
                     
                     if(csatData.breakdown) {
                         let breakdownHtml = '';
@@ -476,48 +481,73 @@
                     }
                 }
                 
-                // Calcula uma nota global puxando os reais e o resto mockado
-                // Pilar 1: Média de SLA e CSAT
-                const pilar1 = (slaMetrica + ((csatMetrica/5)*100)) / 2;
-                const pilar2 = 0; // Observabilidade (Zerado)
-                const pilar3 = 0; // Governança (Zerado)
-                const pilar4 = 0; // Continuidade (Zerado)
+                // Calcula a maturidade focando apenas nos dados reais disponíveis (N/D é ignorado)
+                const pilar1Performance = (slaMetrica + ((csatMetrica/5)*100)) / 2;
                 
-                const scoreGlobalCalculado = Math.round((pilar1 + pilar2 + pilar3 + pilar4) / 4);
-                atualizarGraficoGlobal(scoreGlobalCalculado);
+                // Média de performance apenas dos pilares avaliados
+                const avgPerformance = pilar1Performance; // Pilares 2, 3 e 4 são N/D
+                
+                // Converte Performance (0-100) para Escala COBIT de Maturidade (0-5)
+                const maturityScore = (avgPerformance / 100) * 5;
+                const maturityRounded = (Math.round(maturityScore * 10) / 10).toFixed(1);
+                
+                atualizarGraficoGlobal(maturityRounded);
                 
             }
         } catch (error) {
             console.error('Erro ao buscar APIs:', error);
-            atualizarGraficoGlobal(76); // Fallback
+            atualizarGraficoGlobal((76/100)*5); // Fallback convertido
         }
 
         // Função de Atualização do Gráfico Global
         function atualizarGraficoGlobal(score) {
-            document.getElementById('totalScoreText').innerHTML = score + '<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span>';
-            let mainColor = score >= 80 ? '#36B37E' : (score >= 60 ? '#FFAB00' : '#DE350B');
+            document.getElementById('totalScoreText').innerHTML = score + '<span style="font-size: 16px; color: var(--ds-text-subtle); display: block; margin-top: -5px;">/ 5</span>';
+            
+            let mainColor = '';
+            let badgeText = '';
+            let badgeBg = '';
+            let badgeColor = '';
+            
+            if(score >= 4.0) {
+                mainColor = '#36B37E';
+                badgeText = "Nível 4 - Medido";
+                badgeBg = "#E3FCEF";
+                badgeColor = "#006644";
+            } else if(score >= 3.0) {
+                mainColor = '#0052CC';
+                badgeText = "Nível 3 - Padronizado";
+                badgeBg = "#DEEBFF";
+                badgeColor = "#0747A6";
+            } else if(score >= 2.0) {
+                mainColor = '#FFAB00';
+                badgeText = "Nível 2 - Gerenciado";
+                badgeBg = "#FFFAE6";
+                badgeColor = "#FF8B00";
+            } else if(score >= 1.0) {
+                mainColor = '#FF8B00';
+                badgeText = "Nível 1 - Inicial";
+                badgeBg = "#FFFAE6";
+                badgeColor = "#FF8B00";
+            } else {
+                mainColor = '#DE350B';
+                badgeText = "Nível 0 - Inexistente";
+                badgeBg = "#FFEBE6";
+                badgeColor = "#BF2600";
+            }
             
             const badge = document.getElementById('statusBadge');
-            if(score >= 80) {
-                badge.textContent = "🟢 Operação Otimizada";
-                badge.style.backgroundColor = "#E3FCEF";
-                badge.style.color = "#006644";
-            } else if(score >= 60) {
-                badge.textContent = "🟡 Operação Gerenciada";
-                badge.style.backgroundColor = "#FFFAE6";
-                badge.style.color = "#FF8B00";
-            } else {
-                badge.textContent = "🔴 Operação Reativa";
-                badge.style.backgroundColor = "#FFEBE6";
-                badge.style.color = "#BF2600";
-            }
+            badge.textContent = badgeText;
+            badge.style.backgroundColor = badgeBg;
+            badge.style.color = badgeColor;
+
+            const chartScore = (score / 5) * 100;
 
             const ctx = document.getElementById('mainScoreChart').getContext('2d');
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
-                        data: [score, 100 - score],
+                        data: [chartScore, 100 - chartScore],
                         backgroundColor: [mainColor, '#DFE1E6'],
                         borderWidth: 0,
                         circumference: 180,

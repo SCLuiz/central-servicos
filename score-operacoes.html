@@ -264,13 +264,31 @@
 
     <div class="pillars-grid">
         
-        <!-- Domínio 1: Atendimento & Serviços -->
+        <!-- Domínio 1: Incidentes & Atendimento -->
         <div class="pillar-card p1">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">1. Atendimento & Serviços</div>
+                    <div class="pillar-title">1. Incidentes & Atendimento</div>
                 </div>
                 <div class="pillar-score" style="color: var(--of-teal); font-size: 20px;">0%</div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-title">Volume de Incidentes Críticos</div>
+                <div class="metric-stats">
+                    <span class="current-value" id="incidentes-volume" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Mês atual</span>
+                    <span class="trend" id="incidentes-trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-title">MTTA (SLA de Resposta Inicial)</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: < 15m</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
             </div>
             
             <div class="metric-box">
@@ -285,8 +303,8 @@
                     <span class="meta-value">Meta: 90%</span>
                     <span class="trend down" style="color:#DE350B">↓</span>
                 </div>
-                <div class="progress-bar"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
-                <div id="sla-sub-metrics" style="display: none; margin-top: -10px; margin-bottom: 15px; font-size: 11px; color: var(--ds-text-subtle);">
+                <div class="progress-bar" style="margin-bottom: 8px;"><div class="progress-fill" id="sla-resolucao-progress" data-width="0" style="background: var(--of-teal);"></div></div>
+                <div id="sla-sub-metrics" style="display: none; margin-top: 0px; margin-bottom: 15px; font-size: 11px; color: var(--ds-text-subtle);">
                     Base: <span id="sla-total">0</span> | No Prazo: <span id="sla-met">0</span> | Estourados: <span id="sla-breached">0</span>
                 </div>
             </div>
@@ -350,15 +368,24 @@
             </div>
         </div>
 
-        <!-- Domínio 3: Governança & Controle -->
+        <!-- Domínio 3: Mudanças & Governança -->
         <div class="pillar-card p3">
             <div class="pillar-header">
                 <div class="pillar-title-wrap">
-                    <div class="pillar-title">3. Governança</div>
+                    <div class="pillar-title">3. Mudanças & Governança</div>
                 </div>
                 <div class="pillar-score" id="gov-score" style="color: var(--ds-text-subtle); font-size: 20px;">N/D</div>
             </div>
             
+            <div class="metric-box">
+                <div class="metric-title">Volume de Mudanças (Total)</div>
+                <div class="metric-stats">
+                    <span class="current-value" id="gmud-volume" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Mês atual</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+            </div>
+
             <div class="metric-box">
                 <div class="metric-title">Sucesso GMUD</div>
                 <div class="metric-stats">
@@ -366,10 +393,28 @@
                     <span class="meta-value">Meta: ≥ 95%</span>
                     <span class="trend" id="gmud-trend" style="color:var(--ds-text-subtle)">-</span>
                 </div>
-                <div class="progress-bar"><div class="progress-fill" id="gmud-progress" data-width="0" style="background: #FFAB00;"></div></div>
+                <div class="progress-bar" style="margin-bottom: 15px;"><div class="progress-fill" id="gmud-progress" data-width="0" style="background: #FFAB00;"></div></div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-title">Mudanças Emergenciais</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: < 10%</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
+            </div>
+
+            <div class="metric-box">
+                <div class="metric-title">Incidentes Causados por GMUD</div>
+                <div class="metric-stats">
+                    <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
+                    <span class="meta-value">Meta: 0</span>
+                    <span class="trend" style="color:var(--ds-text-subtle)">-</span>
+                </div>
             </div>
             
-            <div class="metric-box">
+            <div class="metric-box" style="margin-top: 25px; border-top: 1px dashed var(--ds-border); padding-top: 15px;">
                 <div class="metric-title">Saúde do CMDB</div>
                 <div class="metric-stats">
                     <span class="current-value" style="color:var(--ds-text-subtle)">N/D</span>
@@ -566,11 +611,17 @@
                     const gmudEl = document.getElementById('gmud-value');
                     const gmudTrend = document.getElementById('gmud-trend');
                     const gmudProgress = document.getElementById('gmud-progress');
+                    const gmudVol = document.getElementById('gmud-volume');
                     const govScore = document.getElementById('gov-score');
                     
                     gmudEl.textContent = gmudTaxa + '%';
                     gmudEl.style.color = "var(--ds-text)";
                     gmudProgress.style.width = gmudTaxa + '%';
+                    
+                    if(gmudVol) {
+                        gmudVol.textContent = data.metrics.gmud.total;
+                        gmudVol.style.color = "var(--ds-text)";
+                    }
                     
                     if (gmudTaxa >= 95) {
                         gmudTrend.textContent = "↑";

@@ -5,7 +5,7 @@
     <script src="auth-guard.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operations Health Score - Central de Serviços</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -14,11 +14,11 @@
             --ds-text: #172B4D;
             --ds-text-subtle: #5E6C84;
             --ds-border: #DFE1E6;
-            --ds-blue: #0052CC;
-            --ds-blue-subtle: #DEEBFF;
-            --of-teal: #085A6E;
+            --of-teal: #0B6276;
+            --of-teal-light: #0d7992;
             --of-cream: #FDE093;
-            --ok: #00875A;
+            --of-cream-hover: #fae6b1;
+            --ok: #36B37E;
             --warn: #FFAB00;
             --err: #DE350B;
         }
@@ -27,103 +27,159 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--ds-surface-overlay);
+            background: linear-gradient(135deg, #F4F5F7 0%, #E8ECEF 100%);
             color: var(--ds-text);
             line-height: 1.5;
-            padding: 20px;
+            padding: 20px 40px;
             min-height: 100vh;
         }
 
         .container { max-width: 1200px; margin: 0 auto; }
 
+        /* HEADER PREMIUM */
         .header {
             background: var(--of-teal);
-            border-right: 20px solid var(--of-cream);
-            border-radius: 12px;
-            padding: 28px 24px;
-            margin-bottom: 24px;
+            border-right: 15px solid var(--of-cream);
+            border-radius: 16px;
+            padding: 35px 40px;
+            margin-bottom: 30px;
             color: #fff;
-            box-shadow: 0 4px 20px rgba(8, 90, 110, 0.2);
+            box-shadow: 0 10px 30px rgba(11, 98, 118, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .header-content { z-index: 1; }
+        .header-content h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .header-content p { color: rgba(255,255,255,0.85); font-size: 16px; font-weight: 300; }
         
-        .header-content h1 { font-size: 28px; font-weight: 800; }
-        .header-content p { opacity: 0.9; margin-top: 5px; }
-        
-        .main-score-container {
+        .btn-voltar {
+            color: var(--of-teal);
+            text-decoration: none;
+            font-weight: 700;
+            background: var(--of-cream);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-voltar:hover { transform: translateY(-2px); background: var(--of-cream-hover); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+
+        /* MAIN SCORE SECTION */
+        .main-score-card {
             background: var(--ds-surface);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 24px;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+            gap: 60px;
+            flex-wrap: wrap;
         }
 
-        .gauge-wrapper { width: 300px; height: 150px; position: relative; margin-bottom: 10px; }
+        .score-info { max-width: 400px; }
+        .score-info h2 { font-size: 24px; color: var(--ds-text); margin-bottom: 12px; }
+        .score-info p { color: var(--ds-text-subtle); font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+
+        .gauge-wrapper { width: 320px; height: 160px; position: relative; }
         .score-value {
             position: absolute;
-            bottom: 0;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 42px;
+            font-size: 56px;
             font-weight: 800;
             color: var(--ds-text);
-        }
-        
-        .status-badge {
-            background: var(--ds-blue-subtle);
-            color: var(--ds-blue);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            margin-top: 10px;
+            text-shadow: 2px 2px 0px #fff;
         }
 
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* PILLARS GRID */
         .pillars-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
         }
 
         .pillar-card {
             background: var(--ds-surface);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--ds-border);
-            transition: transform 0.2s;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 6px solid var(--ds-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .pillar-card:hover { transform: translateY(-3px); }
+        .pillar-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
 
-        .pillar-card.p1 { border-color: #36B37E; } /* Verde - Atendimento */
-        .pillar-card.p2 { border-color: #0052CC; } /* Azul - Estabilidade */
-        .pillar-card.p3 { border-color: #FFAB00; } /* Laranja - Governança */
-        .pillar-card.p4 { border-color: #6554C0; } /* Roxo - Resiliência */
+        .pillar-card.p1 { border-color: var(--of-teal); }
+        .pillar-card.p2 { border-color: #0052CC; }
+        .pillar-card.p3 { border-color: #FFAB00; }
+        .pillar-card.p4 { border-color: #6554C0; }
 
-        .pillar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--ds-border); padding-bottom: 10px; }
-        .pillar-title { font-weight: 700; font-size: 16px; }
-        .pillar-score { font-size: 20px; font-weight: 800; }
+        .pillar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .pillar-title-wrap { display: flex; align-items: center; gap: 10px; }
+        .pillar-icon { font-size: 24px; background: var(--ds-surface-overlay); width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .pillar-title { font-weight: 700; font-size: 16px; color: var(--ds-text); }
+        .pillar-score { font-size: 24px; font-weight: 800; }
 
-        .metric { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
-        .metric span:last-child { font-weight: 600; }
+        .metric { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--ds-text-subtle); }
+        .metric span:last-child { font-weight: 700; color: var(--ds-text); }
         
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: var(--ds-surface-overlay);
-            border-radius: 3px;
-            margin-top: 4px;
+            border-radius: 4px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
-        .progress-fill { height: 100%; border-radius: 3px; }
+        .progress-fill { 
+            height: 100%; 
+            border-radius: 4px; 
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            width: 0%; /* Inicia em 0 para a animação */
+        }
+
+        /* FOOTER */
+        .footer { text-align: center; padding: 20px; color: var(--ds-text-subtle); font-size: 14px; border-top: 1px solid var(--ds-border); margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            .main-score-card { flex-direction: column; text-align: center; gap: 30px; }
+            .header { flex-direction: column; text-align: center; gap: 20px; padding: 25px 20px; border-right: none; border-bottom: 10px solid var(--of-cream); }
+        }
     </style>
 </head>
 <body>
@@ -132,123 +188,148 @@
     <div class="header">
         <div class="header-content">
             <h1>IT Ops Health Score</h1>
-            <p>Maturidade e Saúde das Operações de Tecnologia - Open Finance Brasil</p>
+            <p>Maturidade e Saúde das Operações de Tecnologia</p>
         </div>
-        <a href="index.html" style="color: var(--of-teal); text-decoration: none; font-weight: 700; background: var(--of-cream); padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">← Voltar</a>
+        <a href="index.html" class="btn-voltar">← Voltar para Central</a>
     </div>
 
-    <div class="main-score-container">
-        <h2 style="margin-bottom: 10px; color: var(--ds-text-subtle);">Score Global da Operação</h2>
+    <div class="main-score-card">
+        <div class="score-info">
+            <h2>Índice Global da Operação</h2>
+            <p>Este índice reflete a saúde geral da TI, calculado a partir de uma média ponderada dos nossos 4 pilares operacionais (Atendimento, Observabilidade, Governança e Automação).</p>
+            <div class="status-badge" id="statusBadge">Carregando...</div>
+        </div>
         <div class="gauge-wrapper">
             <canvas id="mainScoreChart"></canvas>
-            <div class="score-value" id="totalScoreText">76%</div>
+            <div class="score-value" id="totalScoreText">76<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span></div>
         </div>
-        <div class="status-badge" id="statusBadge">OPERAÇÃO GERENCIADA</div>
     </div>
 
     <div class="pillars-grid">
         <!-- Pilar 1 -->
         <div class="pillar-card p1">
             <div class="pillar-header">
-                <div class="pillar-title">Atendimento (SD)</div>
-                <div class="pillar-score" style="color: #36B37E;">85%</div>
+                <div class="pillar-title-wrap">
+                    <div class="pillar-icon">🎧</div>
+                    <div class="pillar-title">Atendimento</div>
+                </div>
+                <div class="pillar-score" style="color: var(--of-teal);">85%</div>
             </div>
             <div class="metric"><span>SLA de Resolução</span> <span>92%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 92%; background: #36B37E;"></div></div>
-            <br>
-            <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8/5.0</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 96%; background: #36B37E;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="92" style="background: var(--of-teal);"></div></div>
+            
+            <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="96" style="background: var(--of-teal);"></div></div>
         </div>
 
         <!-- Pilar 2 -->
         <div class="pillar-card p2">
             <div class="pillar-header">
-                <div class="pillar-title">Observabilidade</div>
+                <div class="pillar-title-wrap">
+                    <div class="pillar-icon">👁️</div>
+                    <div class="pillar-title">Observabilidade</div>
+                </div>
                 <div class="pillar-score" style="color: #0052CC;">70%</div>
             </div>
-            <div class="metric"><span>Uptime Sistemas Críticos</span> <span>99.9%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: #0052CC;"></div></div>
-            <br>
-            <div class="metric"><span>Monitoramento (Zabbix)</span> <span>60%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: #FFAB00;"></div></div>
+            <div class="metric"><span>Uptime Sistemas</span> <span>99.9%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="100" style="background: #0052CC;"></div></div>
+            
+            <div class="metric"><span>Monitoramento Ativo</span> <span>60%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="60" style="background: #FFAB00;"></div></div>
         </div>
 
         <!-- Pilar 3 -->
         <div class="pillar-card p3">
             <div class="pillar-header">
-                <div class="pillar-title">Governança (GMUD)</div>
+                <div class="pillar-title-wrap">
+                    <div class="pillar-icon">🔄</div>
+                    <div class="pillar-title">Governança</div>
+                </div>
                 <div class="pillar-score" style="color: #FFAB00;">80%</div>
             </div>
-            <div class="metric"><span>Taxa de Sucesso GMUD</span> <span>95%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 95%; background: #36B37E;"></div></div>
-            <br>
+            <div class="metric"><span>Sucesso GMUD</span> <span>95%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="95" style="background: var(--ok);"></div></div>
+            
             <div class="metric"><span>Mudanças Emergenciais</span> <span>15%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #FFAB00;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85" style="background: #FFAB00;"></div></div>
         </div>
 
         <!-- Pilar 4 -->
         <div class="pillar-card p4">
             <div class="pillar-header">
-                <div class="pillar-title">Automação & Cloud</div>
+                <div class="pillar-title-wrap">
+                    <div class="pillar-icon">☁️</div>
+                    <div class="pillar-title">Automação</div>
+                </div>
                 <div class="pillar-score" style="color: #6554C0;">68%</div>
             </div>
             <div class="metric"><span>Tickets Automatizados</span> <span>30%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 30%; background: #DE350B;"></div></div>
-            <br>
-            <div class="metric"><span>Gestão Patching/Vulnerabilidades</span> <span>85%</span></div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #36B37E;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="30" style="background: var(--err);"></div></div>
+            
+            <div class="metric"><span>Gestão de Patching</span> <span>85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85" style="background: var(--ok);"></div></div>
         </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>IT Operations</strong> | Open Finance Brasil © 2025</p>
     </div>
 </div>
 
 <script>
-    // Inicialização do Gráfico de Velocímetro (Gauge)
-    const ctx = document.getElementById('mainScoreChart').getContext('2d');
-    const score = 76; // Valor Base Mockado (Pode ser atualizado via fetch pro Jira Worker)
+    document.addEventListener('DOMContentLoaded', () => {
+        // Animação das barras de progresso
+        setTimeout(() => {
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                bar.style.width = bar.getAttribute('data-width') + '%';
+            });
+        }, 300);
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [score, 100 - score],
-                backgroundColor: [
-                    score >= 80 ? '#36B37E' : (score >= 60 ? '#FFAB00' : '#DE350B'),
-                    '#DFE1E6'
-                ],
-                borderWidth: 0,
-                circumference: 180,
-                rotation: 270,
-                cutout: '75%'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { tooltip: { enabled: false }, legend: { display: false } }
+        // Renderização do Gráfico Principal
+        const ctx = document.getElementById('mainScoreChart').getContext('2d');
+        const score = 76; // Mockado
+
+        // Cores baseadas no score
+        let mainColor = '';
+        const badge = document.getElementById('statusBadge');
+        
+        if(score >= 80) {
+            mainColor = '#36B37E';
+            badge.textContent = "🟢 Operação Otimizada";
+            badge.style.backgroundColor = "#E3FCEF";
+            badge.style.color = "#006644";
+        } else if(score >= 60) {
+            mainColor = '#FFAB00';
+            badge.textContent = "🟡 Operação Gerenciada";
+            badge.style.backgroundColor = "#FFFAE6";
+            badge.style.color = "#FF8B00";
+        } else {
+            mainColor = '#DE350B';
+            badge.textContent = "🔴 Operação Reativa";
+            badge.style.backgroundColor = "#FFEBE6";
+            badge.style.color = "#BF2600";
         }
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [score, 100 - score],
+                    backgroundColor: [mainColor, '#DFE1E6'],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270,
+                    cutout: '78%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { animateRotate: true, duration: 1500, easing: 'easeOutQuart' },
+                plugins: { tooltip: { enabled: false } }
+            }
+        });
     });
-
-    // Lógica para atualizar a badge de status dinamicamente
-    const badge = document.getElementById('statusBadge');
-    if(score >= 80) {
-        badge.textContent = "OPERAÇÃO OTIMIZADA";
-        badge.style.backgroundColor = "#E3FCEF";
-        badge.style.color = "#006644";
-    } else if(score >= 60) {
-        badge.textContent = "OPERAÇÃO GERENCIADA";
-        badge.style.backgroundColor = "#FFFAE6";
-        badge.style.color = "#FF8B00";
-    } else {
-        badge.textContent = "OPERAÇÃO REATIVA";
-        badge.style.backgroundColor = "#FFEBE6";
-        badge.style.color = "#BF2600";
-    }
-
-    // Integração futura: 
-    // fetch('https://oauth-token-exchange.luiz-santos.workers.dev')
-    //   .then(res => res.json())
-    //   .then(data => { ... atualizar os gráficos com dados reais das GMUDs e Incidentes ... })
-
 </script>
 </body>
 </html>

@@ -280,8 +280,24 @@
                 <div class="progress-bar" style="height: 6px; margin-bottom: 5px; background: rgba(222, 53, 11, 0.2);"><div class="progress-fill" id="sla-breached-bar" style="background: #DE350B; width: 0%; transition: width 1s ease;"></div></div>
             </div>
             
-            <div class="metric"><span>CSAT (Satisfação)</span> <span>4.8</span></div>
-            <div class="progress-bar"><div class="progress-fill" data-width="96" style="background: var(--of-teal);"></div></div>
+            <div class="metric">
+                <div class="tooltip-container">
+                    CSAT (Satisfação) <span class="info-icon">ℹ️</span>
+                    <div class="of-tooltip-box">
+                        <strong>Origem:</strong> Jira (HELP)<br>
+                        <strong>Critério:</strong> Média histórica das notas de satisfação (1 a 5 estrelas) dadas pelos usuários após o fechamento dos chamados.
+                    </div>
+                </div>
+                <span id="csat-value">...</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="csat-progress" data-width="0" style="background: var(--of-teal);"></div></div>
+            
+            <!-- SUB METRICS DO CSAT -->
+            <div id="csat-sub-metrics" style="display: none; margin-top: 10px; font-size: 12px; color: var(--ds-text-subtle); padding-left: 10px; border-left: 2px solid var(--ds-border);">
+                <div style="margin-bottom: 8px;">
+                    <strong>Total de Avaliações:</strong> <span id="csat-total">0</span>
+                </div>
+            </div>
         </div>
 
         <!-- Pilar 2 -->
@@ -369,66 +385,82 @@
                     document.getElementById('sla-breached-bar').style.width = pctBreached + '%';
                 }, 400);
                 
-                // Calcula uma nota global básica puxando o peso do SLA
-                // (Para simplificar, vamos assumir o restante constante e atualizar a nota principal dinamicamente)
+                // === CSAT ===
+                let csatMetrica = 4.8;
+                if(data.metrics.csat) {
+                    const csatData = data.metrics.csat;
+                    csatMetrica = csatData.value;
+                    
+                    document.getElementById('csat-value').innerHTML = csatMetrica + ' <span style="font-size:12px;opacity:0.8">⭐</span>';
+                    
+                    // Transforma nota de 1-5 em porcentagem para a barra
+                    const csatPct = (csatMetrica / 5) * 100;
+                    document.getElementById('csat-progress').setAttribute('data-width', csatPct);
+                    
+                    document.getElementById('csat-sub-metrics').style.display = 'block';
+                    document.getElementById('csat-total').textContent = csatData.total_ratings;
+                }
+                
+                // Calcula uma nota global puxando os reais e o resto mockado
+                // Fórmula: (SLA + (CSAT/5*100) + Uptime + GMUD) / 4
+                const scoreGlobalCalculado = Math.round((slaMetrica + ((csatMetrica/5)*100) + 80 + 68) / 4);
+                atualizarGraficoGlobal(scoreGlobalCalculado);
+                
             }
         } catch (error) {
-            console.error('Erro ao buscar SLAs do Jira:', error);
+            console.error('Erro ao buscar APIs:', error);
+            atualizarGraficoGlobal(76); // Fallback
         }
 
-        // Animação das barras de progresso
+        // Função de Atualização do Gráfico Global
+        function atualizarGraficoGlobal(score) {
+            document.getElementById('totalScoreText').innerHTML = score + '<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span>';
+            let mainColor = score >= 80 ? '#36B37E' : (score >= 60 ? '#FFAB00' : '#DE350B');
+            
+            const badge = document.getElementById('statusBadge');
+            if(score >= 80) {
+                badge.textContent = "🟢 Operação Otimizada";
+                badge.style.backgroundColor = "#E3FCEF";
+                badge.style.color = "#006644";
+            } else if(score >= 60) {
+                badge.textContent = "🟡 Operação Gerenciada";
+                badge.style.backgroundColor = "#FFFAE6";
+                badge.style.color = "#FF8B00";
+            } else {
+                badge.textContent = "🔴 Operação Reativa";
+                badge.style.backgroundColor = "#FFEBE6";
+                badge.style.color = "#BF2600";
+            }
+
+            const ctx = document.getElementById('mainScoreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [score, 100 - score],
+                        backgroundColor: [mainColor, '#DFE1E6'],
+                        borderWidth: 0,
+                        circumference: 180,
+                        rotation: 270,
+                        cutout: '78%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { animateRotate: true, duration: 1500, easing: 'easeOutQuart' },
+                    plugins: { tooltip: { enabled: false } }
+                }
+            });
+        }
+        
+        // Dispara a animação de todas as barras de progresso da página
         setTimeout(() => {
             document.querySelectorAll('.progress-fill').forEach(bar => {
-                bar.style.width = bar.getAttribute('data-width') + '%';
+                const width = bar.getAttribute('data-width');
+                if(width) bar.style.width = width + '%';
             });
-        }, 300);
-
-        // Renderização do Gráfico Principal
-        // Exemplo: 76 fixo para o resto + peso dinâmico do SLA
-        const ctx = document.getElementById('mainScoreChart').getContext('2d');
-        const score = Math.round((slaMetrica + 70 + 80 + 68) / 4); 
-        document.getElementById('totalScoreText').innerHTML = score + '<span style="font-size: 30px; color: var(--ds-text-subtle);">%</span>';
-
-        // Cores baseadas no score
-        let mainColor = '';
-        const badge = document.getElementById('statusBadge');
-        
-        if(score >= 80) {
-            mainColor = '#36B37E';
-            badge.textContent = "🟢 Operação Otimizada";
-            badge.style.backgroundColor = "#E3FCEF";
-            badge.style.color = "#006644";
-        } else if(score >= 60) {
-            mainColor = '#FFAB00';
-            badge.textContent = "🟡 Operação Gerenciada";
-            badge.style.backgroundColor = "#FFFAE6";
-            badge.style.color = "#FF8B00";
-        } else {
-            mainColor = '#DE350B';
-            badge.textContent = "🔴 Operação Reativa";
-            badge.style.backgroundColor = "#FFEBE6";
-            badge.style.color = "#BF2600";
-        }
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [score, 100 - score],
-                    backgroundColor: [mainColor, '#DFE1E6'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270,
-                    cutout: '78%'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { animateRotate: true, duration: 1500, easing: 'easeOutQuart' },
-                plugins: { tooltip: { enabled: false } }
-            }
-        });
+        }, 500);
     });
 </script>
 </body>

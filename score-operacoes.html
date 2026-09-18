@@ -256,7 +256,10 @@
                     SLA de Resolução <span class="info-icon">ℹ️</span>
                     <div class="of-tooltip-box">
                         <strong>Origem:</strong> Jira (HELP)<br>
-                        <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o limite do "Tempo de resolução".
+                        <strong>Critério:</strong> Porcentagem de chamados resolvidos em todo o histórico sem violar o "Tempo de resolução".
+                        <div id="sla-math-details" style="margin-top: 8px; font-size: 11px; color: #b3bac5; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            Sincronizando com Jira...
+                        </div>
                     </div>
                 </div>
                 <span id="sla-resolucao-value">...%</span>
@@ -332,10 +335,19 @@
             const response = await fetch(workerUrl);
             if (response.ok) {
                 const data = await response.json();
-                slaMetrica = data.metrics.sla_resolucao.value;
+                const metrics = data.metrics.sla_resolucao;
+                slaMetrica = metrics.value;
                 document.getElementById('sla-resolucao-value').textContent = slaMetrica + '%';
                 const slaProgress = document.getElementById('sla-resolucao-progress');
                 slaProgress.setAttribute('data-width', slaMetrica);
+                
+                // Atualiza o Tooltip com a Matemática
+                document.getElementById('sla-math-details').innerHTML = `
+                    <strong>Base Analisada:</strong> ${metrics.total_resolved} chamados<br>
+                    <strong>No prazo (Met):</strong> ${metrics.met} ✅<br>
+                    <strong>Estourados (Breached):</strong> ${metrics.breached} ❌
+                `;
+                
                 // Calcula uma nota global básica puxando o peso do SLA
                 // (Para simplificar, vamos assumir o restante constante e atualizar a nota principal dinamicamente)
             }

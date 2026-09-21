@@ -32,8 +32,8 @@
     "url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO",
     "icon": "https://openfinancebrasil.atlassian.net/wiki/download/attachments/56819720/DTO?version=3&modificationDate=1781894308418&cacheVersion=1&api=v2",
     "description": "Espaço corporativo Open Finance Brasil",
-    "latest_title": "Otimizações Pendentes",
-    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO/pages/2097021001/Otimiza+es+Pendentes"
+    "latest_title": "Provisionamento de Contas AWS — Checklist de Requisição",
+    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTO/pages/2140438559/Provisionamento+de+Contas+AWS+Checklist+de+Requisi+o"
   },
   {
     "name": "Docmentação do Portal Público",
@@ -59,8 +59,8 @@
     "url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTOPUB",
     "icon": "https://openfinancebrasil.atlassian.net/wiki/download/attachments/73596974/DTOPUB?version=2&modificationDate=1679433901618&cacheVersion=1&api=v2",
     "description": "Espaço corporativo Open Finance Brasil",
-    "latest_title": "[GDC] Detalhes do checklist de Cadastro e Manutenção do Catálogo de APIs",
-    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTOPUB/pages/2119663620/GDC+Detalhes+do+checklist+de+Cadastro+e+Manuten+o+do+Cat+logo+de+APIs"
+    "latest_title": "Inclusão de Versão PATCH no Catálogo de APIs: Roteiro Completo e Procedimentos",
+    "latest_url": "https://openfinancebrasil.atlassian.net/wiki/spaces/DTOPUB/pages/2119663632/Inclus+o+de+Vers+o+PATCH+no+Cat+logo+de+APIs+Roteiro+Completo+e+Procedimentos"
   },
   {
     "name": "Grupo de Conformidade OFB",

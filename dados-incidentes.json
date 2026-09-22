@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-22T16:35:13.568300",
+  "ultima_atualizacao": "2026-09-22T18:06:43.278312",
   "total": 161,
   "incidentes": [
     {
@@ -31,7 +31,7 @@
       "assignee": "Thiago Duarte",
       "reporter": "Paola Arcanjo",
       "created": "2026-09-17T12:07:38.186-0300",
-      "updated": "2026-09-22T11:47:56.129-0300",
+      "updated": "2026-09-22T13:37:50.517-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
@@ -93,8 +93,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "65h 23m",
-      "sla_remaining": "-49h 23m",
+      "sla_elapsed": "66h 55m",
+      "sla_remaining": "-50h 55m",
       "tma_seconds": 254376.932
     },
     {
@@ -112,8 +112,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-14T12:25:09.565-0300",
-      "sla_elapsed": "71h 10m",
-      "sla_remaining": "-55h 10m",
+      "sla_elapsed": "72h 41m",
+      "sla_remaining": "-56h 41m",
       "tma_seconds": 329241.55
     },
     {
@@ -131,8 +131,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-11T17:20:20.109-0300",
-      "sla_elapsed": "75h 14m",
-      "sla_remaining": "-59h 14m",
+      "sla_elapsed": "76h 46m",
+      "sla_remaining": "-60h 46m",
       "tma_seconds": 343832.882
     },
     {
@@ -140,12 +140,12 @@
       "summary": "Atualização da PAD com dados de pagamentos",
       "sistema_afetado": "PAD - Plataforma de Análise de Dados",
       "impacto": "Médio",
-      "status": "Cancelado",
+      "status": "Fechada",
       "priority": "Medium",
       "assignee": "Gabriel Zorzi",
       "reporter": "Paloma Silva",
       "created": "2026-09-08T13:43:00.185-0300",
-      "updated": "2026-09-17T10:26:00.219-0300",
+      "updated": "2026-09-22T13:53:22.058-0300",
       "resolutiondate": "2026-09-16T11:20:42.566-0300",
       "labels": [],
       "sla_breached": true,
@@ -264,8 +264,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "120h 3m",
-      "sla_remaining": "-104h 3m",
+      "sla_elapsed": "121h 35m",
+      "sla_remaining": "-105h 35m",
       "tma_seconds": 33.538
     },
     {
@@ -397,8 +397,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-31T15:52:19.911-0300",
-      "sla_elapsed": "157h 42m",
-      "sla_remaining": "-141h 42m",
+      "sla_elapsed": "159h 14m",
+      "sla_remaining": "-143h 14m",
       "tma_seconds": 62821.643
     },
     {
@@ -465,16 +465,16 @@
       "impacto": "Médio",
       "status": "Trabalho em andamento",
       "priority": "High",
-      "assignee": "Luiz Santos",
+      "assignee": "Andressa Amaral",
       "reporter": "Rafael Anjos",
       "created": "2026-08-21T19:29:58.595-0300",
-      "updated": "2026-09-11T16:10:11.477-0300",
+      "updated": "2026-09-22T14:08:35.801-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "193h 35m",
-      "sla_remaining": "-177h 35m",
+      "sla_elapsed": "195h 6m",
+      "sla_remaining": "-179h 6m",
       "tma_seconds": 575516.664
     },
     {
@@ -492,8 +492,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "193h 35m",
-      "sla_remaining": "-177h 35m",
+      "sla_elapsed": "195h 6m",
+      "sla_remaining": "-179h 6m",
       "tma_seconds": 432562.638
     },
     {
@@ -511,8 +511,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "193h 35m",
-      "sla_remaining": "-177h 35m",
+      "sla_elapsed": "195h 6m",
+      "sla_remaining": "-179h 6m",
       "tma_seconds": 494362.175
     },
     {
@@ -720,8 +720,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "301h 35m",
-      "sla_remaining": "-285h 35m",
+      "sla_elapsed": "303h 6m",
+      "sla_remaining": "-287h 6m",
       "tma_seconds": 57551.261
     },
     {

@@ -2050,12 +2050,11 @@
                 if (currentCategoryFilter === 'cancelado') {
                     filtered = filtered.filter(m => m.status === 'Cancelado');
                 } else {
-                    filtered = filtered.filter(m => {
-                        const cat = (m.categoria || '').toLowerCase();
-                        const labels = m.labels || [];
-                        const categoryLabel = `tipo:${currentCategoryFilter}`;
-                        return cat === currentCategoryFilter || labels.includes(categoryLabel);
-                    });
+                    // Usa so o campo categoria (mesma fonte que o widget "Distribuicao por
+                    // Categoria" e o Mapa de Indicadores) - antes tambem aceitava labels
+                    // antigas ("tipo:emergencial"), que podem divergir do campo real do Jira
+                    // (ex: OFBI-4308 tem essa label mas categoria=normal).
+                    filtered = filtered.filter(m => (m.categoria || '').toLowerCase() === currentCategoryFilter);
                 }
             }
 
@@ -2348,12 +2347,7 @@
                 if (currentCategoryFilter === 'cancelado') {
                     compData = compData.filter(m => m.status === 'Cancelado');
                 } else {
-                    compData = compData.filter(m => {
-                        const cat = (m.categoria || '').toLowerCase();
-                        const labels = m.labels || [];
-                        const categoryLabel = `tipo:${currentCategoryFilter}`;
-                        return cat === currentCategoryFilter || labels.includes(categoryLabel);
-                    });
+                    compData = compData.filter(m => (m.categoria || '').toLowerCase() === currentCategoryFilter);
                 }
             }
             

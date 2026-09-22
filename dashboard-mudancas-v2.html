@@ -1156,10 +1156,11 @@
                 const isEmergencial = cat.includes('emergencial') || (m.labels || []).some(l => l.toLowerCase().includes('tipo:emergencial'));
                 if (isEmergencial) stats.emergenciais++;
 
-                // Revertidas
+                // Revertidas (apenas entre mudanças efetivamente executadas: sucesso ou falha)
+                const isExecutada = s.includes('Concluído');
                 const summaryLower = (m.summary || '').toLowerCase();
-                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
-                if (isReverted) stats.revertidas++;
+                const isReverted = s.includes('Falha') || summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                if (isExecutada && isReverted) stats.revertidas++;
 
                 // Aderência aos prazos (submissão até terça 14:00 para o CAB de quarta 14:00)
                 if (m.created) {
@@ -1174,8 +1175,8 @@
                     }
                 }
 
-                // Tempo médio de ciclo (criação até a aprovação/resolução)
-                if (m.created && m.resolution_date) {
+                // Tempo médio de ciclo (criação até a aprovação/resolução) - apenas mudanças Concluídas
+                if (m.created && m.resolution_date && s.includes('Concluído')) {
                     const createdDt = new Date(m.created);
                     const resolvedDt = new Date(m.resolution_date);
                     const diffDays = (resolvedDt - createdDt) / (1000 * 60 * 60 * 24);
@@ -1232,7 +1233,7 @@
             const rateRevertidas = totalExecutadas > 0 ? ((stats.revertidas / totalExecutadas) * 100) : 0;
             const ratePrazos = (stats.aderentesPrazo / totalValidas) * 100;
             const mediaCAB = stats.concluidasComTempo > 0 ? (stats.tempoCABTotal / stats.concluidasComTempo) : 0;
-            const incidentesCausados = mudancas.filter(m => m.causouIncidente === true).length;
+            const incidentesCausados = mudancas.filter(m => m.causouIncidente === true && (m.status || '').includes('Concluído')).length;
             const rateIncidentes = totalExecutadas > 0 ? ((incidentesCausados / totalExecutadas) * 100) : 0;
 
             const indicators = [

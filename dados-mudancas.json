@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-22T22:49:59.264544",
+  "ultima_atualizacao": "2026-09-22T23:31:13.029839",
   "total": 73,
   "mudancas": [
     {
@@ -117,13 +117,13 @@
     {
       "key": "OFBI-5186",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-09-15T11:58:16.191-0300",
-      "updated": "2026-09-22T13:15:28.569-0300",
-      "resolution_date": null,
+      "updated": "2026-09-22T19:55:17.648-0300",
+      "resolution_date": "2026-09-22T19:55:17.639-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

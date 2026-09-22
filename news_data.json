@@ -1,25 +1,47 @@
 [
   {
     "source": "Jira",
-    "key": "OFBI-5205",
-    "title": "OFBI-5205 - Métrica 2.2.IV - Regra interna de processamento dos logs da Raidiam usada no cálculo da ",
+    "key": "OFBI-5186",
+    "title": "OFBI-5186 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Aguardando Implantação",
     "status_dot": "dot-info",
-    "date": "18/09/2026 17:58",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5205"
+    "date": "22/09/2026 13:15",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5186"
   },
   {
     "source": "Jira",
-    "key": "OFBI-5196",
-    "title": "OFBI-5196 - Solicitação de Mudanças",
+    "key": "OFBI-5213",
+    "title": "OFBI-5213 - Solicitação de Mudanças",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
+    "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "18/09/2026 16:41",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5196"
+    "date": "22/09/2026 12:01",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5213"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5212",
+    "title": "OFBI-5212 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "22/09/2026 11:55",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5212"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5211",
+    "title": "OFBI-5211 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "22/09/2026 11:47",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5211"
   },
   {
     "source": "Jira",
@@ -42,28 +64,6 @@
     "status_dot": "dot-info",
     "date": "17/09/2026 11:27",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5193"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5185",
-    "title": "OFBI-5185 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "16/09/2026 15:54",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5185"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5186",
-    "title": "OFBI-5186 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando Implantação",
-    "status_dot": "dot-info",
-    "date": "16/09/2026 15:54",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5186"
   },
   {
     "source": "Jira",

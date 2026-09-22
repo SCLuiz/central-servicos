@@ -1083,12 +1083,9 @@
                     sourceBadge.textContent = dataSource === 'worker' ? '🟢 Tempo Real' : '🟡 Cache';
                 }
 
-                // Filtrar globalmente para manter apenas mudanças de 2025 em diante
-                allMudancas = (data.mudancas || []).filter(m => {
-                    if (!m.created) return false;
-                    const cd = new Date(m.created);
-                    return cd.getFullYear() >= 2025;
-                });
+                // Mantem todas as mudancas com data de criacao valida (sem corte de ano -
+                // antes descartava silenciosamente ~35% dos dados, tudo criado antes de 2025).
+                allMudancas = (data.mudancas || []).filter(m => !!m.created);
 
                 initializeComparisonMonths(allMudancas);
                 filterAndRender();
@@ -1516,10 +1513,12 @@
             const monthlyData = {};
             const allMonths = [];
             
-            // Gerar todos os meses continuamente de Abril de 2025 até o mês/ano atual
-            let currentDate = new Date(2025, 3, 1); // 1º de Abril de 2025
+            // Gerar todos os meses continuamente desde a mudança mais antiga até o mês/ano atual
+            let minCreated = new Date();
+            mudancas.forEach(m => { if (m.created) { const cd = new Date(m.created); if (cd < minCreated) minCreated = cd; } });
+            let currentDate = new Date(minCreated.getFullYear(), minCreated.getMonth(), 1);
             const endDate = new Date();
-            
+
             while (currentDate <= endDate) {
                 const mk = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;
                 allMonths.push(mk);
@@ -2080,14 +2079,16 @@
         function initializeComparisonMonths(mudancas) {
             const yearsSet = new Set();
             let maxDate = new Date();
+            let minDate = new Date();
             mudancas.forEach(m => {
                 if (m.created) {
                     const cd = new Date(m.created);
                     if (cd > maxDate) maxDate = cd;
+                    if (cd < minDate) minDate = cd;
                 }
             });
-            
-            let currentDate = new Date(2025, 3, 1); // 1º de Abril de 2025
+
+            let currentDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
             const list = [];
             while (currentDate <= maxDate) {
                 const label = `${(currentDate.getMonth()+1).toString().padStart(2,'0')}/${currentDate.getFullYear()}`;

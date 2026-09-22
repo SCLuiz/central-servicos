@@ -1,7 +1,35 @@
 {
-  "ultima_atualizacao": "2026-09-22T14:50:04.705911",
-  "total": 75,
+  "ultima_atualizacao": "2026-09-22T16:35:01.718286",
+  "total": 77,
   "mudancas": [
+    {
+      "key": "OFBI-5213",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-09-22T12:00:48.138-0300",
+      "updated": "2026-09-22T12:01:25.708-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-5212",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Higor Santos",
+      "reporter": "Higor Santos",
+      "created": "2026-09-22T11:55:30.043-0300",
+      "updated": "2026-09-22T11:55:30.168-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Planejada"
+    },
     {
       "key": "OFBI-5211",
       "summary": "Solicitação de Mudanças",
@@ -94,7 +122,7 @@
       "assignee": "Fabricio Lobo",
       "reporter": "Fabricio Lobo",
       "created": "2026-09-15T11:58:16.191-0300",
-      "updated": "2026-09-16T15:54:23.416-0300",
+      "updated": "2026-09-22T13:15:28.569-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

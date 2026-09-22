@@ -3002,12 +3002,15 @@
                             }
                         }
                     }
-                    if (i.updated && i.status && i.status.includes('Concluído')) {
-                        const ud = new Date(i.updated);
-                        const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+                    // Usa resolutiondate (data real de resolucao), nao updated (ultima
+                    // edicao do ticket) - senao um incidente resolvido num mes mas editado
+                    // depois (comentario, campo extra) contava como concluido no mes errado.
+                    if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
+                        const rd = new Date(i.resolutiondate);
+                        const rk = `${(rd.getMonth()+1).toString().padStart(2,'0')}/${rd.getFullYear()}`;
                         const cd = i.created ? new Date(i.created) : null;
-                        if (selectedComparisonMonths.has(uk) && (!cd || cd >= cutoffDate)) {
-                            stats[uk].resolved++;
+                        if (selectedComparisonMonths.has(rk) && (!cd || cd >= cutoffDate)) {
+                            stats[rk].resolved++;
                         }
                     }
                 });
@@ -3041,9 +3044,10 @@
                             }
                         }
                     }
-                    if (i.updated && i.status && i.status.includes('Concluído')) {
-                        const ud = new Date(i.updated);
-                        const yk = ud.getFullYear().toString();
+                    // Mesmo fallback: resolutiondate real, nao updated.
+                    if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
+                        const rd = new Date(i.resolutiondate);
+                        const yk = rd.getFullYear().toString();
                         const cd = i.created ? new Date(i.created) : null;
                         if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
                             stats[yk].resolved++;

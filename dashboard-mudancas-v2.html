@@ -2352,27 +2352,33 @@
             }
             
             const stats = {};
-            const cutoffDate = new Date('2025-04-01T00:00:00');
-            
+
             if (comparisonViewMode === 'mensal') {
                 selectedComparisonMonths.forEach(m => {
                     stats[m] = { created: 0, resolved: 0, revertidas: 0 };
                 });
-                
+
                 compData.forEach(m => {
                     if (m.created) {
                         const cd = new Date(m.created);
-                        if (cd >= cutoffDate) {
-                            const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                            if (selectedComparisonMonths.has(ck)) {
-                                stats[ck].created++;
+                        const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+                        if (selectedComparisonMonths.has(ck)) {
+                            stats[ck].created++;
+                        }
+                    }
+                    // Concluido/Revertidas contam pelo mes real da resolucao, nao pelo de criacao
+                    // (mesmo ajuste feito na Timeline de Mudancas).
+                    if (m.resolution_date) {
+                        const rd = new Date(m.resolution_date);
+                        const rk = `${(rd.getMonth()+1).toString().padStart(2,'0')}/${rd.getFullYear()}`;
+                        if (selectedComparisonMonths.has(rk)) {
+                            const sLower = (m.status || '').toLowerCase();
+                            const isExecutada = sLower.includes('conclu');
+                            if (isExecutada) {
+                                stats[rk].resolved++;
                                 const summaryLower = (m.summary || '').toLowerCase();
-                                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
-                                if (isReverted) stats[ck].revertidas++;
-                                
-                                if (m.status && m.status.includes('Concluído')) {
-                                    stats[ck].resolved++;
-                                }
+                                const isReverted = sLower.includes('falha') || summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                                if (isReverted) stats[rk].revertidas++;
                             }
                         }
                     }
@@ -2398,17 +2404,22 @@
                 compData.forEach(m => {
                     if (m.created) {
                         const cd = new Date(m.created);
-                        if (cd >= cutoffDate) {
-                            const yk = cd.getFullYear().toString();
-                            if (selectedComparisonYears.has(yk)) {
-                                stats[yk].created++;
+                        const yk = cd.getFullYear().toString();
+                        if (selectedComparisonYears.has(yk)) {
+                            stats[yk].created++;
+                        }
+                    }
+                    if (m.resolution_date) {
+                        const rd = new Date(m.resolution_date);
+                        const ryk = rd.getFullYear().toString();
+                        if (selectedComparisonYears.has(ryk)) {
+                            const sLower = (m.status || '').toLowerCase();
+                            const isExecutada = sLower.includes('conclu');
+                            if (isExecutada) {
+                                stats[ryk].resolved++;
                                 const summaryLower = (m.summary || '').toLowerCase();
-                                const isReverted = summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
-                                if (isReverted) stats[yk].revertidas++;
-                                
-                                if (m.status && m.status.includes('Concluído')) {
-                                    stats[yk].resolved++;
-                                }
+                                const isReverted = sLower.includes('falha') || summaryLower.includes('rollback') || summaryLower.includes('reverter') || m.causouIncidente === true;
+                                if (isReverted) stats[ryk].revertidas++;
                             }
                         }
                     }

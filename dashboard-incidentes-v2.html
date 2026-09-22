@@ -1344,7 +1344,10 @@
                 }
 
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'critical') stats.critical++;
+                // Essa Jira usa "Highest" como topo da escala de prioridade, nao existe
+                // valor "Critical" - sem esse mapeamento o indicador de criticos nunca
+                // contava nada, mesmo com incidentes Highest reais em aberto.
+                if (p === 'critical' || p === 'highest') stats.critical++;
                 else if (p === 'high') stats.high++;
                 else if (p === 'medium') stats.medium++;
                 else if (p === 'low') stats.low++;
@@ -1455,9 +1458,9 @@
                     ref: 'IND-INC-001',
                     title: 'Volume de Chamados Fechados',
                     value: stats.concluido,
-                    meta: '<= 40',
-                    desc: 'Volume total de incidentes encerrados (exclui cancelados).',
-                    status: stats.concluido <= 40 ? 'meta-ok' : stats.concluido <= 60 ? 'meta-warn' : 'meta-crit'
+                    meta: '<= 200',
+                    desc: 'Volume total de incidentes encerrados no periodo filtrado (exclui cancelados). Meta calibrada pro periodo "Todos" (historico completo).',
+                    status: stats.concluido <= 200 ? 'meta-ok' : stats.concluido <= 230 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-002',
@@ -1524,7 +1527,7 @@
                     status: stats.gmudEmergencialCount === 0 ? 'meta-ok' : stats.gmudEmergencialCount <= 2 ? 'meta-warn' : 'meta-crit'
                 },
                 {
-                    ref: 'IND-INC-009',
+                    ref: 'IND-INC-011',
                     title: 'Incidentes Críticos (P1)',
                     value: stats.critical,
                     meta: '<= 5',

@@ -2220,7 +2220,8 @@
                 // manualmente no Jira, cai para Criacao/Data de resolucao - evita mostrar "—"
                 // num incidente que ja foi encerrado.
                 const isResolvido = (i.status || '').includes('Concluído');
-                const inicioIndispRaw = i.inicio_indisponibilidade || (isResolvido ? i.created : null);
+                const emAndamento = (i.status || '').includes('Trabalho em andamento');
+                const inicioIndispRaw = i.inicio_indisponibilidade || ((isResolvido || emAndamento) ? i.created : null);
                 const fimIndispRaw = i.fim_indisponibilidade || (isResolvido ? i.resolutiondate : null);
                 const inicioIndisp = inicioIndispRaw ? new Date(inicioIndispRaw).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
                 const fimIndisp = fimIndispRaw ? new Date(fimIndispRaw).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
@@ -2393,7 +2394,7 @@
                     'Prioridade': i.priority,
                     'Impacto': i.impacto || 'Baixo',
                     'Criação do Ticket': new Date(i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
-                    'Início do Incidente': (i.inicio_indisponibilidade || (isResolved ? i.created : null)) ? new Date(i.inicio_indisponibilidade || i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
+                    'Início do Incidente': (i.inicio_indisponibilidade || ((isResolved || (i.status && i.status.includes('Trabalho em andamento'))) ? i.created : null)) ? new Date(i.inicio_indisponibilidade || i.created).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Fim do Incidente': (i.fim_indisponibilidade || (isResolved ? i.resolutiondate : null)) ? new Date(i.fim_indisponibilidade || i.resolutiondate).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : 'N/A',
                     'Status': (i.status && i.status.includes('Concluído')) ? 'Resolvido' : i.status,
                     'Tempo de Resolução': tempoResolucao

@@ -1,25 +1,63 @@
 {
-  "ultima_atualizacao": "2026-09-23T20:39:01.862499",
-  "total": 163,
+  "ultima_atualizacao": "2026-09-23T23:10:40.092674",
+  "total": 165,
   "incidentes": [
+    {
+      "key": "OFBI-5223",
+      "summary": "Possível inconsistência nos dados de Marcos Regulatórios e Publicação de API consumidos do GDC e ausência de atualização da Métrica 2.2.I após alterações cadastrais",
+      "sistema_afetado": "AWS",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Paola Arcanjo",
+      "created": "2026-09-23T19:26:16.828-0300",
+      "updated": "2026-09-23T19:30:50.580-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-25T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h",
+      "tma_seconds": null
+    },
+    {
+      "key": "OFBI-5222",
+      "summary": "Continuidade do incidente OFBI-5194: validação de completude dos dados da Raidiam para a Métrica 2.2.I",
+      "sistema_afetado": "AWS",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Paola Arcanjo",
+      "created": "2026-09-23T18:14:02.202-0300",
+      "updated": "2026-09-23T18:43:43.505-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-25T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5216",
       "summary": "Indisponibilidade Motor de Conformidade ",
       "sistema_afetado": "Motor de Conformidade Funcional",
       "impacto": "",
-      "status": "Aberto",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
-      "assignee": "Marcos Santana",
+      "assignee": "Paulo Moraes",
       "reporter": "Luiz Santos",
       "created": "2026-09-23T12:32:22.556-0300",
-      "updated": "2026-09-23T12:32:26.526-0300",
-      "resolutiondate": null,
+      "updated": "2026-09-23T17:50:03.752-0300",
+      "resolutiondate": "2026-09-23T17:49:52.517-0300",
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T10:32:22.556-0300",
-      "sla_elapsed": "5h 6m",
-      "sla_remaining": "10h 53m",
-      "tma_seconds": null
+      "sla_elapsed": "5h 17m",
+      "sla_remaining": null,
+      "tma_seconds": 19050.0
     },
     {
       "key": "OFBI-5215",
@@ -36,8 +74,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-24T15:04:05.151-0300",
-      "sla_elapsed": "9h 34m",
-      "sla_remaining": "6h 25m",
+      "sla_elapsed": "9h 55m",
+      "sla_remaining": "6h 4m",
       "tma_seconds": null
     },
     {
@@ -64,13 +102,13 @@
       "summary": "Inconsistência nas datas de publicação consumidas do GDC na apuração da Métrica 2.2.I - Acompanhamento de implementação de versões iniciais e de novas versões de APIs",
       "sistema_afetado": "AWS",
       "impacto": "Médio",
-      "status": "Trabalho em andamento",
+      "status": "Concluído com Sucesso",
       "priority": "Medium",
       "assignee": "Thiago Duarte",
       "reporter": "Paola Arcanjo",
       "created": "2026-09-17T12:07:38.186-0300",
-      "updated": "2026-09-23T12:41:01.957-0300",
-      "resolutiondate": null,
+      "updated": "2026-09-23T19:14:07.113-0300",
+      "resolutiondate": "2026-09-23T19:14:07.084-0300",
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-21T10:07:38.186-0300",
@@ -131,8 +169,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "78h 27m",
-      "sla_remaining": "-62h 27m",
+      "sla_elapsed": "78h 48m",
+      "sla_remaining": "-62h 48m",
       "tma_seconds": 254376.932
     },
     {
@@ -150,8 +188,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-14T12:25:09.565-0300",
-      "sla_elapsed": "84h 13m",
-      "sla_remaining": "-68h 13m",
+      "sla_elapsed": "84h 34m",
+      "sla_remaining": "-68h 34m",
       "tma_seconds": 329241.55
     },
     {
@@ -169,8 +207,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-11T17:20:20.109-0300",
-      "sla_elapsed": "88h 18m",
-      "sla_remaining": "-72h 18m",
+      "sla_elapsed": "88h 39m",
+      "sla_remaining": "-72h 39m",
       "tma_seconds": 343832.882
     },
     {
@@ -302,8 +340,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "133h 7m",
-      "sla_remaining": "-117h 7m",
+      "sla_elapsed": "133h 28m",
+      "sla_remaining": "-117h 28m",
       "tma_seconds": 33.538
     },
     {
@@ -435,8 +473,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-31T15:52:19.911-0300",
-      "sla_elapsed": "170h 46m",
-      "sla_remaining": "-154h 46m",
+      "sla_elapsed": "171h 7m",
+      "sla_remaining": "-155h 7m",
       "tma_seconds": 62821.643
     },
     {
@@ -511,8 +549,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "206h 38m",
-      "sla_remaining": "-190h 38m",
+      "sla_elapsed": "207h",
+      "sla_remaining": "-191h",
       "tma_seconds": 575516.664
     },
     {
@@ -530,8 +568,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "206h 38m",
-      "sla_remaining": "-190h 38m",
+      "sla_elapsed": "207h",
+      "sla_remaining": "-191h",
       "tma_seconds": 432562.638
     },
     {
@@ -758,8 +796,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "314h 38m",
-      "sla_remaining": "-298h 38m",
+      "sla_elapsed": "315h",
+      "sla_remaining": "-299h",
       "tma_seconds": 57551.261
     },
     {

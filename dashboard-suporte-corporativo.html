@@ -1340,17 +1340,20 @@
             const elMetricCancelado = document.getElementById('metricCancelado');
             if (elMetricCancelado) elMetricCancelado.textContent = stats.cancelado;
 
-            const slaOk = stats.total - stats.slaBreached;
+            // SLA so faz sentido medir sobre tickets ja concluidos (um ticket aberto ainda
+            // nao "cumpriu" nem "estourou" o SLA de fato) - usar stats.total misturava
+            // abertos com resolvidos e inflava o percentual.
+            const slaOk = stats.concluido - stats.concluidoSlaBreached;
 
             // SLA Center Values (Donut Widget)
             const elSlaCenterValue = document.getElementById('slaCenterValue');
             if (elSlaCenterValue) {
-                elSlaCenterValue.textContent = ((slaOk / total) * 100).toFixed(1) + '%';
+                elSlaCenterValue.textContent = (stats.concluido > 0 ? ((slaOk / stats.concluido) * 100) : 100).toFixed(1) + '%';
             }
             const elSlaOkVal = document.getElementById('slaOkVal');
             if (elSlaOkVal) elSlaOkVal.textContent = slaOk;
             const elSlaBreachedVal = document.getElementById('slaBreachedVal');
-            if (elSlaBreachedVal) elSlaBreachedVal.textContent = stats.slaBreached;
+            if (elSlaBreachedVal) elSlaBreachedVal.textContent = stats.concluidoSlaBreached;
 
             // Formatação amigável de tempo em minutos/horas
             const formatTime = (secs) => {
@@ -1706,13 +1709,13 @@
             const ctxSla = document.getElementById('chartSla').getContext('2d');
             if (chartSla) chartSla.destroy();
             
-            const slaOkCount = stats.total - stats.slaBreached;
+            const slaOkCount = stats.concluido - stats.concluidoSlaBreached;
             chartSla = new Chart(ctxSla, {
                 type: 'doughnut',
                 data: {
                     labels: ['Dentro do SLA', 'SLA Estourado'],
                     datasets: [{
-                        data: [slaOkCount, stats.slaBreached],
+                        data: [slaOkCount, stats.concluidoSlaBreached],
                         backgroundColor: ['#10b981', '#ef4444'],
                         borderWidth: 1,
                         cutout: '75%'

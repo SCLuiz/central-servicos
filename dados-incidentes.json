@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-23T06:53:12.184912",
+  "ultima_atualizacao": "2026-09-23T12:35:42.393099",
   "total": 162,
   "incidentes": [
     {
@@ -17,8 +17,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-24T15:04:05.151-0300",
-      "sla_elapsed": "55m",
-      "sla_remaining": "15h 4m",
+      "sla_elapsed": "1h 31m",
+      "sla_remaining": "14h 28m",
       "tma_seconds": null
     },
     {
@@ -112,8 +112,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "69h 48m",
-      "sla_remaining": "-53h 48m",
+      "sla_elapsed": "70h 24m",
+      "sla_remaining": "-54h 24m",
       "tma_seconds": 254376.932
     },
     {
@@ -131,8 +131,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-14T12:25:09.565-0300",
-      "sla_elapsed": "75h 34m",
-      "sla_remaining": "-59h 34m",
+      "sla_elapsed": "76h 10m",
+      "sla_remaining": "-60h 10m",
       "tma_seconds": 329241.55
     },
     {
@@ -150,8 +150,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-11T17:20:20.109-0300",
-      "sla_elapsed": "79h 39m",
-      "sla_remaining": "-63h 39m",
+      "sla_elapsed": "80h 15m",
+      "sla_remaining": "-64h 15m",
       "tma_seconds": 343832.882
     },
     {
@@ -283,8 +283,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "124h 28m",
-      "sla_remaining": "-108h 28m",
+      "sla_elapsed": "125h 4m",
+      "sla_remaining": "-109h 4m",
       "tma_seconds": 33.538
     },
     {
@@ -416,8 +416,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-31T15:52:19.911-0300",
-      "sla_elapsed": "162h 7m",
-      "sla_remaining": "-146h 7m",
+      "sla_elapsed": "162h 43m",
+      "sla_remaining": "-146h 43m",
       "tma_seconds": 62821.643
     },
     {
@@ -492,8 +492,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "198h",
-      "sla_remaining": "-182h",
+      "sla_elapsed": "198h 35m",
+      "sla_remaining": "-182h 35m",
       "tma_seconds": 575516.664
     },
     {
@@ -511,8 +511,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "198h",
-      "sla_remaining": "-182h",
+      "sla_elapsed": "198h 35m",
+      "sla_remaining": "-182h 35m",
       "tma_seconds": 432562.638
     },
     {
@@ -739,8 +739,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "306h",
-      "sla_remaining": "-290h",
+      "sla_elapsed": "306h 35m",
+      "sla_remaining": "-290h 35m",
       "tma_seconds": 57551.261
     },
     {

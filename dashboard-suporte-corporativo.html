@@ -1244,7 +1244,8 @@
                 reopenedCount: 0,
                 gmudEmergencialCount: 0,
                 fcrCount: 0,
-                concluidoSlaBreached: 0
+                concluidoSlaBreached: 0,
+                concluidoMttrBreached: 0
             };
 
             incidentes.forEach(i => {
@@ -1301,6 +1302,7 @@
                 // MTTR calculations (resolved incidentes only)
                 if (s.includes('Concluído')) {
                     if (i.sla_breached) stats.concluidoSlaBreached++;
+                    if (i.mttr_breached) stats.concluidoMttrBreached++;
                     const mttrSec = getIncidentMTTRSeconds(i);
                     if (mttrSec > 0) {
                         stats.mttrSecondsTotal += mttrSec;
@@ -1390,9 +1392,9 @@
                     ref: 'IND-INC-001',
                     title: 'Volume de Chamados Fechados',
                     value: stats.concluido,
-                    meta: '<= 40',
+                    meta: '<= 350',
                     desc: 'Volume total de tickets encerrados (exclui cancelados).',
-                    status: stats.concluido <= 40 ? 'meta-ok' : stats.concluido <= 60 ? 'meta-warn' : 'meta-crit'
+                    status: stats.concluido <= 350 ? 'meta-ok' : stats.concluido <= 400 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-002',
@@ -1423,8 +1425,8 @@
                     title: 'MTTR Médio de Resolução',
                     value: stats.mttrCount > 0 ? formatTime(stats.mttrSecondsTotal / stats.mttrCount) : '—',
                     meta: 'P1 <1h | P2 <2h | P3 <10h',
-                    desc: 'Tempo médio de indisponibilidade (Início ao Fim da Indisponibilidade) com fallback para criação/conclusão.',
-                    status: stats.concluidoSlaBreached === 0 ? 'meta-ok' : stats.concluidoSlaBreached <= stats.concluido * 0.15 ? 'meta-warn' : 'meta-crit'
+                    desc: 'Tempo médio de resolução do ticket, do atendimento até a conclusão.',
+                    status: stats.concluidoMttrBreached === 0 ? 'meta-ok' : stats.concluidoMttrBreached <= stats.concluido * 0.15 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-006',

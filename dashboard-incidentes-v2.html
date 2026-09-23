@@ -1096,7 +1096,7 @@
                         </button>
                     </div>
                 </div>
-                <div style="overflow-x: auto;">
+                <div id="mainIncidentsTableWrapper" style="overflow-x: auto;">
                     <table class="main-table">
                         <thead>
                             <tr>
@@ -1118,6 +1118,43 @@
                         <tbody id="incidentesTableBody"></tbody>
                     </table>
                 </div>
+
+                <!-- Tabela dedicada da aba "Tickets Cancelados": dados do projeto TCKT
+                     (planilha de analise manual + status ao vivo do Jira), completamente
+                     separada da tabela de incidentes OFBI acima. -->
+                <div id="ticketsCanceladosWrapper" style="display: none;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <label for="tcktCategoriaFilter" style="font-size: 12px; font-weight: 600; color: #475569;">Categoria:</label>
+                        <select id="tcktCategoriaFilter" onchange="applyTcktCategoriaFilter(this.value)" style="padding: 4px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 12px;">
+                            <option value="all">Todas</option>
+                            <option value="PCM">PCM</option>
+                            <option value="FVP">FVP</option>
+                            <option value="MQD">MQD</option>
+                            <option value="Sem mapeamento">Sem mapeamento</option>
+                        </select>
+                        <span id="tcktCount" style="font-size: 12px; color: #94a3b8;"></span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="main-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">Ticket</th>
+                                    <th style="width: 250px;">Título</th>
+                                    <th>Categoria</th>
+                                    <th>Subcategoria</th>
+                                    <th>Instituição</th>
+                                    <th style="width: 90px;">Status SLA</th>
+                                    <th style="width: 80px;">Mês</th>
+                                    <th style="width: 200px;">Causa Real</th>
+                                    <th style="width: 200px;">Solução</th>
+                                    <th style="width: 90px;">Status Atual</th>
+                                    <th style="width: 70px;">Links</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsCanceladosTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -1128,8 +1165,21 @@
         let allIncidentes = [];
         let currentFilteredData = [];
 
+        // Identifica tickets originados do SysAid (integracao antiga). Antes existiam 3
+        // versoes divergentes desse mesmo check espalhadas pelo arquivo: uma so olhava se
+        // o summary tinha " - " (pegava ~40 incidentes normais por engano, so porque o
+        // titulo tinha um hifen), outra so a faixa de chave, outra as duas coisas. Unificado
+        // aqui - reaproveitado em todo lugar que precisa desse check.
         function isSysAidTicket(i) {
-            return i.summary && i.summary.includes(' - ');
+            if (i.summary && i.summary.includes('SysAid')) return true;
+            if (i.key) {
+                const match = i.key.match(/OFBI-(\d+)/);
+                if (match) {
+                    const num = parseInt(match[1], 10);
+                    if (num >= 4720 && num <= 4928) return true;
+                }
+            }
+            return false;
         }
 
         // MTTF real: tempo medio entre o fim de um incidente e o inicio do proximo (gaps de "uptime").
@@ -2607,6 +2657,9 @@
                 
                 if (mainGrid) mainGrid.style.display = 'grid';
                 const cg = document.getElementById('canceladosGrid'); if(cg) cg.style.display = 'none';
+
+                const mainTableWrap = document.getElementById('mainIncidentsTableWrapper'); if (mainTableWrap) mainTableWrap.style.display = '';
+                const tcktWrap = document.getElementById('ticketsCanceladosWrapper'); if (tcktWrap) tcktWrap.style.display = 'none';
             } else {
                 tabCancelados.style.fontWeight = '700';
                 tabCancelados.style.color = 'var(--of-magenta)';
@@ -2618,7 +2671,11 @@
                 
                 if (mainGrid) mainGrid.style.display = 'none';
                 const cg = document.getElementById('canceladosGrid'); if(cg) cg.style.display = 'grid';
-                
+
+                const mainTableWrap = document.getElementById('mainIncidentsTableWrapper'); if (mainTableWrap) mainTableWrap.style.display = 'none';
+                const tcktWrap = document.getElementById('ticketsCanceladosWrapper'); if (tcktWrap) tcktWrap.style.display = '';
+                loadTicketsCancelados();
+
                 // Força o reset dos filtros para garantir que todos os cancelados apareçam
                 currentFilter = 'all';
                 currentPriorityFilter = 'all';
@@ -2643,6 +2700,70 @@
                 if (compSelect) compSelect.value = 'all';
             }
             filterAndRender();
+        }
+
+        // Aba "Tickets Cancelados": dados do projeto TCKT (planilha de analise manual
+        // cruzada com status ao vivo do Jira), completamente independente dos incidentes
+        // OFBI da aba "Todos os Incidentes" - nunca reaproveita allIncidentes/filterAndRender.
+        const TICKETS_CANCELADOS_URL = 'https://jira-incidentes-proxy.luiz-santos.workers.dev/tickets-cancelados';
+        let allTicketsCancelados = null;
+        let currentTcktCategoriaFilter = 'all';
+
+        async function loadTicketsCancelados() {
+            if (allTicketsCancelados !== null) {
+                renderTicketsCanceladosTable();
+                return;
+            }
+            const tbody = document.getElementById('ticketsCanceladosTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding: 20px;">Carregando...</td></tr>';
+            try {
+                const resp = await fetch(TICKETS_CANCELADOS_URL);
+                if (!resp.ok) throw new Error('Falha ao carregar tickets cancelados');
+                const data = await resp.json();
+                allTicketsCancelados = data.tickets || [];
+                renderTicketsCanceladosTable();
+            } catch (e) {
+                if (tbody) tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; padding: 20px; color:#dc2626;">Erro: ${e.message}</td></tr>`;
+            }
+        }
+
+        function applyTcktCategoriaFilter(val) {
+            currentTcktCategoriaFilter = val;
+            renderTicketsCanceladosTable();
+        }
+
+        function renderTicketsCanceladosTable() {
+            const tbody = document.getElementById('ticketsCanceladosTableBody');
+            const countEl = document.getElementById('tcktCount');
+            if (!tbody || !allTicketsCancelados) return;
+
+            const filtered = currentTcktCategoriaFilter === 'all'
+                ? allTicketsCancelados
+                : allTicketsCancelados.filter(t => t.planilha === currentTcktCategoriaFilter);
+
+            if (countEl) countEl.textContent = `${filtered.length} de ${allTicketsCancelados.length} tickets`;
+
+            tbody.innerHTML = '';
+            filtered.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${t.key}</td>
+                    <td>${t.titulo || ''}</td>
+                    <td>${t.categoria || ''}</td>
+                    <td>${t.subcategoria || ''}</td>
+                    <td>${t.instituicao || ''}</td>
+                    <td>${t.status_sla || ''}</td>
+                    <td>${t.mes || ''}</td>
+                    <td>${t.causa_real || ''}</td>
+                    <td>${t.solucao || ''}</td>
+                    <td>${t.status_atual || (t.ainda_existe_no_jira ? '' : 'Não encontrado')}</td>
+                    <td>
+                        ${t.link_jira ? `<a href="${t.link_jira}" target="_blank" rel="noopener">Jira</a>` : ''}
+                        ${t.link_sysaid ? ` / <a href="${t.link_sysaid}" target="_blank" rel="noopener">SysAid</a>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         function applyPriorityFilter(priority, ev) {
@@ -2712,17 +2833,6 @@
                 }
             }
 
-            function isSysAidTicket(i) {
-                if (i.key) {
-                    const match = i.key.match(/OFBI-(\d+)/);
-                    if (match) {
-                        const num = parseInt(match[1], 10);
-                        if (num >= 4720 && num <= 4928) return true;
-                    }
-                }
-                return false;
-            }
-
             if (currentMainTab === 'cancelados') {
                 filtered = filtered.filter(i => isSysAidTicket(i));
             } else {
@@ -2763,19 +2873,19 @@
         function initializeComparisonMonths(incidentes) {
             const yearsSet = new Set();
             
-            // Encontra a data máxima no dataset
+            // Encontra a data minima e maxima no dataset
             let maxDate = new Date();
+            let minDate = new Date();
             incidentes.forEach(i => {
                 if (i.created) {
                     const cd = new Date(i.created);
-                    if (cd > maxDate) {
-                        maxDate = cd;
-                    }
+                    if (cd > maxDate) maxDate = cd;
+                    if (cd < minDate) minDate = cd;
                 }
             });
-            
-            // Data inicial: 1º de Abril de 2025 (mês 3 em JS)
-            let currentDate = new Date(2025, 3, 1);
+
+            // Data inicial: comeca dinamicamente no incidente mais antigo, nao mais fixo em abril/2025.
+            let currentDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
             
             // Gera todos os meses consecutivos até a data máxima
             const list = [];
@@ -2959,24 +3069,12 @@
             if (!ctx) return;
             
             let compIncidentes = [...allIncidentes];
-            
-            function isSysAid(i) {
-                if (i.summary && i.summary.includes('SysAid')) return true;
-                if (i.key) {
-                    const match = i.key.match(/OFBI-(\d+)/);
-                    if (match) {
-                        const num = parseInt(match[1], 10);
-                        if (num >= 4720 && num <= 4928) return true;
-                    }
-                }
-                return false;
-            }
 
             if (currentMainTab === 'cancelados') {
-                compIncidentes = compIncidentes.filter(i => isSysAid(i));
+                compIncidentes = compIncidentes.filter(i => isSysAidTicket(i));
             } else {
                 // Aba 'Todos' -> exclui tickets SysAid
-                compIncidentes = compIncidentes.filter(i => !isSysAid(i));
+                compIncidentes = compIncidentes.filter(i => !isSysAidTicket(i));
             }
 
             if (currentPriorityFilter !== 'all') {
@@ -2984,23 +3082,20 @@
             }
             
             const stats = {};
-            const cutoffDate = new Date('2025-04-01T00:00:00');
-            
+
             if (comparisonViewMode === 'mensal') {
                 selectedComparisonMonths.forEach(m => {
                     stats[m] = { created: 0, resolved: 0, breached: 0 };
                 });
-                
+
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        if (cd >= cutoffDate) {
-                            const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                            
-                            if (selectedComparisonMonths.has(ck)) {
-                                stats[ck].created++;
-                                if (i.sla_breached) stats[ck].breached++;
-                            }
+                        const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+
+                        if (selectedComparisonMonths.has(ck)) {
+                            stats[ck].created++;
+                            if (i.sla_breached) stats[ck].breached++;
                         }
                     }
                     // Usa resolutiondate (data real de resolucao), nao updated (ultima
@@ -3009,8 +3104,7 @@
                     if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
                         const rd = new Date(i.resolutiondate);
                         const rk = `${(rd.getMonth()+1).toString().padStart(2,'0')}/${rd.getFullYear()}`;
-                        const cd = i.created ? new Date(i.created) : null;
-                        if (selectedComparisonMonths.has(rk) && (!cd || cd >= cutoffDate)) {
+                        if (selectedComparisonMonths.has(rk)) {
                             stats[rk].resolved++;
                         }
                     }
@@ -3036,21 +3130,18 @@
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        if (cd >= cutoffDate) {
-                            const yk = cd.getFullYear().toString();
-                            
-                            if (selectedComparisonYears.has(yk)) {
-                                stats[yk].created++;
-                                if (i.sla_breached) stats[yk].breached++;
-                            }
+                        const yk = cd.getFullYear().toString();
+
+                        if (selectedComparisonYears.has(yk)) {
+                            stats[yk].created++;
+                            if (i.sla_breached) stats[yk].breached++;
                         }
                     }
                     // Mesmo fallback: resolutiondate real, nao updated.
                     if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
                         const rd = new Date(i.resolutiondate);
                         const yk = rd.getFullYear().toString();
-                        const cd = i.created ? new Date(i.created) : null;
-                        if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
+                        if (selectedComparisonYears.has(yk)) {
                             stats[yk].resolved++;
                         }
                     }

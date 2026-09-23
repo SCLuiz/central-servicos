@@ -1407,9 +1407,9 @@
                 {
                     ref: 'IND-INC-003',
                     title: 'Satisfação do Usuário (CSAT)',
-                    value: stats.csatTotal > 0 ? rateCSAT.toFixed(1) + '%' : '—',
+                    value: stats.csatTotal > 0 ? `${rateCSAT.toFixed(1)}% (${stats.csatPositive}/${stats.csatTotal})` : '—',
                     meta: '>= 80%',
-                    desc: 'Pesquisa pós-atendimento com avaliações Positivas.',
+                    desc: `Pesquisa pós-atendimento com avaliações Positivas. Amostra pequena: apenas ${stats.csatTotal} de ${stats.concluido} tickets concluídos responderam a pesquisa (${stats.concluido > 0 ? ((stats.csatTotal / stats.concluido) * 100).toFixed(1) : 0}% de taxa de resposta) - o percentual acima nao reflete a satisfacao geral, so quem respondeu.`,
                     status: stats.csatTotal === 0 ? 'meta-ok' : rateCSAT >= 80 ? 'meta-ok' : rateCSAT >= 65 ? 'meta-warn' : 'meta-crit'
                 },
                 {

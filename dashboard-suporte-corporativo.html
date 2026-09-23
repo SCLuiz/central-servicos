@@ -2751,7 +2751,11 @@
                 if (p === 'highest' || p === 'critical' || p === 'crítica' || p === 'crítico') {
                     criticos++;
                 }
-                if (i.mttr_seconds) { mttrSec += i.mttr_seconds; mttrCount++; }
+                // MTTR so faz sentido pra tickets ja resolvidos - contar tambem os ainda
+                // "Em Remediação" misturava tempo parcial (ainda correndo) com tempo final,
+                // inflando a media pra 41h aqui contra 34h37min no Mapa de Indicadores
+                // (que ja restringe a Concluido).
+                if (i.mttr_seconds && (i.status || '').includes('Concluído')) { mttrSec += i.mttr_seconds; mttrCount++; }
                 if (i.tma_seconds) { mttaSec += i.tma_seconds; mttaCount++; }
                 if (i.summary && i.summary.toLowerCase().includes('recorrente')) rc++;
             });
@@ -2799,7 +2803,7 @@
                 if (p === 'highest' || p === 'critical' || p === 'crítica' || p === 'crítico') {
                     monthsMap[key].criticos++;
                 }
-                if (i.mttr_seconds) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }
+                if (i.mttr_seconds && (i.status || '').includes('Concluído')) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }
                 if (i.tma_seconds) { monthsMap[key].mttaSec += i.tma_seconds; monthsMap[key].mttaCount++; }
                 if (i.summary && i.summary.toLowerCase().includes('recorrente')) monthsMap[key].rc++;
             });

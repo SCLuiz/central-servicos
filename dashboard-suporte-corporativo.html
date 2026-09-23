@@ -1248,12 +1248,16 @@
             };
 
             incidentes.forEach(i => {
+                // Classificacao por texto de status - o HELP usa vocabulario proprio
+                // ("Em Remediação", "Iniciativa Criada"), diferente do OFBI ("Aberto",
+                // "Trabalho em andamento"). Catch-all no final garante que todo ticket
+                // caia em algum balde (antes, "Em Remediação"/"Iniciativa Criada" nao
+                // batiam em nenhum padrao e sumiam dos cards de resumo).
                 const s = i.status || '';
-                if (s.includes('Aberto')) stats.aberto++;
-                else if (s.includes('Trabalho em andamento')) stats.aberto++;
-                else if (s.includes('Pendente')) stats.pendente++;
+                if (s.includes('Cancelado')) stats.cancelado++;
                 else if (s.includes('Concluído') || s === 'Fechada') stats.concluido++;
-                else if (s.includes('Cancelado')) stats.cancelado++;
+                else if (s.includes('Pendente')) stats.pendente++;
+                else stats.aberto++;
 
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
                 stats.responsaveisCount[i.assignee] = (stats.responsaveisCount[i.assignee] || 0) + 1;

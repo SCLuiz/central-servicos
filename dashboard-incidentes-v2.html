@@ -777,6 +777,7 @@
                 <span class="sub-nav-label">Prioridade:</span>
                 <div class="sub-nav-buttons">
                     <button class="sub-filter-btn active" onclick="applyPriorityFilter('all', event)">Todas</button>
+                    <button class="sub-filter-btn" onclick="applyPriorityFilter('highest', event)">Críticos</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('high', event)">Alta</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('medium', event)">Média</button>
                     <button class="sub-filter-btn" onclick="applyPriorityFilter('low', event)">Baixa</button>
@@ -3108,7 +3109,9 @@
 
             incidentes.forEach(i => {
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
+                // Criticos = so prioridade Highest (topo da escala), igual ao Mapa de
+                // Indicadores e ao filtro "Criticos" da barra de Prioridade.
+                if (p === 'highest' || p === 'critical' || p === 'crítico' || p === 'crítica') {
                     criticos++;
                 }
                 if (i.mttr_seconds) { mttrSec += i.mttr_seconds; mttrCount++; }
@@ -3156,7 +3159,7 @@
                 monthsMap[key].total++;
                 monthsMap[key].items.push(i);
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
+                if (p === 'highest' || p === 'critical' || p === 'crítico' || p === 'crítica') {
                     monthsMap[key].criticos++;
                 }
                 if (i.mttr_seconds) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }

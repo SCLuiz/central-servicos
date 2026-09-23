@@ -2747,6 +2747,19 @@
 
             tbody.innerHTML = '';
             filtered.forEach(t => {
+                const prio = (t.priority_atual || '').toLowerCase();
+                let prioClass = 'priority-badge priority-low', prioLabel = 'BAIXA';
+                if (prio === 'highest' || prio === 'crítica' || prio === 'critical') { prioClass = 'priority-badge priority-high'; prioLabel = 'CRÍTICA'; }
+                else if (prio === 'high' || prio === 'alta') { prioClass = 'priority-badge priority-high'; prioLabel = 'ALTA'; }
+                else if (prio === 'medium' || prio === 'média' || prio === 'media') { prioClass = 'priority-badge priority-medium'; prioLabel = 'MÉDIA'; }
+                else if (!prio) { prioClass = 'priority-badge'; prioLabel = '—'; }
+
+                const imp = (t.impacto_atual || '').toLowerCase();
+                let impClass = 'priority-badge priority-low', impLabel = 'BAIXO';
+                if (imp === 'alto' || imp === 'high') { impClass = 'priority-badge priority-high'; impLabel = 'ALTO'; }
+                else if (imp === 'médio' || imp === 'medio' || imp === 'medium') { impClass = 'priority-badge priority-medium'; impLabel = 'MÉDIO'; }
+                else if (!imp) { impClass = 'priority-badge'; impLabel = '—'; }
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${t.key}</td>
@@ -2758,8 +2771,8 @@
                     <td>${t.mes || ''}</td>
                     <td>${t.causa_real || ''}</td>
                     <td>${t.solucao || ''}</td>
-                    <td><span class="field-badge-editable" data-field="priority" onclick="openTcktFieldEditor(event, '${t.key}', 'priority')" title="Clique para alterar a prioridade">${t.priority_atual || '—'}</span></td>
-                    <td><span class="field-badge-editable" data-field="impacto" onclick="openTcktFieldEditor(event, '${t.key}', 'impacto')" title="Clique para alterar o impacto">${t.impacto_atual || '—'}</span></td>
+                    <td><span class="${prioClass} field-badge-editable" data-field="priority" onclick="openTcktFieldEditor(event, '${t.key}', 'priority')" title="Clique para alterar a prioridade">${prioLabel}</span></td>
+                    <td><span class="${impClass} field-badge-editable" data-field="impacto" onclick="openTcktFieldEditor(event, '${t.key}', 'impacto')" title="Clique para alterar o impacto">${impLabel}</span></td>
                     <td>${t.status_atual || (t.ainda_existe_no_jira ? '' : 'Não encontrado')}</td>
                     <td>
                         ${t.link_jira ? `<a href="${t.link_jira}" target="_blank" rel="noopener">Jira</a>` : ''}

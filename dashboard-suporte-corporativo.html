@@ -1383,7 +1383,10 @@
             };
 
             const rateResolvidosSLA = stats.concluido > 0 ? (((stats.concluido - stats.concluidoSlaBreached) / stats.concluido) * 100) : 100;
-            const rateCSAT = stats.csatTotal > 0 ? ((stats.csatPositive / stats.csatTotal) * 100) : 0;
+            // CSAT calculado sobre o total de concluidos, nao so sobre quem respondeu a
+            // pesquisa - dividir so pelos respondentes (amostra de 5 em 298) inflava o
+            // percentual pra 100% mesmo a esmagadora maioria nunca tendo avaliado.
+            const rateCSAT = stats.concluido > 0 ? ((stats.csatPositive / stats.concluido) * 100) : 0;
             const rateReabertura = stats.total > 0 ? ((stats.reopenedCount / stats.total) * 100) : 0;
             const rateFCR = stats.concluido > 0 ? ((stats.fcrCount / stats.concluido) * 100) : 0;
 
@@ -1407,10 +1410,10 @@
                 {
                     ref: 'IND-INC-003',
                     title: 'Satisfação do Usuário (CSAT)',
-                    value: stats.csatTotal > 0 ? `${rateCSAT.toFixed(1)}% (${stats.csatPositive}/${stats.csatTotal})` : '—',
+                    value: stats.concluido > 0 ? `${rateCSAT.toFixed(1)}% (${stats.csatPositive}/${stats.concluido})` : '—',
                     meta: '>= 80%',
-                    desc: `Pesquisa pós-atendimento com avaliações Positivas. Amostra pequena: apenas ${stats.csatTotal} de ${stats.concluido} tickets concluídos responderam a pesquisa (${stats.concluido > 0 ? ((stats.csatTotal / stats.concluido) * 100).toFixed(1) : 0}% de taxa de resposta) - o percentual acima nao reflete a satisfacao geral, so quem respondeu.`,
-                    status: stats.csatTotal === 0 ? 'meta-ok' : rateCSAT >= 80 ? 'meta-ok' : rateCSAT >= 65 ? 'meta-warn' : 'meta-crit'
+                    desc: `Percentual de tickets concluídos com avaliação Positiva confirmada, sobre o total de concluídos (não só sobre quem respondeu) - evita inflar o número quando a taxa de resposta é baixa. Taxa de resposta da pesquisa: ${stats.concluido > 0 ? ((stats.csatTotal / stats.concluido) * 100).toFixed(1) : 0}% (${stats.csatTotal} de ${stats.concluido}).`,
+                    status: stats.concluido === 0 ? 'meta-ok' : rateCSAT >= 80 ? 'meta-ok' : rateCSAT >= 65 ? 'meta-warn' : 'meta-crit'
                 },
                 {
                     ref: 'IND-INC-004',

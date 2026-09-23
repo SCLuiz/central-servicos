@@ -1150,7 +1150,7 @@
                                     <th style="width: 80px;">Prioridade</th>
                                     <th style="width: 80px;">Impacto</th>
                                     <th style="width: 90px;">Status Atual</th>
-                                    <th style="width: 70px;">Links</th>
+                                    <th style="width: 70px;">SysAid</th>
                                 </tr>
                             </thead>
                             <tbody id="ticketsCanceladosTableBody"></tbody>
@@ -2762,7 +2762,7 @@
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${t.key}</td>
+                    <td><a href="${t.link_jira}" target="_blank" style="color: #0066cc; text-decoration: underline; font-weight: 600;">${t.key}</a></td>
                     <td>${t.titulo || ''}</td>
                     <td>${t.categoria || ''}</td>
                     <td>${t.subcategoria || ''}</td>
@@ -2775,8 +2775,7 @@
                     <td><span class="${impClass} field-badge-editable" data-field="impacto" onclick="openTcktFieldEditor(event, '${t.key}', 'impacto')" title="Clique para alterar o impacto">${impLabel}</span></td>
                     <td>${t.status_atual || (t.ainda_existe_no_jira ? '' : 'Não encontrado')}</td>
                     <td>
-                        ${t.link_jira ? `<a href="${t.link_jira}" target="_blank" rel="noopener">Jira</a>` : ''}
-                        ${t.link_sysaid ? ` / <a href="${t.link_sysaid}" target="_blank" rel="noopener">SysAid</a>` : ''}
+                        ${t.link_sysaid ? `<a href="${t.link_sysaid}" target="_blank" rel="noopener">SysAid</a>` : ''}
                     </td>
                 `;
                 tbody.appendChild(tr);

@@ -1,7 +1,26 @@
 {
-  "ultima_atualizacao": "2026-09-23T12:35:42.393099",
-  "total": 162,
+  "ultima_atualizacao": "2026-09-23T17:27:41.817218",
+  "total": 163,
   "incidentes": [
+    {
+      "key": "OFBI-5216",
+      "summary": "Indisponibilidade Motor de Conformidade ",
+      "sistema_afetado": "Motor de Conformidade Funcional",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Luiz Santos",
+      "created": "2026-09-23T12:32:22.556-0300",
+      "updated": "2026-09-23T12:32:26.526-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-25T10:32:22.556-0300",
+      "sla_elapsed": "1h 55m",
+      "sla_remaining": "14h 4m",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5215",
       "summary": "Reportes duplicados pela PCM",
@@ -17,8 +36,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-24T15:04:05.151-0300",
-      "sla_elapsed": "1h 31m",
-      "sla_remaining": "14h 28m",
+      "sla_elapsed": "6h 23m",
+      "sla_remaining": "9h 36m",
       "tma_seconds": null
     },
     {
@@ -50,7 +69,7 @@
       "assignee": "Thiago Duarte",
       "reporter": "Paola Arcanjo",
       "created": "2026-09-17T12:07:38.186-0300",
-      "updated": "2026-09-22T16:27:46.346-0300",
+      "updated": "2026-09-23T12:41:01.957-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
@@ -112,8 +131,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "70h 24m",
-      "sla_remaining": "-54h 24m",
+      "sla_elapsed": "75h 16m",
+      "sla_remaining": "-59h 16m",
       "tma_seconds": 254376.932
     },
     {
@@ -131,8 +150,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-14T12:25:09.565-0300",
-      "sla_elapsed": "76h 10m",
-      "sla_remaining": "-60h 10m",
+      "sla_elapsed": "81h 2m",
+      "sla_remaining": "-65h 2m",
       "tma_seconds": 329241.55
     },
     {
@@ -150,8 +169,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-11T17:20:20.109-0300",
-      "sla_elapsed": "80h 15m",
-      "sla_remaining": "-64h 15m",
+      "sla_elapsed": "85h 7m",
+      "sla_remaining": "-69h 7m",
       "tma_seconds": 343832.882
     },
     {
@@ -283,8 +302,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "125h 4m",
-      "sla_remaining": "-109h 4m",
+      "sla_elapsed": "129h 56m",
+      "sla_remaining": "-113h 56m",
       "tma_seconds": 33.538
     },
     {
@@ -416,8 +435,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-31T15:52:19.911-0300",
-      "sla_elapsed": "162h 43m",
-      "sla_remaining": "-146h 43m",
+      "sla_elapsed": "167h 35m",
+      "sla_remaining": "-151h 35m",
       "tma_seconds": 62821.643
     },
     {
@@ -492,8 +511,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "198h 35m",
-      "sla_remaining": "-182h 35m",
+      "sla_elapsed": "203h 27m",
+      "sla_remaining": "-187h 27m",
       "tma_seconds": 575516.664
     },
     {
@@ -511,8 +530,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "198h 35m",
-      "sla_remaining": "-182h 35m",
+      "sla_elapsed": "203h 27m",
+      "sla_remaining": "-187h 27m",
       "tma_seconds": 432562.638
     },
     {
@@ -522,10 +541,10 @@
       "impacto": "Médio",
       "status": "Concluído com Sucesso",
       "priority": "High",
-      "assignee": "Thomas Rabelo",
+      "assignee": "Sem responsável",
       "reporter": "Giulia Simaozinho",
       "created": "2026-08-21T18:24:06.905-0300",
-      "updated": "2026-09-23T01:07:09.961-0300",
+      "updated": "2026-09-23T10:51:32.234-0300",
       "resolutiondate": "2026-09-23T01:07:09.927-0300",
       "labels": [],
       "sla_breached": true,
@@ -734,13 +753,13 @@
       "assignee": "Arquitetura",
       "reporter": "Rafael Anjos",
       "created": "2026-08-05T18:09:55.444-0300",
-      "updated": "2026-09-02T18:08:08.949-0300",
+      "updated": "2026-09-23T11:43:33.608-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "306h 35m",
-      "sla_remaining": "-290h 35m",
+      "sla_elapsed": "311h 27m",
+      "sla_remaining": "-295h 27m",
       "tma_seconds": 57551.261
     },
     {

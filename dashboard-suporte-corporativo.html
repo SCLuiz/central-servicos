@@ -1275,7 +1275,7 @@
                 }
 
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'critical') stats.critical++;
+                if (p === 'critical' || p === 'highest') stats.critical++;
                 else if (p === 'high') stats.high++;
                 else if (p === 'medium') stats.medium++;
                 else if (p === 'low') stats.low++;
@@ -2411,19 +2411,19 @@
         function initializeComparisonMonths(incidentes) {
             const yearsSet = new Set();
             
-            // Encontra a data máxima no dataset
+            // Encontra a data minima e maxima no dataset
             let maxDate = new Date();
+            let minDate = new Date();
             incidentes.forEach(i => {
                 if (i.created) {
                     const cd = new Date(i.created);
-                    if (cd > maxDate) {
-                        maxDate = cd;
-                    }
+                    if (cd > maxDate) maxDate = cd;
+                    if (cd < minDate) minDate = cd;
                 }
             });
-            
-            // Data inicial: 1º de Abril de 2025 (mês 3 em JS)
-            let currentDate = new Date(2025, 3, 1);
+
+            // Data inicial: comeca dinamicamente no ticket mais antigo, nao mais fixo em abril/2025.
+            let currentDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
             
             // Gera todos os meses consecutivos até a data máxima
             const list = [];
@@ -2613,31 +2613,30 @@
             }
             
             const stats = {};
-            const cutoffDate = new Date('2025-04-01T00:00:00');
-            
+
             if (comparisonViewMode === 'mensal') {
                 selectedComparisonMonths.forEach(m => {
                     stats[m] = { created: 0, resolved: 0, breached: 0 };
                 });
-                
+
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        if (cd >= cutoffDate) {
-                            const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
-                            
-                            if (selectedComparisonMonths.has(ck)) {
-                                stats[ck].created++;
-                                if (i.sla_breached) stats[ck].breached++;
-                            }
+                        const ck = `${(cd.getMonth()+1).toString().padStart(2,'0')}/${cd.getFullYear()}`;
+
+                        if (selectedComparisonMonths.has(ck)) {
+                            stats[ck].created++;
+                            if (i.sla_breached) stats[ck].breached++;
                         }
                     }
-                    if (i.updated && i.status && i.status.includes('Concluído')) {
-                        const ud = new Date(i.updated);
-                        const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
-                        const cd = i.created ? new Date(i.created) : null;
-                        if (selectedComparisonMonths.has(uk) && (!cd || cd >= cutoffDate)) {
-                            stats[uk].resolved++;
+                    // Usa resolutiondate (data real de resolucao), nao updated (ultima
+                    // edicao do ticket) - senao um ticket resolvido num mes mas editado
+                    // depois (comentario, campo extra) contava como concluido no mes errado.
+                    if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
+                        const rd = new Date(i.resolutiondate);
+                        const rk = `${(rd.getMonth()+1).toString().padStart(2,'0')}/${rd.getFullYear()}`;
+                        if (selectedComparisonMonths.has(rk)) {
+                            stats[rk].resolved++;
                         }
                     }
                 });
@@ -2662,20 +2661,17 @@
                 compIncidentes.forEach(i => {
                     if (i.created) {
                         const cd = new Date(i.created);
-                        if (cd >= cutoffDate) {
-                            const yk = cd.getFullYear().toString();
-                            
-                            if (selectedComparisonYears.has(yk)) {
-                                stats[yk].created++;
-                                if (i.sla_breached) stats[yk].breached++;
-                            }
+                        const yk = cd.getFullYear().toString();
+
+                        if (selectedComparisonYears.has(yk)) {
+                            stats[yk].created++;
+                            if (i.sla_breached) stats[yk].breached++;
                         }
                     }
-                    if (i.updated && i.status && i.status.includes('Concluído')) {
-                        const ud = new Date(i.updated);
-                        const yk = ud.getFullYear().toString();
-                        const cd = i.created ? new Date(i.created) : null;
-                        if (selectedComparisonYears.has(yk) && (!cd || cd >= cutoffDate)) {
+                    if (i.resolutiondate && i.status && i.status.includes('Concluído')) {
+                        const rd = new Date(i.resolutiondate);
+                        const yk = rd.getFullYear().toString();
+                        if (selectedComparisonYears.has(yk)) {
                             stats[yk].resolved++;
                         }
                     }
@@ -2734,7 +2730,7 @@
 
             incidentes.forEach(i => {
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
+                if (p === 'highest' || p === 'critical' || p === 'crítica' || p === 'crítico') {
                     criticos++;
                 }
                 if (i.mttr_seconds) { mttrSec += i.mttr_seconds; mttrCount++; }
@@ -2782,7 +2778,7 @@
                 monthsMap[key].total++;
                 monthsMap[key].items.push(i);
                 const p = (i.priority || '').toLowerCase();
-                if (p === 'highest' || p === 'high' || p === 'crítica' || p === 'crítico' || p === 'alta') {
+                if (p === 'highest' || p === 'critical' || p === 'crítica' || p === 'crítico') {
                     monthsMap[key].criticos++;
                 }
                 if (i.mttr_seconds) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }

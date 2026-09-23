@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-23T03:13:26.431968",
+  "ultima_atualizacao": "2026-09-23T04:07:21.968117",
   "total": 162,
   "incidentes": [
     {
@@ -520,18 +520,18 @@
       "summary": "Duplicação de registros na PCM",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "impacto": "Médio",
-      "status": "Trabalho em andamento",
+      "status": "Concluído com Sucesso",
       "priority": "High",
       "assignee": "Thomas Rabelo",
       "reporter": "Giulia Simaozinho",
       "created": "2026-08-21T18:24:06.905-0300",
-      "updated": "2026-09-22T17:43:06.810-0300",
-      "resolutiondate": null,
+      "updated": "2026-09-23T01:07:09.961-0300",
+      "resolutiondate": "2026-09-23T01:07:09.927-0300",
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
       "sla_elapsed": "198h",
-      "sla_remaining": "-182h",
+      "sla_remaining": null,
       "tma_seconds": 494362.175
     },
     {

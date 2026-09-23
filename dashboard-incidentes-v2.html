@@ -2754,11 +2754,11 @@
                 else if (prio === 'medium' || prio === 'média' || prio === 'media') { prioClass = 'priority-badge priority-medium'; prioLabel = 'MÉDIA'; }
                 else if (!prio) { prioClass = 'priority-badge'; prioLabel = '—'; }
 
+                // Sem impacto preenchido no Jira (nenhum dos 195 tem) conta como Baixo por padrao.
                 const imp = (t.impacto_atual || '').toLowerCase();
                 let impClass = 'priority-badge priority-low', impLabel = 'BAIXO';
                 if (imp === 'alto' || imp === 'high') { impClass = 'priority-badge priority-high'; impLabel = 'ALTO'; }
                 else if (imp === 'médio' || imp === 'medio' || imp === 'medium') { impClass = 'priority-badge priority-medium'; impLabel = 'MÉDIO'; }
-                else if (!imp) { impClass = 'priority-badge'; impLabel = '—'; }
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `

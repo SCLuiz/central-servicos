@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-23T00:08:16.917159",
+  "ultima_atualizacao": "2026-09-23T01:37:22.155170",
   "total": 162,
   "incidentes": [
     {
@@ -576,13 +576,13 @@
       "key": "OFBI-5036",
       "summary": "Atualização lenta da PAD com dados de pagamentos",
       "sistema_afetado": "",
-      "impacto": "",
+      "impacto": "Alto",
       "status": "Concluído com Sucesso",
       "priority": "Highest",
       "assignee": "Marcelo Luppi",
       "reporter": "Gilvan Costa",
       "created": "2026-08-14T16:01:24.948-0300",
-      "updated": "2026-09-22T13:28:14.625-0300",
+      "updated": "2026-09-22T21:09:21.216-0300",
       "resolutiondate": "2026-09-22T13:28:14.604-0300",
       "labels": [],
       "sla_breached": true,

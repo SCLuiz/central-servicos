@@ -1669,17 +1669,22 @@
                 if (!monthlyData[ck]) monthlyData[ck] = { created: 0, resolved: 0, cancelled: 0 };
                 monthlyData[ck].created++;
 
-                const ud = new Date(i.updated);
-                const uk = `${(ud.getMonth()+1).toString().padStart(2,'0')}/${ud.getFullYear()}`;
+                // Resolvido/Cancelado contam pelo mes real da resolucao (resolutiondate),
+                // nao pelo de updated (ultima edicao do ticket) - senao um ticket resolvido
+                // num mes mas editado depois (comentario, campo extra) contava no mes errado.
+                if (i.resolutiondate) {
+                    const rd = new Date(i.resolutiondate);
+                    const rk = `${(rd.getMonth()+1).toString().padStart(2,'0')}/${rd.getFullYear()}`;
 
-                if (i.status && i.status.includes('Concluído')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].resolved++;
-                } else if (i.status && i.status.includes('Cancelado')) {
-                    allMonths.add(uk);
-                    if (!monthlyData[uk]) monthlyData[uk] = { created: 0, resolved: 0, cancelled: 0 };
-                    monthlyData[uk].cancelled++;
+                    if (i.status && i.status.includes('Concluído')) {
+                        allMonths.add(rk);
+                        if (!monthlyData[rk]) monthlyData[rk] = { created: 0, resolved: 0, cancelled: 0 };
+                        monthlyData[rk].resolved++;
+                    } else if (i.status && i.status.includes('Cancelado')) {
+                        allMonths.add(rk);
+                        if (!monthlyData[rk]) monthlyData[rk] = { created: 0, resolved: 0, cancelled: 0 };
+                        monthlyData[rk].cancelled++;
+                    }
                 }
             });
 

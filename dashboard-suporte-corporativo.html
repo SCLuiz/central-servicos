@@ -1010,7 +1010,7 @@
                     <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                         <p style="margin: 0 0 15px 0; font-size: 13px; color: #64748b; font-weight: 500;">Recorrentes (RC)</p>
                         <div id="kpiBigRc" style="font-size: 38px; font-weight: 700; color: #16a34a; margin: 0 0 15px 0;">0</div>
-                        <p style="margin: 0; font-size: 11px; color: #94a3b8;">tickets com título repetido</p>
+                        <p style="margin: 0; font-size: 11px; color: #94a3b8;" hidden>tickets com título repetido</p>
                     </div>
                 </div>
             </div>
@@ -2744,17 +2744,12 @@
             let criticos = 0;
             let mttrSec = 0, mttrCount = 0;
             let mttaSec = 0, mttaCount = 0;
+            // Recorrente: sem campo dedicado no Jira ainda pra caracterizar isso direito.
+            // Titulo repetido e mesmo solicitante foram testados e nao servem (titulo
+            // repetido mistura tarefas rotineiras tipo "Checklist diário"; mesmo
+            // solicitante fica dominado por contas coringa tipo "Suporte TI"). Fica
+            // zerado ate existir um campo real de recorrencia no Jira.
             let rc = 0;
-
-            // Recorrente = titulo identico aparece mais de uma vez na base (retrabalho/
-            // demanda repetida). Antes procurava a palavra literal "recorrente" no texto,
-            // que ninguem digita - o indicador sempre mostrava 0 mesmo com dezenas de
-            // tickets de titulo repetido (ex: "Checklist diário" 32x).
-            const summaryFreq = {};
-            incidentes.forEach(i => {
-                const s = (i.summary || '').trim();
-                if (s) summaryFreq[s] = (summaryFreq[s] || 0) + 1;
-            });
 
             incidentes.forEach(i => {
                 const p = (i.priority || '').toLowerCase();
@@ -2767,7 +2762,6 @@
                 // (que ja restringe a Concluido).
                 if (i.mttr_seconds && (i.status || '').includes('Concluído')) { mttrSec += i.mttr_seconds; mttrCount++; }
                 if (i.tma_seconds) { mttaSec += i.tma_seconds; mttaCount++; }
-                if (i.summary && summaryFreq[i.summary.trim()] > 1) rc++;
             });
 
             document.getElementById('kpiBigTotal').innerText = total;
@@ -2793,11 +2787,6 @@
 
         function updateTrendDashboards(incidentes) {
             const monthsMap = {};
-            const summaryFreqTrend = {};
-            incidentes.forEach(i => {
-                const s = (i.summary || '').trim();
-                if (s) summaryFreqTrend[s] = (summaryFreqTrend[s] || 0) + 1;
-            });
             incidentes.forEach(i => {
                 if(!i.created) return;
                 const d = new Date(i.created);
@@ -2820,7 +2809,7 @@
                 }
                 if (i.mttr_seconds && (i.status || '').includes('Concluído')) { monthsMap[key].mttrSec += i.mttr_seconds; monthsMap[key].mttrCount++; }
                 if (i.tma_seconds) { monthsMap[key].mttaSec += i.tma_seconds; monthsMap[key].mttaCount++; }
-                if (i.summary && summaryFreqTrend[i.summary.trim()] > 1) monthsMap[key].rc++;
+                // Recorrente zerado ate existir campo dedicado no Jira (ver updateKpiDashboards).
             });
 
             const sortedKeys = Object.keys(monthsMap).sort((a,b) => monthsMap[a].dateObj - monthsMap[b].dateObj).slice(-3);

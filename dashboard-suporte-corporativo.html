@@ -798,6 +798,14 @@
 
             <div class="sub-nav-divider"></div>
             <div class="sub-nav-section">
+                <span class="sub-nav-label">Categoria:</span>
+                <select id="categoriaProblemaFilterSelect" class="sub-filter-btn" onchange="applyCategoriaProblemaFilter(this.value)" style="padding: 4px; min-width: 120px; outline: none; background: white; margin-top: -2px;">
+                    <option value="all">Todas</option>
+                </select>
+            </div>
+
+            <div class="sub-nav-divider"></div>
+            <div class="sub-nav-section">
                 <span class="sub-nav-label">Status:</span>
                 <div class="multiselect-container" id="statusFilterContainer" style="max-width: 220px; margin-bottom: 0;">
                     <div class="multiselect-display" id="statusFilterDisplay" onclick="toggleStatusDropdown(event)" style="padding: 4px 10px; font-size: 11px;">Todos os Status</div>
@@ -924,6 +932,25 @@
                                     </tr>
                                 </thead>
                                 <tbody id="responsaveisTableBody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Widget 5b: Distribuição por Categoria (volume por tipo de problema) -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Distribuição por Categoria <span style="font-size:9px; font-weight:normal; color:#64748b; text-transform:none;">(Onde está o problema)</span></h3>
+                        <div style="overflow-y: auto; flex-grow: 1;">
+                            <table class="card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Categoria</th>
+                                        <th style="width: 50px;">Qtd</th>
+                                        <th style="width: 140px;">Proporção</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriaProblemaTableBody">
                                     <!-- Preenchido via JS -->
                                 </tbody>
                             </table>
@@ -1190,6 +1217,21 @@
                     compSelect.value = currentComponentFilter;
                 }
 
+                // Populate Categoria Dropdown dynamically (campo Assets do Jira: Onde
+                // esta apresentando problema - ex: Computador, Equipamentos, Software).
+                const catProblemaSelect = document.getElementById('categoriaProblemaFilterSelect');
+                if (catProblemaSelect) {
+                    const uniqueCats = [...new Set(allTickets.map(i => i.categoria || 'Não categorizado'))].sort();
+                    catProblemaSelect.innerHTML = '<option value="all">Todas</option>';
+                    uniqueCats.forEach(cat => {
+                        const opt = document.createElement('option');
+                        opt.value = cat;
+                        opt.textContent = cat;
+                        catProblemaSelect.appendChild(opt);
+                    });
+                    catProblemaSelect.value = currentCategoriaProblemaFilter;
+                }
+
                 filterAndRender();
 
                 document.getElementById('loading').style.display = 'none';
@@ -1220,6 +1262,7 @@
                 slaBreached: 0,
                 statusCount: {},
                 responsaveisCount: {},
+                categoriaProblemaCount: {},
                 sistemasCount: {},
                 instituicoesCount: {},
                 
@@ -1262,6 +1305,8 @@
 
                 stats.statusCount[s] = (stats.statusCount[s] || 0) + 1;
                 stats.responsaveisCount[i.assignee] = (stats.responsaveisCount[i.assignee] || 0) + 1;
+                const catProblema = i.categoria || 'Não categorizado';
+                stats.categoriaProblemaCount[catProblema] = (stats.categoriaProblemaCount[catProblema] || 0) + 1;
 
                 if (i.tipo_solicitacao) {
                     stats.sistemasCount[i.tipo_solicitacao] = (stats.sistemasCount[i.tipo_solicitacao] || 0) + 1;
@@ -1573,6 +1618,40 @@
                     responsaveisTbody.innerHTML += `
                         <tr>
                             <td style="font-weight: 600;">${resp[0]}</td>
+                            <td style="font-weight: 700; width: 50px;">${count}</td>
+                            <td style="width: 140px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 11px; font-weight: 600; width: 32px; text-align: right;">${pct}%</span>
+                                    <div class="progress-bar-container" style="flex-grow: 1;">
+                                        <div class="progress-bar-fill ${colorClass}" style="width: ${pct}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Renderiza Distribuição por Categoria (Widget 5b) - volume por tipo de
+            // problema (Software, Equipamentos, Checklist etc.), pra identificar se
+            // alguma categoria esta gerando chamado demais e vale investigar a causa.
+            const categoriaProblemaTbody = document.getElementById('categoriaProblemaTableBody');
+            if (categoriaProblemaTbody) {
+                categoriaProblemaTbody.innerHTML = '';
+                const topCats = Object.entries(stats.categoriaProblemaCount)
+                    .sort((a, b) => b[1] - a[1]);
+
+                topCats.forEach(cat => {
+                    const count = cat[1];
+                    const pct = ((count / total) * 100).toFixed(1);
+
+                    let colorClass = 'bg-green';
+                    if (count > total * 0.25) colorClass = 'bg-magenta';
+                    else if (count > total * 0.12) colorClass = 'bg-blue';
+
+                    categoriaProblemaTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: 600;">${cat[0]}</td>
                             <td style="font-weight: 700; width: 50px;">${count}</td>
                             <td style="width: 140px;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -2172,6 +2251,7 @@
         let currentPriorityFilter = 'all';
         let currentMainTab = 'ativos';
         let currentComponentFilter = 'all';
+        let currentCategoriaProblemaFilter = 'all';
 
         const STATUS_FILTER_OPTIONS = ['Concluído', 'Em Remediação', 'Tarefas pendentes', 'Iniciativa Criada', 'Cancelado'];
         let selectedStatusFilters = new Set(STATUS_FILTER_OPTIONS);
@@ -2259,6 +2339,11 @@
 
         function applyComponentFilter(val) {
             currentComponentFilter = val;
+            filterAndRender();
+        }
+
+        function applyCategoriaProblemaFilter(val) {
+            currentCategoriaProblemaFilter = val;
             filterAndRender();
         }
 
@@ -2402,6 +2487,10 @@
 
             if (currentComponentFilter !== 'all') {
                 filtered = filtered.filter(i => (i.tipo_solicitacao || 'N/A') === currentComponentFilter);
+            }
+
+            if (currentCategoriaProblemaFilter !== 'all') {
+                filtered = filtered.filter(i => (i.categoria || 'Não categorizado') === currentCategoriaProblemaFilter);
             }
 
             // Tabela + Visão Geral + Comparativo de Histórico: sem ruído automático do Zabbix

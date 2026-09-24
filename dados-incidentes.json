@@ -1,7 +1,26 @@
 {
-  "ultima_atualizacao": "2026-09-24T20:38:17.223573",
-  "total": 168,
+  "ultima_atualizacao": "2026-09-24T23:28:44.104859",
+  "total": 169,
   "incidentes": [
+    {
+      "key": "OFBI-5229",
+      "summary": "Dados de 23/09 do motor de conformidade incompletos na ferramenta",
+      "sistema_afetado": "Certificação OFB",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Luiz Santos",
+      "reporter": "Gilvan Costa",
+      "created": "2026-09-24T18:24:28.652-0300",
+      "updated": "2026-09-24T18:38:08.214-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-28T16:00:00.000-0300",
+      "sla_elapsed": "0m",
+      "sla_remaining": "16h",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5227",
       "summary": "Teste automação SOD 2",
@@ -17,8 +36,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-28T10:02:35.516-0300",
-      "sla_elapsed": "5h 35m",
-      "sla_remaining": "10h 24m",
+      "sla_elapsed": "5h 57m",
+      "sla_remaining": "10h 2m",
       "tma_seconds": null
     },
     {
@@ -36,8 +55,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-28T09:45:51.059-0300",
-      "sla_elapsed": "5h 52m",
-      "sla_remaining": "10h 7m",
+      "sla_elapsed": "6h 14m",
+      "sla_remaining": "9h 45m",
       "tma_seconds": null
     },
     {
@@ -50,13 +69,13 @@
       "assignee": "Denise Pontes",
       "reporter": "Gilvan Costa",
       "created": "2026-09-24T10:23:47.392-0300",
-      "updated": "2026-09-24T14:56:17.191-0300",
+      "updated": "2026-09-24T18:07:31.806-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T17:23:47.392-0300",
-      "sla_elapsed": "7h 14m",
-      "sla_remaining": "8h 45m",
+      "sla_elapsed": "7h 36m",
+      "sla_remaining": "8h 23m",
       "tma_seconds": 16349.799
     },
     {
@@ -74,8 +93,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "8h 38m",
-      "sla_remaining": "7h 21m",
+      "sla_elapsed": "9h",
+      "sla_remaining": "7h",
       "tma_seconds": 70193.408
     },
     {
@@ -93,8 +112,8 @@
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "8h 38m",
-      "sla_remaining": "7h 21m",
+      "sla_elapsed": "9h",
+      "sla_remaining": "7h",
       "tma_seconds": 74517.815
     },
     {
@@ -226,8 +245,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "87h 26m",
-      "sla_remaining": "-71h 26m",
+      "sla_elapsed": "87h 48m",
+      "sla_remaining": "-71h 48m",
       "tma_seconds": 254376.932
     },
     {
@@ -397,8 +416,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "142h 6m",
-      "sla_remaining": "-126h 6m",
+      "sla_elapsed": "142h 28m",
+      "sla_remaining": "-126h 28m",
       "tma_seconds": 33.538
     },
     {
@@ -606,8 +625,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "215h 38m",
-      "sla_remaining": "-199h 38m",
+      "sla_elapsed": "216h",
+      "sla_remaining": "-200h",
       "tma_seconds": 575516.664
     },
     {
@@ -625,8 +644,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "215h 38m",
-      "sla_remaining": "-199h 38m",
+      "sla_elapsed": "216h",
+      "sla_remaining": "-200h",
       "tma_seconds": 432562.638
     },
     {
@@ -853,8 +872,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "323h 38m",
-      "sla_remaining": "-307h 38m",
+      "sla_elapsed": "324h",
+      "sla_remaining": "-308h",
       "tma_seconds": 57551.261
     },
     {

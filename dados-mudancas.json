@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-24T10:06:10.676012",
+  "ultima_atualizacao": "2026-09-24T14:59:54.104690",
   "total": 72,
   "mudancas": [
     {
@@ -89,12 +89,12 @@
     {
       "key": "OFBI-5193",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Bruna Cavalcanti",
+      "assignee": "Luiz Santos",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-17T11:25:56.951-0300",
-      "updated": "2026-09-17T11:27:49.976-0300",
+      "updated": "2026-09-24T11:41:39.171-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -108,7 +108,7 @@
       "assignee": "Bruna Cavalcanti",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-15T14:24:06.216-0300",
-      "updated": "2026-09-23T15:10:54.565-0300",
+      "updated": "2026-09-24T11:42:11.482-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

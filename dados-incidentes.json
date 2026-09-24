@@ -1,7 +1,64 @@
 {
-  "ultima_atualizacao": "2026-09-24T12:17:13.188443",
-  "total": 165,
+  "ultima_atualizacao": "2026-09-24T17:22:10.889952",
+  "total": 168,
   "incidentes": [
+    {
+      "key": "OFBI-5227",
+      "summary": "Teste automação SOD 2",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Denise Pontes",
+      "reporter": "Henrique Pereira",
+      "created": "2026-09-24T12:02:35.516-0300",
+      "updated": "2026-09-24T12:03:52.602-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-28T10:02:35.516-0300",
+      "sla_elapsed": "2h 19m",
+      "sla_remaining": "13h 40m",
+      "tma_seconds": null
+    },
+    {
+      "key": "OFBI-5225",
+      "summary": "Teste automação SOD",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Denise Pontes",
+      "reporter": "Henrique Pereira",
+      "created": "2026-09-24T11:45:51.059-0300",
+      "updated": "2026-09-24T11:47:53.272-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-28T09:45:51.059-0300",
+      "sla_elapsed": "2h 36m",
+      "sla_remaining": "13h 23m",
+      "tma_seconds": null
+    },
+    {
+      "key": "OFBI-5224",
+      "summary": "Problemas para leitura de dados do motor de conformidade na PAD",
+      "sistema_afetado": "PAD - Plataforma de Análise de Dados",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Denise Pontes",
+      "reporter": "Gilvan Costa",
+      "created": "2026-09-24T10:23:47.392-0300",
+      "updated": "2026-09-24T13:21:57.133-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-09-25T17:23:47.392-0300",
+      "sla_elapsed": "3h 58m",
+      "sla_remaining": "12h 1m",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5223",
       "summary": "Possível inconsistência nos dados de Marcos Regulatórios e Publicação de API consumidos do GDC e ausência de atualização da Métrica 2.2.I após alterações cadastrais",
@@ -9,16 +66,16 @@
       "impacto": "",
       "status": "Aberto",
       "priority": "Low",
-      "assignee": "Marcos Santana",
+      "assignee": "Denise Pontes",
       "reporter": "Paola Arcanjo",
       "created": "2026-09-23T19:26:16.828-0300",
-      "updated": "2026-09-23T19:30:50.580-0300",
+      "updated": "2026-09-24T12:56:14.965-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "17m",
-      "sla_remaining": "15h 42m",
+      "sla_elapsed": "5h 22m",
+      "sla_remaining": "10h 37m",
       "tma_seconds": null
     },
     {
@@ -28,16 +85,16 @@
       "impacto": "",
       "status": "Aberto",
       "priority": "Low",
-      "assignee": "Marcos Santana",
+      "assignee": "Denise Pontes",
       "reporter": "Paola Arcanjo",
       "created": "2026-09-23T18:14:02.202-0300",
-      "updated": "2026-09-23T18:43:43.505-0300",
+      "updated": "2026-09-24T12:55:57.172-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "17m",
-      "sla_remaining": "15h 42m",
+      "sla_elapsed": "5h 22m",
+      "sla_remaining": "10h 37m",
       "tma_seconds": null
     },
     {
@@ -64,19 +121,19 @@
       "summary": "Reportes duplicados pela PCM",
       "sistema_afetado": "PCM - Plataforma de Coleta de Métricas",
       "impacto": "",
-      "status": "Aberto",
+      "status": "Trabalho em andamento",
       "priority": "Low",
-      "assignee": "Marcos Santana",
+      "assignee": "Thomas Rabelo",
       "reporter": "Rafael Anjos",
       "created": "2026-09-22T17:04:05.151-0300",
-      "updated": "2026-09-22T17:04:16.756-0300",
+      "updated": "2026-09-24T12:52:30.534-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": false,
       "sla_breach_time": "2026-09-24T15:04:05.151-0300",
-      "sla_elapsed": "10h 13m",
-      "sla_remaining": "5h 46m",
-      "tma_seconds": null
+      "sla_elapsed": "13h 46m",
+      "sla_remaining": null,
+      "tma_seconds": 157581.403
     },
     {
       "key": "OFBI-5202",
@@ -169,8 +226,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "79h 5m",
-      "sla_remaining": "-63h 5m",
+      "sla_elapsed": "84h 10m",
+      "sla_remaining": "-68h 10m",
       "tma_seconds": 254376.932
     },
     {
@@ -188,8 +245,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-14T12:25:09.565-0300",
-      "sla_elapsed": "84h 52m",
-      "sla_remaining": "-68h 52m",
+      "sla_elapsed": "89h 56m",
+      "sla_remaining": "-73h 56m",
       "tma_seconds": 329241.55
     },
     {
@@ -207,8 +264,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-11T17:20:20.109-0300",
-      "sla_elapsed": "88h 56m",
-      "sla_remaining": "-72h 56m",
+      "sla_elapsed": "94h 1m",
+      "sla_remaining": "-78h 1m",
       "tma_seconds": 343832.882
     },
     {
@@ -340,8 +397,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "133h 45m",
-      "sla_remaining": "-117h 45m",
+      "sla_elapsed": "138h 50m",
+      "sla_remaining": "-122h 50m",
       "tma_seconds": 33.538
     },
     {
@@ -473,8 +530,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-31T15:52:19.911-0300",
-      "sla_elapsed": "171h 24m",
-      "sla_remaining": "-155h 24m",
+      "sla_elapsed": "176h 29m",
+      "sla_remaining": "-160h 29m",
       "tma_seconds": 62821.643
     },
     {
@@ -549,8 +606,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "207h 17m",
-      "sla_remaining": "-191h 17m",
+      "sla_elapsed": "212h 22m",
+      "sla_remaining": "-196h 22m",
       "tma_seconds": 575516.664
     },
     {
@@ -568,8 +625,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "207h 17m",
-      "sla_remaining": "-191h 17m",
+      "sla_elapsed": "212h 22m",
+      "sla_remaining": "-196h 22m",
       "tma_seconds": 432562.638
     },
     {
@@ -796,8 +853,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "315h 17m",
-      "sla_remaining": "-299h 17m",
+      "sla_elapsed": "320h 22m",
+      "sla_remaining": "-304h 22m",
       "tma_seconds": 57551.261
     },
     {

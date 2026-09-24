@@ -1,13 +1,24 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5193",
+    "title": "OFBI-5193 - Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "24/09/2026 13:35",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5193"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5187",
     "title": "OFBI-5187 - Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",
     "type_name": "Mudança",
     "tag_class": "tag-mudanca",
     "status_name": "Planejamento",
     "status_dot": "dot-info",
-    "date": "24/09/2026 10:42",
+    "date": "24/09/2026 11:42",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5187"
   },
   {
@@ -42,17 +53,6 @@
     "status_dot": "dot-info",
     "date": "23/09/2026 15:12",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5213"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5193",
-    "title": "OFBI-5193 - Solicitação de Mudanças - Microsoft Secure Score - Only invited users should be automatically admitted to Teams meetings",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "17/09/2026 11:27",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5193"
   },
   {
     "source": "Jira",

@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5187",
+    "title": "OFBI-5187 - Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "24/09/2026 10:42",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5187"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5211",
     "title": "OFBI-5211 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -31,17 +42,6 @@
     "status_dot": "dot-info",
     "date": "23/09/2026 15:12",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5213"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5187",
-    "title": "OFBI-5187 - Solicitação de Mudanças - Microsoft Secure Score - Ensure that MailTips are enabled for end users.",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "23/09/2026 15:10",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5187"
   },
   {
     "source": "Jira",

@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-09-28T15:50:53.756712",
-  "total": 71,
+  "ultima_atualizacao": "2026-09-28T21:24:45.092483",
+  "total": 72,
   "mudancas": [
+    {
+      "key": "OFBI-5240",
+      "summary": "Solicitação de Mudanças",
+      "status": "Planejamento",
+      "priority": "Low",
+      "assignee": "Andressa Amaral",
+      "reporter": "Andressa Amaral",
+      "created": "2026-09-28T15:14:24.696-0300",
+      "updated": "2026-09-28T18:24:37.423-0300",
+      "resolution_date": null,
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
+    },
     {
       "key": "OFBI-5213",
       "summary": "Solicitação de Mudanças",

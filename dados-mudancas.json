@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-09-28T07:32:18.449508",
-  "total": 72,
+  "ultima_atualizacao": "2026-09-28T15:50:53.756712",
+  "total": 71,
   "mudancas": [
     {
       "key": "OFBI-5213",
@@ -964,20 +964,6 @@
       "created": "2026-06-23T11:36:17.684-0300",
       "updated": "2026-07-02T10:17:13.736-0300",
       "resolution_date": "2026-06-25T15:29:52.314-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4570",
-      "summary": "Integração das ferramentas (ITSM + GV)",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Guilherme Machado",
-      "reporter": "Guilherme Machado",
-      "created": "2026-06-16T11:59:35.608-0300",
-      "updated": "2026-06-30T10:09:43.409-0300",
-      "resolution_date": "2026-06-30T10:09:43.382-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

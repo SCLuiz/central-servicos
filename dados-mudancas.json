@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-29T06:50:51.442819",
+  "ultima_atualizacao": "2026-09-29T13:25:39.405488",
   "total": 72,
   "mudancas": [
     {
@@ -220,7 +220,7 @@
       "assignee": "Marcio Paulo",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-09T09:48:02.677-0300",
-      "updated": "2026-09-25T10:32:25.865-0300",
+      "updated": "2026-09-29T09:32:21.441-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,
@@ -290,7 +290,7 @@
       "assignee": "Wagner  Barbosa",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-02T11:53:50.511-0300",
-      "updated": "2026-09-25T14:22:47.677-0300",
+      "updated": "2026-09-29T09:22:10.377-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

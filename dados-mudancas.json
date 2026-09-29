@@ -1,16 +1,16 @@
 {
-  "ultima_atualizacao": "2026-09-28T21:24:45.092483",
+  "ultima_atualizacao": "2026-09-29T01:06:59.133070",
   "total": 72,
   "mudancas": [
     {
       "key": "OFBI-5240",
       "summary": "Solicitação de Mudanças",
-      "status": "Planejamento",
+      "status": "Aguardando CAB",
       "priority": "Low",
-      "assignee": "Andressa Amaral",
+      "assignee": "Luiz Santos",
       "reporter": "Andressa Amaral",
       "created": "2026-09-28T15:14:24.696-0300",
-      "updated": "2026-09-28T18:24:37.423-0300",
+      "updated": "2026-09-28T19:24:26.154-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

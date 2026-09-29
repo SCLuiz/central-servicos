@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-29T18:37:48.386105",
+  "ultima_atualizacao": "2026-09-29T22:38:11.003802",
   "total": 167,
   "incidentes": [
     {
@@ -17,8 +17,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-28T16:00:00.000-0300",
-      "sla_elapsed": "24h 37m",
-      "sla_remaining": "-8h 37m",
+      "sla_elapsed": "27h",
+      "sla_remaining": "-11h",
       "tma_seconds": 155274.663
     },
     {
@@ -55,8 +55,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "33h 37m",
-      "sla_remaining": "-17h 37m",
+      "sla_elapsed": "36h",
+      "sla_remaining": "-20h",
       "tma_seconds": 70193.408
     },
     {
@@ -74,8 +74,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "33h 37m",
-      "sla_remaining": "-17h 37m",
+      "sla_elapsed": "36h",
+      "sla_remaining": "-20h",
       "tma_seconds": 74517.815
     },
     {
@@ -207,8 +207,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "112h 26m",
-      "sla_remaining": "-96h 26m",
+      "sla_elapsed": "114h 48m",
+      "sla_remaining": "-98h 48m",
       "tma_seconds": 254376.932
     },
     {
@@ -378,8 +378,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "167h 6m",
-      "sla_remaining": "-151h 6m",
+      "sla_elapsed": "169h 28m",
+      "sla_remaining": "-153h 28m",
       "tma_seconds": 33.538
     },
     {
@@ -587,8 +587,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "240h 37m",
-      "sla_remaining": "-224h 37m",
+      "sla_elapsed": "243h",
+      "sla_remaining": "-227h",
       "tma_seconds": 575516.664
     },
     {
@@ -606,8 +606,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "240h 37m",
-      "sla_remaining": "-224h 37m",
+      "sla_elapsed": "243h",
+      "sla_remaining": "-227h",
       "tma_seconds": 432562.638
     },
     {
@@ -834,8 +834,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "348h 37m",
-      "sla_remaining": "-332h 37m",
+      "sla_elapsed": "351h",
+      "sla_remaining": "-335h",
       "tma_seconds": 57551.261
     },
     {

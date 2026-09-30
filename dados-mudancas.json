@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-09-30T07:22:30.859509",
-  "total": 75,
+  "ultima_atualizacao": "2026-09-30T13:57:55.222760",
+  "total": 73,
   "mudancas": [
     {
       "key": "OFBI-5248",
@@ -1011,20 +1011,6 @@
       "categoria": "Planejada"
     },
     {
-      "key": "OFBI-4639",
-      "summary": "Desabilitar autorun nas estações de trabalho",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Guilherme Machado",
-      "reporter": "Guilherme Machado",
-      "created": "2026-07-01T16:04:34.356-0300",
-      "updated": "2026-07-02T09:29:43.861-0300",
-      "resolution_date": "2026-07-02T09:07:10.307-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
       "key": "OFBI-4632",
       "summary": "Solicitação de Mudanças",
       "status": "Concluído com Sucesso",
@@ -1034,20 +1020,6 @@
       "created": "2026-06-30T11:44:13.537-0300",
       "updated": "2026-07-02T11:16:11.663-0300",
       "resolution_date": "2026-07-02T11:16:11.650-0300",
-      "labels": [],
-      "causouIncidente": false,
-      "categoria": "Planejada"
-    },
-    {
-      "key": "OFBI-4599",
-      "summary": "Desabilitar autorun nas estações de trabalho",
-      "status": "Concluído com Sucesso",
-      "priority": "Low",
-      "assignee": "Guilherme Machado",
-      "reporter": "Guilherme Machado",
-      "created": "2026-06-23T11:36:17.684-0300",
-      "updated": "2026-07-02T10:17:13.736-0300",
-      "resolution_date": "2026-06-25T15:29:52.314-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"

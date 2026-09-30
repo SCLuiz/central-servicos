@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-09-30T14:10:45.409821",
+  "ultima_atualizacao": "2026-09-30T19:24:49.350681",
   "total": 167,
   "incidentes": [
     {
@@ -17,8 +17,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-28T16:00:00.000-0300",
-      "sla_elapsed": "29h 10m",
-      "sla_remaining": "-13h 10m",
+      "sla_elapsed": "34h 24m",
+      "sla_remaining": "-18h 24m",
       "tma_seconds": 155274.663
     },
     {
@@ -55,8 +55,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "38h 10m",
-      "sla_remaining": "-22h 10m",
+      "sla_elapsed": "43h 24m",
+      "sla_remaining": "-27h 24m",
       "tma_seconds": 70193.408
     },
     {
@@ -74,8 +74,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "38h 10m",
-      "sla_remaining": "-22h 10m",
+      "sla_elapsed": "43h 24m",
+      "sla_remaining": "-27h 24m",
       "tma_seconds": 74517.815
     },
     {
@@ -207,8 +207,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "116h 59m",
-      "sla_remaining": "-100h 59m",
+      "sla_elapsed": "122h 13m",
+      "sla_remaining": "-106h 13m",
       "tma_seconds": 254376.932
     },
     {
@@ -378,8 +378,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "171h 39m",
-      "sla_remaining": "-155h 39m",
+      "sla_elapsed": "176h 53m",
+      "sla_remaining": "-160h 53m",
       "tma_seconds": 33.538
     },
     {
@@ -587,8 +587,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "245h 10m",
-      "sla_remaining": "-229h 10m",
+      "sla_elapsed": "250h 24m",
+      "sla_remaining": "-234h 24m",
       "tma_seconds": 575516.664
     },
     {
@@ -598,16 +598,16 @@
       "impacto": "Médio",
       "status": "Trabalho em andamento",
       "priority": "High",
-      "assignee": "Andressa Amaral",
+      "assignee": "Marco Torriani",
       "reporter": "Rafael Anjos",
       "created": "2026-08-21T19:00:24.774-0300",
-      "updated": "2026-09-11T16:49:02.256-0300",
+      "updated": "2026-09-30T13:45:52.864-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "245h 10m",
-      "sla_remaining": "-229h 10m",
+      "sla_elapsed": "250h 24m",
+      "sla_remaining": "-234h 24m",
       "tma_seconds": 432562.638
     },
     {
@@ -829,13 +829,13 @@
       "assignee": "Arquitetura",
       "reporter": "Rafael Anjos",
       "created": "2026-08-05T18:09:55.444-0300",
-      "updated": "2026-09-23T11:43:33.608-0300",
+      "updated": "2026-09-30T13:42:42.535-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "353h 10m",
-      "sla_remaining": "-337h 10m",
+      "sla_elapsed": "358h 24m",
+      "sla_remaining": "-342h 24m",
       "tma_seconds": 57551.261
     },
     {

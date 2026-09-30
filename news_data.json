@@ -1,6 +1,61 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5213",
+    "title": "OFBI-5213 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "30/09/2026 14:45",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5213"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5211",
+    "title": "OFBI-5211 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "30/09/2026 14:43",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5211"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5212",
+    "title": "OFBI-5212 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando Implantação",
+    "status_dot": "dot-info",
+    "date": "30/09/2026 14:41",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5212"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5244",
+    "title": "OFBI-5244 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "30/09/2026 13:57",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5244"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5122",
+    "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "30/09/2026 13:46",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5248",
     "title": "OFBI-5248 - Solicitação de Mudanças - Microsoft Secure Score - Restrict anonymous users from joining meetings",
     "type_name": "Mudança",
@@ -53,60 +108,5 @@
     "status_dot": "dot-info",
     "date": "29/09/2026 11:39",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5246"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5245",
-    "title": "OFBI-5245 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 11:18",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5245"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5244",
-    "title": "OFBI-5244 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 11:15",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5244"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5158",
-    "title": "OFBI-5158 - Solicitação de Mudanças - Microsoft Secure Score - Disable Anonymous Enumeration of Shares and SAM Accounts",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 09:32",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5158"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5121",
-    "title": "OFBI-5121 - Solicitação de Mudanças-  Microsoft Secure Score - Disable the local storage of passwords and credentials",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 09:22",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5121"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5240",
-    "title": "OFBI-5240 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "28/09/2026 19:24",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5240"
   }
 ]

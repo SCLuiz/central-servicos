@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-10-01T09:00:09.359159",
+  "ultima_atualizacao": "2026-10-01T16:20:30.106518",
   "total": 167,
   "incidentes": [
     {
@@ -17,8 +17,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-28T16:00:00.000-0300",
-      "sla_elapsed": "36h",
-      "sla_remaining": "-20h",
+      "sla_elapsed": "40h 20m",
+      "sla_remaining": "-24h 20m",
       "tma_seconds": 155274.663
     },
     {
@@ -55,8 +55,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "45h",
-      "sla_remaining": "-29h",
+      "sla_elapsed": "49h 20m",
+      "sla_remaining": "-33h 20m",
       "tma_seconds": 70193.408
     },
     {
@@ -74,8 +74,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "45h",
-      "sla_remaining": "-29h",
+      "sla_elapsed": "49h 20m",
+      "sla_remaining": "-33h 20m",
       "tma_seconds": 74517.815
     },
     {
@@ -207,8 +207,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "123h 48m",
-      "sla_remaining": "-107h 48m",
+      "sla_elapsed": "128h 8m",
+      "sla_remaining": "-112h 8m",
       "tma_seconds": 254376.932
     },
     {
@@ -378,8 +378,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "178h 28m",
-      "sla_remaining": "-162h 28m",
+      "sla_elapsed": "182h 49m",
+      "sla_remaining": "-166h 49m",
       "tma_seconds": 33.538
     },
     {
@@ -587,8 +587,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "252h",
-      "sla_remaining": "-236h",
+      "sla_elapsed": "256h 20m",
+      "sla_remaining": "-240h 20m",
       "tma_seconds": 575516.664
     },
     {
@@ -601,13 +601,13 @@
       "assignee": "Marco Torriani",
       "reporter": "Rafael Anjos",
       "created": "2026-08-21T19:00:24.774-0300",
-      "updated": "2026-09-30T13:45:52.864-0300",
+      "updated": "2026-10-01T09:43:05.813-0300",
       "resolutiondate": null,
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "252h",
-      "sla_remaining": "-236h",
+      "sla_elapsed": "256h 20m",
+      "sla_remaining": "-240h 20m",
       "tma_seconds": 432562.638
     },
     {
@@ -834,8 +834,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "360h",
-      "sla_remaining": "-344h",
+      "sla_elapsed": "364h 20m",
+      "sla_remaining": "-348h 20m",
       "tma_seconds": 57551.261
     },
     {

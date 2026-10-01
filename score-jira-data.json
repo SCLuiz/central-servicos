@@ -1,12 +1,12 @@
 {
-  "periodo": "2026-09",
-  "gerado_em": "2026-09-30T23:30:33.195356+00:00",
+  "periodo": "2026-10",
+  "gerado_em": "2026-10-01T02:26:54.419895+00:00",
   "fonte": "Jira OFBI + HELP (projeto real): incidentes, mudanças, problemas e service desk",
   "kpis": {
     "mttr": {
-      "value": 187.87,
+      "value": null,
       "unit": "horas",
-      "amostra": 18
+      "amostra": 0
     },
     "incidentes_criticos": {
       "value": 0,
@@ -14,9 +14,9 @@
       "amostra": 0
     },
     "volume_incidentes": {
-      "value": 24,
+      "value": 0,
       "unit": "qtd",
-      "amostra": 24
+      "amostra": 0
     },
     "sla_cumprido": {
       "value": 25.0,
@@ -39,7 +39,7 @@
       "amostra": 29
     },
     "problemas_recorrentes_eliminados": {
-      "value": 1,
+      "value": 0,
       "unit": "qtd",
       "amostra": 8
     },

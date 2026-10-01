@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-10-01T14:47:57.980146",
+  "ultima_atualizacao": "2026-10-01T19:54:15.831551",
   "total": 72,
   "mudancas": [
     {
@@ -248,7 +248,7 @@
       "assignee": "Luiz Santos",
       "reporter": "Bruna Cavalcanti",
       "created": "2026-09-14T09:10:57.471-0300",
-      "updated": "2026-10-01T09:39:01.357-0300",
+      "updated": "2026-10-01T14:34:26.299-0300",
       "resolution_date": null,
       "labels": [],
       "causouIncidente": false,

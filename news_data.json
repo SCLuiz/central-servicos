@@ -1,6 +1,61 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5160",
+    "title": "OFBI-5160 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Interactive logon: Machine inactivity limit' to '1-900 seconds'",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "01/10/2026 10:39",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5160"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5246",
+    "title": "OFBI-5246 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "01/10/2026 09:43",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5246"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5245",
+    "title": "OFBI-5245 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "01/10/2026 09:42",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5245"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5244",
+    "title": "OFBI-5244 - Solicitação de Mudanças",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "01/10/2026 09:40",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5244"
+  },
+  {
+    "source": "Jira",
+    "key": "OFBI-5180",
+    "title": "OFBI-5180 - Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Aguardando CAB",
+    "status_dot": "dot-info",
+    "date": "01/10/2026 09:39",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5180"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5213",
     "title": "OFBI-5213 - Solicitação de Mudanças",
     "type_name": "Mudança",
@@ -34,17 +89,6 @@
   },
   {
     "source": "Jira",
-    "key": "OFBI-5244",
-    "title": "OFBI-5244 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "30/09/2026 13:57",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5244"
-  },
-  {
-    "source": "Jira",
     "key": "OFBI-5122",
     "title": "OFBI-5122 - Solicitação de Mudanças -  Microsoft Secure Score - Disable 'Password Manager'",
     "type_name": "Mudança",
@@ -64,49 +108,5 @@
     "status_dot": "dot-info",
     "date": "29/09/2026 13:28",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5248"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5180",
-    "title": "OFBI-5180 - Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 12:17",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5180"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5247",
-    "title": "OFBI-5247 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 11:55",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5247"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5160",
-    "title": "OFBI-5160 - Solicitação de Mudanças - Microsoft Secure Score - Set 'Interactive logon: Machine inactivity limit' to '1-900 seconds'",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Aguardando CAB",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 11:52",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5160"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5246",
-    "title": "OFBI-5246 - Solicitação de Mudanças",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 11:39",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5246"
   }
 ]

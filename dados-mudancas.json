@@ -1,7 +1,21 @@
 {
-  "ultima_atualizacao": "2026-10-02T15:25:15.403645",
-  "total": 72,
+  "ultima_atualizacao": "2026-10-02T20:03:35.113468",
+  "total": 74,
   "mudancas": [
+    {
+      "key": "OFBI-5281",
+      "summary": "TESTE KE - GMUD encadeamento (NÃO PROCESSAR)",
+      "status": "Concluído com Falha",
+      "priority": "Low",
+      "assignee": "Viviane Menezes",
+      "reporter": "Luiz Santos",
+      "created": "2026-10-02T16:37:52.059-0300",
+      "updated": "2026-10-02T16:38:19.527-0300",
+      "resolution_date": "2026-10-02T16:38:19.511-0300",
+      "labels": [],
+      "causouIncidente": false,
+      "categoria": "Normal"
+    },
     {
       "key": "OFBI-5248",
       "summary": "Solicitação de Mudanças - Microsoft Secure Score - Restrict anonymous users from joining meetings",
@@ -89,13 +103,13 @@
     {
       "key": "OFBI-5213",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-22T12:00:48.138-0300",
-      "updated": "2026-09-30T14:45:27.697-0300",
-      "resolution_date": null,
+      "updated": "2026-10-02T13:40:19.011-0300",
+      "resolution_date": "2026-10-02T13:40:19.004-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -103,13 +117,13 @@
     {
       "key": "OFBI-5212",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-22T11:55:30.043-0300",
-      "updated": "2026-09-30T14:41:25.727-0300",
-      "resolution_date": null,
+      "updated": "2026-10-02T13:39:52.030-0300",
+      "resolution_date": "2026-10-02T13:39:52.024-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -117,13 +131,13 @@
     {
       "key": "OFBI-5211",
       "summary": "Solicitação de Mudanças",
-      "status": "Aguardando Implantação",
+      "status": "Concluído com Sucesso",
       "priority": "Low",
       "assignee": "Higor Santos",
       "reporter": "Higor Santos",
       "created": "2026-09-22T11:47:18.964-0300",
-      "updated": "2026-09-30T14:43:25.422-0300",
-      "resolution_date": null,
+      "updated": "2026-10-02T13:39:12.433-0300",
+      "resolution_date": "2026-10-02T13:39:12.426-0300",
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
@@ -150,7 +164,7 @@
       "assignee": "Denise Pontes",
       "reporter": "Denise Pontes",
       "created": "2026-09-17T15:00:20.364-0300",
-      "updated": "2026-09-22T09:52:07.343-0300",
+      "updated": "2026-10-02T16:53:00.642-0300",
       "resolution_date": "2026-09-22T09:52:07.333-0300",
       "labels": [],
       "causouIncidente": false,
@@ -234,7 +248,7 @@
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-09-14T14:45:49.041-0300",
-      "updated": "2026-09-16T15:45:15.095-0300",
+      "updated": "2026-10-02T16:52:59.943-0300",
       "resolution_date": "2026-09-16T15:45:15.088-0300",
       "labels": [],
       "causouIncidente": false,
@@ -682,7 +696,7 @@
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-17T14:53:13.005-0300",
-      "updated": "2026-08-19T19:51:11.628-0300",
+      "updated": "2026-10-02T16:52:59.258-0300",
       "resolution_date": "2026-08-17T17:49:22.793-0300",
       "labels": [],
       "causouIncidente": false,
@@ -696,7 +710,7 @@
       "assignee": "Andressa Amaral",
       "reporter": "Andressa Amaral",
       "created": "2026-08-14T16:11:49.775-0300",
-      "updated": "2026-08-19T19:52:32.268-0300",
+      "updated": "2026-10-02T16:52:58.666-0300",
       "resolution_date": "2026-08-17T12:27:47.034-0300",
       "labels": [],
       "causouIncidente": false,
@@ -1009,6 +1023,22 @@
       "labels": [],
       "causouIncidente": false,
       "categoria": "Planejada"
+    },
+    {
+      "key": "OFBI-4308",
+      "summary": "Solicitação de Mudanças",
+      "status": "Concluído com Sucesso",
+      "priority": "Low",
+      "assignee": "Thiago Pereira",
+      "reporter": "Thiago Pereira",
+      "created": "2025-12-16T11:34:51.728-0300",
+      "updated": "2026-10-02T16:52:57.884-0300",
+      "resolution_date": "2025-12-16T12:39:28.910-0300",
+      "labels": [
+        "tipo:emergencial"
+      ],
+      "causouIncidente": false,
+      "categoria": "Emergencial"
     }
   ]
 }

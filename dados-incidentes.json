@@ -1,7 +1,45 @@
 {
-  "ultima_atualizacao": "2026-10-02T13:04:37.272193",
-  "total": 167,
+  "ultima_atualizacao": "2026-10-02T18:22:44.051173",
+  "total": 169,
   "incidentes": [
+    {
+      "key": "OFBI-5274",
+      "summary": "Teste Automação",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Trabalho em andamento",
+      "priority": "Low",
+      "assignee": "Denise Pontes",
+      "reporter": "Henrique Pereira",
+      "created": "2026-10-02T11:00:05.016-0300",
+      "updated": "2026-10-02T11:06:52.681-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-10-06T09:00:05.016-0300",
+      "sla_elapsed": "4h 22m",
+      "sla_remaining": "11h 37m",
+      "tma_seconds": 75.066
+    },
+    {
+      "key": "OFBI-5273",
+      "summary": "Indisponibilidade API Service Desk (SysAid) 01/10/2026 - Impacto em métricas regulatórias",
+      "sistema_afetado": "",
+      "impacto": "",
+      "status": "Aberto",
+      "priority": "Low",
+      "assignee": "Marcos Santana",
+      "reporter": "Caio Machado",
+      "created": "2026-10-02T10:31:20.794-0300",
+      "updated": "2026-10-02T10:42:44.261-0300",
+      "resolutiondate": null,
+      "labels": [],
+      "sla_breached": false,
+      "sla_breach_time": "2026-10-05T17:31:20.794-0300",
+      "sla_elapsed": "4h 51m",
+      "sla_remaining": "11h 8m",
+      "tma_seconds": null
+    },
     {
       "key": "OFBI-5229",
       "summary": "Dados de 23/09 do motor de conformidade incompletos na ferramenta",
@@ -17,8 +55,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-28T16:00:00.000-0300",
-      "sla_elapsed": "46h 4m",
-      "sla_remaining": "-30h 4m",
+      "sla_elapsed": "51h 22m",
+      "sla_remaining": "-35h 22m",
       "tma_seconds": 155274.663
     },
     {
@@ -55,8 +93,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "55h 4m",
-      "sla_remaining": "-39h 4m",
+      "sla_elapsed": "60h 22m",
+      "sla_remaining": "-44h 22m",
       "tma_seconds": 70193.408
     },
     {
@@ -74,8 +112,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-25T16:00:00.000-0300",
-      "sla_elapsed": "55h 4m",
-      "sla_remaining": "-39h 4m",
+      "sla_elapsed": "60h 22m",
+      "sla_remaining": "-44h 22m",
       "tma_seconds": 74517.815
     },
     {
@@ -207,8 +245,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-15T09:11:28.141-0300",
-      "sla_elapsed": "133h 53m",
-      "sla_remaining": "-117h 53m",
+      "sla_elapsed": "139h 11m",
+      "sla_remaining": "-123h 11m",
       "tma_seconds": 254376.932
     },
     {
@@ -378,8 +416,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-09-04T17:31:18.461-0300",
-      "sla_elapsed": "188h 33m",
-      "sla_remaining": "-172h 33m",
+      "sla_elapsed": "193h 51m",
+      "sla_remaining": "-177h 51m",
       "tma_seconds": 33.538
     },
     {
@@ -587,8 +625,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "262h 4m",
-      "sla_remaining": "-246h 4m",
+      "sla_elapsed": "267h 22m",
+      "sla_remaining": "-251h 22m",
       "tma_seconds": 575516.664
     },
     {
@@ -606,8 +644,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-25T16:00:00.000-0300",
-      "sla_elapsed": "262h 4m",
-      "sla_remaining": "-246h 4m",
+      "sla_elapsed": "267h 22m",
+      "sla_remaining": "-251h 22m",
       "tma_seconds": 432562.638
     },
     {
@@ -834,8 +872,8 @@
       "labels": [],
       "sla_breached": true,
       "sla_breach_time": "2026-08-07T16:00:00.000-0300",
-      "sla_elapsed": "370h 4m",
-      "sla_remaining": "-354h 4m",
+      "sla_elapsed": "375h 22m",
+      "sla_remaining": "-359h 22m",
       "tma_seconds": 57551.261
     },
     {

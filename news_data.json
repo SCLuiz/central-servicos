@@ -1,6 +1,17 @@
 [
   {
     "source": "Jira",
+    "key": "OFBI-5119",
+    "title": "OFBI-5119 - Solicitação de Mudanças - Fase 2 - Implementação de Sensitivity Labels",
+    "type_name": "Mudança",
+    "tag_class": "tag-mudanca",
+    "status_name": "Planejamento",
+    "status_dot": "dot-info",
+    "date": "02/10/2026 10:35",
+    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5119"
+  },
+  {
+    "source": "Jira",
     "key": "OFBI-5180",
     "title": "OFBI-5180 - Solicitação de Mudanças - Microsoft Secure Score -  Disable IP Source Routing",
     "type_name": "Mudança",
@@ -97,16 +108,5 @@
     "status_dot": "dot-info",
     "date": "30/09/2026 13:46",
     "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5122"
-  },
-  {
-    "source": "Jira",
-    "key": "OFBI-5248",
-    "title": "OFBI-5248 - Solicitação de Mudanças - Microsoft Secure Score - Restrict anonymous users from joining meetings",
-    "type_name": "Mudança",
-    "tag_class": "tag-mudanca",
-    "status_name": "Planejamento",
-    "status_dot": "dot-info",
-    "date": "29/09/2026 13:28",
-    "url": "https://openfinancebrasil.atlassian.net/browse/OFBI-5248"
   }
 ]
